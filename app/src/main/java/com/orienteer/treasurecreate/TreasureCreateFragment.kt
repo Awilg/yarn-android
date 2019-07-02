@@ -17,7 +17,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapFragment
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.orienteer.R
@@ -40,7 +44,6 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback {
      */
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-
     /**
      * Overriding the onCreateView to use the databinding inflate
      */
@@ -53,12 +56,12 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback {
         // Set up location client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity as Activity)
 
-        // Set up the map callback on the fragment.
+        // Set up the map callback on the fragment. Must us the childFragmentManager since the map fragment
+        // is nested inside this current fragment. This also MUST BE A SupportMapFragment for it to be discoverable
+        // via the fragmentManager. This is stupid.
         // TODO (James): Research why this fragment is not populated in the databinding for the layout
-        val mapFragment = fragmentManager!!
-            .findFragmentById(R.id.create_treasure_hunt_map) as SupportMapFragment?
+        val mapFragment = childFragmentManager.findFragmentById(R.id.create_treasure_hunt_map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
-
 
         viewModel.navigateToSuccessScreen.observe(this, Observer {
             if (it == true) {
@@ -90,20 +93,32 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    override fun onMapReady(map: GoogleMap?) {
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    override fun onMapReady(map: GoogleMap) {
+        // Check permissions. This should be already handled by the main activity but just to be safe...
         if (ContextCompat.checkSelfPermission(
-                context!!.applicationContext,
+                context!!,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 location?.let {
-                    map?.addMarker(
+                    // Got last known location. In some rare situations this can be null.
+                    // Set the map's camera position to the current location of the device.
+                    viewModel.setTreasureHuntLocation(location)
+                    map.addMarker(
                         MarkerOptions()
                             .position(LatLng(location.latitude, location.longitude))
                             .title("Treasure Location!")
                     )
-                    map?.moveCamera(
+                    map.moveCamera(
                         CameraUpdateFactory.newLatLngZoom(
                             LatLng(
                                 location.latitude,
@@ -113,6 +128,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback {
                     )
                 }
             }
+
         } else {
             requestPermissions(
                 activity!!,

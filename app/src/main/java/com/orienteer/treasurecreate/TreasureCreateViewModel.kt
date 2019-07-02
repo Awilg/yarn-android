@@ -31,4 +31,8 @@ class TreasureCreateViewModel : ViewModel() {
     fun setTreasureHuntName(name: String) {
         _treasureHuntName.value = name
     }
+
+    fun setTreasureHuntLocation(location: Location) {
+        _treasureHuntLocation.value = location
+    }
 }

@@ -1,6 +1,6 @@
 <resources>
     <!--
-    TODO: Before you run your application, you need a Google Maps API key.
+    TODO: Move Google Maps API key to somewhere not in code
 
     To get one, follow this link, follow the directions and press "Create" at the end:
 
