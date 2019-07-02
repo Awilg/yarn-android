@@ -10,6 +10,7 @@ import com.google.android.gms.maps.model.LatLng
 
 val DEFAULT_LOCATION = LatLng(-33.8523341, 151.2106085)
 val DEFAULT_ZOOM = 15F
+val DEFAULT_TREASURE_CREATE_ZOOM = 14F
 
 class LocationUtil {
 

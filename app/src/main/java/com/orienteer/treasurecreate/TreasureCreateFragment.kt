@@ -19,13 +19,14 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapFragment
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.Circle
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.orienteer.R
-import com.orienteer.Util.DEFAULT_ZOOM
+import com.orienteer.Util.DEFAULT_TREASURE_CREATE_ZOOM
 import com.orienteer.Util.PermissionsUtil
 import com.orienteer.databinding.FragmentTreasureCreateBinding
 
@@ -113,19 +114,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback {
                     // Got last known location. In some rare situations this can be null.
                     // Set the map's camera position to the current location of the device.
                     viewModel.setTreasureHuntLocation(location)
-                    map.addMarker(
-                        MarkerOptions()
-                            .position(LatLng(location.latitude, location.longitude))
-                            .title("Treasure Location!")
-                    )
-                    map.moveCamera(
-                        CameraUpdateFactory.newLatLngZoom(
-                            LatLng(
-                                location.latitude,
-                                location.longitude
-                            ), DEFAULT_ZOOM
-                        )
-                    )
+                    drawMap(map, location)
                 }
             }
 
@@ -136,5 +125,49 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback {
                 PermissionsUtil.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION.perm
             )
         }
+    }
+
+    private fun drawMap(map: GoogleMap, location: Location): Circle? {
+        map.addMarker(
+            MarkerOptions()
+                .position(LatLng(location.latitude, location.longitude))
+                .title("Treasure Location!")
+        )
+        map.moveCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                LatLng(
+                    location.latitude,
+                    location.longitude
+                ), DEFAULT_TREASURE_CREATE_ZOOM
+            )
+        )
+        map.addCircle(
+            CircleOptions()
+                .center(LatLng(location.latitude, location.longitude))
+                .radius(1000.0)
+                .fillColor(0x40FFD700)
+                .strokeColor(0x40FFD700)
+        )
+        map.addCircle(
+            CircleOptions()
+                .center(LatLng(location.latitude, location.longitude))
+                .radius(500.0)
+                .fillColor(0x40a8ff00)
+                .strokeColor(0x40a8ff00)
+        )
+        map.addCircle(
+            CircleOptions()
+                .center(LatLng(location.latitude, location.longitude))
+                .radius(250.0)
+                .fillColor(0x40ff5700)
+                .strokeColor(0x40ff5700)
+        )
+        return map.addCircle(
+            CircleOptions()
+                .center(LatLng(location.latitude, location.longitude))
+                .radius(50.0)
+                .fillColor(0x40ff0029)
+                .strokeColor(0x40ff0029)
+        )
     }
 }
