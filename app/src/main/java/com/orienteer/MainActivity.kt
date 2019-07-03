@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         _fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        val toolbar: Toolbar = binding.toolbarInclude.toolbar
         setSupportActionBar(toolbar)
 
         val fab: FloatingActionButton = findViewById(R.id.fab)

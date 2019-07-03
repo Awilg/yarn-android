@@ -58,10 +58,6 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback {
         // Set up location client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity as Activity)
 
-        // Set up the action bar
-        val toolbar: Toolbar = binding.toolbarInclude?.toolbar!!
-        setSupportActionBar(toolbar)
-
         // Set up the map callback on the fragment. Must us the childFragmentManager since the map fragment
         // is nested inside this current fragment. This also MUST BE A SupportMapFragment for it to be discoverable
         // via the fragmentManager. This is stupid.
