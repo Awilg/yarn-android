@@ -7,12 +7,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -25,7 +27,7 @@ import com.orienteer.databinding.ActivityMainBinding
 import com.orienteer.map.MapViewModel
 
 
-class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
     private lateinit var _fusedLocationProviderClient: FusedLocationProviderClient
 
@@ -51,8 +53,8 @@ class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelected
 
         _fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
-//        val toolbar: Toolbar = findViewById(R.id.toolbar)
-//        setSupportActionBar(toolbar)
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
@@ -62,13 +64,13 @@ class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelected
                 putExtra("Test", "test_message")
             })
         }
-//        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = binding.navView
-//        val toggle = ActionBarDrawerToggle(
-//            this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
-//        )
-//        drawerLayout.addDrawerListener(toggle)
-//        toggle.syncState()
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
     }
