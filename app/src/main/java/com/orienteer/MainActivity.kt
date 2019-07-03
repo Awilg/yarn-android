@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_tools -> {
                 // start the treasure activity with its own nav graph
                 startActivity(Intent(this, SettingsActivity::class.java).apply {
-                    putExtra("Test", "test_message")
+                    putExtra("Test", "test_message_")
                 })
             }
             R.id.nav_share -> {
