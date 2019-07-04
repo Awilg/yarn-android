@@ -107,13 +107,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 // Handle the camera action
             }
             R.id.nav_gallery -> {
-
+                startActivity(Intent(this, TreasureHuntsActivity::class.java).apply {
+                    putExtra("Test", "test_message_")
+                })
             }
             R.id.nav_slideshow -> {
 
             }
             R.id.nav_tools -> {
-                // start the treasure activity with its own nav graph
                 startActivity(Intent(this, SettingsActivity::class.java).apply {
                     putExtra("Test", "test_message_")
                 })

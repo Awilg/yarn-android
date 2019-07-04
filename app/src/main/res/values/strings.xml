@@ -16,4 +16,5 @@
     <string name="hint_treasure_hunt_name">Treasure Hunt Name</string>
     <string name="create">Create</string>
     <string name="bury_your_treasure">Bury Your Treasure!</string>
+    <string name="treasure_hunts">Treasure Hunts</string>
 </resources>

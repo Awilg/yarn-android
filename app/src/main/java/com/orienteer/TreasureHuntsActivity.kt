@@ -1,21 +1,23 @@
 package com.orienteer
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
-import com.orienteer.databinding.ActivitySettingsBinding
+import com.orienteer.databinding.ActivityTreasureHuntsBinding
 
-class SettingsActivity : AppCompatActivity() {
+class TreasureHuntsActivity : AppCompatActivity() {
 
     /**
-     * Our SettingsActivity is only responsible for setting the content view that contains the
+     * Our TreasureHuntsActivity is only responsible for setting the content view that contains the
      * Navigation Host.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<ActivitySettingsBinding>(this, R.layout.activity_settings)
+        Log.i("TreasureActivity", "TESTING!")
+        val binding = DataBindingUtil.setContentView<ActivityTreasureHuntsBinding>(this, R.layout.activity_treasure_hunts)
         // Set up the action bar
         val toolbar: Toolbar = binding.toolbarInclude.toolbar
         setSupportActionBar(toolbar)
