@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.orienteer.databinding.ActivityTreasureHuntsBinding
 
 class TreasureHuntsActivity : AppCompatActivity() {
@@ -24,8 +25,6 @@ class TreasureHuntsActivity : AppCompatActivity() {
 
         // Set the action bar to have a back button showing
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -94,7 +94,7 @@ class MapViewModel : ViewModel() {
                 _locationPermissionGranted.value = false
             }
         } catch (e: SecurityException) {
-            Log.e("Exception: %s", e.message)
+            Log.e("Exception: %s", e.message!!)
         }
 
     }

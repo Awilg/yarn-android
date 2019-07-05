@@ -23,7 +23,6 @@ class SettingsActivity : AppCompatActivity() {
         // Set the action bar to have a back button showing
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
