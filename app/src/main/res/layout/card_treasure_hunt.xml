@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="treasureHunt"
+            type="com.orienteer.models.TreasureHunt" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="4dp">
+
+        <TextView
+            android:id="@+id/info_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="16dp"
+            android:text="@{treasureHunt.name}"
+            android:textAlignment="center"
+            tools:text="This is some text!" />
+    </androidx.cardview.widget.CardView>
+</layout>
