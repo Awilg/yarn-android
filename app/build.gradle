@@ -66,6 +66,16 @@ dependencies {
 
     // Firebase
     implementation 'com.google.firebase:firebase-core:17.0.0'
+    implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
+
+    // Required only if Facebook login support is required
+    // Find the latest Facebook SDK releases here: https://goo.gl/Ce5L94
+    implementation 'com.facebook.android:facebook-android-sdk:5.1.0'
+
+    // TODO: Add twitter login
+    // Required only if Twitter login support is required
+    // Find the latest Twitter SDK releases here: https://goo.gl/E5wZvQ
+    //implementation 'com.twitter.sdk.android:twitter-core:3.x'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
