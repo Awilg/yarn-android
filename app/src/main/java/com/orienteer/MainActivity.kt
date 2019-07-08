@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -70,6 +71,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
         drawerLayout.addDrawerListener(toggle)
+
+        // This gets the header view at the first position of the NavigationView, which is the correct
+        // header position that we want.
+        binding.navView.getHeaderView(0).setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java))
+        }
+
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)

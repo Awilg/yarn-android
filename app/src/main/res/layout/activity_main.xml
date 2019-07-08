@@ -47,6 +47,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/mapFragment"
                 app:layout_constraintEnd_toEndOf="@+id/mapFragment"
                 app:srcCompat="@android:drawable/ic_dialog_email" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.navigation.NavigationView
