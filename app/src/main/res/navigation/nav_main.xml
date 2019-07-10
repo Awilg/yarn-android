@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/mapDestination"
         android:name="com.orienteer.map.MapFragment"
-        android:label="MapFragment"
+        android:label="Home"
         tools:layout="@layout/fragment_map">
         <action
             android:id="@+id/action_mapDestination_to_treasureCreateDestination"
@@ -17,23 +17,23 @@
     <fragment
         android:id="@+id/treasureCreateDestination"
         android:name="com.orienteer.treasurecreate.TreasureCreateFragment"
-        android:label="TreasureCreateFragment"
+        android:label="Bury a Treasure"
         tools:layout="@layout/fragment_treasure_create"/>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.orienteer.settings.SettingsFragment"
-        android:label="SettingsFragment"
+        android:label="Settings"
         tools:layout="@layout/fragment_settings"/>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.orienteer.profile.ProfileFragment"
-        android:label="ProfileFragment"
+        android:label="Profile"
         tools:layout="@layout/fragment_profile"/>
 
     <fragment
         android:id="@+id/treasureHuntsFragment"
         android:name="com.orienteer.treasurehunts.TreasureHuntsFragment"
-        android:label="TreasureHuntsFragment"
+        android:label="Treasure Hunts"
         tools:layout="@layout/fragment_treasure_hunts">
         <action
             android:id="@+id/action_treasureHuntsFragment_to_treasureHuntDetail"
@@ -42,7 +42,7 @@
     <fragment
         android:id="@+id/treasureHuntDetail"
         android:name="com.orienteer.treasurehuntdetail.TreasureHuntDetailFragment"
-        android:label="TreasureHuntDetail"
+        android:label="Treasure Hunt"
         tools:layout="@layout/fragment_treasure_hunt_detail">
         <argument
             android:name="selectedTreasureHunt"
