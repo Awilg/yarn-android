@@ -1,5 +1,6 @@
 package com.orienteer
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -29,6 +30,12 @@ class NewMainActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = binding.toolbarInclude.toolbar
         setSupportActionBar(toolbar)
+
+        // This gets the header view at the first position of the NavigationView, which is the correct
+        // header position that we want.
+        binding.navView.getHeaderView(0).setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java))
+        }
 
         binding.toolbarInclude.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)

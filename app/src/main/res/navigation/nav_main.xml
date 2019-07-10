@@ -24,5 +24,10 @@
         android:name="com.orienteer.settings.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings"/>
+    <fragment
+        android:id="@+id/treasureHuntsFragment"
+        android:name="com.orienteer.treasurehunts.TreasureHuntsFragment"
+        android:label="TreasureHuntsFragment"
+        tools:layout="@layout/fragment_treasure_hunts"/>
 
 </navigation>

@@ -28,7 +28,7 @@ import com.orienteer.databinding.ActivityMainBinding
 import com.orienteer.map.MapViewModel
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
+class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var _fusedLocationProviderClient: FusedLocationProviderClient
 
@@ -79,8 +79,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         toggle.syncState()
-
-        navView.setNavigationItemSelectedListener(this)
     }
 
     override fun onBackPressed() {
@@ -90,53 +88,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else {
             super.onBackPressed()
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.settingsFragment -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle nav_graph_treasure view item clicks here.
-        when (item.itemId) {
-            R.id.nav_home -> {
-                // Handle the camera action
-            }
-            R.id.nav_gallery -> {
-                startActivity(Intent(this, TreasureHuntsActivity::class.java).apply {
-                    putExtra("Test", "test_message_")
-                })
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_tools -> {
-                startActivity(Intent(this, SettingsActivity::class.java).apply {
-                    putExtra("Test", "test_message_")
-                })
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
-            }
-        }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        drawerLayout.closeDrawer(GravityCompat.START)
-        return true
     }
 
     /**
