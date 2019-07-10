@@ -17,6 +17,7 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
@@ -72,11 +73,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         )
         drawerLayout.addDrawerListener(toggle)
 
-        // This gets the header view at the first position of the NavigationView, which is the correct
-        // header position that we want.
-        binding.navView.getHeaderView(0).setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java))
-        }
 
         toggle.syncState()
     }

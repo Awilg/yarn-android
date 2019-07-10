@@ -1,12 +1,12 @@
 package com.orienteer
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -18,7 +18,6 @@ class NewMainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityNewMainBinding
 
-
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,15 +25,29 @@ class NewMainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_main)
 
         navController = findNavController(R.id.nav_host_fragment_new_main)
+
+        // Set up the app bar to use the nav graph and drawer
         val appBarConfiguration = AppBarConfiguration(navController.graph, binding.drawerLayout)
 
+        // Set up the toolbar
         val toolbar: Toolbar = binding.toolbarInclude.toolbar
         setSupportActionBar(toolbar)
 
         // This gets the header view at the first position of the NavigationView, which is the correct
         // header position that we want.
         binding.navView.getHeaderView(0).setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java))
+            // TODO: Can we get this from a binding?
+            navController.navigate(R.id.profileFragment)
+            binding.drawerLayout.closeDrawers()
+        }
+
+        // Only allow the drawer on the top level map fragment.
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if(destination.id != R.id.mapFragment) {
+                binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            } else {
+                binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN)
+            }
         }
 
         binding.toolbarInclude.toolbar.setupWithNavController(navController, appBarConfiguration)

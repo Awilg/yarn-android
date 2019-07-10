@@ -29,5 +29,10 @@
         android:name="com.orienteer.treasurehunts.TreasureHuntsFragment"
         android:label="TreasureHuntsFragment"
         tools:layout="@layout/fragment_treasure_hunts"/>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.orienteer.profile.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
 
 </navigation>
