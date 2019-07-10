@@ -84,7 +84,31 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
-
-protobuf {
-    // The normal gRPC configuration for Android goes here
-}
+//
+//protobuf {
+//    protoc { artifact = "com.google.protobuf:protoc:$version_protobuf"}
+//
+//    plugins {
+//        kroto {
+//            artifact = "com.github.marcoferrer.krotoplus:protoc-gen-kroto-plus:$version_kroto_plus:jvm8@jar"
+//        }
+//    }
+//
+//    generateProtoTasks {
+//        // TODO: add in config file for this
+//        def krotoConfig = file("krotoPlusConfig.asciipb") // Or .json
+//
+//        all().each{ task ->
+//            // Adding the config file to the task inputs lets UP-TO-DATE checks
+//            // include changes to configuration
+//            task.inputs.files krotoConfig
+//
+//            task.plugins {
+//                kroto {
+//                    outputSubDir = "java"
+//                    option "ConfigPath=$krotoConfig"
+//                }
+//            }
+//        }
+//    }
+//}

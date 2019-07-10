@@ -145,7 +145,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 }
             }
         } catch (e: SecurityException) {
-            Log.e("Exception: %s", e.message)
+            Log.e("MapFragment", "Exception: ${e.message}")
         }
 
     }

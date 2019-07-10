@@ -27,7 +27,6 @@ import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.orienteer.R
-import com.orienteer.Util.DEFAULT_TREASURE_CREATE_ZOOM
 import com.orienteer.Util.PermissionsUtil
 import com.orienteer.databinding.FragmentTreasureCreateBinding
 
@@ -139,7 +138,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback {
                 LatLng(
                     location.latitude,
                     location.longitude
-                ), DEFAULT_TREASURE_CREATE_ZOOM
+                ), Companion.DEFAULT_TREASURE_CREATE_ZOOM
             )
         )
         map.addCircle(
@@ -170,5 +169,9 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback {
                 .fillColor(0x40ff0029)
                 .strokeColor(0x40ff0029)
         )
+    }
+
+    companion object {
+        val DEFAULT_TREASURE_CREATE_ZOOM = 14F
     }
 }
