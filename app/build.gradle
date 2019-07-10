@@ -80,6 +80,9 @@ dependencies {
     // Find the latest Twitter SDK releases here: https://goo.gl/E5wZvQ
     //implementation 'com.twitter.sdk.android:twitter-core:3.x'
 
+    // Kroto plus kotlin generarion for protobufs
+    implementation "com.github.marcoferrer.krotoplus:kroto-plus-coroutines:$version_kroto_plus"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
