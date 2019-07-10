@@ -25,14 +25,29 @@
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings"/>
     <fragment
-        android:id="@+id/treasureHuntsFragment"
-        android:name="com.orienteer.treasurehunts.TreasureHuntsFragment"
-        android:label="TreasureHuntsFragment"
-        tools:layout="@layout/fragment_treasure_hunts"/>
-    <fragment
         android:id="@+id/profileFragment"
         android:name="com.orienteer.profile.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile"/>
+
+    <fragment
+        android:id="@+id/treasureHuntsFragment"
+        android:name="com.orienteer.treasurehunts.TreasureHuntsFragment"
+        android:label="TreasureHuntsFragment"
+        tools:layout="@layout/fragment_treasure_hunts">
+        <action
+            android:id="@+id/action_treasureHuntsFragment_to_treasureHuntDetail"
+            app:destination="@id/treasureHuntDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/treasureHuntDetail"
+        android:name="com.orienteer.treasurehuntdetail.TreasureHuntDetailFragment"
+        android:label="TreasureHuntDetail"
+        tools:layout="@layout/fragment_treasure_hunt_detail">
+        <argument
+            android:name="selectedTreasureHunt"
+            app:argType="com.orienteer.models.TreasureHunt" />
+    </fragment>
+
 
 </navigation>
