@@ -1,22 +1,29 @@
 package com.orienteer.map
 
+import android.app.Activity
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.orienteer.databinding.FragmentMapBinding
+import androidx.navigation.fragment.findNavController
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.orienteer.R
+import com.orienteer.databinding.FragmentMapBinding
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 
-    private lateinit var mMap: GoogleMap
+    private lateinit var _fusedLocationProviderClient: FusedLocationProviderClient
 
     /**
      * Lazily initialize our [MapViewModel].
@@ -29,14 +36,23 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         Log.i("MapFragment", "Creating fragment view!")
         val binding = FragmentMapBinding.inflate(inflater)
 
-        // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
-        binding.lifecycleOwner = this
-
         // Giving the binding access to the MapViewModel
         binding.viewModel = viewModel
 
+        // Initialize the location services client
+        _fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity as Activity)
+
         // Set map callback on the mapView
-        //binding.mapView.getMapAsync(this)
+        val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment?
+        mapFragment?.getMapAsync(this)
+
+        // Set up the floating action button
+        binding.fab.setOnClickListener {
+            findNavController().navigate(MapFragmentDirections.actionMapDestinationToTreasureCreateDestination())
+        }
+
+        // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
+        binding.lifecycleOwner = this
 
         return binding.root
     }
@@ -51,10 +67,87 @@ class MapFragment : Fragment(), OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(map: GoogleMap) {
-        map.addMarker(
-            MarkerOptions()
-                .position(LatLng(0.0, 0.0))
-                .title("Marker")
-        )
+        // Set the map in the viewModel
+        viewModel.setMap(map)
+
+        // Check Permissions
+        getLocationPermission()
+
+        // Update the Map UI
+        viewModel.updateLocationUI()
+
+        // Get Device Location
+        getDeviceLocation()
     }
+
+    /**
+     * Request location permission, so that we can get the location of the
+     * device. The result of the permission request is handled by a callback,
+     * onRequestPermissionsResult.
+     */
+    private fun getLocationPermission() {
+        if (ContextCompat.checkSelfPermission(
+                context!!,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            viewModel.setLocationPermissionGranted(true)
+        } else {
+            ActivityCompat.requestPermissions(
+                activity as Activity,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                viewModel.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+            )
+        }
+    }
+
+    /**
+     * Handles the result of the request for location permissions.
+     */
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        viewModel.setLocationPermissionGranted(false)
+        when (requestCode) {
+            viewModel.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    viewModel.setLocationPermissionGranted(true)
+                }
+            }
+        }
+        viewModel.updateLocationUI()
+        getDeviceLocation()
+    }
+
+
+    /**
+     * Get the best and most recent location of the device, which may be null in rare
+     * cases when a location is not available.
+     */
+    private fun getDeviceLocation() {
+        try {
+            if (viewModel.locationPermissionGranted.value!!) {
+                val locationResult = _fusedLocationProviderClient.lastLocation
+                locationResult.addOnCompleteListener(activity as Activity) { task ->
+                    if (task.isSuccessful) {
+                        // Set the map's camera position to the current location of the device.
+                        viewModel.setLastKnownLocation(task.result as Location)
+                        viewModel.updateMap()
+                    } else {
+                        Log.d("MapViewModel", "Current location is null. Using defaults.")
+                        Log.e("MapViewModel", "Exception: %s", task.exception)
+                        viewModel.resetMap()
+                        viewModel.disableMyLocationButtonEnabled()
+                    }
+                }
+            }
+        } catch (e: SecurityException) {
+            Log.e("Exception: %s", e.message)
+        }
+
+    }
+
 }
