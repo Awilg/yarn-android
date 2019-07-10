@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.protobuf'
+
 
 android {
     compileSdkVersion 29
@@ -81,4 +83,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+protobuf {
+    // The normal gRPC configuration for Android goes here
 }
