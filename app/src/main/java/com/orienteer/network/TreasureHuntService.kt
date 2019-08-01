@@ -52,5 +52,5 @@ interface TreasureHuntService {
  * A public Api object that exposes the lazy-initialized Retrofit service
  */
 object TreasureHuntApi {
-    val RETROFIT_SERVICE : TreasureHuntService by lazy { retrofit.create(TreasureHuntService::class.java) }
+    val retrofitService : TreasureHuntService by lazy { retrofit.create(TreasureHuntService::class.java) }
 }
