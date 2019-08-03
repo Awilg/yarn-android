@@ -71,7 +71,9 @@ class TreasureHuntsResponse {
 @JsonQualifier
 annotation class Wrapped
 
-// This converter is to take the json object and convert that json object to the list of treasure hunts
+/**
+ * This converter is to take the json object and convert that json object to the list of treasure hunts
+ */
 class TreasureHuntsJsonConverter {
     @Wrapped
     @FromJson
