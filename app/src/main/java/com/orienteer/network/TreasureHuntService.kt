@@ -10,7 +10,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import kotlinx.coroutines.Deferred
 
-private const val BASE_URL = "http://localhost:8081/"
+private const val BASE_URL = "http://10.0.2.2:8081/"
 // TODO (01) Create an enum full of constants to match the query values our web service expects
 
 /**

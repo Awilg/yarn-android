@@ -1,5 +1,6 @@
 package com.orienteer.treasurehunts
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -58,6 +59,7 @@ class TreasureHuntsViewModel : ViewModel() {
                 _treasureHunts.value = listResult
             } catch (e: Exception) {
                 _status.value = ApiStatus.ERROR
+                Log.e("TreasureHuntsViewModel", "Network request failed with exception $e")
                 _treasureHunts.value = ArrayList()
             }
         }
