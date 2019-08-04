@@ -26,5 +26,14 @@
             android:text="@{treasureHunt.name}"
             android:textAlignment="center"
             tools:text="This is some text!" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="154dp"
+            android:layout_gravity="bottom"
+            app:srcCompat="@drawable/pirate_map" />
+
+
     </androidx.cardview.widget.CardView>
 </layout>
