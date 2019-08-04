@@ -9,7 +9,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import kotlinx.coroutines.Deferred
-import android.provider.MediaStore.Video
 import com.squareup.moshi.ToJson
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.JsonQualifier
@@ -89,7 +88,7 @@ class TreasureHuntsJsonConverter {
     }
 
     @ToJson
-    fun toJson(@Wrapped value: List<TreasureHunt>): TreasureHuntsResponse {
+    fun toJson(): TreasureHuntsResponse {
         throw UnsupportedOperationException()
     }
 }

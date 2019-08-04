@@ -22,10 +22,19 @@
             android:id="@+id/info_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="16dp"
+            android:paddingTop="8dp"
             android:text="@{treasureHunt.name}"
             android:textAlignment="center"
             tools:text="This is some text!" />
+
+        <TextView
+            android:id="@+id/lat_lng_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@{treasureHunt.location.toString()}"
+            android:paddingTop="24dp"
+            android:textAlignment="center"
+            tools:text="42.689, 122.3038" />
 
         <ImageView
             android:id="@+id/imageView2"

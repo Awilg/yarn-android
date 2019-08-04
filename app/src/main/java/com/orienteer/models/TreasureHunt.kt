@@ -1,6 +1,7 @@
 package com.orienteer.models
 
 import android.os.Parcelable
+import com.google.android.gms.maps.model.LatLng
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
@@ -13,4 +14,5 @@ import kotlinx.android.parcel.Parcelize
 data class TreasureHunt(
     @Json(name = "_id")
     val id: String,
-    val name: String) : Parcelable
+    val name: String,
+    val location: LatLng) : Parcelable
