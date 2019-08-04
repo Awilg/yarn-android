@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class TreasureHuntsViewModel : ViewModel() {
+class TreasureHuntsViewModel(location: LatLng) : ViewModel() {
 
     private val _treasureHunts = MutableLiveData<List<TreasureHunt>>()
     val treasureHunts: LiveData<List<TreasureHunt>>
@@ -37,7 +37,9 @@ class TreasureHuntsViewModel : ViewModel() {
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
-        getTreasureHunts()
+
+        // TODO: use location from constructor to get treasure hunts
+        getTreasureHuntsNearby(location)
     }
 
     /**
@@ -46,11 +48,12 @@ class TreasureHuntsViewModel : ViewModel() {
      * coroutine Deferred, which we await to get the result of the transaction.
      */
     // TODO (03) Add MarsApiFilter parameter to getMarsRealEstateProperties
-    private fun getTreasureHunts() {
+    private fun getTreasureHuntsNearby(location: LatLng) {
         coroutineScope.launch {
             // Get the Deferred object for our Retrofit request
             // TODO (04) Add filter to getProperties() with filter.value
-            var getTreasureHunts = TreasureHuntApi.retrofitService.getTreasureHunts()
+            var getTreasureHunts = TreasureHuntApi.retrofitService.getTreasureHuntsByLocation(
+                longitude = location.longitude.toString(), latitude = location.latitude.toString())
             try {
                 _status.value = ApiStatus.LOADING
                 // this will run on a thread managed by Retrofit

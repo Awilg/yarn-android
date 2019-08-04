@@ -9,7 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.maps.model.LatLng
 import com.orienteer.databinding.FragmentTreasureHuntsBinding
+import com.orienteer.treasurehuntdetail.TreasureHuntDetailViewModel
+import com.orienteer.treasurehuntdetail.TreasureHuntDetailViewModelFactory
 
 class TreasureHuntsFragment : Fragment() {
 
@@ -23,7 +26,9 @@ class TreasureHuntsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentTreasureHuntsBinding.inflate(inflater)
 
-        binding.viewModel = viewModel
+        // TODO: get location from device
+        val viewModelFactory = TreasureHuntsViewModelFactory(LatLng(47.6062,122.3321))
+        binding.viewModel = ViewModelProviders.of(this, viewModelFactory).get(TreasureHuntsViewModel::class.java)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this

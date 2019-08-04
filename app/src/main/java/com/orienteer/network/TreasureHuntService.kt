@@ -13,7 +13,7 @@ import android.provider.MediaStore.Video
 import com.squareup.moshi.ToJson
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.JsonQualifier
-
+import retrofit2.http.Query
 
 
 private const val BASE_URL = "http://10.0.2.2:8081/"
@@ -51,16 +51,23 @@ interface TreasureHuntService {
     // TODO (02) Add filter @Query value to the getProperties method
     @GET("hunts")
     @Wrapped
-    fun getTreasureHunts():
-    // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
-            Deferred<List<TreasureHunt>>
+    fun getTreasureHunts(): Deferred<List<TreasureHunt>>
+
+    /**
+     * Returns a Coroutine [Deferred] [List] of [TreasureHunt] which can be fetched with await() if
+     * in a Coroutine scope. Returns all the [TreasureHunt]s within a given distance
+     */
+    @GET("hunt")
+    @Wrapped
+    fun getTreasureHuntsByLocation(@Query("lng") longitude: String,
+                                   @Query("lat") latitude: String): Deferred<List<TreasureHunt>>
 }
 
 /**
  * A public Api object that exposes the lazy-initialized Retrofit service
  */
 object TreasureHuntApi {
-    val retrofitService : TreasureHuntService by lazy { retrofit.create(TreasureHuntService::class.java) }
+    val retrofitService: TreasureHuntService by lazy { retrofit.create(TreasureHuntService::class.java) }
 }
 
 class TreasureHuntsResponse {
