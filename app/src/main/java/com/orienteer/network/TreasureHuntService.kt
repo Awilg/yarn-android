@@ -88,7 +88,7 @@ class TreasureHuntsJsonConverter {
     }
 
     @ToJson
-    fun toJson(): TreasureHuntsResponse {
+    fun toJson(@Wrapped value: List<TreasureHunt>): TreasureHuntsResponse {
         throw UnsupportedOperationException()
     }
 }
