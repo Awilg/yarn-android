@@ -28,6 +28,8 @@ class LoginActivity : AppCompatActivity() {
             AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
+                .setTheme(R.style.LoginTheme)
+                .setLogo(R.mipmap.ic_logo_flash)
                 .build(),
             RC_SIGN_IN)
     }

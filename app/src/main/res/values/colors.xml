@@ -6,5 +6,5 @@
     <color name="parkPrimary">#ffa5b076</color>
     <color name="parkPrimaryLight">#ffd7e2a5</color>
     <color name="parkPrimaryDark">#ff758149</color>
-    
+    <color name="colorSecondary">#FFC107</color>
 </resources>
