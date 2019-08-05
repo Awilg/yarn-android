@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
                 .setTheme(R.style.LoginTheme)
-                .setLogo(R.mipmap.ic_logo_flash)
+                .setLogo(R.mipmap.ic_login_foreground)
                 .build(),
             RC_SIGN_IN)
     }
