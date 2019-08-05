@@ -5,11 +5,14 @@ import com.orienteer.models.User
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.ToJson
+import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
+import java.util.*
 
 // This is the local address for the emulator
 private const val BASE_URL = "http://10.0.2.2:8081/"
@@ -20,6 +23,7 @@ private const val BASE_URL = "http://10.0.2.2:8081/"
  */
 private val moshi = Moshi.Builder()
     .add(UserJsonConverter())
+    .add(Date::class.java, Rfc3339DateJsonAdapter())
     .add(KotlinJsonAdapterFactory())
     .build()
 
@@ -43,9 +47,9 @@ interface UserService {
      * The @GET annotation indicates that the "user" endpoint will be requested with the GET
      * HTTP method
      */
-    @GET("hunts")
+    @GET("user/get/{id}")
     @Wrapped
-    fun getUser(): Deferred<User>
+    fun getUser(@Path("id") id: String): Deferred<User>
 }
 
 

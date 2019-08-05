@@ -9,6 +9,7 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.orienteer.databinding.ActivityLoginBinding
+import com.orienteer.network.UserApi
 
 class LoginActivity : AppCompatActivity() {
 
@@ -22,6 +23,8 @@ class LoginActivity : AppCompatActivity() {
             AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.GoogleBuilder().build(),
             AuthUI.IdpConfig.FacebookBuilder().build())
+
+        // TODO: make custome login screen - https@ //github.com/firebase/FirebaseUI-Android/blob/master/auth/README.md#ui-customization
 
         // Create and launch sign-in intent
         startActivityForResult(
@@ -43,6 +46,9 @@ class LoginActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
+                val dbUser = UserApi.retrofitService.getUser(user?.uid!!)
+
+
                 startActivity(Intent(this, MainActivity::class.java))
                 // ...
             } else {
