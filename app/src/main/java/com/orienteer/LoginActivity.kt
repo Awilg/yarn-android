@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
             AuthUI.IdpConfig.GoogleBuilder().build(),
             AuthUI.IdpConfig.FacebookBuilder().build())
 
-        // TODO: make custome login screen - https@ //github.com/firebase/FirebaseUI-Android/blob/master/auth/README.md#ui-customization
+        // TODO: make custom login screen - https@ //github.com/firebase/FirebaseUI-Android/blob/master/auth/README.md#ui-customization
 
         // Create and launch sign-in intent
         startActivityForResult(
