@@ -1,5 +1,6 @@
 package com.orienteer.map
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.location.Location
@@ -14,15 +15,19 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.orienteer.R
 import com.orienteer.databinding.FragmentMapBinding
+import kotlin.math.log
 
 class MapFragment : Fragment(), OnMapReadyCallback {
-
+    private lateinit var _locationCallback: LocationCallback
     private lateinit var _fusedLocationProviderClient: FusedLocationProviderClient
 
     /**
@@ -54,6 +59,20 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
 
+        // Create the location callback
+        _locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                locationResult ?: return
+                for (location in locationResult.locations){
+
+                    Log.i("MapFragment", "location update $location")
+                    // Update the Map UI
+                    // Draw moving dot?
+                }
+            }
+        }
+
+
         return binding.root
     }
 
@@ -78,6 +97,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         // Get Device Location
         getDeviceLocation()
+
+        // Allow for interval updating
+        startLocationUpdates()
     }
 
     /**
@@ -148,6 +170,35 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             Log.e("MapFragment", "Exception: ${e.message}")
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (viewModel.locationPermissionGranted.value!!) startLocationUpdates()
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun startLocationUpdates() {
+        // Check Permissions
+        getLocationPermission()
+
+        // Build location request
+
+        val locationRequest = LocationRequest()
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        locationRequest.interval = 5000
+        _fusedLocationProviderClient.requestLocationUpdates(locationRequest,
+            _locationCallback,
+            null /* Looper */)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopLocationUpdates()
+    }
+
+    private fun stopLocationUpdates() {
+        _fusedLocationProviderClient.removeLocationUpdates(_locationCallback)
     }
 
 }
