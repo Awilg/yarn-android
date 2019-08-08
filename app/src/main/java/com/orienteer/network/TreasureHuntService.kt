@@ -24,6 +24,7 @@ private const val BASE_URL = "http://10.0.2.2:8081/"
  */
 private val moshi = Moshi.Builder()
     .add(TreasureHuntsJsonConverter())
+    .add(TreasureHuntJsonConverter())
     .add(KotlinJsonAdapterFactory())
     .build()
 
@@ -41,6 +42,7 @@ private val retrofit = Retrofit.Builder()
  * A public interface that exposes the methods of the backend treasure hunt service/
  */
 interface TreasureHuntService {
+
     /**
      * Returns a Coroutine [Deferred] [List] of [TreasureHunt] which can be fetched with await() if
      * in a Coroutine scope.
@@ -48,9 +50,20 @@ interface TreasureHuntService {
      * HTTP method
      */
     // TODO (02) Add filter @Query value to the getProperties method
-    @GET("hunts")
+    @GET("hunt/{id}")
     @Wrapped
-    fun getTreasureHunts(): Deferred<List<TreasureHunt>>
+    fun getTreasureHuntsById(): Deferred<TreasureHunt>
+
+    /**
+     * Returns a Coroutine [Deferred] [List] of [TreasureHunt] which can be fetched with await() if
+     * in a Coroutine scope.
+     * The @GET annotation indicates that the "hunts" endpoint will be requested with the GET
+     * HTTP method
+     */
+    // TODO (02) Add filter @Query value to the getProperties method
+    @GET("hunts/user/{id}")
+    @Wrapped
+    fun getTreasureHuntsByUserId(): Deferred<List<TreasureHunt>>
 
     /**
      * Returns a Coroutine [Deferred] [List] of [TreasureHunt] which can be fetched with await() if
@@ -73,6 +86,10 @@ class TreasureHuntsResponse {
     lateinit var hunts: List<TreasureHunt>
 }
 
+class TreasureHuntResponse {
+    lateinit var hunt: TreasureHunt
+}
+
 @Retention(AnnotationRetention.RUNTIME)
 @JsonQualifier
 annotation class Wrapped
@@ -89,6 +106,22 @@ class TreasureHuntsJsonConverter {
 
     @ToJson
     fun toJson(@Wrapped value: List<TreasureHunt>): TreasureHuntsResponse {
+        throw UnsupportedOperationException()
+    }
+}
+
+/**
+ * This converter is to take the json object and convert that json object to the list of treasure hunts
+ */
+class TreasureHuntJsonConverter {
+    @Wrapped
+    @FromJson
+    fun fromJson(json: TreasureHuntResponse): TreasureHunt {
+        return json.hunt
+    }
+
+    @ToJson
+    fun toJson(@Wrapped value: TreasureHunt): TreasureHuntResponse {
         throw UnsupportedOperationException()
     }
 }
