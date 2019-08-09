@@ -61,9 +61,9 @@ class TreasureHuntsAdapter(private val onClickListener: OnClickListener) :
     }
 
     /**
-     * Custom listener that handles clicks on [RecyclerView] items.  Passes the [MarsProperty]
+     * Custom listener that handles clicks on [RecyclerView] items.  Passes the [TreasureHunt]
      * associated with the current item to the [onClick] function.
-     * @param clickListener lambda that will be called with the current [MarsProperty]
+     * @param clickListener lambda that will be called with the current [TreasureHunt]
      */
     class OnClickListener(val clickListener: (treasureHunt: TreasureHunt) -> Unit) {
         fun onClick(treasureHunt: TreasureHunt) = clickListener(treasureHunt)

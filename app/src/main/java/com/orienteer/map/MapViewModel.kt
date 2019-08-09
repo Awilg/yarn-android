@@ -10,7 +10,12 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
-
+import com.orienteer.models.TreasureHunt
+import com.orienteer.network.TreasureHuntApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class MapViewModel : ViewModel() {
     private var _map: GoogleMap? = null
@@ -27,6 +32,17 @@ class MapViewModel : ViewModel() {
     private val _isMyLocationButtonEnabled = MutableLiveData<Boolean>()
     val isMyLocationButtonEnabled: LiveData<Boolean>
         get() = _isMyLocationButtonEnabled
+
+    private val _treasureHuntsNearby = MutableLiveData<List<TreasureHunt>>()
+    val treasureHuntsNearby: LiveData<List<TreasureHunt>>
+        get() = _treasureHuntsNearby
+
+    // Create a Coroutine scope using a job to be able to cancel when needed
+    private var viewModelJob = Job()
+
+    // the Coroutine runs using the Main (UI) dispatcher
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
 
 //    // The entry points to the Places API.
 //    private val mGeoDataClient: GeoDataClient? = null
@@ -45,6 +61,8 @@ class MapViewModel : ViewModel() {
         defaultLoc.latitude = DEFAULT_LOCATION.latitude
         defaultLoc.longitude = DEFAULT_LOCATION.longitude
         _lastKnownLocation.value = defaultLoc
+
+        getTreasureHuntsNearby(LatLng(40.75,-74.0))
     }
 
     fun setLocationPermissionGranted(granted: Boolean) {
@@ -106,5 +124,28 @@ class MapViewModel : ViewModel() {
 
     fun disableMyLocationButtonEnabled() {
         _isMyLocationButtonEnabled.value = false
+    }
+
+    /**
+     * Gets Mars real estate property information from the Mars API Retrofit service and updates the
+     * [MarsProperty] [List] and [MarsApiStatus] [LiveData]. The Retrofit service returns a
+     * coroutine Deferred, which we await to get the result of the transaction.
+     */
+    // TODO (03) Add MarsApiFilter parameter to getMarsRealEstateProperties
+    private fun getTreasureHuntsNearby(location: LatLng) {
+        coroutineScope.launch {
+            // Get the Deferred object for our Retrofit request
+            // TODO (04) Add filter to getProperties() with filter.value
+            var getTreasureHunts = TreasureHuntApi.retrofitService.getTreasureHuntsByLocation(
+                longitude = location.longitude.toString(), latitude = location.latitude.toString())
+            try {
+                // this will run on a thread managed by Retrofit
+                val listResult = getTreasureHunts.await()
+                _treasureHuntsNearby.value = listResult
+            } catch (e: Exception) {
+                Log.e("TreasureHuntsViewModel", "Network request failed with exception $e")
+                _treasureHuntsNearby.value = ArrayList()
+            }
+        }
     }
 }

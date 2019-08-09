@@ -69,7 +69,7 @@ interface TreasureHuntService {
      * Returns a Coroutine [Deferred] [List] of [TreasureHunt] which can be fetched with await() if
      * in a Coroutine scope. Returns all the [TreasureHunt]s within a given distance
      */
-    @GET("hunt")
+    @GET("hunts")
     @Wrapped
     fun getTreasureHuntsByLocation(@Query("lng") longitude: String,
                                    @Query("lat") latitude: String): Deferred<List<TreasureHunt>>

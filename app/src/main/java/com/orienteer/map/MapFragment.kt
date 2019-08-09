@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -24,6 +25,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.orienteer.R
 import com.orienteer.databinding.FragmentMapBinding
+import com.orienteer.treasurehunts.TreasureHuntsAdapter
 import kotlin.math.log
 
 class MapFragment : Fragment(), OnMapReadyCallback {
@@ -71,6 +73,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 }
             }
         }
+
+        // Create the adapter that will populate the recycler view
+        binding.treasureHuntsCardsMap.adapter = TreasureHuntsAdapter(TreasureHuntsAdapter.OnClickListener {
+            Toast.makeText(context, "Clicked treasure hunt ${it.name}!", Toast.LENGTH_LONG).show()
+        })
 
 
         return binding.root
