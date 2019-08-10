@@ -90,7 +90,7 @@ class MapViewModel : ViewModel() {
     }
 
     fun moveMapToLocation(loc :LatLng) {
-        _map?.moveCamera(
+        _map?.animateCamera(
             CameraUpdateFactory.newLatLngZoom(
                 loc, DEFAULT_ZOOM
             )
@@ -99,6 +99,9 @@ class MapViewModel : ViewModel() {
 
     fun setMap(map: GoogleMap) {
         _map = map
+        _map!!.setMinZoomPreference(6.0f);
+        _map!!.setMaxZoomPreference(14.0f);
+
     }
     /**
      * Updates the map's UI settings based on whether the user has granted location permission.

@@ -129,10 +129,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         // Get Device Location
         getDeviceLocation()
 
-        // Allow for interval updating
-        startLocationUpdates()
-
+//        // Allow for interval updating
+//        startLocationUpdates()
     }
+
     /**
      * Request location permission, so that we can get the location of the
      * device. The result of the permission request is handled by a callback,
