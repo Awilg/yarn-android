@@ -26,7 +26,7 @@ import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.orienteer.R
-import com.orienteer.Util.PermissionsUtil
+import com.orienteer.util.PermissionsUtil
 import com.orienteer.databinding.FragmentTreasureCreateBinding
 
 

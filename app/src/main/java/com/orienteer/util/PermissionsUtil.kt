@@ -1,4 +1,4 @@
-package com.orienteer.Util
+package com.orienteer.util
 
 import android.app.Activity
 
