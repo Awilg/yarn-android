@@ -12,6 +12,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.orienteer.models.TreasureHunt
 import com.orienteer.network.TreasureHuntApi
+import com.orienteer.util.TEST_HUNTS
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -158,7 +159,7 @@ class MapViewModel : ViewModel() {
                 _treasureHuntsNearby.value = listResult
             } catch (e: Exception) {
                 Log.e("TreasureHuntsViewModel", "Network request failed with exception $e")
-                _treasureHuntsNearby.value = ArrayList()
+                _treasureHuntsNearby.value = TEST_HUNTS
             }
         }
     }

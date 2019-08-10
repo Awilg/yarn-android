@@ -95,4 +95,9 @@
 
     <string name="title_copyable_preference">Copyable preference</string>
     <string name="summary_copyable_preference">Long press on this preference to copy its summary</string>
+    <string name="create_an_adventure">Create An Adventure</string>
+    <string name="invite_your_friends">Invite Your Friends</string>
+    <string name="feedback">Feedback</string>
+    <string name="your_adventures">Your Adventures</string>
+    <string name="add_adventure_by_qr_code">Add Adventure By QR Code</string>
 </resources>

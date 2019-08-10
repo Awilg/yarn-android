@@ -1,38 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:showIn="navigation_view">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/treasure_menu_group"
+        android:checkableBehavior="single">
         <item
-                android:id="@+id/nav_home"
-                android:icon="@drawable/ic_menu_camera"
-                android:title="@string/menu_home"/>
+            android:id="@+id/your_adventures"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/your_adventures" />
         <item
-                android:id="@id/treasureHuntsFragment"
-                android:icon="@drawable/ic_menu_gallery"
-                android:title="@string/treasure_hunts"/>
+            android:id="@+id/add_adventure_by_qr_code"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/add_adventure_by_qr_code" />
         <item
-                android:id="@+id/nav_slideshow"
-                android:icon="@drawable/ic_menu_slideshow"
-                android:title="@string/menu_slideshow"/>
+            android:id="@id/treasureHuntsFragment"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/treasure_hunts" />
         <item
-                android:id="@id/settingsFragment"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="@string/menu_tools"/>
+            android:id="@+id/treasureCreateFragment"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/create_an_adventure" />
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                    android:id="@+id/nav_share"
-                    android:icon="@drawable/ic_menu_share"
-                    android:title="@string/menu_share"/>
-            <item
-                    android:id="@+id/nav_send"
-                    android:icon="@drawable/ic_menu_send"
-                    android:title="@string/menu_send"/>
-        </menu>
-    </item>
+    <group
+        android:id="@+id/social_menu_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/invite_your_friends"
+            android:icon="@drawable/ic_menu_share"
+            android:title="@string/invite_your_friends" />
+    </group>
 
+
+    <group
+        android:id="@+id/settings_menu_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@id/settingsFragment"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/menu_tools" />
+
+        <item
+            android:id="@+id/feedback"
+            android:icon="@drawable/ic_menu_send"
+            android:title="@string/feedback" />
+
+    </group>
 </menu>

@@ -12,13 +12,13 @@
         tools:layout="@layout/fragment_map">
         <action
             android:id="@+id/action_mapDestination_to_treasureCreateDestination"
-            app:destination="@id/treasureCreateDestination" />
+            app:destination="@id/treasureCreateFragment" />
         <action
             android:id="@+id/action_mapDestination_to_treasureHuntDetail"
             app:destination="@id/treasureHuntDetail" />
     </fragment>
     <fragment
-        android:id="@+id/treasureCreateDestination"
+        android:id="@+id/treasureCreateFragment"
         android:name="com.orienteer.treasurecreate.TreasureCreateFragment"
         android:label="Bury a Treasure"
         tools:layout="@layout/fragment_treasure_create" />
@@ -52,6 +52,5 @@
         android:name="com.orienteer.settings.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@xml/user_settings" />
-
 
 </navigation>
