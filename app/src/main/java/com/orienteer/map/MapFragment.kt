@@ -3,12 +3,14 @@ package com.orienteer.map
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -30,6 +32,7 @@ import com.orienteer.core.SnapOnScrollListener
 import com.orienteer.core.attachSnapHelperWithListener
 import com.orienteer.databinding.FragmentMapBinding
 import com.orienteer.treasurehunts.TreasureHuntsAdapter
+import kotlinx.android.synthetic.main.app_bar_main.view.*
 
 class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var _locationCallback: LocationCallback
@@ -70,7 +73,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         _locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
                 locationResult ?: return
-                for (location in locationResult.locations){
+                for (location in locationResult.locations) {
 
                     Log.i("MapFragment", "location update $location")
                     // Update the Map UI
@@ -104,10 +107,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         // After navigating, call doneNavigatingToSelectedTreasureHunt() so that the ViewModel is ready
         // for another navigation event.
         viewModel.navigateToSelectedTreasureHunt.observe(this, Observer {
-            if ( null != it ) {
+            if (null != it) {
                 // Must find the NavController from the Fragment
                 this.findNavController().navigate(
-                    MapFragmentDirections.actionMapDestinationToTreasureHuntDetail(it))
+                    MapFragmentDirections.actionMapDestinationToTreasureHuntDetail(it)
+                )
 
                 // Tell the ViewModel we've made the navigate call to prevent multiple navigation
                 viewModel.doneNavigatingToSelectedTreasureHunt()
@@ -115,6 +119,16 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         })
 
         return _binding.root
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopLocationUpdates()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (viewModel.locationPermissionGranted.value!!) startLocationUpdates()
     }
 
     /**
@@ -213,10 +227,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (viewModel.locationPermissionGranted.value!!) startLocationUpdates()
-    }
 
     @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
@@ -228,15 +238,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val locationRequest = LocationRequest()
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         locationRequest.interval = 5000
-        _fusedLocationProviderClient.requestLocationUpdates(locationRequest,
+        _fusedLocationProviderClient.requestLocationUpdates(
+            locationRequest,
             _locationCallback,
-            null /* Looper */)
+            null /* Looper */
+        )
     }
 
-    override fun onPause() {
-        super.onPause()
-        stopLocationUpdates()
-    }
 
     private fun stopLocationUpdates() {
         _fusedLocationProviderClient.removeLocationUpdates(_locationCallback)

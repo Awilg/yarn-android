@@ -20,6 +20,10 @@ class TreasureHuntDetailFragment : Fragment() {
         val viewModelFactory = TreasureHuntDetailViewModelFactory(treasureHunt, application)
 
         binding.viewModel = ViewModelProviders.of(this, viewModelFactory).get(TreasureHuntDetailViewModel::class.java)
+
+        binding.addToActiveButton.setOnClickListener {
+            // Add the current hunt to the
+        }
         return binding.root
     }
 }

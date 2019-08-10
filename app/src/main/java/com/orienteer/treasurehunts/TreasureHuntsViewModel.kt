@@ -8,6 +8,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.orienteer.models.ApiStatus
 import com.orienteer.models.TreasureHunt
 import com.orienteer.network.TreasureHuntApi
+import com.orienteer.util.TEST_HUNTS
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -61,9 +62,9 @@ class TreasureHuntsViewModel(location: LatLng) : ViewModel() {
                 _status.value = ApiStatus.DONE
                 _treasureHunts.value = listResult
             } catch (e: Exception) {
-                _status.value = ApiStatus.ERROR
+                //_status.value = ApiStatus.ERROR
                 Log.e("TreasureHuntsViewModel", "Network request failed with exception $e")
-                _treasureHunts.value = ArrayList()
+                _treasureHunts.value = TEST_HUNTS
             }
         }
     }
