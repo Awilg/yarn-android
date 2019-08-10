@@ -68,4 +68,13 @@ class TreasureHuntsAdapter(private val onClickListener: OnClickListener) :
     class OnClickListener(val clickListener: (treasureHunt: TreasureHunt) -> Unit) {
         fun onClick(treasureHunt: TreasureHunt) = clickListener(treasureHunt)
     }
+
+    /**
+     * Provides a get method to retrieve the data object for a current position in the
+     * list of [TreasureHunt] used by the [RecyclerView]
+     * @param position the position in the [RecyclerView]
+     */
+    public override fun getItem(position: Int): TreasureHunt {
+        return super.getItem(position)
+    }
 }

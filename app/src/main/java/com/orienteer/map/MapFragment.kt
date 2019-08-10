@@ -10,12 +10,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.SnapHelper
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -25,9 +28,12 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.orienteer.R
+import com.orienteer.core.OnSnapPositionChangeListener
+import com.orienteer.core.SnapOnScrollListener
+import com.orienteer.core.attachSnapHelperWithListener
+import com.orienteer.databinding.CardTreasureHuntBinding
 import com.orienteer.databinding.FragmentMapBinding
 import com.orienteer.treasurehunts.TreasureHuntsAdapter
-import kotlin.math.log
 
 class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var _locationCallback: LocationCallback
@@ -80,9 +86,18 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             Toast.makeText(context, "Clicked treasure hunt ${it.name}!", Toast.LENGTH_LONG).show()
         })
 
-        // Set the snap helper so that the cards snap to the full screen on swiping
-        val snapHelper = PagerSnapHelper() // Or PagerSnapHelper
-        snapHelper.attachToRecyclerView(binding.treasureHuntsCardsMap)
+        binding.treasureHuntsCardsMap.attachSnapHelperWithListener(
+            PagerSnapHelper(),
+            SnapOnScrollListener.Behavior.NOTIFY_ON_SCROLL_STATE_IDLE,
+            object : OnSnapPositionChangeListener {
+                override fun onSnapPositionChange(position: Int) {
+                    val adapter = binding.treasureHuntsCardsMap.adapter as TreasureHuntsAdapter
+                    val hunt = adapter.getItem(position)
+
+                    Toast.makeText(context, "Scrolled to hunt ${hunt.name}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        )
 
         return binding.root
     }
