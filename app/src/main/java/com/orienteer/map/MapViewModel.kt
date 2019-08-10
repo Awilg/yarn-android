@@ -28,7 +28,6 @@ class MapViewModel : ViewModel() {
     val locationPermissionGranted: LiveData<Boolean>
         get() = _locationPermissionGranted
 
-    // Add observer to show button
     private val _isMyLocationButtonEnabled = MutableLiveData<Boolean>()
     val isMyLocationButtonEnabled: LiveData<Boolean>
         get() = _isMyLocationButtonEnabled
@@ -36,6 +35,10 @@ class MapViewModel : ViewModel() {
     private val _treasureHuntsNearby = MutableLiveData<List<TreasureHunt>>()
     val treasureHuntsNearby: LiveData<List<TreasureHunt>>
         get() = _treasureHuntsNearby
+
+    private val _navigateToSelectedTreasureHunt = MutableLiveData<TreasureHunt>()
+    val navigateToSelectedTreasureHunt: LiveData<TreasureHunt>
+        get() = _navigateToSelectedTreasureHunt
 
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
@@ -158,5 +161,13 @@ class MapViewModel : ViewModel() {
                 _treasureHuntsNearby.value = ArrayList()
             }
         }
+    }
+
+    fun displayTreasureHuntDetails(treasureHunt: TreasureHunt) {
+        _navigateToSelectedTreasureHunt.value = treasureHunt
+    }
+
+    fun doneNavigatingToSelectedTreasureHunt(){
+        _navigateToSelectedTreasureHunt.value = null
     }
 }

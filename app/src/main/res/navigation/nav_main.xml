@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mapDestination_to_treasureCreateDestination"
             app:destination="@id/treasureCreateDestination" />
+        <action
+            android:id="@+id/action_mapDestination_to_treasureHuntDetail"
+            app:destination="@id/treasureHuntDetail" />
     </fragment>
     <fragment
         android:id="@+id/treasureCreateDestination"

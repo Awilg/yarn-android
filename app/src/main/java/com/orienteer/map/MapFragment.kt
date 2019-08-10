@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -36,6 +37,7 @@ import com.orienteer.databinding.CardTreasureHuntBinding
 import com.orienteer.databinding.FragmentMapBinding
 import com.orienteer.models.TreasureHunt
 import com.orienteer.treasurehunts.TreasureHuntsAdapter
+import com.orienteer.treasurehunts.TreasureHuntsFragmentDirections
 
 class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var _locationCallback: LocationCallback
@@ -87,11 +89,15 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             }
         }
 
-        // Create the adapter that will populate the recycler view
+        // Create the adapter that will populate the recycler view and updates the livedata
+        // in the viewmodel to determine where to navigate.
         _binding.treasureHuntsCardsMap.adapter = TreasureHuntsAdapter(TreasureHuntsAdapter.OnClickListener {
-            Toast.makeText(context, "Clicked treasure hunt ${it.name}!", Toast.LENGTH_LONG).show()
+            viewModel.displayTreasureHuntDetails(it)
         })
 
+        // Adds a listener that is aware of "swipe" card changes to the underlying RecyclerView
+        // Snaps cards to the screen so there's only one ever fully on screen and moves the map to
+        // the location of the hunt currently on screen.
         _binding.treasureHuntsCardsMap.attachSnapHelperWithListener(
             PagerSnapHelper(),
             SnapOnScrollListener.Behavior.NOTIFY_ON_SCROLL_STATE_IDLE,
@@ -103,6 +109,20 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 }
             }
         )
+
+        // Observe the navigateToSelectedTreasureHunt LiveData and Navigate when it isn't null
+        // After navigating, call doneNavigatingToSelectedTreasureHunt() so that the ViewModel is ready
+        // for another navigation event.
+        viewModel.navigateToSelectedTreasureHunt.observe(this, Observer {
+            if ( null != it ) {
+                // Must find the NavController from the Fragment
+                this.findNavController().navigate(
+                    MapFragmentDirections.actionMapDestinationToTreasureHuntDetail(it))
+
+                // Tell the ViewModel we've made the navigate call to prevent multiple navigation
+                viewModel.doneNavigatingToSelectedTreasureHunt()
+            }
+        })
 
         return _binding.root
     }
