@@ -27,12 +27,14 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.orienteer.R
 import com.orienteer.core.OnSnapPositionChangeListener
 import com.orienteer.core.SnapOnScrollListener
 import com.orienteer.core.attachSnapHelperWithListener
 import com.orienteer.databinding.CardTreasureHuntBinding
 import com.orienteer.databinding.FragmentMapBinding
+import com.orienteer.models.TreasureHunt
 import com.orienteer.treasurehunts.TreasureHuntsAdapter
 
 class MapFragment : Fragment(), OnMapReadyCallback {
@@ -46,12 +48,16 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         ViewModelProviders.of(this).get(MapViewModel::class.java)
     }
 
+    private lateinit var _binding: FragmentMapBinding
+
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.i("MapFragment", "Creating fragment view!")
-        val binding = FragmentMapBinding.inflate(inflater)
+        _binding = FragmentMapBinding.inflate(inflater)
 
         // Giving the binding access to the MapViewModel
-        binding.viewModel = viewModel
+        _binding.viewModel = viewModel
 
         // Initialize the location services client
         _fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity as Activity)
@@ -61,12 +67,12 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapFragment?.getMapAsync(this)
 
         // Set up the floating action button
-        binding.fab.setOnClickListener {
+        _binding.fab.setOnClickListener {
             findNavController().navigate(MapFragmentDirections.actionMapDestinationToTreasureCreateDestination())
         }
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
-        binding.lifecycleOwner = this
+        _binding.lifecycleOwner = this
 
         // Create the location callback
         _locationCallback = object : LocationCallback() {
@@ -82,24 +88,23 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
 
         // Create the adapter that will populate the recycler view
-        binding.treasureHuntsCardsMap.adapter = TreasureHuntsAdapter(TreasureHuntsAdapter.OnClickListener {
+        _binding.treasureHuntsCardsMap.adapter = TreasureHuntsAdapter(TreasureHuntsAdapter.OnClickListener {
             Toast.makeText(context, "Clicked treasure hunt ${it.name}!", Toast.LENGTH_LONG).show()
         })
 
-        binding.treasureHuntsCardsMap.attachSnapHelperWithListener(
+        _binding.treasureHuntsCardsMap.attachSnapHelperWithListener(
             PagerSnapHelper(),
             SnapOnScrollListener.Behavior.NOTIFY_ON_SCROLL_STATE_IDLE,
             object : OnSnapPositionChangeListener {
                 override fun onSnapPositionChange(position: Int) {
-                    val adapter = binding.treasureHuntsCardsMap.adapter as TreasureHuntsAdapter
+                    val adapter = _binding.treasureHuntsCardsMap.adapter as TreasureHuntsAdapter
                     val hunt = adapter.getItem(position)
-
-                    Toast.makeText(context, "Scrolled to hunt ${hunt.name}", Toast.LENGTH_SHORT).show()
+                    viewModel.moveMapToLocation(hunt.location)
                 }
             }
         )
 
-        return binding.root
+        return _binding.root
     }
 
     /**
@@ -126,8 +131,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         // Allow for interval updating
         startLocationUpdates()
-    }
 
+    }
     /**
      * Request location permission, so that we can get the location of the
      * device. The result of the permission request is handled by a callback,

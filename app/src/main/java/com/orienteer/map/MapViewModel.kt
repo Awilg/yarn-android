@@ -89,6 +89,14 @@ class MapViewModel : ViewModel() {
         }
     }
 
+    fun moveMapToLocation(loc :LatLng) {
+        _map?.moveCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                loc, DEFAULT_ZOOM
+            )
+        )
+    }
+
     fun setMap(map: GoogleMap) {
         _map = map
     }
