@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.orienteer.databinding.FragmentTreasureHuntDetailBinding
 
 class TreasureHuntDetailFragment : Fragment() {
@@ -23,8 +24,15 @@ class TreasureHuntDetailFragment : Fragment() {
         binding.viewModel = ViewModelProviders.of(this, viewModelFactory).get(TreasureHuntDetailViewModel::class.java)
 
         binding.addToActiveButton.setOnClickListener {
-            // TODO: Add the current hunt to the
-            Toast.makeText(context, "Added treasure hunt to active!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Active Adventure ${treasureHunt.name}!", Toast.LENGTH_SHORT).show()
+
+            // Must find the NavController from the Fragment
+            this.findNavController().navigate(
+                TreasureHuntDetailFragmentDirections.actionTreasureHuntDetailToTreasureHuntActiveFragment(treasureHunt))
+        }
+
+        binding.addToMyAdventures.setOnClickListener {
+            Toast.makeText(context, "Followed Adventure ${treasureHunt.name}!", Toast.LENGTH_SHORT).show()
         }
         return binding.root
     }

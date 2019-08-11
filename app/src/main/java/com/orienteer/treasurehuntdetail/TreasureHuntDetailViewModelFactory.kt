@@ -7,7 +7,7 @@ import com.orienteer.models.TreasureHunt
 
 
 /**
- * Simple ViewModel factory that provides the MarsProperty and context to the ViewModel.
+ * Simple [ViewModel] factory that provides the [TreasureHunt] and context to the ViewModel.
  */
 class TreasureHuntDetailViewModelFactory(
     private val treasureHunt: TreasureHunt,

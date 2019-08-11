@@ -45,6 +45,9 @@
         <argument
             android:name="selectedTreasureHunt"
             app:argType="com.orienteer.models.TreasureHunt" />
+        <action
+            android:id="@+id/action_treasureHuntDetail_to_treasureHuntActiveFragment"
+            app:destination="@id/treasureHuntActiveFragment" />
     </fragment>
 
     <fragment
@@ -52,5 +55,13 @@
         android:name="com.orienteer.settings.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@xml/user_settings" />
+    <fragment
+        android:id="@+id/treasureHuntActiveFragment"
+        android:name="com.orienteer.treasurehuntactive.TreasureHuntActiveFragment"
+        tools:layout="@layout/fragment_treasure_hunt_active">
+        <argument
+            android:name="selectedTreasureHunt"
+            app:argType="com.orienteer.models.TreasureHunt" />
+    </fragment>
 
 </navigation>

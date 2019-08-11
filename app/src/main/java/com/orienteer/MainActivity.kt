@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.orienteer.databinding.ActivityMainBinding
+import com.orienteer.models.TreasureHunt
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,12 +42,18 @@ class MainActivity : AppCompatActivity() {
             binding.drawerLayout.closeDrawers()
         }
 
-        // Only allow the drawer on the top level map fragment.
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        // Only allow the drawer on the top level map fragment. This is to handle whatever other nonsense
+        // that NavigationUI can't do naturally, primarily dynamic actions to the toolbar.
+        navController.addOnDestinationChangedListener { _, destination, arguments ->
             if(destination.id != R.id.mapFragment) {
                 binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             } else {
                 binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            }
+
+            if (destination.id == R.id.treasureHuntActiveFragment) {
+                var hunt = arguments?.get("selectedTreasureHunt") as TreasureHunt
+                binding.toolbarInclude.toolbar.title = hunt.name
             }
         }
 

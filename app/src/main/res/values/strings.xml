@@ -100,4 +100,5 @@
     <string name="feedback">Feedback</string>
     <string name="your_adventures">Your Adventures</string>
     <string name="add_adventure_by_qr_code">Add Adventure By QR Code</string>
+    <string name="follow_adventure">Follow Adventure</string>
 </resources>
