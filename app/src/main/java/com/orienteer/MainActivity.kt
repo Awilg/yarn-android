@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         // Only allow the drawer on the top level map fragment.
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.label != "mapFragment") {
+            if(destination.id != R.id.mapFragment) {
                 binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             } else {
                 binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
