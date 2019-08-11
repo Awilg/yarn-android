@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.orienteer.databinding.FragmentTreasureHuntDetailBinding
@@ -22,7 +23,8 @@ class TreasureHuntDetailFragment : Fragment() {
         binding.viewModel = ViewModelProviders.of(this, viewModelFactory).get(TreasureHuntDetailViewModel::class.java)
 
         binding.addToActiveButton.setOnClickListener {
-            // Add the current hunt to the
+            // TODO: Add the current hunt to the
+            Toast.makeText(context, "Added treasure hunt to active!", Toast.LENGTH_SHORT).show()
         }
         return binding.root
     }
