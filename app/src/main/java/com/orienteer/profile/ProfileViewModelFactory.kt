@@ -8,7 +8,7 @@ import com.orienteer.models.User
 /**
  * Simple ViewModel factory that provides the MarsProperty and context to the ViewModel.
  */
-class TreasureHuntDetailViewModelFactory(
+class ProfileViewModelFactory(
     private val user: User,
     private val application: Application
 ) : ViewModelProvider.Factory {
