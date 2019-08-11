@@ -13,7 +13,7 @@ var TEST_HUNTS : List<TreasureHunt> = listOf(
     TreasureHunt("id_4", "Treasure Hunt 4", LatLng(46.9, -122.399)),
     TreasureHunt("id_5", "Treasure Hunt 5", LatLng(47.2062, -122.3412)),
     TreasureHunt("id_6", "Treasure Hunt 6", LatLng(47.309, -122.3662)),
-    TreasureHunt("id_7", "Treasure Hunt 7", LatLng(47.536, -122.300)),
+    TreasureHunt("id_7", "Hunt d'Elizabeth", LatLng(47.536, -122.300)),
     TreasureHunt("id_8", "Treasure Hunt 8", LatLng(48.6062, -122.803)),
     TreasureHunt("id_9", "Treasure Hunt 9", LatLng(48.022, -122.555)),
     TreasureHunt("id_10", "Treasure Hunt 10", LatLng(48.11, -122.222)),
@@ -29,4 +29,4 @@ var TEST_HUNTS : List<TreasureHunt> = listOf(
     TreasureHunt("id_20", "Treasure Hunt 20", LatLng(47.721, -122.420))
 )
 
-var TEST_USER : User = User("id", "James G.", listOf("id_15", "id_19"), emptyList(), Calendar.getInstance().time)
+var TEST_USER : User = User("id", "Liz", listOf("id_15", "id_19"), emptyList(), Calendar.getInstance().time)

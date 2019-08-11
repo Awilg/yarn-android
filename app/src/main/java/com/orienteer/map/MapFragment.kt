@@ -3,14 +3,12 @@ package com.orienteer.map
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -32,7 +30,6 @@ import com.orienteer.core.SnapOnScrollListener
 import com.orienteer.core.attachSnapHelperWithListener
 import com.orienteer.databinding.FragmentMapBinding
 import com.orienteer.treasurehunts.TreasureHuntsAdapter
-import kotlinx.android.synthetic.main.app_bar_main.view.*
 
 class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var _locationCallback: LocationCallback
