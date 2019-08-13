@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.orienteer.core.ClueAdapter
 import com.orienteer.databinding.FragmentTreasureHuntActiveBinding
 
 class TreasureHuntActiveFragment : Fragment() {
@@ -15,6 +16,8 @@ class TreasureHuntActiveFragment : Fragment() {
         val application = requireNotNull(activity).application
 
         binding.lifecycleOwner = this
+
+        binding.cluesRecyclerview.adapter = ClueAdapter()
 
         val treasureHunt = TreasureHuntActiveFragmentArgs.fromBundle(arguments!!).selectedTreasureHunt
         val viewModelFactory = TreasureHuntActiveViewModelFactory(treasureHunt, application)

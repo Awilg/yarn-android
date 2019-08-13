@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.orienteer.treasurehuntactive.TreasureHuntActiveViewModel" />
@@ -13,17 +14,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <TextView
             android:id="@+id/activeHuntText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
             android:text="@{viewModel.activeAdventure.name}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/clues_recyclerview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Active Adventure!"/>
+            tools:text="Active Adventure!" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/clues_recyclerview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:padding="6dp"
+            app:cluesData="@{viewModel.clues}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activeHuntText"
+            app:spanCount="2"
+            tools:itemCount="16"
+            tools:listitem="@layout/clue_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

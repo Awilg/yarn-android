@@ -5,7 +5,9 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.common.api.Api
+import com.orienteer.core.ClueAdapter
 import com.orienteer.models.ApiStatus
+import com.orienteer.models.Clue
 import com.orienteer.models.TreasureHunt
 import com.orienteer.treasurehunts.TreasureHuntsAdapter
 
@@ -16,6 +18,13 @@ import com.orienteer.treasurehunts.TreasureHuntsAdapter
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<TreasureHunt>?) {
     val adapter = recyclerView.adapter as TreasureHuntsAdapter
+    adapter.submitList(data)
+}
+
+
+@BindingAdapter("cluesData")
+fun bindCluesRecyclerView(recyclerView: RecyclerView, data: List<Clue>?) {
+    val adapter = recyclerView.adapter as ClueAdapter
     adapter.submitList(data)
 }
 

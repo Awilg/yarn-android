@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.orienteer.models.Clue
 import com.orienteer.models.TreasureHunt
 
 class TreasureHuntActiveViewModel (hunt: TreasureHunt, app: Application) : AndroidViewModel(app) {
@@ -12,8 +13,13 @@ class TreasureHuntActiveViewModel (hunt: TreasureHunt, app: Application) : Andro
     val activeAdventure: LiveData<TreasureHunt>
         get() = _activeAdventure
 
+    private val _clues = MutableLiveData<List<Clue>>()
+    val clues: LiveData<List<Clue>>
+        get() = _clues
+
     // Initialize the _selectedProperty MutableLiveData
     init {
         _activeAdventure.value = hunt
+        _clues.value = hunt.clues
     }
 }

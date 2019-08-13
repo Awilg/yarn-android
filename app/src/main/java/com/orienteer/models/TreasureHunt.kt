@@ -15,4 +15,5 @@ data class TreasureHunt(
     @Json(name = "_id")
     val id: String,
     val name: String,
-    val location: LatLng) : Parcelable
+    val location: LatLng,
+    val clues: List<Clue>) : Parcelable
