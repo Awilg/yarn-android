@@ -8,16 +8,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.orienteer.databinding.ClueItemBinding
 import com.orienteer.models.Clue
 
-
-class ClueAdapter : ListAdapter<Clue, ClueAdapter.ClueViewHolder>(ClueAdapter.DiffCallback) {
+class ClueAdapter(private val clueAdapterListener: ClueAdapterListener) : ListAdapter<Clue, ClueAdapter.ClueViewHolder>(DiffCallback) {
 
     /**
      * The ClueViewHolder constructor takes the binding variable from the associated
      * GridViewItem, which nicely gives it access to the full [Clue] information.
      */
-    class ClueViewHolder(private var binding: ClueItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ClueViewHolder(private var binding: ClueItemBinding,
+                         private val clueAdapterListener: ClueAdapterListener) : RecyclerView.ViewHolder(binding.root) {
         fun bind(clue: Clue) {
             binding.clue = clue
+
+            binding.clueTypeImage.setOnClickListener { clueAdapterListener.clueTypeOnClick(clue.type) }
+            binding.clueHintImage.setOnClickListener { clueAdapterListener.clueHintOnClick(clue.hint) }
+            binding.clueSolveImage.setOnClickListener { clueAdapterListener.clueSolveOnClick(clue.type) }
+
             // This is important, because it forces the data binding to execute immediately,
             // which allows the RecyclerView to make the correct view size measurements
             binding.executePendingBindings()
@@ -33,7 +38,7 @@ class ClueAdapter : ListAdapter<Clue, ClueAdapter.ClueViewHolder>(ClueAdapter.Di
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ), clueAdapterListener
         )
     }
 
@@ -42,6 +47,7 @@ class ClueAdapter : ListAdapter<Clue, ClueAdapter.ClueViewHolder>(ClueAdapter.Di
      */
     override fun onBindViewHolder(holder: ClueViewHolder, position: Int) {
         val clue = getItem(position)
+
         holder.bind(clue)
     }
 

@@ -24,8 +24,6 @@ class TreasureHuntDetailFragment : Fragment() {
         binding.viewModel = ViewModelProviders.of(this, viewModelFactory).get(TreasureHuntDetailViewModel::class.java)
 
         binding.addToActiveButton.setOnClickListener {
-            Toast.makeText(context, "Active Adventure ${treasureHunt.name}!", Toast.LENGTH_SHORT).show()
-
             // Must find the NavController from the Fragment
             this.findNavController().navigate(
                 TreasureHuntDetailFragmentDirections.actionTreasureHuntDetailToTreasureHuntActiveFragment(treasureHunt))

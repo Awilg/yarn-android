@@ -14,7 +14,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/clue_hint_image2"
+            android:id="@+id/clue_solve_image"
             android:layout_width="50sp"
             android:layout_height="50sp"
             android:layout_marginTop="16dp"
@@ -60,8 +60,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:contentDescription="@string/todo"
-            app:layout_constraintBottom_toBottomOf="@+id/clue_hint_image2"
-            app:layout_constraintEnd_toStartOf="@+id/clue_hint_image2"
+            app:layout_constraintBottom_toBottomOf="@+id/clue_solve_image"
+            app:layout_constraintEnd_toStartOf="@+id/clue_solve_image"
             app:srcCompat="@android:drawable/ic_menu_help" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
