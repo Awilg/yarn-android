@@ -2,7 +2,6 @@ package com.orienteer.map
 
 import android.location.Location
 import android.location.LocationManager
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,6 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class MapViewModel : ViewModel() {
     private var _map: GoogleMap? = null
@@ -127,7 +127,7 @@ class MapViewModel : ViewModel() {
                 _locationPermissionGranted.value = false
             }
         } catch (e: SecurityException) {
-            Log.e("Exception: %s", e.message!!)
+            Timber.e("Exception: %s", e.message!!)
         }
 
     }
@@ -158,7 +158,7 @@ class MapViewModel : ViewModel() {
                 val listResult = getTreasureHunts.await()
                 _treasureHuntsNearby.value = listResult
             } catch (e: Exception) {
-                Log.e("TreasureHuntsViewModel", "Network request failed with exception $e")
+                Timber.e("Network request failed with exception $e")
                 _treasureHuntsNearby.value = TEST_HUNTS
             }
         }

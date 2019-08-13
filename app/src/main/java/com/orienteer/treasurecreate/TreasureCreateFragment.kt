@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,8 +25,9 @@ import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.orienteer.R
-import com.orienteer.util.PermissionsUtil
 import com.orienteer.databinding.FragmentTreasureCreateBinding
+import com.orienteer.util.PermissionsUtil
+import timber.log.Timber
 
 
 class TreasureCreateFragment : Fragment(), OnMapReadyCallback {
@@ -65,7 +65,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback {
 
         viewModel.navigateToSuccessScreen.observe(this, Observer {
             if (it == true) {
-                Log.i("TreasureCreateFragment", "navigating to the success screen!")
+                Timber.i("navigating to the success screen!")
                 viewModel.setTreasureHuntName(binding.treasureHuntName.text.toString())
                 Toast.makeText(context, "Treasure Hunt ${viewModel.treasureHuntName.value} created!", Toast.LENGTH_LONG)
                     .show()

@@ -1,6 +1,5 @@
 package com.orienteer.treasurehunts
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class TreasureHuntsViewModel(location: LatLng) : ViewModel() {
 
@@ -63,7 +63,7 @@ class TreasureHuntsViewModel(location: LatLng) : ViewModel() {
                 _treasureHunts.value = listResult
             } catch (e: Exception) {
                 //_status.value = ApiStatus.ERROR
-                Log.e("TreasureHuntsViewModel", "Network request failed with exception $e")
+                Timber.e("Network request failed with exception $e")
                 _treasureHunts.value = TEST_HUNTS
             }
         }

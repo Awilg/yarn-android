@@ -14,6 +14,10 @@ import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.orienteer.databinding.ActivityMainBinding
 import com.orienteer.models.TreasureHunt
+import timber.log.Timber.DebugTree
+import timber.log.Timber
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +27,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Set up Logger
+        if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
+        }
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         navController = findNavController(R.id.nav_host_fragment_new_main)

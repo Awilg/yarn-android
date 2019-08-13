@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +29,7 @@ import com.orienteer.core.SnapOnScrollListener
 import com.orienteer.core.attachSnapHelperWithListener
 import com.orienteer.databinding.FragmentMapBinding
 import com.orienteer.treasurehunts.TreasureHuntsAdapter
+import timber.log.Timber
 
 class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var _locationCallback: LocationCallback
@@ -45,7 +45,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var _binding: FragmentMapBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.i("MapFragment", "Creating fragment view!")
+        Timber.i("Creating fragment view!")
         _binding = FragmentMapBinding.inflate(inflater)
 
         // Giving the binding access to the MapViewModel
@@ -72,7 +72,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 locationResult ?: return
                 for (location in locationResult.locations) {
 
-                    Log.i("MapFragment", "location update $location")
+                    Timber.i("location update $location")
                     // Update the Map UI
                     // Draw moving dot?
                 }
@@ -211,15 +211,15 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         viewModel.setLastKnownLocation(task.result as Location)
                         viewModel.updateMap()
                     } else {
-                        Log.d("MapViewModel", "Current location is null. Using defaults.")
-                        Log.e("MapViewModel", "Exception: %s", task.exception)
+                        Timber.d("Current location is null. Using defaults.")
+                        Timber.e("Exception: ${task.exception}")
                         viewModel.resetMap()
                         viewModel.disableMyLocationButtonEnabled()
                     }
                 }
             }
         } catch (e: SecurityException) {
-            Log.e("MapFragment", "Exception: ${e.message}")
+            Timber.e("Exception: ${e.message}")
         }
 
     }
