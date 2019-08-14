@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.orienteer.core.ClueAdapter
 import com.orienteer.core.ClueAdapterListener
 import com.orienteer.databinding.FragmentTreasureHuntActiveBinding
+import com.orienteer.models.Clue
 import com.orienteer.models.ClueType
 
 class TreasureHuntActiveFragment : Fragment() {
@@ -25,8 +27,13 @@ class TreasureHuntActiveFragment : Fragment() {
                 Toast.makeText(context, "Clicked Type: ${type.name}", Toast.LENGTH_SHORT).show()
             }
 
-            override fun clueSolveOnClick(type: ClueType) {
-                Toast.makeText(context, "Clicked Solve!", Toast.LENGTH_SHORT).show()
+            override fun clueSolveOnClick(clue: Clue) {
+                when(clue.type) {
+                     ClueType.Photo -> findNavController()
+                         .navigate(TreasureHuntActiveFragmentDirections.actionTreasureHuntActiveFragmentToCameraFragment(clue))
+                    ClueType.Location -> TODO()
+                    ClueType.Text -> TODO()
+                }
             }
 
             override fun clueHintOnClick(hint : String) {

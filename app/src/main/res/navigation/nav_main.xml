@@ -62,6 +62,18 @@
         <argument
             android:name="selectedTreasureHunt"
             app:argType="com.orienteer.models.TreasureHunt" />
+        <action
+            android:id="@+id/action_treasureHuntActiveFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.orienteer.camera.CameraFragment"
+        android:label="CameraFragment"
+        tools:layout="@layout/fragment_camera">
+        <argument
+            android:name="photoClue"
+            app:argType="com.orienteer.models.Clue" />
     </fragment>
 
 </navigation>

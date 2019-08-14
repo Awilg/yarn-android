@@ -21,7 +21,7 @@ class ClueAdapter(private val clueAdapterListener: ClueAdapterListener) : ListAd
 
             binding.clueTypeImage.setOnClickListener { clueAdapterListener.clueTypeOnClick(clue.type) }
             binding.clueHintImage.setOnClickListener { clueAdapterListener.clueHintOnClick(clue.hint) }
-            binding.clueSolveImage.setOnClickListener { clueAdapterListener.clueSolveOnClick(clue.type) }
+            binding.clueSolveImage.setOnClickListener { clueAdapterListener.clueSolveOnClick(clue) }
 
             // This is important, because it forces the data binding to execute immediately,
             // which allows the RecyclerView to make the correct view size measurements
