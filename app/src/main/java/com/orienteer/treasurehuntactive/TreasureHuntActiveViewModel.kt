@@ -17,9 +17,17 @@ class TreasureHuntActiveViewModel (hunt: TreasureHunt, app: Application) : Andro
     val clues: LiveData<List<Clue>>
         get() = _clues
 
+    private val _currentActiveClue = MutableLiveData<Clue>()
+    val currentActiveClue: LiveData<Clue>
+        get() = _currentActiveClue
+
     // Initialize the _selectedProperty MutableLiveData
     init {
         _activeAdventure.value = hunt
         _clues.value = hunt.clues
+    }
+
+    fun setCurrentClue(clue: Clue) {
+        _currentActiveClue.value = clue
     }
 }

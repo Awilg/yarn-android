@@ -18,15 +18,27 @@ import com.orienteer.databinding.FragmentTreasureHuntActiveBinding
 import com.orienteer.models.Clue
 import com.orienteer.models.ClueType
 import com.orienteer.models.RequestCodes
+import com.orienteer.treasurehunts.TreasureHuntsViewModel
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import timber.log.Timber
 
 class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbacks {
+
+    /**
+     * Lazily initialize our [TreasureHuntActiveViewModel].
+     */
+    private lateinit var viewModel: TreasureHuntActiveViewModel
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentTreasureHuntActiveBinding.inflate(inflater)
         val application = requireNotNull(activity).application
 
+        // Initialize the viewmodel
+        val treasureHunt = TreasureHuntActiveFragmentArgs.fromBundle(arguments!!).selectedTreasureHunt
+        val viewModelFactory = TreasureHuntActiveViewModelFactory(treasureHunt, application)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(TreasureHuntActiveViewModel::class.java)
+        binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
         binding.cluesRecyclerview.adapter = ClueAdapter(object : ClueAdapterListener {
@@ -36,7 +48,11 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
 
             override fun clueSolveOnClick(clue: Clue) {
                 when (clue.type) {
-                    ClueType.Photo -> navigateToCameraForClue(clue)
+                    ClueType.Photo -> {
+                        viewModel.setCurrentClue(clue)
+                        // save clue to viewmodel and retrieve it in permission granted listener
+                        navigateToCameraForClue(clue)
+                    }
                     ClueType.Location -> TODO()
                     ClueType.Text -> TODO()
                 }
@@ -47,10 +63,6 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
             }
         })
 
-        val treasureHunt = TreasureHuntActiveFragmentArgs.fromBundle(arguments!!).selectedTreasureHunt
-        val viewModelFactory = TreasureHuntActiveViewModelFactory(treasureHunt, application)
-
-        binding.viewModel = ViewModelProviders.of(this, viewModelFactory).get(TreasureHuntActiveViewModel::class.java)
         return binding.root
     }
 
@@ -82,7 +94,9 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
         when (requestCode) {
             RequestCodes.PERMISSIONS_RC_CAMERA.code -> {
-                Toast.makeText(context, "Navigate but how get clue?", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(
+                    TreasureHuntActiveFragmentDirections
+                        .actionTreasureHuntActiveFragmentToCameraFragment(viewModel.currentActiveClue.value!!))
                 Timber.i("GRANTED CAMERA!")
             }
         }
