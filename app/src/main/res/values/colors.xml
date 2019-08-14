@@ -7,4 +7,9 @@
     <color name="parkPrimaryLight">#ffd7e2a5</color>
     <color name="parkPrimaryDark">#ff758149</color>
     <color name="colorSecondary">#FFC107</color>
+
+    // Camera colors
+    <color name="icActive">#FFFFFFFF</color>
+    <color name="icFocused">#DDFFFFFF</color>
+    <color name="icPressed">#AAFFFFFF</color>
 </resources>
