@@ -30,6 +30,10 @@ android {
     dataBinding {
         enabled = true
     }
+
+    configurations {
+        all*.exclude group: 'com.google.guava', module: 'listenablefuture'
+    }
 }
 
 dependencies {
@@ -73,20 +77,25 @@ dependencies {
     implementation "androidx.preference:preference-ktx:$version_preferences"
 
     // Google Play Services
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation "com.google.android.gms:play-services-maps:$version_google_play_services"
+    implementation "com.google.android.gms:play-services-location:$version_google_play_services"
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_coroutine"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_coroutine"
 
     // Firebase
-    implementation 'com.google.firebase:firebase-core:17.0.0'
-    implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
-    implementation 'com.google.firebase:firebase-auth:18.0.0'
+    implementation "com.google.firebase:firebase-core:$version_firebase_core"
+    implementation "com.firebaseui:firebase-ui-auth:$version_firebase_auth_ui"
+    implementation "com.google.firebase:firebase-auth:$version_firebase_auth"
 
     // Timber Logging
     implementation "com.jakewharton.timber:timber:$version_timber"
+
+    // Camera
+    implementation "androidx.camera:camera-core:${version_camerax}"
+    implementation "androidx.camera:camera-camera2:${version_camerax}"
+
 
     // Required only if Facebook login support is required
     // Find the latest Facebook SDK releases here: https://goo.gl/Ce5L94
