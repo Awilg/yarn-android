@@ -103,6 +103,7 @@
     <string name="follow_adventure">Follow Adventure</string>
     <string name="todo">TODO</string>
 
+    <!-- Camera -->
     <string name="capture_button_alt">Capture</string>
     <string name="switch_camera_button_alt">Switch camera</string>
     <string name="gallery_button_alt">Gallery</string>
@@ -115,4 +116,9 @@
     <string name="delete_button_alt">Delete</string>
     <string name="delete_dialog">Delete current photo?</string>
     <string name="delete_title">Confirm</string>
+
+    <!-- Permissions -->
+    <string name="camera_rationale">Need Da Cam for da pics</string>
+    <string name="rationale_ask_ok">We Gud?</string>
+    <string name="rationale_ask_cancel">Nah, fam</string>
 </resources>

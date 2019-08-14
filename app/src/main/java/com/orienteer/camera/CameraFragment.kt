@@ -16,6 +16,7 @@
 
 package com.orienteer.camera
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -55,6 +56,9 @@ import com.orienteer.R
 import com.orienteer.util.ANIMATION_FAST_MILLIS
 import com.orienteer.util.ANIMATION_SLOW_MILLIS
 import com.orienteer.util.AutoFitPreviewBuilder
+import pub.devrel.easypermissions.AfterPermissionGranted
+import pub.devrel.easypermissions.EasyPermissions
+import pub.devrel.easypermissions.PermissionRequest
 import timber.log.Timber
 import java.io.File
 import java.nio.ByteBuffer
@@ -68,6 +72,7 @@ import kotlin.collections.map
 
 /** Helper type alias used for analysis use case callbacks */
 typealias LumaListener = (luma: Double) -> Unit
+const val PERMISSIONS_RC_CAMERA : Int = 123
 
 /**
  * Main fragment for this app. Implements all camera operations including:
@@ -76,7 +81,6 @@ typealias LumaListener = (luma: Double) -> Unit
  * - Image analysis
  */
 class CameraFragment : Fragment() {
-
     private lateinit var container: ConstraintLayout
     private lateinit var viewFinder: TextureView
     private lateinit var outputDirectory: File
@@ -140,6 +144,49 @@ class CameraFragment : Fragment() {
         savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_camera, container, false)
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        container = view as ConstraintLayout
+        viewFinder = container.findViewById(R.id.view_finder)
+        broadcastManager = LocalBroadcastManager.getInstance(view.context)
+
+        // Check Permissions
+        checkCameraPermissions()
+
+        // Every time the orientation of device changes, recompute layout
+        displayManager = viewFinder.context
+            .getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
+        displayManager.registerDisplayListener(displayListener, null)
+
+        // Wait for the views to be properly laid out
+        viewFinder.post {
+            // Keep track of the display in which this view is attached
+            displayId = viewFinder.display.displayId
+
+            // Build UI controls and bind all camera use cases
+            updateCameraUi()
+            bindCameraUseCases()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    private fun checkCameraPermissions() {
+        if (!EasyPermissions.hasPermissions(context!!, Manifest.permission.CAMERA)) {
+            EasyPermissions.requestPermissions(
+                PermissionRequest.Builder(this, PERMISSIONS_RC_CAMERA, Manifest.permission.CAMERA)
+                .setRationale(R.string.camera_rationale)
+                .setPositiveButtonText(R.string.rationale_ask_ok)
+                .setNegativeButtonText(R.string.rationale_ask_cancel)
+                //.setTheme(R.style.my_fancy_style)
+                .build())
+        }
+    }
+
     private fun setGalleryThumbnail(file: File) {
         // Reference of the view that holds the gallery thumbnail
         val thumbnail = container.findViewById<ImageButton>(R.id.photo_view_button)
@@ -185,29 +232,6 @@ class CameraFragment : Fragment() {
                 .getMimeTypeFromExtension(photoFile.extension)
             MediaScannerConnection.scanFile(
                 context, arrayOf(photoFile.absolutePath), arrayOf(mimeType), null)
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        container = view as ConstraintLayout
-        viewFinder = container.findViewById(R.id.view_finder)
-        broadcastManager = LocalBroadcastManager.getInstance(view.context)
-
-        // Every time the orientation of device changes, recompute layout
-        displayManager = viewFinder.context
-            .getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
-        displayManager.registerDisplayListener(displayListener, null)
-
-        // Wait for the views to be properly laid out
-        viewFinder.post {
-            // Keep track of the display in which this view is attached
-            displayId = viewFinder.display.displayId
-
-            // Build UI controls and bind all camera use cases
-            updateCameraUi()
-            bindCameraUseCases()
         }
     }
 

@@ -175,6 +175,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+
+
     /**
      * Handles the result of the request for location permissions.
      */
@@ -191,6 +193,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     viewModel.setLocationPermissionGranted(true)
                 }
             }
+
         }
         viewModel.updateLocationUI()
         getDeviceLocation()
