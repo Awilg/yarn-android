@@ -56,7 +56,6 @@ import com.orienteer.R
 import com.orienteer.util.ANIMATION_FAST_MILLIS
 import com.orienteer.util.ANIMATION_SLOW_MILLIS
 import com.orienteer.util.AutoFitPreviewBuilder
-import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import timber.log.Timber
@@ -66,9 +65,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
-import kotlin.collections.average
-import kotlin.collections.forEach
-import kotlin.collections.map
 
 /** Helper type alias used for analysis use case callbacks */
 typealias LumaListener = (luma: Double) -> Unit
@@ -150,9 +146,6 @@ class CameraFragment : Fragment() {
         viewFinder = container.findViewById(R.id.view_finder)
         broadcastManager = LocalBroadcastManager.getInstance(view.context)
 
-        // Check Permissions
-        checkCameraPermissions()
-
         // Every time the orientation of device changes, recompute layout
         displayManager = viewFinder.context
             .getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
@@ -166,24 +159,6 @@ class CameraFragment : Fragment() {
             // Build UI controls and bind all camera use cases
             updateCameraUi()
             bindCameraUseCases()
-        }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
-    }
-
-    private fun checkCameraPermissions() {
-        if (!EasyPermissions.hasPermissions(context!!, Manifest.permission.CAMERA)) {
-            EasyPermissions.requestPermissions(
-                PermissionRequest.Builder(this, PERMISSIONS_RC_CAMERA, Manifest.permission.CAMERA)
-                .setRationale(R.string.camera_rationale)
-                .setPositiveButtonText(R.string.rationale_ask_ok)
-                .setNegativeButtonText(R.string.rationale_ask_cancel)
-                //.setTheme(R.style.my_fancy_style)
-                .build())
         }
     }
 
@@ -440,7 +415,6 @@ class CameraFragment : Fragment() {
     }
 
     companion object {
-        private const val TAG = "CameraXBasic"
         private const val FILENAME = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val PHOTO_EXTENSION = ".jpg"
 
