@@ -50,10 +50,11 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
                 when (clue.type) {
                     ClueType.Photo -> {
                         viewModel.setCurrentClue(clue)
-                        // save clue to viewmodel and retrieve it in permission granted listener
                         navigateToCameraForClue(clue)
                     }
-                    ClueType.Location -> TODO()
+                    ClueType.Location -> {
+                        onSolveLocationClue()
+                    }
                     ClueType.Text -> TODO()
                 }
             }
@@ -64,6 +65,18 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
         })
 
         return binding.root
+    }
+
+    private fun onSolveLocationClue() {
+        Timber.i("Attempting to navigate to camera clue solver.")
+        if (EasyPermissions.hasPermissions(context!!, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            // Check location
+        } else {
+            EasyPermissions.requestPermissions(
+                PermissionRequest.Builder(this, RequestCodes.PERMISSIONS_RC_LOCATION.code,
+                    Manifest.permission.ACCESS_FINE_LOCATION).build()
+            )
+        }
     }
 
     private fun navigateToCameraForClue(clue: Clue) {
@@ -98,6 +111,9 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
                     TreasureHuntActiveFragmentDirections
                         .actionTreasureHuntActiveFragmentToCameraFragment(viewModel.currentActiveClue.value!!))
                 Timber.i("GRANTED CAMERA!")
+            }
+            RequestCodes.PERMISSIONS_RC_LOCATION.code -> {
+                // Get location and check against viewmodel clue
             }
         }
     }
