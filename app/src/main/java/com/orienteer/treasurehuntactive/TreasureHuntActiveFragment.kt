@@ -14,15 +14,12 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.orienteer.R
-import com.orienteer.camera.PERMISSIONS_RC_CAMERA
 import com.orienteer.core.ClueAdapter
 import com.orienteer.core.ClueAdapterListener
 import com.orienteer.databinding.FragmentTreasureHuntActiveBinding
 import com.orienteer.models.Clue
 import com.orienteer.models.ClueType
 import com.orienteer.models.RequestCodes
-import com.orienteer.treasurehunts.TreasureHuntsViewModel
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import timber.log.Timber
@@ -56,18 +53,12 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
             }
 
             override fun clueSolveOnClick(clue: Clue) {
+                // This should be tracked in the viewmodel
+                viewModel.setCurrentClue(clue)
                 when (clue.type) {
-                    ClueType.Photo -> {
-                        viewModel.setCurrentClue(clue)
-                        handleSolveCameraClue()
-                    }
-                    ClueType.Location -> {
-                        viewModel.setCurrentClue(clue)
-                        onSolveLocationClue()
-                    }
-                    ClueType.Text -> {
-                        TODO()
-                    }
+                    ClueType.Photo -> onSolveCameraClue()
+                    ClueType.Location -> onSolveLocationClue()
+                    ClueType.Text -> onSolveTextClue()
                 }
             }
 
@@ -91,6 +82,12 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
         }
     }
 
+    private fun onSolveTextClue() {
+        // Determine if answer is equal to expected answer from clue
+        // Allow degree of misspellings and punctuation
+        Toast.makeText(context, "Solving text clue...", Toast.LENGTH_SHORT).show()
+    }
+
     @SuppressLint("MissingPermission")
     private fun checkLocationAgainstCurrentClue(){
         fusedLocationProviderClient.lastLocation
@@ -101,7 +98,7 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
 
     }
 
-    private fun handleSolveCameraClue() {
+    private fun onSolveCameraClue() {
         Timber.i("Attempting to navigate to camera clue solver.")
         if (EasyPermissions.hasPermissions(context!!, Manifest.permission.CAMERA)) {
             navigateToCameraForClue()
