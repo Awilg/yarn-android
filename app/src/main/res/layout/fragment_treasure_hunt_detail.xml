@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.orienteer.treasurehuntdetail.TreasureHuntDetailViewModel" />
@@ -19,14 +21,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:text="@{viewModel.selectedTreasureHunt.name}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textAlignment="textStart"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Super Awesome Fun Adventure!" />
+
+        <ImageView
+            android:id="@+id/treasure_hunt_detail_img"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/treasure_hunt_detail_img_content_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/treasure-hunt-detail-name"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
 
         <Button
             android:id="@+id/add_to_active_button"
@@ -37,22 +53,19 @@
             android:layout_marginBottom="8dp"
             android:text="@string/add_to_active"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/treasure-hunt-detail-name" />
+            app:layout_constraintEnd_toStartOf="@+id/add_to_my_adventures"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/add_to_my_adventures"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/follow_adventure"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_to_active_button" />
+            app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

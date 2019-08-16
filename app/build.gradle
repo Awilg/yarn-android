@@ -99,6 +99,9 @@ dependencies {
     // Easy Permissions
     implementation "pub.devrel:easypermissions:$version_easypermissions"
 
+    // Circular Image View
+    implementation "com.mikhaellopez:circularimageview:$version_circularimageview"
+
 
     // Required only if Facebook login support is required
     // Find the latest Facebook SDK releases here: https://goo.gl/Ce5L94
