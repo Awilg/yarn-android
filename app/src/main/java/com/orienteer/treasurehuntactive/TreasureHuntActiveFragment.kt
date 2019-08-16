@@ -1,7 +1,9 @@
 package com.orienteer.treasurehuntactive
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.orienteer.R
 import com.orienteer.camera.PERMISSIONS_RC_CAMERA
 import com.orienteer.core.ClueAdapter
@@ -30,6 +34,8 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
      */
     private lateinit var viewModel: TreasureHuntActiveViewModel
 
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentTreasureHuntActiveBinding.inflate(inflater)
         val application = requireNotNull(activity).application
@@ -41,6 +47,9 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        // Initialize the location services client
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity as Activity)
+
         binding.cluesRecyclerview.adapter = ClueAdapter(object : ClueAdapterListener {
             override fun clueTypeOnClick(type: ClueType) {
                 Toast.makeText(context, "Clicked Type: ${type.name}", Toast.LENGTH_SHORT).show()
@@ -50,12 +59,15 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
                 when (clue.type) {
                     ClueType.Photo -> {
                         viewModel.setCurrentClue(clue)
-                        navigateToCameraForClue(clue)
+                        handleSolveCameraClue()
                     }
                     ClueType.Location -> {
+                        viewModel.setCurrentClue(clue)
                         onSolveLocationClue()
                     }
-                    ClueType.Text -> TODO()
+                    ClueType.Text -> {
+                        TODO()
+                    }
                 }
             }
 
@@ -70,7 +82,7 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
     private fun onSolveLocationClue() {
         Timber.i("Attempting to navigate to camera clue solver.")
         if (EasyPermissions.hasPermissions(context!!, Manifest.permission.ACCESS_FINE_LOCATION)) {
-            // Check location
+            checkLocationAgainstCurrentClue()
         } else {
             EasyPermissions.requestPermissions(
                 PermissionRequest.Builder(this, RequestCodes.PERMISSIONS_RC_LOCATION.code,
@@ -79,19 +91,34 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
         }
     }
 
-    private fun navigateToCameraForClue(clue: Clue) {
+    @SuppressLint("MissingPermission")
+    private fun checkLocationAgainstCurrentClue(){
+        fusedLocationProviderClient.lastLocation
+            .addOnSuccessListener { location : Location? ->
+                // Got last known location. In some rare situations this can be null.
+                Timber.i("LAST KNOWN LOCATION: $location")
+            }
+
+    }
+
+    private fun handleSolveCameraClue() {
         Timber.i("Attempting to navigate to camera clue solver.")
         if (EasyPermissions.hasPermissions(context!!, Manifest.permission.CAMERA)) {
-            findNavController()
-                .navigate(
-                    TreasureHuntActiveFragmentDirections.actionTreasureHuntActiveFragmentToCameraFragment(clue)
-                )
+            navigateToCameraForClue()
         } else {
             EasyPermissions.requestPermissions(
                 PermissionRequest.Builder(this, RequestCodes.PERMISSIONS_RC_CAMERA.code,
                     Manifest.permission.CAMERA).build()
             )
         }
+    }
+
+    private fun navigateToCameraForClue() {
+        findNavController()
+            .navigate(
+                TreasureHuntActiveFragmentDirections
+                    .actionTreasureHuntActiveFragmentToCameraFragment(viewModel.currentActiveClue.value!!)
+            )
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -107,13 +134,10 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
         when (requestCode) {
             RequestCodes.PERMISSIONS_RC_CAMERA.code -> {
-                findNavController().navigate(
-                    TreasureHuntActiveFragmentDirections
-                        .actionTreasureHuntActiveFragmentToCameraFragment(viewModel.currentActiveClue.value!!))
-                Timber.i("GRANTED CAMERA!")
+                navigateToCameraForClue()
             }
             RequestCodes.PERMISSIONS_RC_LOCATION.code -> {
-                // Get location and check against viewmodel clue
+                checkLocationAgainstCurrentClue()
             }
         }
     }
