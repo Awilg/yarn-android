@@ -19,6 +19,8 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:contentDescription="@string/treasure_hunt_detail_img_content_description"
+            app:mapImageFromLatLng="@{adventure.location}"
+            app:mapsApiKey="@{@string/google_maps_key}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
