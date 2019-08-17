@@ -21,22 +21,8 @@
             android:id="@+id/main_info_section"
             layout="@layout/detail_main_info_section" />
 
-        <Button
-            android:id="@+id/add_to_active_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/add_to_active" />
-
-        <Button
-            android:id="@+id/add_to_my_adventures"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/follow_adventure" />
+        <include layout="@layout/detail_action_buttons"
+            android:id="@+id/action_button_section"/>
 
     </LinearLayout>
 
