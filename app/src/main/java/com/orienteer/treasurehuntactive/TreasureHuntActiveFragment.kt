@@ -93,9 +93,16 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
         fusedLocationProviderClient.lastLocation
             .addOnSuccessListener { location : Location? ->
                 // Got last known location. In some rare situations this can be null.
-                Timber.i("LAST KNOWN LOCATION: $location")
+                if (location != null) {
+                     if (viewModel.attemptLocationSolve(location)) {
+                         Toast.makeText(context, "Clue Solved!!", Toast.LENGTH_SHORT).show()
+                     } else {
+                         Toast.makeText(context, "Clue Failed! Location is NOT within accepted radius!", Toast.LENGTH_SHORT).show()
+                     }
+                } else {
+                    Toast.makeText(context, "Unable to get current location", Toast.LENGTH_SHORT).show()
+                }
             }
-
     }
 
     private fun onSolveCameraClue() {

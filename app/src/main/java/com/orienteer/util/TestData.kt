@@ -10,7 +10,7 @@ import java.util.Calendar
 // Seattle LatLng
 var TEST_HUNTS : List<TreasureHunt> = listOf(
     TreasureHunt("id_1", "Treasure Hunt 1", "This is a description!", LatLng(47.6062, -122.3321), listOf(
-        Clue("clue_1", "This is the first clue", "This is a hint", ClueType.Location, LatLng(47.539, -122.305)),
+        Clue("clue_1", "This is a location clue", "This is a hint", ClueType.Location, LatLng(47.539, -122.305)),
         Clue("clue_2", "This is the photo clue", "Photo hint", ClueType.Photo, LatLng(47.539, -122.305)),
         Clue("clue_3", "This is the text clue", "This is a hint", ClueType.Text, LatLng(47.539, -122.305)))),
     TreasureHunt("id_2", "Treasure Hunt 2", "This is a really description. I want to see what happens to the layout when the description is this long. Nanananananananananananananan BATMAN!", LatLng(47.82, -122.320), emptyList()),
