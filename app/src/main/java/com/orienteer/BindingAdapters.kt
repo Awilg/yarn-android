@@ -79,7 +79,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
 @BindingAdapter("mapImageFromLatLng", "mapsApiKey")
 fun bindImageMapView(imgView: ImageView, latLng: LatLng?, mapsApiKey: String) {
     latLng?.let {
-        val path = "maps.googleapis.com/maps/api/staticmap?center=${latLng.latitude},${latLng.longitude}&size=800x600&zoom=14&key=$mapsApiKey"
+        val path = "maps.googleapis.com/maps/api/staticmap?center=${latLng.latitude},${latLng.longitude}&size=600x300&zoom=16&key=$mapsApiKey"
         val imgUri = path.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
             .load(imgUri)
