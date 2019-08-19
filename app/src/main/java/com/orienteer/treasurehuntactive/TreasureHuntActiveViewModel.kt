@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.model.LatLng
 import com.orienteer.models.Clue
+import com.orienteer.models.ClueState
 import com.orienteer.models.TreasureHunt
 import timber.log.Timber
 
@@ -25,10 +26,17 @@ class TreasureHuntActiveViewModel (hunt: TreasureHunt, app: Application) : Andro
     val currentActiveClue: LiveData<Clue>
         get() = _currentActiveClue
 
-    // Initialize the _selectedProperty MutableLiveData
+    private val _currentCluePosition = MutableLiveData<Int>()
+    val currentCluePosition: LiveData<Int>
+        get() = _currentCluePosition
+
     init {
         _activeAdventure.value = hunt
         _clues.value = hunt.clues
+        if (_clues.value!!.first().state == ClueState.LOCKED) _clues.value!!.first().state = ClueState.ACTIVE
+        _currentCluePosition.value = 0
+
+        // TODO: get the person's progress from API
     }
 
     fun setCurrentClue(clue: Clue) {

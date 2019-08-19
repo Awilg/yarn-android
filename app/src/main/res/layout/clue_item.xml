@@ -47,7 +47,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@{clue.prompt}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/clue_hint_image"
             app:layout_constraintStart_toEndOf="@+id/clue_type_image"

@@ -47,8 +47,9 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
         // Initialize the location services client
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity as Activity)
 
-        binding.cluesRecyclerview.adapter = ClueAdapter(object : ClueAdapterListener {
+        binding.cluesRecyclerview.adapter = ClueAdapter(context!!, object : ClueAdapterListener {
             override fun clueTypeOnClick(type: ClueType) {
+                // TODO: make this a dialog
                 Toast.makeText(context, "Clicked Type: ${type.name}", Toast.LENGTH_SHORT).show()
             }
 
@@ -63,6 +64,7 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
             }
 
             override fun clueHintOnClick(hint: String) {
+                // TODO: make this a dialog
                 Toast.makeText(context, "Clicked Hint: $hint", Toast.LENGTH_SHORT).show()
             }
         })

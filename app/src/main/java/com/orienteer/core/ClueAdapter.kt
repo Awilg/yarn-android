@@ -1,23 +1,42 @@
 package com.orienteer.core
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.orienteer.R
 import com.orienteer.databinding.ClueItemBinding
 import com.orienteer.models.Clue
+import com.orienteer.models.ClueState
 
-class ClueAdapter(private val clueAdapterListener: ClueAdapterListener) : ListAdapter<Clue, ClueAdapter.ClueViewHolder>(DiffCallback) {
+class ClueAdapter(private val context: Context, private val clueAdapterListener: ClueAdapterListener) :
+    ListAdapter<Clue, ClueAdapter.ClueViewHolder>(DiffCallback) {
 
     /**
      * The ClueViewHolder constructor takes the binding variable from the associated
      * GridViewItem, which nicely gives it access to the full [Clue] information.
      */
-    class ClueViewHolder(private var binding: ClueItemBinding,
-                         private val clueAdapterListener: ClueAdapterListener) : RecyclerView.ViewHolder(binding.root) {
+    class ClueViewHolder(
+        private var context: Context,
+        private var binding: ClueItemBinding,
+        private val clueAdapterListener: ClueAdapterListener
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(clue: Clue) {
             binding.clue = clue
+
+            when (clue.state) {
+                ClueState.ACTIVE -> {
+                    binding.cluePromptText.text = clue.prompt
+                }
+                ClueState.COMPLETED -> {
+                    binding.cluePromptText.text = clue.prompt
+                }
+                ClueState.LOCKED -> {
+                    binding.cluePromptText.text = context.getString(R.string.clue_prompt_locked)
+                }
+            }
 
             binding.clueTypeImage.setOnClickListener { clueAdapterListener.clueTypeOnClick(clue.type) }
             binding.clueHintImage.setOnClickListener { clueAdapterListener.clueHintOnClick(clue.hint) }
@@ -34,6 +53,7 @@ class ClueAdapter(private val clueAdapterListener: ClueAdapterListener) : ListAd
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClueViewHolder {
         return ClueViewHolder(
+            context,
             ClueItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,

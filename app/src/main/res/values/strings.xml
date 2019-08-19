@@ -122,4 +122,8 @@
     <string name="rationale_ask_ok">We Gud?</string>
     <string name="rationale_ask_cancel">Nah, fam</string>
     <string name="treasure_hunt_detail_img_content_description">The image associated with the treasure hunt</string>
+
+    <!--Clues-->
+    <string name="clue_prompt_locked">Clue is locked</string>
 </resources>
+

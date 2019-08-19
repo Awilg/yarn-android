@@ -10,5 +10,6 @@ data class Clue(
     val prompt : String,
     val hint : String,
     val type : ClueType,
-    val location : LatLng
+    val location : LatLng,
+    var state : ClueState
 ) : Parcelable
