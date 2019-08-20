@@ -103,8 +103,8 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
     private fun onSolveTextClue() {
         // Determine if answer is equal to expected answer from clue
         // Allow degree of misspellings and punctuation
-        Toast.makeText(context, "Solving text clue...", Toast.LENGTH_SHORT).show()
-
+        val newFragment = TextClueSolveDialogFragment()
+        fragmentManager?.let { newFragment.show(it, "missiles") }
     }
 
     @SuppressLint("MissingPermission")

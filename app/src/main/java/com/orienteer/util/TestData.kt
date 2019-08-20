@@ -14,7 +14,11 @@ var TEST_HUNTS : List<TreasureHunt> = listOf(
         Clue("clue_1", "This is a location clue", "This is a hint", ClueType.Location, LatLng(47.539, -122.305), ClueState.ACTIVE),
         Clue("clue_2", "This is the photo clue", "Photo hint", ClueType.Photo, LatLng(47.539, -122.305),ClueState.LOCKED),
         Clue("clue_3", "This is the text clue", "This is a hint", ClueType.Text, LatLng(47.539, -122.305),ClueState.LOCKED))),
-    TreasureHunt("id_2", "Treasure Hunt 2", "This is a really description. I want to see what happens to the layout when the description is this long. Nanananananananananananananan BATMAN!", LatLng(47.82, -122.320), emptyList()),
+    TreasureHunt("id_2", "Treasure Hunt 2", "This is a really description. I want to see what happens to the layout " +
+            "when the description is this long. Nanananananananananananananan BATMAN!", LatLng(47.82, -122.320), listOf(
+        Clue("clue_3", "This is the text clue", "This is a hint", ClueType.Text, LatLng(47.539, -122.305),ClueState.LOCKED),
+        Clue("clue_3", "This is the text clue", "This is a hint", ClueType.Text, LatLng(47.539, -122.305),ClueState.LOCKED),
+        Clue("clue_3", "This is the text clue", "This is a hint", ClueType.Text, LatLng(47.539, -122.305),ClueState.LOCKED))),
     TreasureHunt("id_3", "Treasure Hunt 3", "This is a description!", LatLng(48.0, -122.370), emptyList()),
     TreasureHunt("id_4", "Treasure Hunt 4", "This is a description!", LatLng(46.9, -122.399), emptyList()),
     TreasureHunt("id_5", "Treasure Hunt 5", "This is a description!", LatLng(47.2062, -122.3412), emptyList()),

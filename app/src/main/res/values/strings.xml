@@ -13,6 +13,9 @@
     <string name="menu_tools">Settings</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="signin">Sign in</string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
     <string name="hint_treasure_hunt_name">Treasure Hunt Name</string>
     <string name="create">Create</string>
     <string name="bury_your_treasure">Bury Your Treasure!</string>
@@ -125,5 +128,6 @@
 
     <!--Clues-->
     <string name="clue_prompt_locked">Clue is locked</string>
+    <string name="your_answer_here">Your answer here</string>
 </resources>
 
