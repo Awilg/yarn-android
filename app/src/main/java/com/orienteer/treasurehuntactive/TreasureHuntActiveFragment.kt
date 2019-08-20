@@ -103,8 +103,8 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
     }
 
     private fun onSolveTextClue() {
-        val clueDialog = TextClueSolveDialogFragment()
-        clueDialog.setTargetFragment(this, 0);
+        val clueDialog = TextClueSolveDialogFragment(viewModel.currentActiveClue.value!!)
+        clueDialog.setTargetFragment(this, 0)
         fragmentManager?.let { clueDialog.show(it, "clue_text_solve") }
     }
 
