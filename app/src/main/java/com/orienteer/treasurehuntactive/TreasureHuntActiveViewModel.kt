@@ -44,7 +44,6 @@ class TreasureHuntActiveViewModel (hunt: TreasureHunt, app: Application) : Andro
     }
 
     fun attemptLocationSolve(loc: Location) : Boolean {
-
         val results = FloatArray(1)
         _currentActiveClue.value?.let {
             Timber.i("Checking location $loc against current clue location ${it.location}...")
@@ -52,10 +51,22 @@ class TreasureHuntActiveViewModel (hunt: TreasureHunt, app: Application) : Andro
 
             if (results.first() < LOCATION_SOLVE_DISTANCE_METERS) {
                 // Location is within given radius
+                it.state = ClueState.COMPLETED
+                val nextPosition = _currentCluePosition.value!! + 1
+                _clues.value?.get(nextPosition)?.state = ClueState.ACTIVE
+                _currentCluePosition.value = nextPosition
+                _currentActiveClue.value = _clues.value?.get(nextPosition)
+                // This is due to a weird Observable quirk where the actual value needs to be overwritten in order
+                // for the observer to pick up a change. Even though they were changed by references above.
+                _clues.value = _clues.value
                 return true
             }
         }
 
         return false
     }
+
+    fun attemptPhotoSolve() {}
+
+    fun attemptTextSolve() {}
 }
