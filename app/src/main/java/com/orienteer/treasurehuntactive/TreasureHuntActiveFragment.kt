@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -26,7 +27,8 @@ import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import timber.log.Timber
 
-class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbacks {
+class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbacks,
+    TextClueSolveDialogFragment.TextClueSolveDialogListener {
 
     /**
      * Lazily initialize our [TreasureHuntActiveViewModel].
@@ -101,10 +103,9 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
     }
 
     private fun onSolveTextClue() {
-        // Determine if answer is equal to expected answer from clue
-        // Allow degree of misspellings and punctuation
-        val newFragment = TextClueSolveDialogFragment()
-        fragmentManager?.let { newFragment.show(it, "missiles") }
+        val clueDialog = TextClueSolveDialogFragment()
+        clueDialog.setTargetFragment(this, 0);
+        fragmentManager?.let { clueDialog.show(it, "clue_text_solve") }
     }
 
     @SuppressLint("MissingPermission")
@@ -163,5 +164,13 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
                 checkLocationAgainstCurrentClue()
             }
         }
+    }
+
+    override fun onDialogPositiveClick(dialog: DialogFragment) {
+        Toast.makeText(context, "Clicked ok!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDialogNegativeClick(dialog: DialogFragment) {
+        Toast.makeText(context, "Clicked cancel!", Toast.LENGTH_SHORT).show()
     }
 }
