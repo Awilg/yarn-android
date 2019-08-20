@@ -24,10 +24,10 @@ class TextClueSolveDialogFragment(activeClue : Clue) : DialogFragment() {
 
             builder.setView(binding.root)
                 .setPositiveButton(R.string.submit) { _, _ ->
-                    listener.onDialogPositiveClick(this)
+                    listener.onClueAnswerSubmit(binding.editText.text.toString())
                 }
                 .setNegativeButton(R.string.cancel) { _, _ ->
-                    listener.onDialogNegativeClick(this)
+                    listener.onClueAnswerCancel(this)
                 }
             // Create the AlertDialog object and return it
             builder.create()
@@ -40,8 +40,8 @@ class TextClueSolveDialogFragment(activeClue : Clue) : DialogFragment() {
      * Each method passes the DialogFragment in case the host needs to query it.
      */
     interface TextClueSolveDialogListener {
-        fun onDialogPositiveClick(dialog: DialogFragment)
-        fun onDialogNegativeClick(dialog: DialogFragment)
+        fun onClueAnswerSubmit(answer: String)
+        fun onClueAnswerCancel(dialog: DialogFragment)
     }
 
     /*

@@ -166,11 +166,11 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
         }
     }
 
-    override fun onDialogPositiveClick(dialog: DialogFragment) {
-        Toast.makeText(context, "Clicked ok!", Toast.LENGTH_SHORT).show()
+    override fun onClueAnswerSubmit(answer: String) {
+        Toast.makeText(context, "Answered: $answer", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onDialogNegativeClick(dialog: DialogFragment) {
+    override fun onClueAnswerCancel(dialog: DialogFragment) {
         Toast.makeText(context, "Clicked cancel!", Toast.LENGTH_SHORT).show()
     }
 }
