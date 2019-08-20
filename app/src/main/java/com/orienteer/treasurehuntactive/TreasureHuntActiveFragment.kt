@@ -19,6 +19,7 @@ import com.orienteer.core.ClueAdapter
 import com.orienteer.core.ClueAdapterListener
 import com.orienteer.databinding.FragmentTreasureHuntActiveBinding
 import com.orienteer.models.Clue
+import com.orienteer.models.ClueState
 import com.orienteer.models.ClueType
 import com.orienteer.models.RequestCodes
 import pub.devrel.easypermissions.EasyPermissions
@@ -57,10 +58,18 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
             override fun clueSolveOnClick(clue: Clue) {
                 // This should be tracked in the viewmodel
                 viewModel.setCurrentClue(clue)
-                when (clue.type) {
-                    ClueType.Photo -> onSolveCameraClue()
-                    ClueType.Location -> onSolveLocationClue()
-                    ClueType.Text -> onSolveTextClue()
+                when (clue.state) {
+                    ClueState.ACTIVE -> {
+                        when (clue.type) {
+                            ClueType.Photo -> onSolveCameraClue()
+                            ClueType.Location -> onSolveLocationClue()
+                            ClueType.Text -> onSolveTextClue()
+                        }
+                    }
+                    ClueState.COMPLETED -> { }
+                    ClueState.LOCKED -> {
+                        Toast.makeText(context, "You must complete the previous clues before this one is unlocked", Toast.LENGTH_LONG).show()
+                    }
                 }
             }
 
@@ -95,6 +104,7 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
         // Determine if answer is equal to expected answer from clue
         // Allow degree of misspellings and punctuation
         Toast.makeText(context, "Solving text clue...", Toast.LENGTH_SHORT).show()
+
     }
 
     @SuppressLint("MissingPermission")

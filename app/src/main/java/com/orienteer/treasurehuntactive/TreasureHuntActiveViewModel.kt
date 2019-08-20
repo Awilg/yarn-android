@@ -11,7 +11,7 @@ import com.orienteer.models.ClueState
 import com.orienteer.models.TreasureHunt
 import timber.log.Timber
 
-class TreasureHuntActiveViewModel (hunt: TreasureHunt, app: Application) : AndroidViewModel(app) {
+class TreasureHuntActiveViewModel(hunt: TreasureHunt, app: Application) : AndroidViewModel(app) {
 
     private val LOCATION_SOLVE_DISTANCE_METERS = 5f;
     private val _activeAdventure = MutableLiveData<TreasureHunt>()
@@ -43,7 +43,7 @@ class TreasureHuntActiveViewModel (hunt: TreasureHunt, app: Application) : Andro
         _currentActiveClue.value = clue
     }
 
-    fun attemptLocationSolve(loc: Location) : Boolean {
+    fun attemptLocationSolve(loc: Location): Boolean {
         val results = FloatArray(1)
         _currentActiveClue.value?.let {
             Timber.i("Checking location $loc against current clue location ${it.location}...")
@@ -68,5 +68,7 @@ class TreasureHuntActiveViewModel (hunt: TreasureHunt, app: Application) : Andro
 
     fun attemptPhotoSolve() {}
 
-    fun attemptTextSolve() {}
+    fun attemptTextSolve(answer: String) {
+
+    }
 }
