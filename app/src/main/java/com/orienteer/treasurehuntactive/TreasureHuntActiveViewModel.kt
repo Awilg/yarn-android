@@ -56,8 +56,8 @@ class TreasureHuntActiveViewModel (hunt: TreasureHunt, app: Application) : Andro
                 _clues.value?.get(nextPosition)?.state = ClueState.ACTIVE
                 _currentCluePosition.value = nextPosition
                 _currentActiveClue.value = _clues.value?.get(nextPosition)
-                // This is due to a weird Observable quirk where the actual value needs to be overwritten in order
-                // for the observer to pick up a change. Even though they were changed by references above.
+                // In order for the LiveData object to execute the OnChanged() method on the observer the setValue
+                // method needs to be explicitly called.
                 _clues.value = _clues.value
                 return true
             }
