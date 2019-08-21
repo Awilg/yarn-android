@@ -1,12 +1,11 @@
-package com.orienteer.settings
+package com.orienteer.preferences
 
 import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat
 import com.orienteer.R
 
-class SettingsFragment : PreferenceFragmentCompat() {
+class NotificationsPreferenceFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.user_settings, rootKey)
+        setPreferencesFromResource(R.xml.notification_preferences, rootKey)
     }
-
 }

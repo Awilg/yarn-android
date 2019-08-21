@@ -12,16 +12,17 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 import com.orienteer.databinding.ActivityMainBinding
 import com.orienteer.models.TreasureHunt
 import timber.log.Timber.DebugTree
 import timber.log.Timber
 
 
+class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     private lateinit var navController: NavController
 
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         // Only allow the drawer on the top level map fragment. This is to handle whatever other nonsense
         // that NavigationUI can't do naturally, primarily dynamic actions to the toolbar.
         navController.addOnDestinationChangedListener { _, destination, arguments ->
-            if(destination.id != R.id.mapFragment) {
+            if (destination.id != R.id.mapFragment) {
                 binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             } else {
                 binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
@@ -87,5 +88,23 @@ class MainActivity : AppCompatActivity() {
         // for this to work.
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
 
+    }
+
+    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
+        // Instantiate the new Fragment
+        val args = pref.extras
+        // Need to get the fragment manager of the child and not the nav host
+        val fragManager = supportFragmentManager.primaryNavigationFragment!!.childFragmentManager
+        val fragment = fragManager.fragmentFactory.instantiate(classLoader, pref.fragment).apply {
+            arguments = args
+            setTargetFragment(caller, 0)
+        }
+        // Replace the existing Fragment with the new Fragment
+        fragManager.beginTransaction()
+            .replace(R.id.settings, fragment)
+            .addToBackStack(null)
+            .commit()
+        title = pref.title
+        return true
     }
 }

@@ -38,7 +38,7 @@
         android:id="@+id/settings_menu_group"
         android:checkableBehavior="single">
         <item
-            android:id="@id/settingsFragment"
+            android:id="@id/settingsContainerFragment"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/menu_tools" />
 

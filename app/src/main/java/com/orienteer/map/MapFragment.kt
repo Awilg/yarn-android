@@ -175,8 +175,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-
-
     /**
      * Handles the result of the request for location permissions.
      */
