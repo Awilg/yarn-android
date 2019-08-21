@@ -50,15 +50,7 @@ class TreasureHuntActiveViewModel(hunt: TreasureHunt, app: Application) : Androi
             Location.distanceBetween(it.location.latitude, it.location.longitude, loc.latitude, loc.longitude, results)
 
             if (results.first() < LOCATION_SOLVE_DISTANCE_METERS) {
-                // Location is within given radius
-                it.state = ClueState.COMPLETED
-                val nextPosition = _currentCluePosition.value!! + 1
-                _clues.value?.get(nextPosition)?.state = ClueState.ACTIVE
-                _currentCluePosition.value = nextPosition
-                _currentActiveClue.value = _clues.value?.get(nextPosition)
-                // In order for the LiveData object to execute the OnChanged() method on the observer the setValue
-                // method needs to be explicitly called.
-                _clues.value = _clues.value
+                unlockNextClue()
                 return true
             }
         }
@@ -66,9 +58,23 @@ class TreasureHuntActiveViewModel(hunt: TreasureHunt, app: Application) : Androi
         return false
     }
 
+    private fun unlockNextClue() {
+        _currentActiveClue.value?.let {
+            it.state = ClueState.COMPLETED
+            val nextPosition = _currentCluePosition.value!! + 1
+            _clues.value?.get(nextPosition)?.state = ClueState.ACTIVE
+            _currentCluePosition.value = nextPosition
+            _currentActiveClue.value = _clues.value?.get(nextPosition)
+            // In order for the LiveData object to execute the OnChanged() method on the observer the setValue
+            // method needs to be explicitly called.
+            _clues.value = _clues.value
+        }
+    }
+
     fun attemptPhotoSolve() {}
 
     fun attemptTextSolve(answer: String) {
-
+        //TODO: Verify against the backend here then unlock next clue
+        unlockNextClue()
     }
 }

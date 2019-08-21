@@ -167,7 +167,7 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
     }
 
     override fun onClueAnswerSubmit(answer: String) {
-        Toast.makeText(context, "Answered: $answer", Toast.LENGTH_SHORT).show()
+        viewModel.attemptTextSolve(answer)
     }
 
     override fun onClueAnswerCancel(dialog: DialogFragment) {
