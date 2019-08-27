@@ -48,4 +48,4 @@ var TEST_HUNTS : List<TreasureHunt> = listOf(
     TreasureHunt("id_20", "Treasure Hunt 20", "This is a description!", LatLng(47.721, -122.420), emptyList())
 )
 
-var TEST_USER : User = User("id", "Liz", listOf("id_15", "id_19"), emptyList(), "https://firebasestorage.googleapis.com/v0/b/orienteer-dev.appspot.com/o/IMG_20190702_100344.jpg?alt=media&token=5537d40d-e6d4-4b77-a30e-8c2d0bb11d04", Calendar.getInstance().time)
+var TEST_USER : User = User("id", "JimmyTheKid", listOf("id_15", "id_19"), emptyList(), "https://firebasestorage.googleapis.com/v0/b/orienteer-dev.appspot.com/o/IMG_20190702_100344.jpg?alt=media&token=5537d40d-e6d4-4b77-a30e-8c2d0bb11d04", Calendar.getInstance().time)
