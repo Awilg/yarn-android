@@ -4,18 +4,32 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.orienteer.profile.ProfileViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.mikhaellopez.circularimageview.CircularImageView
+
+            android:id="@+id/circularImageView"
+            android:layout_width="75sp"
+            android:layout_height="75sp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/com_facebook_profile_picture_blank_portrait"
+            app:imageUrl="@{viewModel.currentUser.avatarUrl}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profile"
+            android:text="@{viewModel.currentUser.name}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

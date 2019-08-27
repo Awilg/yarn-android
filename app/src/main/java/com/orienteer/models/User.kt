@@ -10,4 +10,5 @@ data class User(
     val name: String,
     val activeTreasureHunts: List<String>,
     val completedTreasureHunts: List<String>,
+    val avatarUrl: String,
     val createdAt: Date) : Parcelable

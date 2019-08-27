@@ -5,7 +5,6 @@ import android.location.Location
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.maps.model.LatLng
 import com.orienteer.models.Clue
 import com.orienteer.models.ClueState
 import com.orienteer.models.TreasureHunt
