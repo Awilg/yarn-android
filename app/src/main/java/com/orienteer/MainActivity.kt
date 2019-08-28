@@ -1,5 +1,6 @@
 package com.orienteer
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -14,6 +15,7 @@ import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import com.orienteer.databinding.ActivityMainBinding
 import com.orienteer.models.TreasureHunt
 import timber.log.Timber.DebugTree
@@ -106,5 +108,23 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
             .commit()
         title = pref.title
         return true
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this /* Activity context */)
+
+        var nightModeEnabled = false
+        when (newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> nightModeEnabled = false
+            Configuration.UI_MODE_NIGHT_YES -> nightModeEnabled = true
+        }
+
+        with (sharedPreferences.edit()) {
+            putBoolean(getString(R.string.night_mode_enabled), nightModeEnabled)
+            commit()
+        }
+
     }
 }

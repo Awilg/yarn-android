@@ -129,5 +129,8 @@
     <!--Clues-->
     <string name="clue_prompt_locked">Clue is locked</string>
     <string name="your_answer_here">Your answer here</string>
+
+    <!--Shared Preferences-->
+    <string name="night_mode_enabled">night_mode_enabled</string>
 </resources>
 

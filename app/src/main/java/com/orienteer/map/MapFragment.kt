@@ -3,6 +3,7 @@ package com.orienteer.map
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,6 +24,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.orienteer.R
 import com.orienteer.core.OnSnapPositionChangeListener
 import com.orienteer.core.SnapOnScrollListener
@@ -138,6 +140,14 @@ class MapFragment : Fragment(), OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(map: GoogleMap) {
+        // Adjust map style for current theme
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> {} // Night mode is not active, we're using the light theme
+            Configuration.UI_MODE_NIGHT_YES -> {
+                map.setMapStyle(MapStyleOptions(resources.getString(R.string.google_maps_night_mode)))
+            }
+        }
+
         // Set the map in the viewModel
         viewModel.setMap(map)
 
