@@ -19,7 +19,8 @@ var TEST_HUNTS : List<TreasureHunt> = listOf(
         Clue("clue_3", "This is the text clue", "This is a hint", ClueType.Text, LatLng(47.539, -122.305),ClueState.LOCKED),
         Clue("clue_3", "This is the text clue", "This is a hint", ClueType.Text, LatLng(47.539, -122.305),ClueState.LOCKED),
         Clue("clue_3", "This is the text clue", "This is a hint", ClueType.Text, LatLng(47.539, -122.305),ClueState.LOCKED))),
-    TreasureHunt("id_3", "Treasure Hunt 3", "This is a description!", LatLng(48.0, -122.370), emptyList()),
+    TreasureHunt("id_3", "Treasure Hunt 3", "This is a description!", LatLng(48.0, -122.370), listOf(
+        Clue("clue_1", "This is a photo clue", "This is a hint", ClueType.Photo, LatLng(47.539, -122.305), ClueState.ACTIVE))),
     TreasureHunt("id_4", "Treasure Hunt 4", "This is a description!", LatLng(46.9, -122.399), emptyList()),
     TreasureHunt("id_5", "Treasure Hunt 5", "This is a description!", LatLng(47.2062, -122.3412), emptyList()),
     TreasureHunt("id_6", "Treasure Hunt 6", "This is a description!", LatLng(47.309, -122.3662), emptyList()),

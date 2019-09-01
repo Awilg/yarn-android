@@ -1,5 +1,6 @@
 package com.orienteer
 
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
@@ -20,6 +21,7 @@ import com.orienteer.databinding.ActivityMainBinding
 import com.orienteer.models.TreasureHunt
 import timber.log.Timber.DebugTree
 import timber.log.Timber
+import java.io.File
 
 
 class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -126,5 +128,17 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
             commit()
         }
 
+    }
+
+
+    companion object {
+        /** Use external media if it is available, our app's file directory otherwise */
+        fun getOutputDirectory(context: Context): File {
+            val appContext = context.applicationContext
+            val mediaDir = context.externalMediaDirs.firstOrNull()?.let {
+                File(it, appContext.resources.getString(R.string.app_name)).apply { mkdirs() } }
+            return if (mediaDir != null && mediaDir.exists())
+                mediaDir else appContext.filesDir
+        }
     }
 }

@@ -52,6 +52,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.orienteer.MainActivity
 import com.orienteer.R
 import com.orienteer.util.ANIMATION_FAST_MILLIS
 import com.orienteer.util.ANIMATION_SLOW_MILLIS
@@ -150,6 +151,9 @@ class CameraFragment : Fragment() {
         displayManager = viewFinder.context
             .getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
         displayManager.registerDisplayListener(displayListener, null)
+
+        // Determine the output directory
+        outputDirectory = MainActivity.getOutputDirectory(requireContext())
 
         // Wait for the views to be properly laid out
         viewFinder.post {
