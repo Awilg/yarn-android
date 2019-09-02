@@ -55,6 +55,11 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.ml.vision.FirebaseVision
+import com.google.firebase.ml.vision.common.FirebaseVisionImage
+import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata
+import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler
+import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceImageLabelerOptions
 import com.orienteer.MainActivity
 import com.orienteer.R
 import com.orienteer.util.ANIMATION_FAST_MILLIS
@@ -97,6 +102,7 @@ class CameraFragment : Fragment() {
     private var preview: Preview? = null
     private var imageCapture: ImageCapture? = null
     private var imageAnalyzer: ImageAnalysis? = null
+    private var imageLabelAnalyzer: ImageAnalysis? = null
 
     /** Declare worker thread at the class level so it can be reused after config changes */
     private val analyzerThread = HandlerThread("LuminosityAnalysis").apply { start() }
@@ -299,7 +305,7 @@ class CameraFragment : Fragment() {
         val analyzerConfig = ImageAnalysisConfig.Builder().apply {
             setLensFacing(lensFacing)
             // Use a worker thread for image analysis to prevent preview glitches
-            val analyzerThread = HandlerThread("LuminosityAnalysis").apply { start() }
+            val analyzerThread = HandlerThread("ImageLabelAnalyzer").apply { start() }
             setCallbackHandler(Handler(analyzerThread.looper))
             // In our analysis, we care more about the latest image than analyzing *every* image
             setImageReaderMode(ImageAnalysis.ImageReaderMode.ACQUIRE_LATEST_IMAGE)
@@ -308,18 +314,21 @@ class CameraFragment : Fragment() {
             setTargetRotation(viewFinder.display.rotation)
         }.build()
 
-        imageAnalyzer = ImageAnalysis(analyzerConfig).apply {
-            analyzer = LuminosityAnalyzer { luma ->
-                // Values returned from our analyzer are passed to the attached listener
-                // We log image analysis results here -- you should do something useful instead!
-                val fps = (analyzer as LuminosityAnalyzer).framesPerSecond
-                Timber.d("Average luminosity: $luma. Frames per second: ${"%.01f".format(fps)}")
-            }
+        imageLabelAnalyzer = ImageAnalysis(analyzerConfig).apply {
+            analyzer = FirebaseImageLabelAnalyzer()
         }
+//        imageAnalyzer = ImageAnalysis(analyzerConfig).apply {
+//            analyzer = LuminosityAnalyzer { luma ->
+//                // Values returned from our analyzer are passed to the attached listener
+//                // We log image analysis results here -- you should do something useful instead!
+//                val fps = (analyzer as LuminosityAnalyzer).framesPerSecond
+//                Timber.d("Average luminosity: $luma. Frames per second: ${"%.01f".format(fps)}")
+//            }
+//        }
 
         // Apply declared configs to CameraX using the same lifecycle owner
         CameraX.bindToLifecycle(
-            viewLifecycleOwner, preview, imageCapture, imageAnalyzer)
+            viewLifecycleOwner, preview, imageCapture, imageLabelAnalyzer)
     }
 
     /** Method used to re-draw the camera UI controls, called every time configuration changes */
@@ -391,6 +400,43 @@ class CameraFragment : Fragment() {
     }
 
 
+    /**
+     * Our image analyzer using Firebase's label ML model.
+     */
+    private class FirebaseImageLabelAnalyzer : ImageAnalysis.Analyzer {
+        private fun degreesToFirebaseRotation(degrees: Int): Int = when(degrees) {
+            0 -> FirebaseVisionImageMetadata.ROTATION_0
+            90 -> FirebaseVisionImageMetadata.ROTATION_90
+            180 -> FirebaseVisionImageMetadata.ROTATION_180
+            270 -> FirebaseVisionImageMetadata.ROTATION_270
+            else -> throw Exception("Rotation must be 0, 90, 180, or 270.")
+        }
+
+
+        override fun analyze(imageProxy: ImageProxy?, rotationDegrees: Int) {
+            val mediaImage = imageProxy?.image
+            val imageRotation = degreesToFirebaseRotation(rotationDegrees)
+            if (mediaImage != null) {
+                val image = FirebaseVisionImage.fromMediaImage(mediaImage, imageRotation)
+                val options = FirebaseVisionOnDeviceImageLabelerOptions.Builder()
+                    .setConfidenceThreshold(0.7f)
+                    .build()
+
+                val labeler = FirebaseVision.getInstance().getOnDeviceImageLabeler(options)
+
+                labeler.processImage(image)
+                    .addOnSuccessListener { labels ->
+                        for (label in labels) {
+                            Timber.i("Label found with name ${label.text} and confidence ${label.confidence}")
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Timber.e("Error labeling image: ${e.localizedMessage}")
+                    }
+
+            }
+        }
+    }
     /**
      * Our custom image analysis class.
      *

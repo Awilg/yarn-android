@@ -33,6 +33,12 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <!-- Ensures the ml models for firebase vision apis are downloaded on app install -->
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="label" />
+
+
         <activity android:name=".LoginActivity" >
 
         </activity>
