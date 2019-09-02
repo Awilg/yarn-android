@@ -18,8 +18,10 @@ package com.orienteer.camera
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.hardware.Camera
@@ -32,12 +34,10 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.util.DisplayMetrics
 import android.util.Rational
-import android.view.LayoutInflater
-import android.view.TextureView
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.webkit.MimeTypeMap
 import android.widget.ImageButton
+import androidx.lifecycle.lifecycleScope
 import androidx.camera.core.CameraX
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageAnalysisConfig
@@ -52,11 +52,17 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.orienteer.MainActivity
 import com.orienteer.R
 import com.orienteer.util.ANIMATION_FAST_MILLIS
 import com.orienteer.util.ANIMATION_SLOW_MILLIS
 import com.orienteer.util.AutoFitPreviewBuilder
+import com.orienteer.util.simulateClick
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import timber.log.Timber
@@ -70,6 +76,9 @@ import kotlin.collections.ArrayList
 /** Helper type alias used for analysis use case callbacks */
 typealias LumaListener = (luma: Double) -> Unit
 const val PERMISSIONS_RC_CAMERA : Int = 123
+const val KEY_EVENT_ACTION = "key_event_action"
+const val KEY_EVENT_EXTRA = "key_event_extra"
+val EXTENSION_WHITELIST = arrayOf("JPG")
 
 /**
  * Main fragment for this app. Implements all camera operations including:
@@ -89,8 +98,27 @@ class CameraFragment : Fragment() {
     private var imageCapture: ImageCapture? = null
     private var imageAnalyzer: ImageAnalysis? = null
 
+    /** Declare worker thread at the class level so it can be reused after config changes */
+    private val analyzerThread = HandlerThread("LuminosityAnalysis").apply { start() }
+
     /** Internal reference of the [DisplayManager] */
     private lateinit var displayManager: DisplayManager
+
+
+    /** Volume down button receiver used to trigger shutter */
+    private val volumeDownReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val keyCode = intent.getIntExtra(KEY_EVENT_EXTRA, KeyEvent.KEYCODE_UNKNOWN)
+            when (keyCode) {
+                // When the volume down button is pressed, simulate a shutter button click
+                KeyEvent.KEYCODE_VOLUME_DOWN -> {
+                    val shutter = container
+                        .findViewById<ImageButton>(R.id.camera_capture_button)
+                    shutter.simulateClick()
+                }
+            }
+        }
+    }
 
     /**
      * We need a display listener for orientation changes that do not trigger a configuration
@@ -132,6 +160,7 @@ class CameraFragment : Fragment() {
         super.onDestroyView()
 
         // Unregister the broadcast receivers and listeners
+        broadcastManager.unregisterReceiver(volumeDownReceiver)
         displayManager.unregisterDisplayListener(displayListener)
     }
 
@@ -146,6 +175,10 @@ class CameraFragment : Fragment() {
         container = view as ConstraintLayout
         viewFinder = container.findViewById(R.id.view_finder)
         broadcastManager = LocalBroadcastManager.getInstance(view.context)
+
+        // Set up the intent filter that will receive events from our main activity
+        val filter = IntentFilter().apply { addAction(KEY_EVENT_ACTION) }
+        broadcastManager.registerReceiver(volumeDownReceiver, filter)
 
         // Every time the orientation of device changes, recompute layout
         displayManager = viewFinder.context
@@ -163,6 +196,13 @@ class CameraFragment : Fragment() {
             // Build UI controls and bind all camera use cases
             updateCameraUi()
             bindCameraUseCases()
+
+            // In the background, load latest photo taken (if any) for gallery thumbnail
+            lifecycleScope.launch(Dispatchers.IO) {
+                outputDirectory.listFiles { file ->
+                    EXTENSION_WHITELIST.contains(file.extension.toUpperCase())
+                }.sorted().reversed().firstOrNull()?.let { setGalleryThumbnail(it) }
+            }
         }
     }
 
@@ -175,6 +215,12 @@ class CameraFragment : Fragment() {
 
             // Remove thumbnail padding
             thumbnail.setPadding(resources.getDimension(R.dimen.stroke_small).toInt())
+
+            // Load thumbnail into circular button using Glide
+            Glide.with(thumbnail)
+                .load(file)
+                .apply(RequestOptions.circleCropTransform())
+                .into(thumbnail)
         }
     }
 
@@ -336,6 +382,12 @@ class CameraFragment : Fragment() {
                 // Do nothing
             }
         }
+
+//        // Listener for button used to view last photo
+//        controls.findViewById<ImageButton>(R.id.photo_view_button).setOnClickListener {
+//            Navigation.findNavController(requireActivity(), R.id.fragment_container).navigate(
+//                CameraFragmentDirections.actionCameraToGallery(outputDirectory.absolutePath))
+//        }
     }
 
 

@@ -21,6 +21,7 @@ buildscript {
         version_kotlin_coroutines = "1.1.0"
         version_kroto_plus = "0.4.0"
         version_lifecycle_extensions = "2.0.0"
+        version_lifecycle_runtime = "2.2.0-alpha03"
         version_moshi = "1.8.0"
         version_navigation = "1.0.0"
         version_preferences = "1.1.0-rc01"
