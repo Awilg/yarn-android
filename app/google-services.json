@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1006432183761-ipdb9kj0qou2lqtv44s7r0la4dmrau1j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.orienteer",
+            "certificate_hash": "f1b7b626eb5dcae853a4a2f5793d27663cd4d5b5"
+          }
+        },
+        {
           "client_id": "1006432183761-au624tephukieg28jltk99pdrtvmqfe7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

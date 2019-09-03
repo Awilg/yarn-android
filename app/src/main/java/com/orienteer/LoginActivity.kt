@@ -10,6 +10,7 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.orienteer.databinding.ActivityLoginBinding
 import com.orienteer.network.UserApi
+import timber.log.Timber
 
 class LoginActivity : AppCompatActivity() {
 
@@ -48,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
                 val user = FirebaseAuth.getInstance().currentUser
                 val dbUser = UserApi.retrofitService.getUser(user?.uid!!)
 
-
+                Timber.i("Login successful!")
                 startActivity(Intent(this, MainActivity::class.java))
                 // ...
             } else {
@@ -56,6 +57,7 @@ class LoginActivity : AppCompatActivity() {
                 // sign-in flow using the back button. Otherwise check
                 // response.getError().getErrorCode() and handle the error.
                 // ...
+                Timber.e("something went very wrong...")
             }
         }
     }

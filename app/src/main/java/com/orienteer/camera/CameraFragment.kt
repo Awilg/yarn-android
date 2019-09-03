@@ -37,6 +37,7 @@ import android.util.Rational
 import android.view.*
 import android.webkit.MimeTypeMap
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.camera.core.CameraX
 import androidx.camera.core.ImageAnalysis
@@ -60,6 +61,7 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler
 import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceImageLabelerOptions
+import com.google.firebase.storage.FirebaseStorage
 import com.orienteer.MainActivity
 import com.orienteer.R
 import com.orienteer.util.ANIMATION_FAST_MILLIS
@@ -96,6 +98,7 @@ class CameraFragment : Fragment() {
     private lateinit var viewFinder: TextureView
     private lateinit var outputDirectory: File
     private lateinit var broadcastManager: LocalBroadcastManager
+    private lateinit var storage: FirebaseStorage
 
     private var displayId = -1
     private var lensFacing = CameraX.LensFacing.BACK
@@ -194,6 +197,9 @@ class CameraFragment : Fragment() {
         // Determine the output directory
         outputDirectory = MainActivity.getOutputDirectory(requireContext())
 
+        // Get the friebase storage reference
+        storage = FirebaseStorage.getInstance()
+
         // Wait for the views to be properly laid out
         viewFinder.post {
             // Keep track of the display in which this view is attached
@@ -241,12 +247,27 @@ class CameraFragment : Fragment() {
         override fun onImageSaved(photoFile: File) {
             Timber.d("Photo capture succeeded: ${photoFile.absolutePath}")
 
-
             // We can only change the foreground Drawable using API level 23+ API
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
                 // Update the gallery thumbnail with latest picture taken
                 setGalleryThumbnail(photoFile)
+            }
+
+            // Create a storage reference from our app
+            val storageRef = storage.reference
+
+            // Create a reference
+            val fileRef = storageRef.child("/dev/test_james.jpg")
+
+            var uploadTask = fileRef.putFile(Uri.fromFile(photoFile))
+            // Register observers to listen for when the download is done or if it fails
+            uploadTask.addOnFailureListener {
+                // Handle unsuccessful uploads
+            }.addOnSuccessListener {
+                // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                // ...
+                Timber.i("photo uploaded to firebase!")
             }
 
             // Implicit broadcasts will be ignored for devices running API
@@ -427,7 +448,7 @@ class CameraFragment : Fragment() {
                 labeler.processImage(image)
                     .addOnSuccessListener { labels ->
                         for (label in labels) {
-                            Timber.i("Label found with name ${label.text} and confidence ${label.confidence}")
+                            //Timber.i("Label found with name ${label.text} and confidence ${label.confidence}")
                         }
                     }
                     .addOnFailureListener { e ->

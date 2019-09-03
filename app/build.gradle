@@ -80,6 +80,8 @@ dependencies {
     // Google Play Services
     implementation "com.google.android.gms:play-services-maps:$version_google_play_services"
     implementation "com.google.android.gms:play-services-location:$version_google_play_services"
+    implementation "com.google.android.gms:play-services-auth:$version_google_play_services_auth"
+
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_coroutine"
@@ -89,6 +91,7 @@ dependencies {
     implementation "com.google.firebase:firebase-core:$version_firebase_core"
     implementation "com.firebaseui:firebase-ui-auth:$version_firebase_auth_ui"
     implementation "com.google.firebase:firebase-auth:$version_firebase_auth"
+    implementation "com.google.firebase:firebase-storage:$version_firebase_storage"
     implementation "com.google.firebase:firebase-ml-vision:$version_firebase_ml_vision"
     implementation "com.google.firebase:firebase-ml-vision-image-label-model:$version_firebase_ml_vision_image_label"
 
