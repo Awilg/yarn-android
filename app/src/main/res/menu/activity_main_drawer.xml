@@ -7,7 +7,7 @@
         android:id="@+id/treasure_menu_group"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/your_adventures"
+            android:id="@+id/adventuresFollowedFragment"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/your_adventures" />
         <item
