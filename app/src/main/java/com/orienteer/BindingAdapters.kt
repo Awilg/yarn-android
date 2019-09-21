@@ -10,9 +10,11 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.common.api.Api
 import com.google.android.gms.maps.model.LatLng
 import com.orienteer.core.ClueAdapter
+import com.orienteer.models.AdventureInProgress
 import com.orienteer.models.ApiStatus
 import com.orienteer.models.Clue
 import com.orienteer.models.TreasureHunt
+import com.orienteer.treasurehunts.AdventuresFollowedAdapter
 import com.orienteer.treasurehunts.TreasureHuntsAdapter
 
 
@@ -25,6 +27,11 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<TreasureHunt>?) {
     adapter.submitList(data)
 }
 
+@BindingAdapter("adventuresInProgressData")
+fun bindAdventuresInProgressRecyclerView(recyclerView: RecyclerView, data: List<AdventureInProgress>?) {
+    val adapter = recyclerView.adapter as AdventuresFollowedAdapter
+    adapter.submitList(data)
+}
 
 @BindingAdapter("cluesData")
 fun bindCluesRecyclerView(recyclerView: RecyclerView, data: List<Clue>?) {

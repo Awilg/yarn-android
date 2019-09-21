@@ -1,12 +1,8 @@
 package com.orienteer.util
 
 import com.google.android.gms.maps.model.LatLng
-import com.orienteer.models.Clue
-import com.orienteer.models.ClueState
-import com.orienteer.models.ClueType
-import com.orienteer.models.TreasureHunt
-import com.orienteer.models.User
-import java.util.Calendar
+import com.orienteer.models.*
+import java.util.*
 
 // Seattle LatLng
 var TEST_HUNTS : List<TreasureHunt> = listOf(
@@ -47,6 +43,10 @@ var TEST_HUNTS : List<TreasureHunt> = listOf(
     TreasureHunt("id_18", "Treasure Hunt 18", "This is a description!", LatLng(47.69, -122.89), emptyList()),
     TreasureHunt("id_19", "Pog pog pog", "This is a description!", LatLng(47.77, -122.82), emptyList()),
     TreasureHunt("id_20", "Treasure Hunt 20", "This is a description!", LatLng(47.721, -122.420), emptyList())
+)
+
+var TEST_ADVENTURES_IN_PROGRESS = List<AdventureInProgress> = listOf(
+    AdventureInProgress("AdventureInProgress_1", "adventureId_1", "clue_1", Date.now(), Date.now(), false)
 )
 
 var TEST_USER : User = User("id", "JimmyTheKid", listOf("id_15", "id_19"), emptyList(), "https://firebasestorage.googleapis.com/v0/b/orienteer-dev.appspot.com/o/IMG_20190702_100344.jpg?alt=media&token=5537d40d-e6d4-4b77-a30e-8c2d0bb11d04", Calendar.getInstance().time)

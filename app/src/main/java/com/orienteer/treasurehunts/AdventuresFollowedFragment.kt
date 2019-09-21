@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.orienteer.databinding.FragmentAdventuresFollowedBinding
@@ -21,6 +22,10 @@ class AdventuresFollowedFragment : Fragment() {
         val binding = FragmentAdventuresFollowedBinding.inflate(inflater)
 
         binding.viewModel = viewModel
+
+        binding.adventuresFollowedCardList.adapter = AdventuresFollowedAdapter(AdventuresFollowedAdapter.OnClickListener {
+            Toast.makeText(context, "Clicked adventure in progress ${it.adventureId}!", Toast.LENGTH_LONG).show()
+        })
 
         //TODO: make this use the list returned from the viewmodel
 //        // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment

@@ -15,6 +15,7 @@ import com.squareup.moshi.JsonQualifier
 import retrofit2.http.Query
 
 
+// localhost to computer when on emulator
 private const val BASE_URL = "http://10.0.2.2:8081/"
 // TODO (01) Create an enum full of constants to match the query values our web service expects
 
