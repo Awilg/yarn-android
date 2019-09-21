@@ -3,7 +3,7 @@ package com.orienteer.models
 import android.os.Parcelable
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
-import java.util.Date
+import java.time.LocalDateTime
 
 /**
  * This data class defines an AdventureInProgress which includes information about the
@@ -16,6 +16,6 @@ data class AdventureInProgress(
     val id: String,
     val adventureId: String,
     val currentClueId: String,
-    val startedAt: Date,
-    val expiresAt: Date,
+    val startedAt: LocalDateTime,
+    val expiresAt: LocalDateTime,
     val completed: Boolean) : Parcelable

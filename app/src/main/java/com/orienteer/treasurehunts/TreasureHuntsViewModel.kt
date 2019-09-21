@@ -48,7 +48,6 @@ class TreasureHuntsViewModel(location: LatLng) : ViewModel() {
      * [MarsProperty] [List] and [MarsApiStatus] [LiveData]. The Retrofit service returns a
      * coroutine Deferred, which we await to get the result of the transaction.
      */
-    // TODO (03) Add MarsApiFilter parameter to getMarsRealEstateProperties
     private fun getTreasureHuntsNearby(location: LatLng) {
         coroutineScope.launch {
             // Get the Deferred object for our Retrofit request

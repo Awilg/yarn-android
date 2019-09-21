@@ -23,6 +23,9 @@ class AdventuresFollowedFragment : Fragment() {
 
         binding.viewModel = viewModel
 
+        // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
+        binding.lifecycleOwner = this
+
         binding.adventuresFollowedCardList.adapter = AdventuresFollowedAdapter(AdventuresFollowedAdapter.OnClickListener {
             Toast.makeText(context, "Clicked adventure in progress ${it.adventureId}!", Toast.LENGTH_LONG).show()
         })
