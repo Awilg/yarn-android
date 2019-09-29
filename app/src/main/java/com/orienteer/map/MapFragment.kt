@@ -60,10 +60,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
 
-        // Set up the floating action button
-        _binding.fab.setOnClickListener {
-            findNavController().navigate(MapFragmentDirections.actionMapDestinationToTreasureCreateDestination())
-        }
+//        // Set up the floating action button
+//        _binding.fab.setOnClickListener {
+//            findNavController().navigate(MapFragmentDirections.actionMapDestinationToTreasureCreateDestination())
+//        }
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         _binding.lifecycleOwner = this
