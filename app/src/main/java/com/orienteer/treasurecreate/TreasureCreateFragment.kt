@@ -25,7 +25,12 @@ import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.orienteer.R
+import com.orienteer.core.ClueAdapter
+import com.orienteer.core.ClueAdapterListener
 import com.orienteer.databinding.FragmentTreasureCreateBinding
+import com.orienteer.models.Clue
+import com.orienteer.models.ClueState
+import com.orienteer.models.ClueType
 import com.orienteer.util.PermissionsUtil
 import timber.log.Timber
 
@@ -60,18 +65,35 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback {
         // is nested inside this current fragment. This also MUST BE A SupportMapFragment for it to be discoverable
         // via the fragmentManager. This is stupid.
         // TODO (James): Research why this fragment is not populated in the databinding for the layout
-        val mapFragment = childFragmentManager.findFragmentById(R.id.create_treasure_hunt_map) as SupportMapFragment?
-        mapFragment?.getMapAsync(this)
+//        val mapFragment = childFragmentManager.findFragmentById(R.id.create_treasure_hunt_map) as SupportMapFragment?
+//        mapFragment?.getMapAsync(this)
 
+        // Set up observer for the create button
         viewModel.navigateToSuccessScreen.observe(this, Observer {
             if (it == true) {
                 Timber.i("navigating to the success screen!")
-                viewModel.setTreasureHuntName(binding.treasureHuntName.text.toString())
-                Toast.makeText(context, "Treasure Hunt ${viewModel.treasureHuntName.value} created!", Toast.LENGTH_LONG)
+//                viewModel.setTreasureHuntName(binding.treasureHuntName.text.toString())
+//                Toast.makeText(context, "Treasure Hunt ${viewModel.treasureHuntName.value} created!", Toast.LENGTH_LONG)
+//                    .show()
+                viewModel.doneNavigating()
+            }
+        })
+
+        // Set up observer for the preview button
+        viewModel.navigateToPreview.observe(this, Observer {
+            if (it == true) {
+                Timber.i("navigating to the preview screen!")
+                Toast.makeText(context, "Preview!", Toast.LENGTH_LONG)
                     .show()
                 viewModel.doneNavigating()
             }
         })
+
+        // Set up the adapter for the clues
+        val clueAdapter = AdventureClueCreateAdapter()
+
+        binding.cluesSection.cluesPreviewRecyclerview.adapter = clueAdapter
+
         return binding.root
     }
 
