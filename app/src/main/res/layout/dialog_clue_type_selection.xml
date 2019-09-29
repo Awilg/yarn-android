@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -12,33 +11,33 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:onClick="waypointSelected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/waypoint_clue_type"
         app:layout_constraintTop_toBottomOf="@+id/waypoint_clue_type"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+        app:srcCompat="@android:drawable/sym_def_app_icon"
+        android:contentDescription="@string/text_clue_type_description" />
 
     <ImageView
         android:id="@+id/image_clue_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:onClick="waypointSelected"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/waypoint_clue_type"
         app:layout_constraintTop_toTopOf="@+id/waypoint_clue_type"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+        app:srcCompat="@android:drawable/sym_def_app_icon"
+        android:contentDescription="@string/photo_clue_type_content_description"/>
 
     <ImageView
         android:id="@+id/treasure_clue_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:onClick="waypointSelected"
         app:layout_constraintStart_toStartOf="@+id/image_clue_type"
         app:layout_constraintTop_toBottomOf="@+id/image_clue_type"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+        app:srcCompat="@android:drawable/sym_def_app_icon"
+        android:contentDescription="@string/treasure_clue_type_content_description"/>
 
     <ImageView
         android:id="@+id/waypoint_clue_type"
@@ -46,10 +45,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:onClick="waypointSelected"
         app:layout_constraintEnd_toStartOf="@+id/image_clue_type"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+        app:srcCompat="@android:drawable/sym_def_app_icon"
+        android:contentDescription="@string/waypoint_clue_type_content_description"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

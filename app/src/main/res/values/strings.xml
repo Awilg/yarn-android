@@ -135,5 +135,9 @@
     <string name="preview">Preview</string>
     <string name="describe_your_adventure">Describe your adventure!</string>
     <string name="add_clue">Add Clue</string>
+    <string name="text_clue_type_description">image for the text clue type</string>
+    <string name="photo_clue_type_content_description">image for the photo clue type</string>
+    <string name="treasure_clue_type_content_description">image fore the treasure clue type</string>
+    <string name="waypoint_clue_type_content_description">image for the waypoint clue type</string>
 </resources>
 

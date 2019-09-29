@@ -3,8 +3,6 @@ package com.orienteer.treasurecreate
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.orienteer.R
@@ -14,6 +12,10 @@ import kotlinx.android.synthetic.main.dialog_clue_type_selection.view.image_clue
 import kotlinx.android.synthetic.main.dialog_clue_type_selection.view.text_clue_type
 import kotlinx.android.synthetic.main.dialog_clue_type_selection.view.treasure_clue_type
 
+/**
+ * This is the dialog that is used to select which [ClueType] of a [Clue] to create while creating
+ * a [TreasureHunt].
+ */
 class ClueTypeSelectionDialogFragment : DialogFragment() {
     internal lateinit var listener: ClueTypeSelectionListener
 
@@ -42,10 +44,6 @@ class ClueTypeSelectionDialogFragment : DialogFragment() {
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-    fun waypointSelected(view: View) {
-        Toast.makeText(context, "Selected Something!", Toast.LENGTH_SHORT).show()
-    }
-
     /*
      * The activity/fragment that creates an instance of this dialog fragment must
      * implement this interface in order to receive event callbacks.
@@ -64,7 +62,7 @@ class ClueTypeSelectionDialogFragment : DialogFragment() {
         try {
             listener = targetFragment as ClueTypeSelectionListener
         } catch (e: java.lang.ClassCastException) {
-            throw ClassCastException("Calling Fragment must implement TextClueSolveDialogListener")
+            throw ClassCastException("Calling Fragment must implement ClueTypeSelectionListener")
         }
     }
 }
