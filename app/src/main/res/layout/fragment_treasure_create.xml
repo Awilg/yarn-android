@@ -53,8 +53,8 @@
             android:id="@+id/preview_adventure_button"
             android:layout_width="150dp"
             android:layout_height="60dp"
-            android:text="@string/preview"
             android:onClick="@{() -> viewModel.onPreviewClicked()}"
+            android:text="@string/preview"
             app:layout_constraintBottom_toBottomOf="@+id/create_adventure_button"
             app:layout_constraintEnd_toStartOf="@+id/create_adventure_button"
             app:layout_constraintHorizontal_bias="0.5"
@@ -76,12 +76,24 @@
             android:id="@+id/add_clue_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_clue"
             android:onClick="@{() -> viewModel.onAddClueClicked()}"
+            android:text="@string/add_clue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/clues_section" />
 
+        <include
+            android:id="@+id/clue_type_section"
+            layout="@layout/dialog_clue_type_selection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

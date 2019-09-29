@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -31,11 +32,13 @@ import com.orienteer.databinding.FragmentTreasureCreateBinding
 import com.orienteer.models.Clue
 import com.orienteer.models.ClueState
 import com.orienteer.models.ClueType
+import com.orienteer.treasurehuntactive.TextClueSolveDialogFragment
 import com.orienteer.util.PermissionsUtil
 import timber.log.Timber
 
 
-class TreasureCreateFragment : Fragment(), OnMapReadyCallback {
+class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
+    ClueTypeSelectionDialogFragment.ClueTypeSelectionListener {
 
     /**
      * Lazily initialize our [TreasureCreateViewModel].
@@ -93,9 +96,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback {
         viewModel.navigateAddClue.observe(this, Observer {
             if (it == true) {
                 Timber.i("Adding a clue!")
-                Toast.makeText(context, "Add Clue!", Toast.LENGTH_SHORT)
-                    .show()
-                viewModel.doneNavigating()
+                showClueTypeSelection()
             }
         })
 
@@ -200,6 +201,20 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback {
                 .fillColor(0x40ff0029)
                 .strokeColor(0x40ff0029)
         )
+    }
+
+    private fun showClueTypeSelection() {
+        val clueDialog = ClueTypeSelectionDialogFragment()
+        clueDialog.setTargetFragment(this, 0)
+        fragmentManager?.let { clueDialog.show(it, "clue_type_selection") }
+    }
+
+    override fun onClueTypeSelected(answer: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onClueTypeSelectionCancel(dialog: DialogFragment) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     companion object {
