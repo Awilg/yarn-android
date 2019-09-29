@@ -29,15 +29,19 @@ class ClueTypeSelectionDialogFragment : DialogFragment() {
             // Emit the correct clue type for the image selections
             view.waypoint_clue_type.setOnClickListener {
                 listener.onClueTypeSelected(ClueType.Location)
+                dismiss()
             }
             view.image_clue_type.setOnClickListener {
                 listener.onClueTypeSelected(ClueType.Photo)
+                dismiss()
             }
             view.text_clue_type.setOnClickListener {
                 listener.onClueTypeSelected(ClueType.Text)
+                dismiss()
             }
             view.treasure_clue_type.setOnClickListener {
                 listener.onClueTypeSelected(ClueType.Treasure)
+                dismiss()
             }
             builder.setView(view)
             builder.create()
