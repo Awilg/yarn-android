@@ -4,4 +4,5 @@ enum class ClueType {
     Location,
     Photo,
     Text,
+    Treasure
 }

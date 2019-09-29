@@ -209,8 +209,8 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         fragmentManager?.let { clueDialog.show(it, "clue_type_selection") }
     }
 
-    override fun onClueTypeSelected(answer: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onClueTypeSelected(type: ClueType) {
+        Toast.makeText(context, "Selected a ${type.name} clue!", Toast.LENGTH_SHORT).show()
     }
 
     override fun onClueTypeSelectionCancel(dialog: DialogFragment) {
