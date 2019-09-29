@@ -83,7 +83,17 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback {
         viewModel.navigateToPreview.observe(this, Observer {
             if (it == true) {
                 Timber.i("navigating to the preview screen!")
-                Toast.makeText(context, "Preview!", Toast.LENGTH_LONG)
+                Toast.makeText(context, "Preview!", Toast.LENGTH_SHORT)
+                    .show()
+                viewModel.doneNavigating()
+            }
+        })
+
+        // Set up observer for the add clue button
+        viewModel.navigateAddClue.observe(this, Observer {
+            if (it == true) {
+                Timber.i("Adding a clue!")
+                Toast.makeText(context, "Add Clue!", Toast.LENGTH_SHORT)
                     .show()
                 viewModel.doneNavigating()
             }

@@ -24,8 +24,14 @@ class TreasureCreateViewModel : ViewModel() {
     val navigateToPreview: LiveData<Boolean?>
         get() = _navigateToPreview
 
+    private val _navigateAddClue = MutableLiveData<Boolean?>()
+    val navigateAddClue: LiveData<Boolean?>
+        get() = _navigateAddClue
+
     fun doneNavigating() {
         _navigateToSuccessScreen.value = null
+        _navigateToPreview.value = null
+        _navigateAddClue.value = null
     }
 
     fun onCreateClicked() {
@@ -34,6 +40,10 @@ class TreasureCreateViewModel : ViewModel() {
 
     fun onPreviewClicked() {
         _navigateToPreview.value = true
+    }
+
+    fun onAddClueClicked() {
+        _navigateAddClue.value = true
     }
 
     fun setTreasureHuntName(name: String) {
