@@ -139,5 +139,9 @@
     <string name="photo_clue_type_content_description">image for the photo clue type</string>
     <string name="treasure_clue_type_content_description">image fore the treasure clue type</string>
     <string name="waypoint_clue_type_content_description">image for the waypoint clue type</string>
+    <string name="choose_the_location_of_your_clue">Choose the location of your clue</string>
+    <string name="confirm_location_clue">confirm location clue</string>
+    <string name="hint">Hint</string>
+    <string name="accept_radius">Accept Radius</string>
 </resources>
 
