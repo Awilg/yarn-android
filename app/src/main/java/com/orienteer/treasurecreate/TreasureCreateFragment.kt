@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -211,6 +213,11 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
 
     override fun onClueTypeSelected(type: ClueType) {
         Toast.makeText(context, "Selected a ${type.name} clue!", Toast.LENGTH_SHORT).show()
+        when(type) {
+            ClueType.Location -> this.findNavController().navigate(TreasureCreateFragmentDirections
+                .actionTreasureCreateFragmentToClueTypeLocationCreateFragment())
+            else -> Toast.makeText(context, "Doing nothing", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onClueTypeSelectionCancel(dialog: DialogFragment) {

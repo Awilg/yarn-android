@@ -11,9 +11,6 @@
         android:label="Home"
         tools:layout="@layout/fragment_map">
         <action
-            android:id="@+id/action_mapDestination_to_treasureCreateDestination"
-            app:destination="@id/treasureCreateFragment" />
-        <action
             android:id="@+id/action_mapDestination_to_treasureHuntDetail"
             app:destination="@id/treasureHuntDetail" />
     </fragment>
@@ -21,7 +18,11 @@
         android:id="@+id/treasureCreateFragment"
         android:name="com.orienteer.treasurecreate.TreasureCreateFragment"
         android:label="Bury a Treasure"
-        tools:layout="@layout/fragment_treasure_create" />
+        tools:layout="@layout/fragment_treasure_create" >
+        <action
+            android:id="@+id/action_treasureCreateFragment_to_clueTypeLocationCreateFragment"
+            app:destination="@id/clueTypeLocationCreateFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.orienteer.profile.ProfileFragment"
@@ -79,5 +80,10 @@
         android:name="com.orienteer.treasurehunts.AdventuresFollowedFragment"
         android:label="Your Adventures"
         tools:layout="@layout/fragment_adventures_followed"/>
+    <fragment
+        android:id="@+id/clueTypeLocationCreateFragment"
+        android:name="com.orienteer.treasurecreate.ClueTypeLocationCreateFragment"
+        android:label="ClueTypeLocationCreateFragment"
+        tools:layout="@layout/fragment_clue_location_create"/>
 
 </navigation>
