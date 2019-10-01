@@ -18,7 +18,12 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
+val DEFAULT_LOCATION = LatLng(-33.8523341, 151.2106085)
+val DEFAULT_ZOOM = 15F
+
 class MapViewModel : ViewModel() {
+    val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
+
     private var _map: GoogleMap? = null
 
     private val _lastKnownLocation = MutableLiveData<Location>()
@@ -54,10 +59,6 @@ class MapViewModel : ViewModel() {
 
     // The entry point to the Fused Location Provider.
     private var _fusedLocationProviderClient: FusedLocationProviderClient? = null
-
-    private val DEFAULT_LOCATION = LatLng(-33.8523341, 151.2106085)
-    private val DEFAULT_ZOOM = 15F
-    val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 
     init {
         _locationPermissionGranted.value = false

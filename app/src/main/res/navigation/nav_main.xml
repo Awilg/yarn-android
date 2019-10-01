@@ -83,7 +83,7 @@
     <fragment
         android:id="@+id/clueTypeLocationCreateFragment"
         android:name="com.orienteer.treasurecreate.ClueTypeLocationCreateFragment"
-        android:label="ClueTypeLocationCreateFragment"
+        android:label="Location Clue Edit"
         tools:layout="@layout/fragment_clue_location_create"/>
 
 </navigation>
