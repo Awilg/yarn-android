@@ -39,9 +39,8 @@ class ClueTypeLocationViewModel : ViewModel() {
 
     fun setMap(map: GoogleMap) {
         _map = map
-        _map!!.setMinZoomPreference(6.0f);
-        _map!!.setMaxZoomPreference(14.0f);
-
+        _map!!.setMinZoomPreference(4.0f)
+        _map!!.setMaxZoomPreference(19.0f)
     }
     fun resetMap() {
         _map?.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, DEFAULT_ZOOM))
