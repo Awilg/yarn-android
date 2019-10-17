@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -21,8 +22,9 @@ import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import timber.log.Timber
 
-class ClueTypeLocationCreateFragment : Fragment(), OnMapReadyCallback, EasyPermissions.PermissionCallbacks {
-
+class ClueTypeLocationCreateFragment : Fragment(),
+    OnMapReadyCallback,
+    EasyPermissions.PermissionCallbacks {
     private val viewModel: ClueTypeLocationViewModel by lazy {
         ViewModelProviders.of(this).get(ClueTypeLocationViewModel::class.java)
     }
@@ -45,6 +47,10 @@ class ClueTypeLocationCreateFragment : Fragment(), OnMapReadyCallback, EasyPermi
         val mapFragment = childFragmentManager.findFragmentById(R.id.clueTypeLocationMapFragment) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
 
+        binding.locationClueConfirmation.setOnClickListener {
+            Toast.makeText(context, "Clue saved!", Toast.LENGTH_SHORT).show()
+        }
+
         return binding.root
     }
 
@@ -63,7 +69,6 @@ class ClueTypeLocationCreateFragment : Fragment(), OnMapReadyCallback, EasyPermi
 
         // Get current location
         getDeviceLocation()
-
     }
 
     /**
