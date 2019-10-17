@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,20 +21,14 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.Circle
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.orienteer.R
-import com.orienteer.core.ClueAdapter
-import com.orienteer.core.ClueAdapterListener
 import com.orienteer.databinding.FragmentTreasureCreateBinding
-import com.orienteer.models.Clue
-import com.orienteer.models.ClueState
 import com.orienteer.models.ClueType
-import com.orienteer.treasurehuntactive.TextClueSolveDialogFragment
 import com.orienteer.util.PermissionsUtil
+import com.orienteer.util.hideKeyboard
 import timber.log.Timber
 
 
@@ -77,6 +70,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         viewModel.navigateToSuccessScreen.observe(this, Observer {
             if (it == true) {
                 Timber.i("navigating to the success screen!")
+                hideKeyboard()
 //                viewModel.setTreasureHuntName(binding.treasureHuntName.text.toString())
 //                Toast.makeText(context, "Treasure Hunt ${viewModel.treasureHuntName.value} created!", Toast.LENGTH_LONG)
 //                    .show()
@@ -88,6 +82,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         viewModel.navigateToPreview.observe(this, Observer {
             if (it == true) {
                 Timber.i("navigating to the preview screen!")
+                hideKeyboard()
                 Toast.makeText(context, "Preview!", Toast.LENGTH_SHORT)
                     .show()
                 viewModel.doneNavigating()
@@ -98,6 +93,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         viewModel.navigateAddClue.observe(this, Observer {
             if (it == true) {
                 Timber.i("Adding a clue!")
+                hideKeyboard()
                 showClueTypeSelection()
             }
         })

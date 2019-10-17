@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/adventure_name_text"
@@ -25,6 +25,7 @@
             android:layout_marginTop="16dp"
             android:hint="@string/hint_treasure_hunt_name"
             android:inputType="text"
+            android:imeOptions="actionNext"
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

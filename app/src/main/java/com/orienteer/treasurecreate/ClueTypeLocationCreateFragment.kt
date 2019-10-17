@@ -18,9 +18,11 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.orienteer.R
 import com.orienteer.databinding.FragmentClueLocationCreateBinding
 import com.orienteer.models.RequestCodes
+import com.orienteer.util.hideKeyboard
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import timber.log.Timber
+
 
 class ClueTypeLocationCreateFragment : Fragment(),
     OnMapReadyCallback,
@@ -39,15 +41,18 @@ class ClueTypeLocationCreateFragment : Fragment(),
         val binding = FragmentClueLocationCreateBinding.inflate(inflater)
 
         // Initialize the location services client
-        _fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity as Activity)
+        _fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(activity as Activity)
 
         binding.viewmodel = viewModel
 
         // Set map callback on the mapView
-        val mapFragment = childFragmentManager.findFragmentById(R.id.clueTypeLocationMapFragment) as SupportMapFragment?
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.clueTypeLocationMapFragment) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
 
         binding.locationClueConfirmation.setOnClickListener {
+            hideKeyboard()
             Toast.makeText(context, "Clue saved!", Toast.LENGTH_SHORT).show()
         }
 
@@ -59,8 +64,10 @@ class ClueTypeLocationCreateFragment : Fragment(),
         // Check permissions
         if (!EasyPermissions.hasPermissions(context!!, Manifest.permission.ACCESS_FINE_LOCATION)) {
             EasyPermissions.requestPermissions(
-                PermissionRequest.Builder(this, RequestCodes.PERMISSIONS_RC_LOCATION.code,
-                    Manifest.permission.ACCESS_FINE_LOCATION).build()
+                PermissionRequest.Builder(
+                    this, RequestCodes.PERMISSIONS_RC_LOCATION.code,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ).build()
             )
         }
 
@@ -97,7 +104,11 @@ class ClueTypeLocationCreateFragment : Fragment(),
     }
 
     // Override the onresult callback to decorate the easy permissions one
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
@@ -114,5 +125,4 @@ class ClueTypeLocationCreateFragment : Fragment(),
             }
         }
     }
-
 }
