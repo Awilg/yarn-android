@@ -59,21 +59,11 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         // Set up location client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity as Activity)
 
-        // Set up the map callback on the fragment. Must us the childFragmentManager since the map fragment
-        // is nested inside this current fragment. This also MUST BE A SupportMapFragment for it to be discoverable
-        // via the fragmentManager. This is stupid.
-        // TODO (James): Research why this fragment is not populated in the databinding for the layout
-//        val mapFragment = childFragmentManager.findFragmentById(R.id.create_treasure_hunt_map) as SupportMapFragment?
-//        mapFragment?.getMapAsync(this)
-
         // Set up observer for the create button
         viewModel.navigateToSuccessScreen.observe(this, Observer {
             if (it == true) {
                 Timber.i("navigating to the success screen!")
                 hideKeyboard()
-//                viewModel.setTreasureHuntName(binding.treasureHuntName.text.toString())
-//                Toast.makeText(context, "Treasure Hunt ${viewModel.treasureHuntName.value} created!", Toast.LENGTH_LONG)
-//                    .show()
                 viewModel.doneNavigating()
             }
         })
@@ -212,6 +202,10 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         when(type) {
             ClueType.Location -> this.findNavController().navigate(TreasureCreateFragmentDirections
                 .actionTreasureCreateFragmentToClueTypeLocationCreateFragment())
+            ClueType.Photo -> this.findNavController().navigate(
+                TreasureCreateFragmentDirections
+                    .actionTreasureCreateFragmentToClueTypePhotoCreateFragment()
+            )
             else -> Toast.makeText(context, "Doing nothing", Toast.LENGTH_SHORT).show()
         }
     }
