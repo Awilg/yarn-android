@@ -86,7 +86,13 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
         })
 
         viewModel.navigateToCompletedScreen.observe(this, Observer {
-            Toast.makeText(context, "Finished the adventure!", Toast.LENGTH_SHORT).show()
+            if (it == true) {
+                this.findNavController().navigate(
+                    TreasureHuntActiveFragmentDirections
+                        .actionTreasureHuntActiveFragmentToAdventureCompletedFragment()
+                )
+                viewModel.doneNavigating()
+            }
         })
 
         binding.cluesRecyclerview.adapter = clueAdapter

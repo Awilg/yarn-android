@@ -93,6 +93,6 @@ class TreasureHuntActiveViewModel(hunt: TreasureHunt, app: Application) : Androi
     }
 
     fun doneNavigating() {
-        _navigateToCompletedScreen.value = false
+        _navigateToCompletedScreen.value = null
     }
 }

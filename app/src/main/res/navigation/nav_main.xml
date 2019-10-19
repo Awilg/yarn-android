@@ -70,6 +70,9 @@
         <action
             android:id="@+id/action_treasureHuntActiveFragment_to_cameraFragment"
             app:destination="@id/cameraFragment" />
+        <action
+            android:id="@+id/action_treasureHuntActiveFragment_to_adventureCompletedFragment"
+            app:destination="@id/adventureCompletedFragment" />
     </fragment>
     <fragment
         android:id="@+id/cameraFragment"
@@ -112,5 +115,11 @@
         android:name="com.orienteer.treasurecreate.ClueTypeTreasureCreateFragment"
         android:label="Bury your treasure!"
         tools:layout="@layout/fragment_clue_treasure_create" />
+
+    <fragment
+        android:id="@+id/adventureCompletedFragment"
+        android:name="com.orienteer.adventurecompleted.AdventureCompletedFragment"
+        android:label="Adventure Completed!"
+        tools:layout="@layout/fragment_adventure_completed" />
 
 </navigation>
