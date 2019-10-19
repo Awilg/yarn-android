@@ -60,7 +60,6 @@ class ClueTypeLocationCreateFragment : Fragment(),
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        Timber.i("MAP IS READY POG")
         // Check permissions
         if (!EasyPermissions.hasPermissions(context!!, Manifest.permission.ACCESS_FINE_LOCATION)) {
             EasyPermissions.requestPermissions(

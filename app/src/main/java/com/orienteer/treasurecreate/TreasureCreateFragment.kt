@@ -85,6 +85,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
                 Timber.i("Adding a clue!")
                 hideKeyboard()
                 showClueTypeSelection()
+                viewModel.doneNavigating()
             }
         })
 
