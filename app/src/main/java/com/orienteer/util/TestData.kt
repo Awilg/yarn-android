@@ -9,6 +9,19 @@ import java.util.*
 
 // Seattle LatLng
 var TEST_HUNTS : List<TreasureHunt> = listOf(
+    TreasureHunt(
+        "dummy", "Test succsss hunt", "This is a description!", LatLng(47.6062, -122.3321), listOf(
+            Clue(
+                "clue_1",
+                "This is a location clue",
+                "This is a hint",
+                ClueType.Text,
+                LatLng(47.539, -122.305),
+                ClueState.ACTIVE,
+                "answer"
+            )
+        )
+    ),
     TreasureHunt("id_1", "Treasure Hunt 1", "This is a description!", LatLng(47.6062, -122.3321), listOf(
         Clue("clue_1", "This is a location clue", "This is a hint", ClueType.Location, LatLng(47.539, -122.305), ClueState.ACTIVE),
         Clue("clue_2", "This is the photo clue", "Photo hint", ClueType.Photo, LatLng(47.539, -122.305),ClueState.LOCKED),

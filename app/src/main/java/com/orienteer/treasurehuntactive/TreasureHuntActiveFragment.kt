@@ -85,6 +85,10 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
             clueAdapter.notifyDataSetChanged()
         })
 
+        viewModel.navigateToCompletedScreen.observe(this, Observer {
+            Toast.makeText(context, "Finished the adventure!", Toast.LENGTH_SHORT).show()
+        })
+
         binding.cluesRecyclerview.adapter = clueAdapter
 
         return binding.root
@@ -166,11 +170,11 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
         }
     }
 
-    override fun onClueAnswerSubmit(answer: String) {
+    override fun onTextClueAnswerSubmit(answer: String) {
         viewModel.attemptTextSolve(answer)
     }
 
-    override fun onClueAnswerCancel(dialog: DialogFragment) {
+    override fun onTextClueAnswerCancel(dialog: DialogFragment) {
         Toast.makeText(context, "Clicked cancel!", Toast.LENGTH_SHORT).show()
     }
 }

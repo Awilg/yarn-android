@@ -12,7 +12,7 @@ import timber.log.Timber
 
 class TreasureHuntActiveViewModel(hunt: TreasureHunt, app: Application) : AndroidViewModel(app) {
 
-    private val LOCATION_SOLVE_DISTANCE_METERS = 5f;
+    private val LOCATION_SOLVE_DISTANCE_METERS = 5f
     private val _activeAdventure = MutableLiveData<TreasureHunt>()
     val activeAdventure: LiveData<TreasureHunt>
         get() = _activeAdventure
@@ -28,6 +28,10 @@ class TreasureHuntActiveViewModel(hunt: TreasureHunt, app: Application) : Androi
     private val _currentCluePosition = MutableLiveData<Int>()
     val currentCluePosition: LiveData<Int>
         get() = _currentCluePosition
+
+    private val _navigateToCompletedScreen = MutableLiveData<Boolean?>()
+    val navigateToCompletedScreen: LiveData<Boolean?>
+        get() = _navigateToCompletedScreen
 
     init {
         _activeAdventure.value = hunt
@@ -59,8 +63,13 @@ class TreasureHuntActiveViewModel(hunt: TreasureHunt, app: Application) : Androi
 
     private fun unlockNextClue() {
         _currentActiveClue.value?.let {
-            it.state = ClueState.COMPLETED
+            // Check if we did all the clues
             val nextPosition = _currentCluePosition.value!! + 1
+            if (_clues.value!!.lastIndex < nextPosition) {
+                navigateToCompletedScreen()
+                return
+            }
+            it.state = ClueState.COMPLETED
             _clues.value?.get(nextPosition)?.state = ClueState.ACTIVE
             _currentCluePosition.value = nextPosition
             _currentActiveClue.value = _clues.value?.get(nextPosition)
@@ -73,7 +82,17 @@ class TreasureHuntActiveViewModel(hunt: TreasureHunt, app: Application) : Androi
     fun attemptPhotoSolve() {}
 
     fun attemptTextSolve(answer: String) {
-        //TODO: Verify against the backend here then unlock next clue
-        unlockNextClue()
+        if (answer.equals(_currentActiveClue.value?.textAnswer)) {
+            Timber.i("TEXT CLUE SOLVED -- NAVIGATING TO SUCCESS SCREEN")
+            unlockNextClue()
+        }
+    }
+
+    fun navigateToCompletedScreen() {
+        _navigateToCompletedScreen.value = true
+    }
+
+    fun doneNavigating() {
+        _navigateToCompletedScreen.value = false
     }
 }
