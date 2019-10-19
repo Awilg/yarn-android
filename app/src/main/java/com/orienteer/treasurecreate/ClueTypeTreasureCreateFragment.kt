@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.orienteer.databinding.FragmentCluePhotoCreateBinding
+import com.orienteer.databinding.FragmentClueTreasureCreateBinding
 
-class ClueTypePhotoCreateFragment : Fragment() {
+class ClueTypeTreasureCreateFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentCluePhotoCreateBinding.inflate(inflater)
+        val binding = FragmentClueTreasureCreateBinding.inflate(inflater)
         return binding.root
     }
 }

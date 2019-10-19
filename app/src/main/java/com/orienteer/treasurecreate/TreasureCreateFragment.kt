@@ -82,7 +82,6 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         // Set up observer for the add clue button
         viewModel.navigateAddClue.observe(this, Observer {
             if (it == true) {
-                Timber.i("Adding a clue!")
                 hideKeyboard()
                 showClueTypeSelection()
                 viewModel.doneNavigating()
@@ -207,7 +206,14 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
                 TreasureCreateFragmentDirections
                     .actionTreasureCreateFragmentToClueTypePhotoCreateFragment()
             )
-            else -> Toast.makeText(context, "Doing nothing", Toast.LENGTH_SHORT).show()
+            ClueType.Text -> this.findNavController().navigate(
+                TreasureCreateFragmentDirections
+                    .actionTreasureCreateFragmentToClueTypeTextCreateFragment()
+            )
+            ClueType.Treasure -> this.findNavController().navigate(
+                TreasureCreateFragmentDirections
+                    .actionTreasureCreateFragmentToClueTypeTreasureCreateFragment()
+            )
         }
     }
 

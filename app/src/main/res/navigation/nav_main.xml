@@ -25,6 +25,12 @@
         <action
             android:id="@+id/action_treasureCreateFragment_to_clueTypePhotoCreateFragment"
             app:destination="@id/clueTypePhotoCreateFragment" />
+        <action
+            android:id="@+id/action_treasureCreateFragment_to_clueTypeTextCreateFragment"
+            app:destination="@id/clueTypeTextCreateFragment" />
+        <action
+            android:id="@+id/action_treasureCreateFragment_to_clueTypeTreasureCreateFragment"
+            app:destination="@id/clueTypeTreasureCreateFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -94,5 +100,17 @@
         android:name="com.orienteer.treasurecreate.ClueTypePhotoCreateFragment"
         android:label="Photo Clue Edit"
         tools:layout="@layout/fragment_clue_photo_create" />
+
+    <fragment
+        android:id="@+id/clueTypeTextCreateFragment"
+        android:name="com.orienteer.treasurecreate.ClueTypeTextCreateFragment"
+        android:label="Text Clue Edit"
+        tools:layout="@layout/fragment_clue_text_create" />
+
+    <fragment
+        android:id="@+id/clueTypeTreasureCreateFragment"
+        android:name="com.orienteer.treasurecreate.ClueTypeTreasureCreateFragment"
+        android:label="Bury your treasure!"
+        tools:layout="@layout/fragment_clue_treasure_create" />
 
 </navigation>
