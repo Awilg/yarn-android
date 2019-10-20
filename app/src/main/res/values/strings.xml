@@ -143,5 +143,6 @@
     <string name="confirm_location_clue">confirm location clue</string>
     <string name="hint">Hint</string>
     <string name="accept_radius">Accept Radius</string>
+    <string name="card_image_for_an_adventure">card image for an adventure</string>
 </resources>
 
