@@ -72,7 +72,8 @@
             app:destination="@id/cameraFragment" />
         <action
             android:id="@+id/action_treasureHuntActiveFragment_to_adventureCompletedFragment"
-            app:destination="@id/adventureCompletedFragment" />
+            app:destination="@id/adventureCompletedFragment"
+            app:popUpTo="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/cameraFragment"

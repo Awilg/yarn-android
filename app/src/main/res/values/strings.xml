@@ -144,5 +144,6 @@
     <string name="hint">Hint</string>
     <string name="accept_radius">Accept Radius</string>
     <string name="card_image_for_an_adventure">card image for an adventure</string>
+    <string name="you_completed_the_adventure">You Completed the adventure!</string>
 </resources>
 
