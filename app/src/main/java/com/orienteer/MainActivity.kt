@@ -5,8 +5,8 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
@@ -15,34 +15,48 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.orienteer.databinding.ActivityMainBinding
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 import java.io.File
 
-
 class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
-
-    private lateinit var binding: ActivityMainBinding
 
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setContentView(R.layout.activity_main)
         // Set up Logger
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())
         }
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
         navController = findNavController(R.id.nav_host_fragment)
 
-        setUpNavigation()
+        val bottomNav = findViewById<BottomNavigationView>(R.id.nav_view)
+        bottomNav.setupWithNavController(navController)
 
-        binding.navView.setupWithNavController(navController)
+        hideSystemUI()
     }
+
+    private fun hideSystemUI() {
+        // Enables regular immersive mode.
+        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
+        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        window.decorView.systemUiVisibility = (
+                SYSTEM_UI_FLAG_IMMERSIVE
+                        // Set the content to appear under the system bars so that the
+                        // content doesn't resize when the system bars hide and show.
+                        or SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        // Hide the nav bar and status bar
+                        or SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        or SYSTEM_UI_FLAG_FULLSCREEN
+                        // Set the light theme status bar
+                        or SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -97,14 +111,6 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         }
 
     }
-
-    private fun setUpNavigation() {
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.nav_view)
-        val navHostFragment = findNavController(R.id.nav_host_fragment)
-        bottomNavigationView.setupWithNavController(navHostFragment)
-        bottomNavigationView.itemIconTintList = null
-    }
-
 
     companion object {
         /** Use external media if it is available, our app's file directory otherwise */

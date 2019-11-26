@@ -2,29 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/add_adventure_by_qr_code"
+        android:id="@+id/treasureCreateFragment"
         android:icon="@drawable/ic_add_location_black_24dp"
-        android:state_checked="false"
         android:title="@string/create" />
     <item
         android:id="@id/treasureHuntsFragment"
         android:icon="@drawable/ic_list_black_24dp"
-        android:state_checked="false"
         android:title="@string/list" />
     <item
         android:id="@+id/mapFragment"
         android:icon="@drawable/ic_home_black_24dp"
-        android:state_checked="false"
         android:title="@string/menu_home" />
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_person_black_24dp"
-        android:state_checked="false"
         android:title="@string/profile" />
 
     <item
         android:id="@id/settingsContainerFragment"
         android:icon="@drawable/ic_settings_black_24dp"
-        android:state_checked="false"
         android:title="@string/menu_tools" />
 </menu>

@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data></data>
+    android:id="@+id/main_coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_width="match_parent"
         android:orientation="vertical">
 
         <fragment
             android:id="@+id/nav_host_fragment"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
             app:defaultNavHost="true"
             app:navGraph="@navigation/nav_main" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/nav_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/nav_view"
             android:layout_gravity="bottom"
+            android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             app:itemIconTint="@color/colorPrimaryDark"
             app:itemTextColor="@color/colorPrimaryDark"
@@ -31,4 +31,4 @@
             app:menu="@menu/bottom_nav" />
 
     </LinearLayout>
-</layout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
