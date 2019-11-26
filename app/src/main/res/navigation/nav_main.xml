@@ -87,7 +87,8 @@
     <fragment
         android:id="@+id/settingsContainerFragment"
         android:name="com.orienteer.preferences.SettingsContainerFragment"
-        android:label="Settings" />
+        android:label="Settings"
+        tools:layout="@xml/user_preferences"/>
     <fragment
         android:id="@+id/adventuresFollowedFragment"
         android:name="com.orienteer.treasurehunts.AdventuresFollowedFragment"

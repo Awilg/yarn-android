@@ -2,9 +2,7 @@ package com.orienteer.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.orienteer.models.User
-import com.squareup.moshi.FromJson
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.ToJson
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -15,16 +13,15 @@ import retrofit2.http.Path
 import java.util.*
 
 // This is the local address for the emulator
-private const val BASE_URL = "http://10.0.2.2:8081/"
+private const val BASE_URL = "http://10.0.2.2:8080/"
 
 /**
  * Build the Moshi object that Retrofit will be using, making sure to add the Kotlin adapter for
  * full Kotlin compatibility.
  */
 private val moshi = Moshi.Builder()
-    .add(UserJsonConverter())
-    .add(Date::class.java, Rfc3339DateJsonAdapter())
     .add(KotlinJsonAdapterFactory())
+    .add(Date::class.java, Rfc3339DateJsonAdapter())
     .build()
 
 /**
@@ -38,17 +35,14 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 /**
- * A public interface that exposes the methods of the backend treasure hunt service/
+ * A public interface that exposes the methods of the backend user service/
  */
 interface UserService {
     /**
      * Returns a Coroutine [Deferred] of [User] which can be fetched with await() if
      * in a Coroutine scope.
-     * The @GET annotation indicates that the "user" endpoint will be requested with the GET
-     * HTTP method
      */
-    @GET("user/get/{id}")
-    @Wrapped
+    @GET("user/{id}")
     fun getUser(@Path("id") id: String): Deferred<User>
 }
 
@@ -57,25 +51,5 @@ interface UserService {
  * A public Api object that exposes the lazy-initialized Retrofit service
  */
 object UserApi {
-    val retrofitService: UserService by lazy { retrofit.create(UserService::class.java) }
-}
-
-class UserResponse {
-    lateinit var user: User
-}
-
-/**
- * This converter is to take the json object and convert that json object to the list of treasure hunts
- */
-class UserJsonConverter {
-    @Wrapped
-    @FromJson
-    fun fromJson(json: UserResponse): User {
-        return json.user
-    }
-
-    @ToJson
-    fun toJson(@Wrapped value: User): UserResponse {
-        throw UnsupportedOperationException()
-    }
+    val userService: UserService by lazy { retrofit.create(UserService::class.java) }
 }

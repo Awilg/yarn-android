@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
-                val dbUser = UserApi.retrofitService.getUser(user?.uid!!)
+                val dbUser = UserApi.userService.getUser(user?.uid!!)
 
                 Timber.i("Login successful!")
                 startActivity(Intent(this, MainActivity::class.java))
