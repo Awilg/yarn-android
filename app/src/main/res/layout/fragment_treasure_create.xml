@@ -26,7 +26,6 @@
             android:hint="@string/hint_treasure_hunt_name"
             android:inputType="text"
             android:imeOptions="actionNext"
-            android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

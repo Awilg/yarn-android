@@ -6,21 +6,18 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.orienteer.databinding.ActivityMainBinding
-import com.orienteer.models.TreasureHunt
-import timber.log.Timber.DebugTree
 import timber.log.Timber
+import timber.log.Timber.DebugTree
 import java.io.File
 
 
@@ -40,39 +37,10 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        navController = findNavController(R.id.nav_host_fragment_new_main)
+        navController = findNavController(R.id.nav_host_fragment)
 
-        // Set up the app bar to use the nav graph and drawer
-        val appBarConfiguration = AppBarConfiguration(navController.graph, binding.drawerLayout)
+        setUpNavigation()
 
-        // Set up the toolbar
-        val toolbar: Toolbar = binding.toolbarInclude.toolbar
-        setSupportActionBar(toolbar)
-
-        // This gets the header view at the first position of the NavigationView, which is the correct
-        // header position that we want.
-        binding.navView.getHeaderView(0).setOnClickListener {
-            // TODO: Can we get this from a binding?
-            navController.navigate(R.id.profileFragment)
-            binding.drawerLayout.closeDrawers()
-        }
-
-        // Only allow the drawer on the top level map fragment. This is to handle whatever other nonsense
-        // that NavigationUI can't do naturally, primarily dynamic actions to the toolbar.
-        navController.addOnDestinationChangedListener { _, destination, arguments ->
-            if (destination.id != R.id.mapFragment) {
-                binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            } else {
-                binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-            }
-
-            if (destination.id == R.id.treasureHuntActiveFragment) {
-                var hunt = arguments?.get("selectedTreasureHunt") as TreasureHunt
-                binding.toolbarInclude.toolbar.title = hunt.name
-            }
-        }
-
-        binding.toolbarInclude.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
     }
 
@@ -129,6 +97,14 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         }
 
     }
+
+    private fun setUpNavigation() {
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.nav_view)
+        val navHostFragment = findNavController(R.id.nav_host_fragment)
+        bottomNavigationView.setupWithNavController(navHostFragment)
+        bottomNavigationView.itemIconTintList = null
+    }
+
 
     companion object {
         /** Use external media if it is available, our app's file directory otherwise */
