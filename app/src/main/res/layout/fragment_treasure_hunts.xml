@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/parkPrimaryLight">
+        android:background="@color/color_background">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/treasure_hunts_card_list"

@@ -20,7 +20,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Base.MaterialThemeBuilder"
+        android:theme="@style/Base.YarnTheme"
         android:windowSoftInputMode="adjustNothing"
         tools:ignore="GoogleAppIndexingWarning">
 
