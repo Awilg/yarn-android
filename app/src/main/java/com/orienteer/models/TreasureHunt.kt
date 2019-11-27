@@ -17,4 +17,6 @@ data class TreasureHunt(
     val name: String,
     val description: String,
     val location: LatLng,
-    val clues: List<Clue>) : Parcelable
+    val clues: List<Clue>,
+    val featuredImage: String = ""
+) : Parcelable

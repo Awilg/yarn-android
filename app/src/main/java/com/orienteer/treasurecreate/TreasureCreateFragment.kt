@@ -33,11 +33,9 @@ import timber.log.Timber
 
 
 class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
-    ClueTypeSelectionDialogFragment.ClueTypeSelectionListener {
+    ClueTypeSelectionDialogFragment.ClueTypeSelectionListener,
+    ClueTypeTextCreateDialogFragment.TextClueCreateDialogListener {
 
-    /**
-     * Lazily initialize our [TreasureCreateViewModel].
-     */
     private val viewModel: TreasureCreateViewModel by lazy {
         ViewModelProviders.of(this).get(TreasureCreateViewModel::class.java)
     }
@@ -50,7 +48,11 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
     /**
      * Overriding the onCreateView to use the databinding inflate
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding = FragmentTreasureCreateBinding.inflate(inflater)
 
         // To use the binding with databinding you need to explicitly give the binding a reference to it.
@@ -158,7 +160,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
                 LatLng(
                     location.latitude,
                     location.longitude
-                ), Companion.DEFAULT_TREASURE_CREATE_ZOOM
+                ), DEFAULT_TREASURE_CREATE_ZOOM
             )
         )
         map.addCircle(
@@ -199,17 +201,20 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
 
     override fun onClueTypeSelected(type: ClueType) {
         Toast.makeText(context, "Selected a ${type.name} clue!", Toast.LENGTH_SHORT).show()
-        when(type) {
-            ClueType.Location -> this.findNavController().navigate(TreasureCreateFragmentDirections
-                .actionTreasureCreateFragmentToClueTypeLocationCreateFragment())
+        when (type) {
+            ClueType.Location -> this.findNavController().navigate(
+                TreasureCreateFragmentDirections
+                    .actionTreasureCreateFragmentToClueTypeLocationCreateFragment()
+            )
             ClueType.Photo -> this.findNavController().navigate(
                 TreasureCreateFragmentDirections
                     .actionTreasureCreateFragmentToClueTypePhotoCreateFragment()
             )
-            ClueType.Text -> this.findNavController().navigate(
-                TreasureCreateFragmentDirections
-                    .actionTreasureCreateFragmentToClueTypeTextCreateFragment()
-            )
+            ClueType.Text -> {
+                val textClueCreateDialog = ClueTypeTextCreateDialogFragment()
+                textClueCreateDialog.setTargetFragment(this, 0)
+                fragmentManager?.let { textClueCreateDialog.show(it, "clue_text_create") }
+            }
             ClueType.Treasure -> this.findNavController().navigate(
                 TreasureCreateFragmentDirections
                     .actionTreasureCreateFragmentToClueTypeTreasureCreateFragment()
@@ -221,7 +226,15 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun onTextClueCreateSubmit(answer: String) {
+        Toast.makeText(context, "Text clue create saved!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onTextClueCreateCancel(dialog: DialogFragment) {
+        Toast.makeText(context, "Text clue create cancelled!", Toast.LENGTH_SHORT).show()
+    }
+
     companion object {
-        val DEFAULT_TREASURE_CREATE_ZOOM = 14F
+        const val DEFAULT_TREASURE_CREATE_ZOOM = 14F
     }
 }

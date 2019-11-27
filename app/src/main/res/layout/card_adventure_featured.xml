@@ -12,7 +12,7 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="344dp"
+        android:layout_width="300dp"
         android:layout_height="266dp"
         android:layout_margin="8dp"
         app:cardCornerRadius="10dp">
@@ -24,10 +24,11 @@
 
             <ImageView
                 android:id="@+id/map_view_card"
-                android:layout_width="344dp"
+                android:layout_width="300dp"
                 android:layout_height="194dp"
                 android:background="#90BADD"
-                android:contentDescription="@string/card_image_for_an_adventure" />
+                android:contentDescription="@string/card_image_for_an_adventure"
+                app:imageUrl="@{treasureHunt.featuredImage}" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

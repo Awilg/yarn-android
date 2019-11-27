@@ -13,27 +13,61 @@ var TEST_HUNTS : List<TreasureHunt> = listOf(
         "dummy", "Test succsss hunt", "This is a description!", LatLng(47.6062, -122.3321), listOf(
             Clue(
                 "clue_1",
-                "This is a location clue",
+                "This is a text clue",
                 "This is a hint",
                 ClueType.Text,
                 LatLng(47.539, -122.305),
                 ClueState.ACTIVE,
                 "answer"
             )
-        )
+        ),
+        "https://cdn.geekwire.com/wp-content/uploads/2016/04/20160423_Amazon_biodomes_73-630x421.jpg"
     ),
     TreasureHunt("id_1", "Treasure Hunt 1", "This is a description!", LatLng(47.6062, -122.3321), listOf(
         Clue("clue_1", "This is a location clue", "This is a hint", ClueType.Location, LatLng(47.539, -122.305), ClueState.ACTIVE),
         Clue("clue_2", "This is the photo clue", "Photo hint", ClueType.Photo, LatLng(47.539, -122.305),ClueState.LOCKED),
-        Clue("clue_3", "This is the text clue", "This is a hint", ClueType.Text, LatLng(47.539, -122.305),ClueState.LOCKED))),
+        Clue(
+            "clue_3",
+            "This is the text clue",
+            "This is a hint",
+            ClueType.Text,
+            LatLng(47.539, -122.305),
+            ClueState.LOCKED
+        )
+    ),
+        "https://www.tripsavvy.com/thmb/PjesAcSOetIKsjSdINiJBW5kKgU=/4161x2341/smart/filters:no_upscale()/view-of-columbia-tower-142567995-5b10b2d68e1b6e0036cc5956.jpg"
+    ),
     TreasureHunt("id_2", "Treasure Hunt 2", "This is a really description. I want to see what happens to the layout " +
             "when the description is this long. Nanananananananananananananan BATMAN!", LatLng(47.82, -122.320), listOf(
         Clue("clue_3", "This is the text clue", "This is a hint", ClueType.Text, LatLng(47.539, -122.305),ClueState.LOCKED),
         Clue("clue_3", "This is the text clue", "This is a hint", ClueType.Text, LatLng(47.539, -122.305),ClueState.LOCKED),
-        Clue("clue_3", "This is the text clue", "This is a hint", ClueType.Text, LatLng(47.539, -122.305),ClueState.LOCKED))),
+        Clue(
+            "clue_3",
+            "This is the text clue",
+            "This is a hint",
+            ClueType.Text,
+            LatLng(47.539, -122.305),
+            ClueState.LOCKED
+        )
+    ),
+        "https://en.wikipedia.org/wiki/Lynnwood,_Washington#/media/File:Lynnwood,_WA_welcome_sign.jpg"
+    ),
     TreasureHunt("id_3", "Treasure Hunt 3", "This is a description!", LatLng(48.0, -122.370), listOf(
-        Clue("clue_1", "This is a photo clue", "This is a hint", ClueType.Photo, LatLng(47.539, -122.305), ClueState.ACTIVE))),
-    TreasureHunt("id_4", "Treasure Hunt 4", "This is a description!", LatLng(46.9, -122.399), emptyList()),
+        Clue(
+            "clue_1",
+            "This is a photo clue",
+            "This is a hint",
+            ClueType.Photo,
+            LatLng(47.539, -122.305),
+            ClueState.ACTIVE
+        )
+    ),
+        "https://cdn.shopify.com/s/files/1/0265/9793/files/479-WhidbeyCoffee273580-HDR_grande.jpg"
+    ),
+    TreasureHunt(
+        "id_4", "Treasure Hunt 4", "This is a description!", LatLng(46.9, -122.399), emptyList(),
+        "https://crosscut.com/sites/default/files/styles/three_two_960x640/public/images/articles/DSC_4964_e2it6j.jpg"
+    ),
     TreasureHunt("id_5", "Treasure Hunt 5", "This is a description!", LatLng(47.2062, -122.3412), emptyList()),
     TreasureHunt("id_6", "Treasure Hunt 6", "This is a description!", LatLng(47.309, -122.3662), emptyList()),
     TreasureHunt("id_7", "Hunt d'Elizabeth", "This is a really description. I want to see what happens to the layout when the description is this long. Nanananananananananananananan BATMAN!", LatLng(47.536, -122.300), listOf(

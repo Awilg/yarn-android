@@ -108,7 +108,7 @@
 
     <fragment
         android:id="@+id/clueTypeTextCreateFragment"
-        android:name="com.orienteer.treasurecreate.ClueTypeTextCreateFragment"
+        android:name="com.orienteer.treasurecreate.ClueTypeTextCreateDialogFragment"
         android:label="Text Clue Edit"
         tools:layout="@layout/fragment_clue_text_create" />
 

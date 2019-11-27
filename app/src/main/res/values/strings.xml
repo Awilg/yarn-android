@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Orienteer</string>
+    <string name="app_name">Yarn</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">James Gliwa</string>
@@ -151,5 +151,11 @@
     <string name="in_progress">In Progress</string>
     <string name="completed">Completed</string>
     <string name="created">Created</string>
+    <string name="answer">Answer</string>
+    <string name="hint_1">Hint #1</string>
+    <string name="hint_2">Hint #2</string>
+    <string name="hint_3">Hint #3</string>
+    <string name="optional">Optional</string>
+    <string name="clue_text_create_explanation">Here is where you can create a \"Text\" based clue. A user\'s guess will need to match your expected answer (within reason) for the clue to be accepted.</string>
 </resources>
 

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data></data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dialog_clue_text_solve"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_clue_create_explanation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/clue_text_create_explanation"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Here is where you can create a &quot;Text&quot; based clue. A user's guess will need to match your expected answer (within reason) for the clue to be accepted. " />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:ems="10"
+            android:hint="@string/your_answer_here"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            app:layout_constraintBaseline_toBaselineOf="@+id/clue_text_create_answer_label"
+            app:layout_constraintStart_toEndOf="@+id/clue_text_create_answer_label" />
+
+        <TextView
+            android:id="@+id/clue_text_create_answer_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/answer"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="@+id/clue_text_create_hint_3_label"
+            app:layout_constraintTop_toBottomOf="@+id/clue_text_create_hint_3" />
+
+        <TextView
+            android:id="@+id/clue_text_create_hint_1_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/hint_1"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_clue_create_explanation" />
+
+        <TextView
+            android:id="@+id/clue_text_create_hint_2_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/hint_2"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="@+id/clue_text_create_hint_1_label"
+            app:layout_constraintTop_toBottomOf="@+id/clue_text_create_hint_1" />
+
+        <TextView
+            android:id="@+id/clue_text_create_hint_3_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/hint_3"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="@+id/clue_text_create_hint_2_label"
+            app:layout_constraintTop_toBottomOf="@+id/clue_text_create_hint_2" />
+
+        <EditText
+            android:id="@+id/clue_text_create_hint_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:ems="10"
+            android:hint="@string/optional"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            app:layout_constraintBaseline_toBaselineOf="@+id/clue_text_create_hint_1_label"
+            app:layout_constraintStart_toEndOf="@+id/clue_text_create_hint_1_label" />
+
+        <EditText
+            android:id="@+id/clue_text_create_hint_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:ems="10"
+            android:hint="@string/optional"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            app:layout_constraintBaseline_toBaselineOf="@+id/clue_text_create_hint_2_label"
+            app:layout_constraintStart_toEndOf="@+id/clue_text_create_hint_2_label" />
+
+        <EditText
+            android:id="@+id/clue_text_create_hint_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:ems="10"
+            android:hint="@string/optional"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            app:layout_constraintBaseline_toBaselineOf="@+id/clue_text_create_hint_3_label"
+            app:layout_constraintStart_toEndOf="@+id/clue_text_create_hint_3_label" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
