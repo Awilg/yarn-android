@@ -11,8 +11,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.model.LatLng
 import com.orienteer.databinding.FragmentTreasureHuntsBinding
-import com.orienteer.treasurehuntdetail.TreasureHuntDetailViewModel
-import com.orienteer.treasurehuntdetail.TreasureHuntDetailViewModelFactory
 
 class TreasureHuntsFragment : Fragment() {
 
@@ -36,7 +34,7 @@ class TreasureHuntsFragment : Fragment() {
         binding.treasureHuntsCardList.adapter = TreasureHuntsAdapter(TreasureHuntsAdapter.OnClickListener {
             Toast.makeText(context, "Clicked treasure hunt ${it.name}!", Toast.LENGTH_LONG).show()
             viewModel.displayTreasureHuntDetails(it)
-        })
+        }, useFeaturedBinding = false)
 
         // Observe the navigateToSelectedProperty LiveData and Navigate when it isn't null
         // After navigating, call displayPropertyDetailsComplete() so that the ViewModel is ready

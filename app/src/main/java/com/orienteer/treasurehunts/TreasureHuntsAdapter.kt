@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.orienteer.databinding.CardAdventureFeaturedBinding
 import com.orienteer.databinding.CardTreasureHuntBinding
 import com.orienteer.models.TreasureHunt
 
@@ -13,8 +14,11 @@ import com.orienteer.models.TreasureHunt
  * data, including computing diffs between lists.
  * @param onClick a lambda that takes the click listener to use on each item
  */
-class TreasureHuntsAdapter(private val onClickListener: OnClickListener) :
-    ListAdapter<TreasureHunt, TreasureHuntsAdapter.TreasureHuntViewHolder>(DiffCallback) {
+class TreasureHuntsAdapter(
+    private val onClickListener: OnClickListener,
+    private val useFeaturedBinding: Boolean
+) :
+    ListAdapter<TreasureHunt, RecyclerView.ViewHolder>(DiffCallback) {
     /**
      * The TreasureHuntViewHolder constructor takes the binding variable from the associated
      * GridViewItem, which nicely gives it access to the full [TreasureHunt] information.
@@ -27,6 +31,15 @@ class TreasureHuntsAdapter(private val onClickListener: OnClickListener) :
             binding.executePendingBindings()
         }
     }
+
+    class FeaturedAdventureViewHolder(private var binding: CardAdventureFeaturedBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(hunt: TreasureHunt) {
+            binding.treasureHunt = hunt
+            binding.executePendingBindings()
+        }
+    }
+
 
     /**
      * Allows the RecyclerView to determine which items have changed when the [List] of [TreasureHunt]
@@ -45,19 +58,33 @@ class TreasureHuntsAdapter(private val onClickListener: OnClickListener) :
     /**
      * Create new [RecyclerView] item views (invoked by the layout manager)
      */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TreasureHuntViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
+        if (useFeaturedBinding) {
+            return FeaturedAdventureViewHolder(
+                CardAdventureFeaturedBinding.inflate(
+                    LayoutInflater.from(
+                        parent.context
+                    ), parent, false
+                )
+            )
+        }
         return TreasureHuntViewHolder(CardTreasureHuntBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     /**
      * Replaces the contents of a view (invoked by the layout manager)
      */
-    override fun onBindViewHolder(holder: TreasureHuntViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val treasureHunt = getItem(position)
         holder.itemView.setOnClickListener {
             onClickListener.onClick(treasureHunt)
         }
-        holder.bind(treasureHunt)
+        if (useFeaturedBinding) {
+            (holder as FeaturedAdventureViewHolder).bind(treasureHunt)
+        } else {
+            (holder as TreasureHuntViewHolder).bind(treasureHunt)
+        }
     }
 
     /**

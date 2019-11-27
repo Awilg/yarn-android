@@ -16,11 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.PagerSnapHelper
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -85,7 +81,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         // in the viewmodel to determine where to navigate.
         _binding.treasureHuntsCardsMap.adapter = TreasureHuntsAdapter(TreasureHuntsAdapter.OnClickListener {
             viewModel.displayTreasureHuntDetails(it)
-        })
+        }, useFeaturedBinding = true)
 
         // Adds a listener that is aware of "swipe" card changes to the underlying RecyclerView
         // Snaps cards to the screen so there's only one ever fully on screen and moves the map to
