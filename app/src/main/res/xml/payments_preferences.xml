@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:key="payment_category"
+        app:title="Payments">
+
+        <SwitchPreferenceCompat
+            app:key="steal_data"
+            app:summary="Can we steal all your data? Pretty please... "
+            app:title="Gimme da data!" />
+
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

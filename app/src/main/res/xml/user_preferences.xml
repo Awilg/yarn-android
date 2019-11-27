@@ -1,71 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Preference
-        app:key="notifications_category"
-        app:fragment="com.orienteer.preferences.NotificationsPreferenceFragment"
-        app:title="Notifications">
-    </Preference>
+    <PreferenceCategory
+        app:key="main_category"
+        app:title="Settings">
 
-<!--    <PreferenceCategory-->
-<!--        app:initialExpandedChildrenCount="1"-->
-<!--        app:key="advanced"-->
-<!--        app:title="@string/advanced_attributes">-->
+        <Preference
+            app:fragment="com.orienteer.preferences.AccountPreferenceFragment"
+            app:key="account_category"
+            app:summary="Edit Account Information"
+            app:title="Account" />
 
-<!--        <Preference-->
-<!--            app:key="expandable"-->
-<!--            app:summary="@string/summary_expandable_preference"-->
-<!--            app:title="@string/title_expandable_preference" />-->
+        <Preference
+            app:fragment="com.orienteer.preferences.NotificationsPreferenceFragment"
+            app:key="notifications_category"
+            app:summary="Adjust Notification settings"
+            app:title="Notifications" />
 
-<!--        <Preference-->
-<!--            app:summary="@string/summary_intent_preference"-->
-<!--            app:title="@string/title_intent_preference">-->
-
-<!--            <intent-->
-<!--                android:action="android.intent.action.VIEW"-->
-<!--                android:data="http://www.android.com" />-->
-
-<!--        </Preference>-->
-
-<!--        <SwitchPreferenceCompat-->
-<!--            app:key="parent"-->
-<!--            app:summary="@string/summary_parent_preference"-->
-<!--            app:title="@string/title_parent_preference" />-->
-
-<!--        <SwitchPreferenceCompat-->
-<!--            app:dependency="parent"-->
-<!--            app:key="child"-->
-<!--            app:summary="@string/summary_child_preference"-->
-<!--            app:title="@string/title_child_preference" />-->
-
-<!--        <SwitchPreferenceCompat-->
-<!--            app:key="toggle_summary"-->
-<!--            app:summaryOff="@string/summary_off_toggle_summary_preference"-->
-<!--            app:summaryOn="@string/summary_on_toggle_summary_preference"-->
-<!--            app:title="@string/title_toggle_summary_preference" />-->
-
-<!--        <Preference-->
-<!--            app:enableCopying="true"-->
-<!--            app:key="copyable"-->
-<!--            app:selectable="false"-->
-<!--            app:summary="@string/summary_copyable_preference"-->
-<!--            app:title="@string/title_copyable_preference" />-->
-<!--    </PreferenceCategory>-->
+        <Preference
+            app:fragment="com.orienteer.preferences.PaymentsPreferenceFragment"
+            app:key="payments_category"
+            app:summary="Manage payment settings"
+            app:title="Payments" />
+    </PreferenceCategory>
 
     <PreferenceCategory
         app:key="about_category"
-        app:title="About">
+        app:title="Support">
 
         <Preference
-            app:key="app_store_review"
-            app:summary="Rate us in the Google Play Store"
-            app:title="Like us?"/>
+            app:key="help"
+            app:title="Get help" />
 
         <Preference
             app:key="feedback"
             app:summary="Report technical issues or suggest new features"
-            app:title="Send feedback"/>
+            app:title="Send feedback" />
+
+        <Preference
+            app:key="app_store_review"
+            app:summary="Rate us in the Google Play Store"
+            app:title="Like us?" />
     </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="legal_category"
+        app:title="Legal">
+
+        <Preference
+            app:key="tos_preference"
+            app:title="Terms of Service" />
+    </PreferenceCategory>
+
 
 </androidx.preference.PreferenceScreen>
