@@ -147,5 +147,9 @@
     <string name="you_completed_the_adventure">You Completed the adventure!</string>
     <string name="profile">Profile</string>
     <string name="list">List</string>
+
+    <string name="in_progress">In Progress</string>
+    <string name="completed">Completed</string>
+    <string name="created">Created</string>
 </resources>
 

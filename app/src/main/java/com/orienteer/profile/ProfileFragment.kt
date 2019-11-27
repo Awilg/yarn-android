@@ -20,11 +20,6 @@ class ProfileFragment : Fragment() {
         val binding = FragmentProfileBinding.inflate(inflater)
 
         binding.viewModel = viewModel
-
-        binding.avatarImage.setOnClickListener {
-
-        }
-
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
         return binding.root

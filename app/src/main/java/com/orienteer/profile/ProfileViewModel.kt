@@ -36,7 +36,7 @@ class ProfileViewModel : ViewModel() {
     private fun getUser(userId: String) {
         coroutineScope.launch {
             // Get the Deferred object for our Retrofit request
-            var getUser = UserApi.userService.getUser(userId)
+            val getUser = UserApi.userService.getUser(userId)
             try {
                 // this will run on a thread managed by Retrofit
                 val result = getUser.await()
