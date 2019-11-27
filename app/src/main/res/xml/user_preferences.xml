@@ -12,6 +12,12 @@
             app:title="Account" />
 
         <Preference
+            app:fragment="com.orienteer.preferences.AppearancePreferenceFragment"
+            app:key="appearance_category"
+            app:summary="Adjust App appearance"
+            app:title="Appearance" />
+
+        <Preference
             app:fragment="com.orienteer.preferences.NotificationsPreferenceFragment"
             app:key="notifications_category"
             app:summary="Adjust Notification settings"
