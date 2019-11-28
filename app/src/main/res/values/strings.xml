@@ -157,5 +157,6 @@
     <string name="hint_3">Hint #3</string>
     <string name="optional">Optional</string>
     <string name="clue_text_create_explanation">Here is where you can create a \"Text\" based clue. A user\'s guess will need to match your expected answer (within reason) for the clue to be accepted.</string>
+    <string name="clue">Clue</string>
 </resources>
 

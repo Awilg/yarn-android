@@ -6,7 +6,7 @@
     <data>
         <variable
             name="clue"
-            type="com.orienteer.models.Clue" />
+            type="com.orienteer.models.BaseClue" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:text="@{clue.cluePrompt}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/clue_type_image"
             app:layout_constraintTop_toTopOf="parent"

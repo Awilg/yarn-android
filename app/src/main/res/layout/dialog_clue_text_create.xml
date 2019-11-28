@@ -3,7 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data></data>
+    <data>
+
+        <variable
+            name="clueTextCreate"
+            type="com.orienteer.models.ClueTextCreate" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/dialog_clue_text_solve"
@@ -26,7 +31,7 @@
             tools:text="Here is where you can create a &quot;Text&quot; based clue. A user's guess will need to match your expected answer (within reason) for the clue to be accepted. " />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/clue_text_create_answer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -51,12 +56,11 @@
             android:id="@+id/clue_text_create_hint_1_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:text="@string/hint_1"
             android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_clue_create_explanation" />
+            app:layout_constraintStart_toStartOf="@+id/clue_text_create_clue_label"
+            app:layout_constraintTop_toBottomOf="@+id/clue_text_create_clue" />
 
         <TextView
             android:id="@+id/clue_text_create_hint_2_label"
@@ -113,6 +117,28 @@
             android:inputType="textMultiLine"
             app:layout_constraintBaseline_toBaselineOf="@+id/clue_text_create_hint_3_label"
             app:layout_constraintStart_toEndOf="@+id/clue_text_create_hint_3_label" />
+
+        <TextView
+            android:id="@+id/clue_text_create_clue_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/clue"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_clue_create_explanation" />
+
+        <EditText
+            android:id="@+id/clue_text_create_clue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/clue"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            app:layout_constraintBaseline_toBaselineOf="@+id/clue_text_create_clue_label"
+            app:layout_constraintStart_toStartOf="@+id/clue_text_create_hint_1" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

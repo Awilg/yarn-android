@@ -4,7 +4,9 @@ import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.*
+import com.orienteer.models.BaseClue
+import com.orienteer.models.ClueTextCreate
+import com.orienteer.models.toClue
 
 class TreasureCreateViewModel : ViewModel() {
 
@@ -27,6 +29,14 @@ class TreasureCreateViewModel : ViewModel() {
     private val _navigateAddClue = MutableLiveData<Boolean?>()
     val navigateAddClue: LiveData<Boolean?>
         get() = _navigateAddClue
+
+    private val _clues = MutableLiveData<MutableList<BaseClue>?>()
+    val clues: LiveData<MutableList<BaseClue>?>
+        get() = _clues
+
+    init {
+        _clues.value = mutableListOf()
+    }
 
     fun doneNavigating() {
         _navigateToSuccessScreen.value = null
@@ -53,4 +63,14 @@ class TreasureCreateViewModel : ViewModel() {
     fun setTreasureHuntLocation(location: Location) {
         _treasureHuntLocation.value = location
     }
+
+    fun addTextClue(clue: ClueTextCreate) {
+        if (_clues.value == null) {
+            _clues.value = mutableListOf()
+        }
+        _clues.value?.add(clue.toClue())
+        // Observers only get called on a setValue()
+        _clues.value = _clues.value
+    }
+
 }

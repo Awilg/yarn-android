@@ -24,7 +24,7 @@ class TextClueSolveDialogFragment(activeClue : Clue) : DialogFragment() {
 
             builder.setView(binding.root)
                 .setPositiveButton(R.string.submit) { _, _ ->
-                    listener.onTextClueAnswerSubmit(binding.editText.text.toString())
+                    listener.onTextClueAnswerSubmit(binding.clueTextSolveAnswer.text.toString())
                 }
                 .setNegativeButton(R.string.cancel) { _, _ ->
                     listener.onTextClueAnswerCancel(this)

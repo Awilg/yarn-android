@@ -30,7 +30,7 @@
             tools:text="Yee think yee know where the treasure lies? Riddle me this and you may just unlock your next clue..." />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/clue_text_solve_answer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

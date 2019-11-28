@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.orienteer.R
 import com.orienteer.databinding.DialogClueTextCreateBinding
+import com.orienteer.models.ClueTextCreate
 
 class ClueTypeTextCreateDialogFragment : DialogFragment() {
     // Use this instance of the interface to deliver action events
@@ -20,7 +21,15 @@ class ClueTypeTextCreateDialogFragment : DialogFragment() {
 
             builder.setView(binding.root)
                 .setPositiveButton(R.string.submit) { _, _ ->
-                    listener.onTextClueCreateSubmit(binding.editText.text.toString())
+                    listener.onTextClueCreateSubmit(
+                        ClueTextCreate(
+                            cluePrompt = binding.clueTextCreateClue.text.toString(),
+                            answer = binding.clueTextCreateAnswer.text.toString(),
+                            hint_1 = binding.clueTextCreateHint1.text.toString(),
+                            hint_2 = binding.clueTextCreateHint2.text.toString(),
+                            hint_3 = binding.clueTextCreateHint3.text.toString()
+                        )
+                    )
                 }
                 .setNegativeButton(R.string.cancel) { _, _ ->
                     listener.onTextClueCreateCancel(this)
@@ -36,7 +45,7 @@ class ClueTypeTextCreateDialogFragment : DialogFragment() {
      * Each method passes the DialogFragment in case the host needs to query it.
      */
     interface TextClueCreateDialogListener {
-        fun onTextClueCreateSubmit(answer: String)
+        fun onTextClueCreateSubmit(clueToCreate: ClueTextCreate)
         fun onTextClueCreateCancel(dialog: DialogFragment)
     }
 

@@ -26,6 +26,7 @@ import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.orienteer.databinding.FragmentTreasureCreateBinding
+import com.orienteer.models.ClueTextCreate
 import com.orienteer.models.ClueType
 import com.orienteer.util.PermissionsUtil
 import com.orienteer.util.hideKeyboard
@@ -93,7 +94,11 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         // Set up the adapter for the clues
         val clueAdapter = AdventureClueCreateAdapter()
 
-        binding.cluesSection.cluesPreviewRecyclerview.adapter = clueAdapter
+        viewModel.clues.observe(this, Observer {
+            clueAdapter.submitList(it?.toMutableList())
+        })
+
+        binding.cluesSection.adapter = clueAdapter
 
         return binding.root
     }
@@ -226,8 +231,9 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onTextClueCreateSubmit(answer: String) {
-        Toast.makeText(context, "Text clue create saved!", Toast.LENGTH_SHORT).show()
+    override fun onTextClueCreateSubmit(clueToCreate: ClueTextCreate) {
+        viewModel.addTextClue(clueToCreate)
+        Toast.makeText(context, "$clueToCreate", Toast.LENGTH_SHORT).show()
     }
 
     override fun onTextClueCreateCancel(dialog: DialogFragment) {
