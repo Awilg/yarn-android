@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -76,6 +77,19 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 }
             }
         }
+
+        // Move the "My location" button to the bottom right
+        val locationButton = ((mapFragment?.view?.findViewById(Integer.parseInt("1")) as View)
+            .parent as View).findViewById(Integer.parseInt("2")) as View
+
+        // and next place it, for example, on bottom right (as Google Maps app)
+        val rlp: RelativeLayout.LayoutParams =
+            locationButton.layoutParams as RelativeLayout.LayoutParams
+        // position on right bottom
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
+        rlp.setMargins(0, 0, 30, 30)
+
 
         // Create the adapter that will populate the recycler view and updates the livedata
         // in the viewmodel to determine where to navigate.
