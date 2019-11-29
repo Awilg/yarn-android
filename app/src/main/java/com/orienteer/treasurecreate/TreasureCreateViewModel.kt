@@ -4,7 +4,13 @@ import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+import com.orienteer.map.DEFAULT_LOCATION
+import com.orienteer.map.DEFAULT_ZOOM
 import com.orienteer.models.BaseClue
+import com.orienteer.models.ClueLocation
 import com.orienteer.models.ClueTextCreate
 import com.orienteer.models.toClue
 
@@ -34,9 +40,11 @@ class TreasureCreateViewModel : ViewModel() {
     val clues: LiveData<MutableList<BaseClue>?>
         get() = _clues
 
-    init {
-        _clues.value = mutableListOf()
-    }
+    private var _map: GoogleMap? = null
+
+    private val _lastKnownLocation = MutableLiveData<Location>()
+    val lastKnownLocation: LiveData<Location>
+        get() = _lastKnownLocation
 
     fun doneNavigating() {
         _navigateToSuccessScreen.value = null
@@ -65,12 +73,57 @@ class TreasureCreateViewModel : ViewModel() {
     }
 
     fun addTextClue(clue: ClueTextCreate) {
-        if (_clues.value == null) {
-            _clues.value = mutableListOf()
-        }
+        ensureClueListNonEmpty()
         _clues.value?.add(clue.toClue())
         // Observers only get called on a setValue()
         _clues.value = _clues.value
+    }
+
+    fun addLocationClue(clue: ClueLocation) {
+        ensureClueListNonEmpty()
+        _clues.value?.add(clue)
+        // Observers only get called on a setValue()
+        _clues.value = _clues.value
+    }
+
+    private fun ensureClueListNonEmpty() {
+        if (_clues.value == null) {
+            _clues.value = mutableListOf()
+        }
+    }
+
+    fun updateClueLocationMap() {
+        if (_lastKnownLocation.value == null) {
+            resetClueLocationMap()
+        } else {
+            _map?.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    LatLng(
+                        _lastKnownLocation.value!!.latitude,
+                        _lastKnownLocation.value!!.longitude
+                    ), DEFAULT_ZOOM
+                )
+            )
+        }
+    }
+
+    fun setClueLocationLastKnownLocation(loc: Location?) {
+        _lastKnownLocation.value = loc
+        updateClueLocationMap()
+    }
+
+    fun setClueLocationMap(map: GoogleMap) {
+        _map = map
+        _map!!.setMinZoomPreference(4.0f)
+        _map!!.setMaxZoomPreference(19.0f)
+    }
+
+    fun resetClueLocationMap() {
+        _map?.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, DEFAULT_ZOOM))
+    }
+
+    fun getClueLocationCenterMap(): LatLng {
+        return _map?.cameraPosition?.target!!
     }
 
 }

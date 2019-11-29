@@ -37,13 +37,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
     ClueTypeSelectionDialogFragment.ClueTypeSelectionListener,
     ClueTypeTextCreateDialogFragment.TextClueCreateDialogListener {
 
-    private val viewModel: TreasureCreateViewModel by lazy {
-        ViewModelProviders.of(this).get(TreasureCreateViewModel::class.java)
-    }
-
-    /**
-     * The client needed to get location for the Treasure hunt
-     */
+    private lateinit var viewModel: TreasureCreateViewModel
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     /**
@@ -55,6 +49,10 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentTreasureCreateBinding.inflate(inflater)
+
+        viewModel = activity?.run {
+            ViewModelProviders.of(this)[TreasureCreateViewModel::class.java]
+        }!!
 
         // To use the binding with databinding you need to explicitly give the binding a reference to it.
         binding.viewModel = viewModel

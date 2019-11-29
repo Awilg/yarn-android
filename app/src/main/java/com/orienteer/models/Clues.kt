@@ -30,6 +30,16 @@ class ClueText(
     val hints: List<String>?
 ) : BaseClue(cluePrompt, answer, type)
 
+
+class ClueLocation(
+    override val cluePrompt: String,
+    override val answer: String,
+    override val type: ClueType = ClueType.Location,
+    val location: LatLng,
+    val hints: List<String>? = null
+) : BaseClue(cluePrompt, answer, type)
+
+
 open class BaseClue(
     open val cluePrompt: String,
     open val answer: String,

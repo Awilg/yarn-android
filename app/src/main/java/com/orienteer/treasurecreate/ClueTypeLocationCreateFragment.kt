@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.orienteer.R
 import com.orienteer.databinding.FragmentClueLocationCreateBinding
+import com.orienteer.models.ClueLocation
 import com.orienteer.models.RequestCodes
 import com.orienteer.util.hideKeyboard
 import pub.devrel.easypermissions.EasyPermissions
@@ -27,9 +29,8 @@ import timber.log.Timber
 class ClueTypeLocationCreateFragment : Fragment(),
     OnMapReadyCallback,
     EasyPermissions.PermissionCallbacks {
-    private val viewModel: ClueTypeLocationViewModel by lazy {
-        ViewModelProviders.of(this).get(ClueTypeLocationViewModel::class.java)
-    }
+
+    private lateinit var viewModel: TreasureCreateViewModel
     private lateinit var _fusedLocationProviderClient: FusedLocationProviderClient
 
     override fun onCreateView(
@@ -44,6 +45,10 @@ class ClueTypeLocationCreateFragment : Fragment(),
         _fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(activity as Activity)
 
+        viewModel = activity?.run {
+            ViewModelProviders.of(this)[TreasureCreateViewModel::class.java]
+        }!!
+
         binding.viewmodel = viewModel
 
         // Set map callback on the mapView
@@ -53,6 +58,16 @@ class ClueTypeLocationCreateFragment : Fragment(),
 
         binding.locationClueConfirmation.setOnClickListener {
             hideKeyboard()
+            viewModel.addLocationClue(
+                ClueLocation(
+                    cluePrompt = binding.clueLocationHintPrompt.text.toString(),
+                    answer = "",
+                    location = viewModel.getClueLocationCenterMap()
+                )
+            )
+            findNavController().navigate(
+                ClueTypeLocationCreateFragmentDirections.actionClueTypeLocationCreateFragmentToTreasureCreateFragment()
+            )
             Toast.makeText(context, "Clue saved!", Toast.LENGTH_SHORT).show()
         }
 
@@ -71,7 +86,7 @@ class ClueTypeLocationCreateFragment : Fragment(),
         }
 
         // Set the map in the viewModel
-        viewModel.setMap(map!!)
+        viewModel.setClueLocationMap(map!!)
 
         // Get current location
         getDeviceLocation()
@@ -87,12 +102,12 @@ class ClueTypeLocationCreateFragment : Fragment(),
             locationResult.addOnCompleteListener(activity as Activity) { task ->
                 if (task.isSuccessful) {
                     // Set the map's camera position to the current location of the device.
-                    viewModel.setLastKnownLocation(task.result as Location)
-                    viewModel.updateMap()
+                    viewModel.setClueLocationLastKnownLocation(task.result as Location)
+                    viewModel.updateClueLocationMap()
                 } else {
                     Timber.d("Current location is null. Using defaults.")
                     Timber.e("Exception: ${task.exception}")
-                    viewModel.resetMap()
+                    viewModel.resetClueLocationMap()
                 }
             }
 
