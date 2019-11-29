@@ -11,8 +11,8 @@
         android:title="@string/list" />
     <item
         android:id="@+id/mapFragment"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/menu_home" />
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/explore" />
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_person_black_24dp"
