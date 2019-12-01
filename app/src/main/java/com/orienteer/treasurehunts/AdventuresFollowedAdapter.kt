@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.orienteer.databinding.CardAdventureInProgressBinding
+import com.orienteer.models.Adventure
 import com.orienteer.models.AdventureInProgress
-import com.orienteer.models.TreasureHunt
 
 class AdventuresFollowedAdapter(private val onClickListener: OnClickListener) :
     ListAdapter<AdventureInProgress, AdventuresFollowedAdapter.AdventuresFollowedViewHolder>(
@@ -16,7 +16,7 @@ class AdventuresFollowedAdapter(private val onClickListener: OnClickListener) :
 
     /**
      * The TreasureHuntViewHolder constructor takes the binding variable from the associated
-     * GridViewItem, which nicely gives it access to the full [TreasureHunt] information.
+     * GridViewItem, which nicely gives it access to the full [Adventure] information.
      */
     class AdventuresFollowedViewHolder(private var binding: CardAdventureInProgressBinding) :
         RecyclerView.ViewHolder(binding.root) {

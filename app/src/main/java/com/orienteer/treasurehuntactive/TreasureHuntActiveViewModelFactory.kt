@@ -3,13 +3,13 @@ package com.orienteer.treasurehuntactive
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.orienteer.models.TreasureHunt
+import com.orienteer.models.Adventure
 
 /**
- * Simple [ViewModel] factory that provides the [TreasureHunt] and context to the ViewModel.
+ * Simple [ViewModel] factory that provides the [Adventure] and context to the ViewModel.
  */
 class TreasureHuntActiveViewModelFactory(
-    private val hunt: TreasureHunt,
+    private val hunt: Adventure,
     private val application: Application
 ) : ViewModelProvider.Factory {
 

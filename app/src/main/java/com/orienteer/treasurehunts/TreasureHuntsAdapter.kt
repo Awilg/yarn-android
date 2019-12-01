@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.orienteer.databinding.CardAdventureFeaturedBinding
 import com.orienteer.databinding.CardTreasureHuntBinding
-import com.orienteer.models.TreasureHunt
+import com.orienteer.models.Adventure
 
 /**
  * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding to present [List]
@@ -18,13 +18,13 @@ class TreasureHuntsAdapter(
     private val onClickListener: OnClickListener,
     private val useFeaturedBinding: Boolean
 ) :
-    ListAdapter<TreasureHunt, RecyclerView.ViewHolder>(DiffCallback) {
+	ListAdapter<Adventure, RecyclerView.ViewHolder>(DiffCallback) {
     /**
      * The TreasureHuntViewHolder constructor takes the binding variable from the associated
-     * GridViewItem, which nicely gives it access to the full [TreasureHunt] information.
+	 * GridViewItem, which nicely gives it access to the full [Adventure] information.
      */
     class TreasureHuntViewHolder(private var binding: CardTreasureHuntBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(hunt: TreasureHunt) {
+		fun bind(hunt: Adventure) {
             binding.treasureHunt = hunt
             // This is important, because it forces the data binding to execute immediately,
             // which allows the RecyclerView to make the correct view size measurements
@@ -34,7 +34,7 @@ class TreasureHuntsAdapter(
 
     class FeaturedAdventureViewHolder(private var binding: CardAdventureFeaturedBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(hunt: TreasureHunt) {
+		fun bind(hunt: Adventure) {
             binding.treasureHunt = hunt
             binding.executePendingBindings()
         }
@@ -42,15 +42,15 @@ class TreasureHuntsAdapter(
 
 
     /**
-     * Allows the RecyclerView to determine which items have changed when the [List] of [TreasureHunt]
+	 * Allows the RecyclerView to determine which items have changed when the [List] of [Adventure]
      * has been updated.
      */
-    companion object DiffCallback : DiffUtil.ItemCallback<TreasureHunt>() {
-        override fun areItemsTheSame(oldItem: TreasureHunt, newItem: TreasureHunt): Boolean {
+	companion object DiffCallback : DiffUtil.ItemCallback<Adventure>() {
+		override fun areItemsTheSame(oldItem: Adventure, newItem: Adventure): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: TreasureHunt, newItem: TreasureHunt): Boolean {
+		override fun areContentsTheSame(oldItem: Adventure, newItem: Adventure): Boolean {
             return oldItem.id == newItem.id
         }
     }
@@ -88,20 +88,20 @@ class TreasureHuntsAdapter(
     }
 
     /**
-     * Custom listener that handles clicks on [RecyclerView] items.  Passes the [TreasureHunt]
+	 * Custom listener that handles clicks on [RecyclerView] items.  Passes the [Adventure]
      * associated with the current item to the [onClick] function.
-     * @param clickListener lambda that will be called with the current [TreasureHunt]
+	 * @param clickListener lambda that will be called with the current [Adventure]
      */
-    class OnClickListener(val clickListener: (treasureHunt: TreasureHunt) -> Unit) {
-        fun onClick(treasureHunt: TreasureHunt) = clickListener(treasureHunt)
+	class OnClickListener(val clickListener: (adventure: Adventure) -> Unit) {
+		fun onClick(adventure: Adventure) = clickListener(adventure)
     }
 
     /**
      * Provides a get method to retrieve the data object for a current position in the
-     * list of [TreasureHunt] used by the [RecyclerView]
+	 * list of [Adventure] used by the [RecyclerView]
      * @param position the position in the [RecyclerView]
      */
-    public override fun getItem(position: Int): TreasureHunt {
+	public override fun getItem(position: Int): Adventure {
         return super.getItem(position)
     }
 }

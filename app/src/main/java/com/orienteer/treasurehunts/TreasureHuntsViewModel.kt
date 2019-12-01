@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
+import com.orienteer.models.Adventure
 import com.orienteer.models.ApiStatus
-import com.orienteer.models.TreasureHunt
 import com.orienteer.network.TreasureHuntApi
-import com.orienteer.util.TEST_HUNTS
+import com.orienteer.util.testHunts
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -16,12 +16,12 @@ import timber.log.Timber
 
 class TreasureHuntsViewModel(location: LatLng) : ViewModel() {
 
-    private val _treasureHunts = MutableLiveData<List<TreasureHunt>>()
-    val treasureHunts: LiveData<List<TreasureHunt>>
+    private val _treasureHunts = MutableLiveData<List<Adventure>>()
+    val treasureHunts: LiveData<List<Adventure>>
         get() = _treasureHunts
 
-    private val _navigateToSelectedTreasureHunt = MutableLiveData<TreasureHunt>()
-    val navigateToSelectedTreasureHunt: LiveData<TreasureHunt>
+    private val _navigateToSelectedTreasureHunt = MutableLiveData<Adventure>()
+    val navigateToSelectedAdventure: LiveData<Adventure>
         get() = _navigateToSelectedTreasureHunt
 
     // The internal MutableLiveData that stores the status of the most recent request
@@ -52,7 +52,7 @@ class TreasureHuntsViewModel(location: LatLng) : ViewModel() {
         coroutineScope.launch {
             // Get the Deferred object for our Retrofit request
             // TODO (04) Add filter to getProperties() with filter.value
-            var getTreasureHunts = TreasureHuntApi.retrofitService.getTreasureHuntsByLocation(
+            var getTreasureHunts = TreasureHuntApi.service.getTreasureHuntsByLocation(
                 longitude = location.longitude.toString(), latitude = location.latitude.toString())
             try {
                 _status.value = ApiStatus.LOADING
@@ -63,13 +63,13 @@ class TreasureHuntsViewModel(location: LatLng) : ViewModel() {
             } catch (e: Exception) {
                 //_status.value = ApiStatus.ERROR
                 Timber.e("Network request failed with exception $e")
-                _treasureHunts.value = TEST_HUNTS
+                _treasureHunts.value = testHunts
             }
         }
     }
 
-    fun displayTreasureHuntDetails(treasureHunt: TreasureHunt) {
-        _navigateToSelectedTreasureHunt.value = treasureHunt
+    fun displayTreasureHuntDetails(adventure: Adventure) {
+        _navigateToSelectedTreasureHunt.value = adventure
     }
 
     fun doneNavigatingToSelectedTreasureHunt(){

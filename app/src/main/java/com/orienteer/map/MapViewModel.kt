@@ -9,9 +9,9 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
-import com.orienteer.models.TreasureHunt
+import com.orienteer.models.Adventure
 import com.orienteer.network.TreasureHuntApi
-import com.orienteer.util.TEST_HUNTS
+import com.orienteer.util.testHunts
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -38,12 +38,12 @@ class MapViewModel : ViewModel() {
     val isMyLocationButtonEnabled: LiveData<Boolean>
         get() = _isMyLocationButtonEnabled
 
-    private val _treasureHuntsNearby = MutableLiveData<List<TreasureHunt>>()
-    val treasureHuntsNearby: LiveData<List<TreasureHunt>>
+    private val _treasureHuntsNearby = MutableLiveData<List<Adventure>>()
+    val treasureHuntsNearby: LiveData<List<Adventure>>
         get() = _treasureHuntsNearby
 
-    private val _navigateToSelectedTreasureHunt = MutableLiveData<TreasureHunt>()
-    val navigateToSelectedTreasureHunt: LiveData<TreasureHunt>
+    private val _navigateToSelectedTreasureHunt = MutableLiveData<Adventure>()
+    val navigateToSelectedAdventure: LiveData<Adventure>
         get() = _navigateToSelectedTreasureHunt
 
     // Create a Coroutine scope using a job to be able to cancel when needed
@@ -104,8 +104,8 @@ class MapViewModel : ViewModel() {
 
     fun setMap(map: GoogleMap) {
         _map = map
-        _map!!.setMinZoomPreference(6.0f);
-        _map!!.setMaxZoomPreference(14.0f);
+        _map!!.setMinZoomPreference(6.0f)
+        _map!!.setMaxZoomPreference(14.0f)
 
     }
     /**
@@ -152,7 +152,7 @@ class MapViewModel : ViewModel() {
         coroutineScope.launch {
             // Get the Deferred object for our Retrofit request
             // TODO (04) Add filter to getProperties() with filter.value
-            var getTreasureHunts = TreasureHuntApi.retrofitService.getTreasureHuntsByLocation(
+            var getTreasureHunts = TreasureHuntApi.service.getTreasureHuntsByLocation(
                 longitude = location.longitude.toString(), latitude = location.latitude.toString())
             try {
                 // this will run on a thread managed by Retrofit
@@ -160,13 +160,13 @@ class MapViewModel : ViewModel() {
                 _treasureHuntsNearby.value = listResult
             } catch (e: Exception) {
                 Timber.e("Network request failed with exception $e")
-                _treasureHuntsNearby.value = TEST_HUNTS
+                _treasureHuntsNearby.value = testHunts
             }
         }
     }
 
-    fun displayTreasureHuntDetails(treasureHunt: TreasureHunt) {
-        _navigateToSelectedTreasureHunt.value = treasureHunt
+    fun displayTreasureHuntDetails(adventure: Adventure) {
+        _navigateToSelectedTreasureHunt.value = adventure
     }
 
     fun doneNavigatingToSelectedTreasureHunt(){

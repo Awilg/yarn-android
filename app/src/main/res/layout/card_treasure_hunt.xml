@@ -8,7 +8,7 @@
 
         <variable
             name="treasureHunt"
-            type="com.orienteer.models.TreasureHunt" />
+            type="com.orienteer.models.Adventure" />
     </data>
 
     <androidx.cardview.widget.CardView

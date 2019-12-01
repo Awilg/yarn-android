@@ -5,16 +5,16 @@ import android.location.Location
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.orienteer.models.Adventure
 import com.orienteer.models.Clue
 import com.orienteer.models.ClueState
-import com.orienteer.models.TreasureHunt
 import timber.log.Timber
 
-class TreasureHuntActiveViewModel(hunt: TreasureHunt, app: Application) : AndroidViewModel(app) {
+class TreasureHuntActiveViewModel(hunt: Adventure, app: Application) : AndroidViewModel(app) {
 
     private val LOCATION_SOLVE_DISTANCE_METERS = 5f
-    private val _activeAdventure = MutableLiveData<TreasureHunt>()
-    val activeAdventure: LiveData<TreasureHunt>
+    private val _activeAdventure = MutableLiveData<Adventure>()
+    val activeAdventure: LiveData<Adventure>
         get() = _activeAdventure
 
     private val _clues = MutableLiveData<List<Clue>>()

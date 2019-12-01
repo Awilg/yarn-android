@@ -2,16 +2,18 @@ package com.orienteer.network
 
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.orienteer.models.TreasureHunt
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.GET
-import kotlinx.coroutines.Deferred
-import com.squareup.moshi.ToJson
+import com.orienteer.models.Adventure
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.JsonQualifier
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.ToJson
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.Deferred
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 
@@ -45,7 +47,7 @@ private val retrofit = Retrofit.Builder()
 interface TreasureHuntService {
 
     /**
-     * Returns a Coroutine [Deferred] [List] of [TreasureHunt] which can be fetched with await() if
+     * Returns a Coroutine [Deferred] [List] of [Adventure] which can be fetched with await() if
      * in a Coroutine scope.
      * The @GET annotation indicates that the "hunts" endpoint will be requested with the GET
      * HTTP method
@@ -53,10 +55,21 @@ interface TreasureHuntService {
     // TODO (02) Add filter @Query value to the getProperties method
     @GET("hunt/{id}")
     @Wrapped
-    fun getTreasureHuntsById(): Deferred<TreasureHunt>
+    fun getTreasureHuntsById(): Deferred<Adventure>
 
     /**
-     * Returns a Coroutine [Deferred] [List] of [TreasureHunt] which can be fetched with await() if
+     * Returns a Coroutine [Deferred] [List] of [Adventure] which can be fetched with await() if
+     * in a Coroutine scope.
+     * The @GET annotation indicates that the "hunts" endpoint will be requested with the GET
+     * HTTP method
+     */
+    // TODO (02) Add filter @Query value to the getProperties method
+    @POST("adventure")
+    @Wrapped
+    fun saveAdventure(@Body adventure: Adventure): Deferred<Adventure>
+
+    /**
+     * Returns a Coroutine [Deferred] [List] of [Adventure] which can be fetched with await() if
      * in a Coroutine scope.
      * The @GET annotation indicates that the "hunts" endpoint will be requested with the GET
      * HTTP method
@@ -64,31 +77,32 @@ interface TreasureHuntService {
     // TODO (02) Add filter @Query value to the getProperties method
     @GET("hunts/user/{id}")
     @Wrapped
-    fun getTreasureHuntsByUserId(): Deferred<List<TreasureHunt>>
+    fun getTreasureHuntsByUserId(): Deferred<List<Adventure>>
 
     /**
-     * Returns a Coroutine [Deferred] [List] of [TreasureHunt] which can be fetched with await() if
-     * in a Coroutine scope. Returns all the [TreasureHunt]s within a given distance
+     * Returns a Coroutine [Deferred] [List] of [Adventure] which can be fetched with await() if
+     * in a Coroutine scope. Returns all the [Adventure]s within a given distance
      */
     @GET("hunts")
     @Wrapped
     fun getTreasureHuntsByLocation(@Query("lng") longitude: String,
-                                   @Query("lat") latitude: String): Deferred<List<TreasureHunt>>
+                                   @Query("lat") latitude: String
+    ): Deferred<List<Adventure>>
 }
 
 /**
  * A public Api object that exposes the lazy-initialized Retrofit service
  */
 object TreasureHuntApi {
-    val retrofitService: TreasureHuntService by lazy { retrofit.create(TreasureHuntService::class.java) }
+    val service: TreasureHuntService by lazy { retrofit.create(TreasureHuntService::class.java) }
 }
 
 class TreasureHuntsResponse {
-    lateinit var hunts: List<TreasureHunt>
+    lateinit var hunts: List<Adventure>
 }
 
 class TreasureHuntResponse {
-    lateinit var hunt: TreasureHunt
+    lateinit var hunt: Adventure
 }
 
 @Retention(AnnotationRetention.RUNTIME)
@@ -101,12 +115,12 @@ annotation class Wrapped
 class TreasureHuntsJsonConverter {
     @Wrapped
     @FromJson
-    fun fromJson(json: TreasureHuntsResponse): List<TreasureHunt> {
+    fun fromJson(json: TreasureHuntsResponse): List<Adventure> {
         return json.hunts
     }
 
     @ToJson
-    fun toJson(@Wrapped value: List<TreasureHunt>): TreasureHuntsResponse {
+    fun toJson(@Wrapped value: List<Adventure>): TreasureHuntsResponse {
         throw UnsupportedOperationException()
     }
 }
@@ -117,12 +131,12 @@ class TreasureHuntsJsonConverter {
 class TreasureHuntJsonConverter {
     @Wrapped
     @FromJson
-    fun fromJson(json: TreasureHuntResponse): TreasureHunt {
+    fun fromJson(json: TreasureHuntResponse): Adventure {
         return json.hunt
     }
 
     @ToJson
-    fun toJson(@Wrapped value: TreasureHunt): TreasureHuntResponse {
+    fun toJson(@Wrapped value: Adventure): TreasureHuntResponse {
         throw UnsupportedOperationException()
     }
 }

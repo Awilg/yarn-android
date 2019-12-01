@@ -18,7 +18,7 @@
 
         <include
             android:id="@+id/main_info_section"
-            bind:adventure="@{viewModel.selectedTreasureHunt}"
+            bind:adventure="@{viewModel.selectedAdventure}"
             layout="@layout/detail_main_info_section" />
 
         <include layout="@layout/detail_action_buttons"

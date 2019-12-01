@@ -115,7 +115,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         // Observe the navigateToSelectedTreasureHunt LiveData and Navigate when it isn't null
         // After navigating, call doneNavigatingToSelectedTreasureHunt() so that the ViewModel is ready
         // for another navigation event.
-        viewModel.navigateToSelectedTreasureHunt.observe(this, Observer {
+        viewModel.navigateToSelectedAdventure.observe(this, Observer {
             if (null != it) {
                 // Must find the NavController from the Fragment
                 this.findNavController().navigate(

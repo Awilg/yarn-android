@@ -11,7 +11,7 @@ import kotlinx.android.parcel.Parcelize
  * The property names of this data class are used by Moshi to match the names of values in JSON.
  */
 @Parcelize
-data class TreasureHunt(
+data class Adventure(
     @Json(name = "_id")
     val id: String,
     val name: String,

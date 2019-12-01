@@ -9,10 +9,13 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.orienteer.map.DEFAULT_LOCATION
 import com.orienteer.map.DEFAULT_ZOOM
-import com.orienteer.models.BaseClue
-import com.orienteer.models.ClueLocation
-import com.orienteer.models.ClueTextCreate
-import com.orienteer.models.toClue
+import com.orienteer.models.*
+import com.orienteer.network.TreasureHuntApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class TreasureCreateViewModel : ViewModel() {
 
@@ -36,6 +39,10 @@ class TreasureCreateViewModel : ViewModel() {
     val navigateAddClue: LiveData<Boolean?>
         get() = _navigateAddClue
 
+    private val _currentAdventure = MutableLiveData<Adventure>()
+    val currentAdventure: LiveData<Adventure>
+        get() = _currentAdventure
+
     private val _clues = MutableLiveData<MutableList<BaseClue>?>()
     val clues: LiveData<MutableList<BaseClue>?>
         get() = _clues
@@ -45,6 +52,9 @@ class TreasureCreateViewModel : ViewModel() {
     private val _lastKnownLocation = MutableLiveData<Location>()
     val lastKnownLocation: LiveData<Location>
         get() = _lastKnownLocation
+
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     fun doneNavigating() {
         _navigateToSuccessScreen.value = null
@@ -124,6 +134,24 @@ class TreasureCreateViewModel : ViewModel() {
 
     fun getClueLocationCenterMap(): LatLng {
         return _map?.cameraPosition?.target!!
+    }
+
+    fun saveAdventure() {
+        _currentAdventure.value?.let {
+            coroutineScope.launch {
+                // Get the Deferred object for our Retrofit request
+                val saveAdventure = TreasureHuntApi.service.saveAdventure(it)
+                try {
+                    // this will run on a thread managed by Retrofit
+                    val result = saveAdventure.await()
+                    //_currentUser.value = result
+                } catch (e: Exception) {
+                    //_status.value = ApiStatus.ERROR
+                    Timber.e("Network request failed with exception $e")
+                    //_currentUser.value = TEST_USER
+                }
+            }
+        }
     }
 
 }

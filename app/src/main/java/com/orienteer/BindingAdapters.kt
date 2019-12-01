@@ -9,10 +9,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.maps.model.LatLng
 import com.orienteer.core.ClueAdapter
+import com.orienteer.models.Adventure
 import com.orienteer.models.AdventureInProgress
 import com.orienteer.models.ApiStatus
 import com.orienteer.models.Clue
-import com.orienteer.models.TreasureHunt
 import com.orienteer.treasurehunts.AdventuresFollowedAdapter
 import com.orienteer.treasurehunts.TreasureHuntsAdapter
 
@@ -21,7 +21,7 @@ import com.orienteer.treasurehunts.TreasureHuntsAdapter
  * When there is no Mars property data (data is null), hide the [RecyclerView], otherwise show it.
  */
 @BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<TreasureHunt>?) {
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<Adventure>?) {
     val adapter = recyclerView.adapter as TreasureHuntsAdapter
     adapter.submitList(data)
 }
