@@ -30,9 +30,6 @@ import timber.log.Timber
 class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbacks,
     TextClueSolveDialogFragment.TextClueSolveDialogListener {
 
-    /**
-     * Lazily initialize our [TreasureHuntActiveViewModel].
-     */
     private lateinit var viewModel: TreasureHuntActiveViewModel
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient

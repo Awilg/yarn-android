@@ -39,8 +39,8 @@ class TreasureCreateViewModel : ViewModel() {
     val navigateAddClue: LiveData<Boolean?>
         get() = _navigateAddClue
 
-    private val _currentAdventure = MutableLiveData<Adventure>()
-    val currentAdventure: LiveData<Adventure>
+    private val _currentAdventure = MutableLiveData<AdventureCreate>()
+    val currentAdventure: LiveData<AdventureCreate>
         get() = _currentAdventure
 
     private val _clues = MutableLiveData<MutableList<BaseClue>?>()
@@ -55,6 +55,10 @@ class TreasureCreateViewModel : ViewModel() {
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    init {
+        _currentAdventure.value = AdventureCreate("Test adventure from Android", LatLng(47.6062, 122.3321))
+    }
 
     fun doneNavigating() {
         _navigateToSuccessScreen.value = null

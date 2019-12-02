@@ -89,7 +89,7 @@ var testHunts: List<Adventure> = listOf(
 	),
 	Adventure(
 		"id_7",
-		"Hunt d'Elizabeth",
+		"Hunt d'Elizabeth de Ville Beacon",
 		"This is a really description. I want to see what happens to the layout when the description is this long. Nanananananananananananananan BATMAN!",
 		LatLng(47.536, -122.300),
 		listOf(

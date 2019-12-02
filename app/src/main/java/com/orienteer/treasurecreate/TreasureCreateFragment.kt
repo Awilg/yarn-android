@@ -65,6 +65,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
             if (it == true) {
                 Timber.i("navigating to the success screen!")
                 hideKeyboard()
+                viewModel.saveAdventure()
                 viewModel.doneNavigating()
             }
         })

@@ -3,6 +3,7 @@ package com.orienteer.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.orienteer.models.Adventure
+import com.orienteer.models.AdventureCreate
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.JsonQualifier
 import com.squareup.moshi.Moshi
@@ -66,7 +67,7 @@ interface TreasureHuntService {
     // TODO (02) Add filter @Query value to the getProperties method
     @POST("adventure")
     @Wrapped
-    fun saveAdventure(@Body adventure: Adventure): Deferred<Adventure>
+    fun saveAdventure(@Body adventure: AdventureCreate): Deferred<Adventure>
 
     /**
      * Returns a Coroutine [Deferred] [List] of [Adventure] which can be fetched with await() if
