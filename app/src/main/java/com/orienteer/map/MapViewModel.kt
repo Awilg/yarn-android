@@ -157,7 +157,7 @@ class MapViewModel : ViewModel() {
             try {
                 // this will run on a thread managed by Retrofit
                 val listResult = getTreasureHunts.await()
-                _treasureHuntsNearby.value = listResult
+                //_treasureHuntsNearby.value = listResult
             } catch (e: Exception) {
                 Timber.e("Network request failed with exception $e")
                 _treasureHuntsNearby.value = testHunts

@@ -59,7 +59,7 @@ class TreasureHuntsViewModel(location: LatLng) : ViewModel() {
                 // this will run on a thread managed by Retrofit
                 val listResult = getTreasureHunts.await()
                 _status.value = ApiStatus.DONE
-                _treasureHunts.value = listResult
+                //_treasureHunts.value = listResult
             } catch (e: Exception) {
                 //_status.value = ApiStatus.ERROR
                 Timber.e("Network request failed with exception $e")

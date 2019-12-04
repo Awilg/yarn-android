@@ -63,7 +63,6 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         // Set up observer for the create button
         viewModel.navigateToSuccessScreen.observe(this, Observer {
             if (it == true) {
-                Timber.i("navigating to the success screen!")
                 hideKeyboard()
                 viewModel.saveAdventure()
                 viewModel.doneNavigating()
@@ -232,7 +231,6 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
 
     override fun onTextClueCreateSubmit(clueToCreate: ClueTextCreate) {
         viewModel.addTextClue(clueToCreate)
-        Toast.makeText(context, "$clueToCreate", Toast.LENGTH_SHORT).show()
     }
 
     override fun onTextClueCreateCancel(dialog: DialogFragment) {
