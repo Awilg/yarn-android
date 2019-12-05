@@ -45,8 +45,7 @@ object ClueDiffCallback : DiffUtil.ItemCallback<BaseClue>() {
     }
 
     override fun areContentsTheSame(oldItem: BaseClue, newItem: BaseClue): Boolean {
-        return oldItem.answer == newItem.answer &&
-                oldItem.cluePrompt == newItem.cluePrompt &&
+        return oldItem.cluePrompt == newItem.cluePrompt &&
                 oldItem.type == newItem.type
     }
 }

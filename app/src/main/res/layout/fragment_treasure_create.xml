@@ -27,6 +27,7 @@
                 android:hint="@string/hint_treasure_hunt_name"
                 android:imeOptions="actionNext"
                 android:inputType="text"
+                android:text="@{viewModel.currentAdventure.name}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,6 +41,7 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:hint="@string/describe_your_adventure"
+                android:text="@{viewModel.currentAdventure.description}"
                 android:inputType="textMultiLine"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

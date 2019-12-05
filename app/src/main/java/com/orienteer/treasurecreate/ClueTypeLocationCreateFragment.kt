@@ -61,7 +61,6 @@ class ClueTypeLocationCreateFragment : Fragment(),
             viewModel.addLocationClue(
                 ClueLocation(
                     cluePrompt = binding.clueLocationHintPrompt.text.toString(),
-                    answer = "",
                     location = viewModel.getClueLocationCenterMap()
                 )
             )

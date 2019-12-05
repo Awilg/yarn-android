@@ -6,5 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class AdventureCreate (
-    val name: String,
-    val location: LatLng) : Parcelable
+    var name: String,
+    var location: LatLng,
+    var description: String
+) : Parcelable

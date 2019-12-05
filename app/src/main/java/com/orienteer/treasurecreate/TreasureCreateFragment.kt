@@ -64,6 +64,8 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         viewModel.navigateToSuccessScreen.observe(this, Observer {
             if (it == true) {
                 hideKeyboard()
+                viewModel.setTreasureHuntName(binding.adventureNameText.text.toString())
+                viewModel.setTreasureHuntDescription(binding.adventureDescriptionText.text.toString())
                 viewModel.saveAdventure()
                 viewModel.doneNavigating()
             }

@@ -25,24 +25,22 @@ data class ClueTextCreate(
 
 class ClueText(
     override val cluePrompt: String,
-    override val answer: String,
     override val type: ClueType = ClueType.Text,
+    val answer: String,
     val hints: List<String>?
-) : BaseClue(cluePrompt, answer, type)
+) : BaseClue(cluePrompt, type)
 
 
 class ClueLocation(
     override val cluePrompt: String,
-    override val answer: String,
     override val type: ClueType = ClueType.Location,
     val location: LatLng,
     val hints: List<String>? = null
-) : BaseClue(cluePrompt, answer, type)
+) : BaseClue(cluePrompt, type)
 
 
 open class BaseClue(
     open val cluePrompt: String,
-    open val answer: String,
     open val type: ClueType
 )
 

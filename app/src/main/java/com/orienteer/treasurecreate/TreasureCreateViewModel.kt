@@ -57,7 +57,11 @@ class TreasureCreateViewModel : ViewModel() {
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
-        _currentAdventure.value = AdventureCreate("Test adventure from Android", LatLng(47.6062, 122.3321))
+        _currentAdventure.value = AdventureCreate(
+            "Test adventure from Android",
+            LatLng(47.6062, 122.3321),
+            "This is a description!"
+        )
     }
 
     fun doneNavigating() {
@@ -79,7 +83,11 @@ class TreasureCreateViewModel : ViewModel() {
     }
 
     fun setTreasureHuntName(name: String) {
-        _treasureHuntName.value = name
+        _currentAdventure.value?.name = name
+    }
+
+    fun setTreasureHuntDescription(description: String) {
+        _currentAdventure.value?.description = description
     }
 
     fun setTreasureHuntLocation(location: Location) {
