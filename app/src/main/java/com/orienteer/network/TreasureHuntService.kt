@@ -49,7 +49,7 @@ interface TreasureHuntService {
      * HTTP method
      */
     // TODO (02) Add filter @Query value to the getProperties method
-    @GET("hunt/{id}")
+    @GET("adventure/{id}")
     fun getTreasureHuntsById(): Deferred<AdventureResponse>
 
     /**
@@ -76,7 +76,7 @@ interface TreasureHuntService {
      * Returns a Coroutine [Deferred] [List] of [Adventure] which can be fetched with await() if
      * in a Coroutine scope. Returns all the [Adventure]s within a given distance
      */
-    @GET("hunts")
+    @GET("adventure/findNearby")
     fun getTreasureHuntsByLocation(@Query("lng") longitude: String,
                                    @Query("lat") latitude: String
     ): Deferred<List<AdventureResponse>>

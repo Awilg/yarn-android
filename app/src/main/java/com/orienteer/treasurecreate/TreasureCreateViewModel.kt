@@ -149,10 +149,14 @@ class TreasureCreateViewModel : ViewModel() {
     }
 
     fun saveAdventure() {
-        _currentAdventure.value?.let {
+        _currentAdventure.value?.let { adventureCreate ->
             coroutineScope.launch {
+
+                _clues.value?.let { clues ->
+                    adventureCreate.clues = clues
+                }
                 // Get the Deferred object for our Retrofit request
-                val saveAdventure = TreasureHuntApi.service.saveAdventure(it)
+                val saveAdventure = TreasureHuntApi.service.saveAdventure(adventureCreate)
                 try {
                     // this will run on a thread managed by Retrofit
                     val result = saveAdventure.await()

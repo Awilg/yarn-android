@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.orienteer.databinding.ClueItemPreviewBinding
 import com.orienteer.models.BaseClue
-import com.orienteer.models.Clue
 
 class AdventureClueCreateAdapter :
     ListAdapter<BaseClue, RecyclerView.ViewHolder>(ClueDiffCallback) {
@@ -35,10 +34,6 @@ class AdventureClueCreateAdapter :
     }
 }
 
-/**
- * Allows the RecyclerView to determine which items have changed when the [List] of [Clue]
- * has been updated.
- */
 object ClueDiffCallback : DiffUtil.ItemCallback<BaseClue>() {
     override fun areItemsTheSame(oldItem: BaseClue, newItem: BaseClue): Boolean {
         return oldItem === newItem
