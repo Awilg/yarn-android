@@ -61,6 +61,7 @@ fun ClueTextCreate.toClue(): ClueText {
     return ClueText(
         cluePrompt = this.cluePrompt,
         answer = this.answer,
-        hints = listOfNotNull(this.hint_1, this.hint_2, this.hint_3)
+        hints = listOfNotNull(this.hint_1, this.hint_2, this.hint_3),
+        type = ClueType.Text.name
     )
 }
