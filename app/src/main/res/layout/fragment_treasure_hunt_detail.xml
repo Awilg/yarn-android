@@ -27,11 +27,36 @@
                 android:orientation="vertical">
 
                 <include
+                    android:id="@+id/adventure_main_gallery"
+                    layout="@layout/detail_gallery"
+                    bind:adventure="@{viewModel.selectedAdventure}" />
+
+                <include
                     android:id="@+id/main_info_section"
                     layout="@layout/detail_main_info_section"
                     bind:adventure="@{viewModel.selectedAdventure}" />
 
                 <include layout="@layout/divider" />
+
+                <include
+                    android:id="@+id/main_info_section1"
+                    layout="@layout/detail_main_info_section"
+                    bind:adventure="@{viewModel.selectedAdventure}" />
+
+                <include
+                    android:id="@+id/main_info_section2"
+                    layout="@layout/detail_main_info_section"
+                    bind:adventure="@{viewModel.selectedAdventure}" />
+
+                <include
+                    android:id="@+id/main_info_section3"
+                    layout="@layout/detail_main_info_section"
+                    bind:adventure="@{viewModel.selectedAdventure}" />
+
+                <include
+                    android:id="@+id/main_info_section4"
+                    layout="@layout/detail_main_info_section"
+                    bind:adventure="@{viewModel.selectedAdventure}" />
 
             </LinearLayout>
 

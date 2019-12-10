@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="adventure"
+            type="com.orienteer.models.Adventure" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/treasure_hunt_detail_img_main"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/treasure_hunt_detail_img_content_description"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mapImageFromLatLng="@{adventure.location}"
+            app:mapsApiKey="@{@string/google_maps_key}"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <ImageView
+            android:id="@+id/adventure_detail_img_sub_1"
+            android:layout_width="0dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="2dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/treasure_hunt_detail_img_content_description"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_foreground"
+            app:layout_constraintEnd_toStartOf="@+id/adventure_detail_img_sub_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/treasure_hunt_detail_img_main"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <ImageView
+            android:id="@+id/adventure_detail_img_sub_2"
+            android:layout_width="0dp"
+            android:layout_height="140dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="4dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/treasure_hunt_detail_img_content_description"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/adventure_detail_img_sub_1"
+            app:layout_constraintTop_toBottomOf="@id/treasure_hunt_detail_img_main"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+
+
