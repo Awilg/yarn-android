@@ -54,7 +54,7 @@ var testHunts: List<Adventure> = listOf(
             ClueState.LOCKED
         )
     ),
-        "https://en.wikipedia.org/wiki/Lynnwood,_Washington#/media/File:Lynnwood,_WA_welcome_sign.jpg"
+        "https://www.visitseattle.org/wp-content/uploads/2015/03/VS_OVG_WS2019_Waterfront_credit-Shutterstock_web.jpg"
     ),
 	Adventure(
 		"id_3", "Treasure Hunt 3", "This is a description!", LatLng(48.0, -122.370), listOf(
@@ -78,14 +78,16 @@ var testHunts: List<Adventure> = listOf(
 		"Treasure Hunt 5",
 		"This is a description!",
 		LatLng(47.2062, -122.3412),
-		emptyList()
+        emptyList(),
+        "https://cdn.vox-cdn.com/thumbor/VjrdnIjF9QTw5qjGR1KKFfi1EPg=/0x0:2000x1329/1200x900/filters:focal(654x260:974x580)/cdn.vox-cdn.com/uploads/chorus_image/image/55235639/eatersea0916_pike_place_market_shutterstock_mcarter.0.0.jpg"
 	),
 	Adventure(
 		"id_6",
 		"Treasure Hunt 6",
 		"This is a description!",
 		LatLng(47.309, -122.3662),
-		emptyList()
+        emptyList(),
+        "https://www.seattle.gov/images/Departments/ParksAndRecreation/Parks/GHI/GasWorksPark3.jpg"
 	),
 	Adventure(
 		"id_7",

@@ -19,9 +19,11 @@ import timber.log.Timber
 import timber.log.Timber.DebugTree
 import java.io.File
 
-class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+class MainActivity : AppCompatActivity(),
+    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     private lateinit var navController: NavController
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +34,7 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
             Timber.plant(DebugTree())
         }
 
-        navController = findNavController(R.id.nav_host_fragment)
-
-        val bottomNav = findViewById<BottomNavigationView>(R.id.nav_view)
-        bottomNav.setupWithNavController(navController)
+        setupNav()
 
         hideSystemUI()
     }
@@ -75,7 +74,10 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
 
     }
 
-    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
+    override fun onPreferenceStartFragment(
+        caller: PreferenceFragmentCompat,
+        pref: Preference
+    ): Boolean {
         // Instantiate the new Fragment
         val args = pref.extras
         // Need to get the fragment manager of the child and not the nav host
@@ -96,7 +98,8 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
 
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this /* Activity context */)
+        val sharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(this /* Activity context */)
 
         var nightModeEnabled = false
         when (newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
@@ -104,10 +107,33 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
             Configuration.UI_MODE_NIGHT_YES -> nightModeEnabled = true
         }
 
-        with (sharedPreferences.edit()) {
+        with(sharedPreferences.edit()) {
             putBoolean(getString(R.string.night_mode_enabled), nightModeEnabled)
             commit()
         }
+
+    }
+
+    private fun setupNav() {
+        navController = findNavController(R.id.nav_host_fragment)
+        bottomNavigationView = findViewById(R.id.nav_view)
+        bottomNavigationView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.treasureHuntDetail -> hideBottomNav()
+                else -> showBottomNav()
+            }
+        }
+    }
+
+    private fun showBottomNav() {
+        bottomNavigationView.visibility = VISIBLE
+
+    }
+
+    private fun hideBottomNav() {
+        bottomNavigationView.visibility = GONE
 
     }
 
@@ -116,7 +142,8 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         fun getOutputDirectory(context: Context): File {
             val appContext = context.applicationContext
             val mediaDir = context.externalMediaDirs.firstOrNull()?.let {
-                File(it, appContext.resources.getString(R.string.app_name)).apply { mkdirs() } }
+                File(it, appContext.resources.getString(R.string.app_name)).apply { mkdirs() }
+            }
             return if (mediaDir != null && mediaDir.exists())
                 mediaDir else appContext.filesDir
         }
