@@ -10,7 +10,11 @@ import java.util.*
 // Seattle LatLng
 var testHunts: List<Adventure> = listOf(
 	Adventure(
-        "dummy", "Test succsss hunt", "This is a description!", LatLng(47.6062, -122.3321), listOf(
+        "dummy",
+        "A romp around South Lake Union",
+        "Come see for yourself where the Amazonians live! Beware!",
+        LatLng(47.6062, -122.3321),
+        listOf(
             Clue(
                 "clue_1",
                 "This is a text clue",
