@@ -18,5 +18,6 @@ data class Adventure(
     val description: String,
     val location: LatLng,
     val clues: List<Clue>,
-    val featuredImage: String = ""
+    val featuredImage: String = "",
+    val featuredImageList: List<String> = emptyList()
 ) : Parcelable

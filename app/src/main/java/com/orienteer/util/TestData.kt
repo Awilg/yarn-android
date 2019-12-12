@@ -25,7 +25,12 @@ var testHunts: List<Adventure> = listOf(
                 "answer"
             )
         ),
-        "https://cdn.geekwire.com/wp-content/uploads/2016/04/20160423_Amazon_biodomes_73-630x421.jpg"
+		"https://cdn.geekwire.com/wp-content/uploads/2016/04/20160423_Amazon_biodomes_73-630x421.jpg",
+		listOf(
+			"https://cdn.geekwire.com/wp-content/uploads/2016/04/20160423_Amazon_biodomes_73-630x421.jpg",
+			"https://www.tripsavvy.com/thmb/PjesAcSOetIKsjSdINiJBW5kKgU=/4161x2341/smart/filters:no_upscale()/view-of-columbia-tower-142567995-5b10b2d68e1b6e0036cc5956.jpg",
+			"https://www.visitseattle.org/wp-content/uploads/2015/03/VS_OVG_WS2019_Waterfront_credit-Shutterstock_web.jpg"
+		)
     ),
 	Adventure(
 		"id_1", "Treasure Hunt 1", "This is a description!", LatLng(47.6062, -122.3321), listOf(
@@ -40,7 +45,12 @@ var testHunts: List<Adventure> = listOf(
             ClueState.LOCKED
         )
     ),
-        "https://www.tripsavvy.com/thmb/PjesAcSOetIKsjSdINiJBW5kKgU=/4161x2341/smart/filters:no_upscale()/view-of-columbia-tower-142567995-5b10b2d68e1b6e0036cc5956.jpg"
+		"https://www.tripsavvy.com/thmb/PjesAcSOetIKsjSdINiJBW5kKgU=/4161x2341/smart/filters:no_upscale()/view-of-columbia-tower-142567995-5b10b2d68e1b6e0036cc5956.jpg",
+		listOf(
+			"https://cdn.geekwire.com/wp-content/uploads/2016/04/20160423_Amazon_biodomes_73-630x421.jpg",
+			"https://www.tripsavvy.com/thmb/PjesAcSOetIKsjSdINiJBW5kKgU=/4161x2341/smart/filters:no_upscale()/view-of-columbia-tower-142567995-5b10b2d68e1b6e0036cc5956.jpg",
+			"https://www.visitseattle.org/wp-content/uploads/2015/03/VS_OVG_WS2019_Waterfront_credit-Shutterstock_web.jpg"
+		)
     ),
 	Adventure(
 		"id_2",
@@ -58,7 +68,12 @@ var testHunts: List<Adventure> = listOf(
             ClueState.LOCKED
         )
     ),
-        "https://www.visitseattle.org/wp-content/uploads/2015/03/VS_OVG_WS2019_Waterfront_credit-Shutterstock_web.jpg"
+		"https://www.visitseattle.org/wp-content/uploads/2015/03/VS_OVG_WS2019_Waterfront_credit-Shutterstock_web.jpg",
+		listOf(
+			"https://cdn.geekwire.com/wp-content/uploads/2016/04/20160423_Amazon_biodomes_73-630x421.jpg",
+			"https://www.tripsavvy.com/thmb/PjesAcSOetIKsjSdINiJBW5kKgU=/4161x2341/smart/filters:no_upscale()/view-of-columbia-tower-142567995-5b10b2d68e1b6e0036cc5956.jpg",
+			"https://www.visitseattle.org/wp-content/uploads/2015/03/VS_OVG_WS2019_Waterfront_credit-Shutterstock_web.jpg"
+		)
     ),
 	Adventure(
 		"id_3", "Treasure Hunt 3", "This is a description!", LatLng(48.0, -122.370), listOf(
@@ -71,7 +86,12 @@ var testHunts: List<Adventure> = listOf(
             ClueState.ACTIVE
         )
     ),
-        "https://cdn.shopify.com/s/files/1/0265/9793/files/479-WhidbeyCoffee273580-HDR_grande.jpg"
+		"https://cdn.shopify.com/s/files/1/0265/9793/files/479-WhidbeyCoffee273580-HDR_grande.jpg",
+		listOf(
+			"https://cdn.geekwire.com/wp-content/uploads/2016/04/20160423_Amazon_biodomes_73-630x421.jpg",
+			"https://www.tripsavvy.com/thmb/PjesAcSOetIKsjSdINiJBW5kKgU=/4161x2341/smart/filters:no_upscale()/view-of-columbia-tower-142567995-5b10b2d68e1b6e0036cc5956.jpg",
+			"https://www.visitseattle.org/wp-content/uploads/2015/03/VS_OVG_WS2019_Waterfront_credit-Shutterstock_web.jpg"
+		)
     ),
 	Adventure(
         "id_4", "Treasure Hunt 4", "This is a description!", LatLng(46.9, -122.399), emptyList(),

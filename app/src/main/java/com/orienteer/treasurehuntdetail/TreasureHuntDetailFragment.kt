@@ -33,6 +33,9 @@ class TreasureHuntDetailFragment : Fragment() {
         binding.actionButtonSection.detail_follow_button.setOnClickListener {
             Toast.makeText(context, "Followed Adventure ${treasureHunt.name}!", Toast.LENGTH_SHORT).show()
         }
+
+        val galleryAdapter = AdventureDetailImagePagerAdapter()
+        binding.adventureMainGallery.adventureImgViewpager.adapter = galleryAdapter
         return binding.root
     }
 }

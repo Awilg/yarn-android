@@ -5,6 +5,7 @@ import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.maps.model.LatLng
@@ -13,6 +14,7 @@ import com.orienteer.models.Adventure
 import com.orienteer.models.AdventureInProgress
 import com.orienteer.models.ApiStatus
 import com.orienteer.models.Clue
+import com.orienteer.treasurehuntdetail.AdventureDetailImagePagerAdapter
 import com.orienteer.treasurehunts.AdventuresFollowedAdapter
 import com.orienteer.treasurehunts.TreasureHuntsAdapter
 
@@ -36,6 +38,12 @@ fun bindAdventuresInProgressRecyclerView(recyclerView: RecyclerView, data: List<
 fun bindCluesRecyclerView(recyclerView: RecyclerView, data: List<Clue>?) {
     val adapter = recyclerView.adapter as ClueAdapter
     adapter.submitList(data)
+}
+
+@BindingAdapter("createAdapterForGallery")
+fun updateGalleryAdapter(viewPager2: ViewPager2, imageUrls: List<String>) {
+    val adapter = viewPager2.adapter as AdventureDetailImagePagerAdapter
+    adapter.updateGalleryImages(imageUrls)
 }
 
 /**
