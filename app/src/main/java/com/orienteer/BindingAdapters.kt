@@ -42,6 +42,7 @@ fun bindCluesRecyclerView(recyclerView: RecyclerView, data: List<Clue>?) {
 
 @BindingAdapter("createAdapterForGallery")
 fun updateGalleryAdapter(viewPager2: ViewPager2, imageUrls: List<String>) {
+
     val adapter = viewPager2.adapter as AdventureDetailImagePagerAdapter
     adapter.updateGalleryImages(imageUrls)
 }
