@@ -6,10 +6,12 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.location.Location
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -22,6 +24,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.orienteer.R
 import com.orienteer.core.OnSnapPositionChangeListener
 import com.orienteer.core.SnapOnScrollListener
@@ -43,7 +46,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var _binding: FragmentMapBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         Timber.i("Creating fragment view!")
         _binding = FragmentMapBinding.inflate(inflater)
 
@@ -51,11 +58,14 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         _binding.viewModel = viewModel
 
         // Initialize the location services client
-        _fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity as Activity)
+        _fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(activity as Activity)
 
         // Set map callback on the mapView
-        val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment?
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
+
 
 //        // Set up the floating action button
 //        _binding.fab.setOnClickListener {
@@ -78,6 +88,33 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             }
         }
 
+        val bottomSheetBehavior = BottomSheetBehavior.from(_binding.standardBottomSheet)
+        bottomSheetBehavior.isFitToContents = false
+
+        var navBarHeight = 0
+        val navBarId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
+        if (navBarId > 0) {
+            navBarHeight = convertDpToPixel(resources.getDimensionPixelSize(navBarId))
+        }
+        val metrics = resources.displayMetrics
+        bottomSheetBehavior.peekHeight = metrics.heightPixels / 2
+
+        val params = mapFragment?.view?.layoutParams
+        params?.height = (metrics.heightPixels / 2) - navBarHeight
+        mapFragment?.view?.layoutParams = params
+
+        val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                Toast.makeText(context, "State is $newState", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                // Do something for slide offset
+            }
+        }
+        bottomSheetBehavior.addBottomSheetCallback(bottomSheetCallback)
+
         // Move the "My location" button to the bottom right
         val locationButton = ((mapFragment?.view?.findViewById(Integer.parseInt("1")) as View)
             .parent as View).findViewById(Integer.parseInt("2")) as View
@@ -93,9 +130,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         // Create the adapter that will populate the recycler view and updates the livedata
         // in the viewmodel to determine where to navigate.
-        _binding.treasureHuntsCardsMap.adapter = TreasureHuntsAdapter(TreasureHuntsAdapter.OnClickListener {
-            viewModel.displayTreasureHuntDetails(it)
-        }, useFeaturedBinding = true)
+        _binding.treasureHuntsCardsMap.adapter =
+            TreasureHuntsAdapter(TreasureHuntsAdapter.OnClickListener {
+                viewModel.displayTreasureHuntDetails(it)
+            }, useFeaturedBinding = true)
 
         // Adds a listener that is aware of "swipe" card changes to the underlying RecyclerView
         // Snaps cards to the screen so there's only one ever fully on screen and moves the map to
@@ -152,7 +190,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(map: GoogleMap) {
         // Adjust map style for current theme
         when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO -> {} // Night mode is not active, we're using the light theme
+            Configuration.UI_MODE_NIGHT_NO -> {
+            } // Night mode is not active, we're using the light theme
             Configuration.UI_MODE_NIGHT_YES -> {
                 map.setMapStyle(MapStyleOptions(resources.getString(R.string.google_maps_night_mode)))
             }
@@ -261,6 +300,28 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             _locationCallback,
             null /* Looper */
         )
+    }
+
+    /**
+     * This method converts dp unit to equivalent pixels, depending on device density.
+     *
+     * @param dp A value in dp (density independent pixels) unit. Which we need to convert into pixels
+     * @param context Context to get resources and device specific display metrics
+     * @return A float value to represent px equivalent to dp depending on device density
+     */
+    fun convertDpToPixel(dp: Int): Int {
+        return dp * (resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
+    }
+
+    /**
+     * This method converts device specific pixels to density independent pixels.
+     *
+     * @param px A value in px (pixels) unit. Which we need to convert into db
+     * @param context Context to get resources and device specific display metrics
+     * @return A float value to represent dp equivalent to px value
+     */
+    fun convertPixelsToDp(px: Int): Int {
+        return px / (resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
     }
 
 
