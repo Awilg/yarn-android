@@ -91,17 +91,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val bottomSheetBehavior = BottomSheetBehavior.from(_binding.standardBottomSheet)
         bottomSheetBehavior.isFitToContents = false
 
-        var navBarHeight = 0
-        val navBarId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
-        if (navBarId > 0) {
-            navBarHeight = convertDpToPixel(resources.getDimensionPixelSize(navBarId))
-        }
         val metrics = resources.displayMetrics
         bottomSheetBehavior.peekHeight = metrics.heightPixels / 2
-
-        val params = mapFragment?.view?.layoutParams
-        params?.height = (metrics.heightPixels / 2) - navBarHeight
-        mapFragment?.view?.layoutParams = params
+        bottomSheetBehavior.halfExpandedRatio
 
         val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
 

@@ -51,5 +51,31 @@
         <item name="colorPrimaryDark">?colorPrimaryVariant</item>
         <item name="colorAccent">?colorSecondary</item>
 
+        <!-- Global shape attributes -->
+        <item name="shapeAppearanceSmallComponent">@style/Yarn.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/Yarn.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/Yarn.LargeComponent</item>
+
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
     </style>
+
+    <style name="BottomSheetStyle">
+        <item name="shapeAppearance">?attr/shapeAppearanceLargeComponent</item>
+    </style>
+
+    <style name="Yarn.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="Yarn.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="Yarn.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
 </resources>
