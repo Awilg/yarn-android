@@ -159,5 +159,6 @@
     <string name="clue_text_create_explanation">Here is where you can create a \"Text\" based clue. A user\'s guess will need to match your expected answer (within reason) for the clue to be accepted.</string>
     <string name="clue">Clue</string>
     <string name="explore">Explore</string>
+    <string name="lets_explore">Where will you explore?</string>
 </resources>
 
