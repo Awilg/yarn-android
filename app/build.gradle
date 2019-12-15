@@ -130,7 +130,7 @@ dependencies {
 
     // viewpager
     implementation "androidx.viewpager2:viewpager2:1.0.0"
-    implementation "me.relex:circleindicator:2.1.4"
+    implementation "com.romandanylyk:pageindicatorview:1.0.3"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

@@ -8,7 +8,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.orienteer.databinding.FragmentTreasureHuntDetailBinding
+import com.rd.PageIndicatorView
 import kotlinx.android.synthetic.main.detail_action_buttons.view.*
 
 
@@ -48,10 +50,13 @@ class TreasureHuntDetailFragment : Fragment() {
         // Set up the gallery viewpager
         val galleryAdapter = AdventureDetailImagePagerAdapter()
         val viewpager = binding.adventureMainGallery.adventureImgViewpager
-        val indicator = binding.adventureMainGallery.indicator
+        val pageIndicatorView: PageIndicatorView = binding.adventureMainGallery.pageIndicatorView
         viewpager.adapter = galleryAdapter
-        indicator.setViewPager(viewpager)
-        galleryAdapter.registerAdapterDataObserver(indicator.adapterDataObserver)
+        viewpager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                pageIndicatorView.selection = position
+            }
+        })
         return binding.root
     }
 }

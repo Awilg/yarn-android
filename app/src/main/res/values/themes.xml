@@ -52,9 +52,9 @@
         <item name="colorAccent">?colorSecondary</item>
 
         <!-- Global shape attributes -->
-        <item name="shapeAppearanceSmallComponent">@style/Yarn.SmallComponent</item>
-        <item name="shapeAppearanceMediumComponent">@style/Yarn.MediumComponent</item>
-        <item name="shapeAppearanceLargeComponent">@style/Yarn.LargeComponent</item>
+        <item name="shapeAppearanceSmallComponent">@style/yarnSmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/yarnMediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/yarnLargeComponent</item>
 
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
     </style>
@@ -63,17 +63,17 @@
         <item name="shapeAppearance">?attr/shapeAppearanceLargeComponent</item>
     </style>
 
-    <style name="Yarn.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+    <style name="yarnSmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
     </style>
 
-    <style name="Yarn.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <style name="yarnMediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
     </style>
 
-    <style name="Yarn.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+    <style name="yarnLargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
     </style>
