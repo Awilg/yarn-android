@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.orienteer.treasurecreate.TreasureCreateViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/adventure_name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="50dp"
+                android:hint="@string/hint_treasure_hunt_name"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:text="@{viewModel.currentAdventure.name}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/adventure_description_text"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/describe_your_adventure"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:text="@{viewModel.currentAdventure.description}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/adventure_name_text" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/clues_section"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:padding="6dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/adventure_description_text"
+                app:spanCount="2"
+                tools:itemCount="3"
+                tools:listitem="@layout/clue_item_preview" />
+
+            <Button
+                android:id="@+id/preview_adventure_button"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="32dp"
+                android:onClick="@{() -> viewModel.onPreviewClicked()}"
+                android:text="@string/preview"
+                app:layout_constraintBottom_toBottomOf="@+id/create_adventure_button"
+                app:layout_constraintEnd_toStartOf="@+id/create_adventure_button"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_clue_button" />
+
+            <Button
+                android:id="@+id/create_adventure_button"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="30dp"
+                android:onClick="@{() -> viewModel.onCreateClicked()}"
+                android:text="@string/create"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/preview_adventure_button" />
+
+            <Button
+                android:id="@+id/add_clue_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onAddClueClicked()}"
+                android:text="@string/add_clue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clues_section" />
+
+            <include
+                android:id="@+id/clue_type_section"
+                layout="@layout/dialog_clue_type_selection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</layout>

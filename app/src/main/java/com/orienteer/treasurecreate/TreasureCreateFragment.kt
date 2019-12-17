@@ -64,8 +64,8 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         viewModel.navigateToSuccessScreen.observe(this, Observer {
             if (it == true) {
                 hideKeyboard()
-                viewModel.setTreasureHuntName(binding.adventureNameText.text.toString())
-                viewModel.setTreasureHuntDescription(binding.adventureDescriptionText.text.toString())
+                viewModel.setTreasureHuntName(binding.adventureCreateContent.adventureNameText.toString())
+                viewModel.setTreasureHuntDescription(binding.adventureCreateContent.adventureDescriptionText.text.toString())
                 viewModel.saveAdventure()
                 viewModel.doneNavigating()
             }
@@ -98,7 +98,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
             clueAdapter.submitList(it?.toMutableList())
         })
 
-        binding.cluesSection.adapter = clueAdapter
+        binding.adventureCreateContent.cluesSection.adapter = clueAdapter
 
         return binding.root
     }
