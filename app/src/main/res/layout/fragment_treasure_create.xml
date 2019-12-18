@@ -10,29 +10,44 @@
             type="com.orienteer.treasurecreate.TreasureCreateViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/color_primary" />
+            android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/adventure_create_sheet"
-            style="?attr/bottomSheetStyle"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_primary" />
+
+            <FrameLayout
+                android:id="@+id/adventure_create_sheet"
+                style="?attr/bottomSheetStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="10dp"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+                <include
+                    android:id="@+id/adventure_create_content"
+                    layout="@layout/adventure_create_sheet_content"
+                    bind:viewModel="@{viewModel}" />
+            </FrameLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <include
+            android:id="@+id/create_action_buttons"
+            layout="@layout/adventure_create_action_buttons"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="10dp"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
-            <include
-                android:id="@+id/adventure_create_content"
-                layout="@layout/adventure_create_sheet_content"
-                bind:viewModel="@{viewModel}" />
-        </FrameLayout>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            bind:viewModel="@{viewModel}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

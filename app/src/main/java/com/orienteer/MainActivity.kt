@@ -122,6 +122,7 @@ class MainActivity : AppCompatActivity(),
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.treasureHuntDetail -> hideBottomNav()
+                R.id.treasureCreateFragment -> hideBottomNav()
                 else -> showBottomNav()
             }
         }
