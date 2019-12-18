@@ -35,7 +35,7 @@ buildscript {
         version_retrofit_coroutines_adapter = "0.9.2"
         version_recyclerview = "1.0.0-beta03"
         version_timber = "4.7.1"
-        version_camerax = "1.0.0-alpha04"
+        version_camerax = "1.0.0-alpha06"
 
     }
     repositories {

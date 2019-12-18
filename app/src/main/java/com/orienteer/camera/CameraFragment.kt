@@ -1,27 +1,12 @@
-/*
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package com.orienteer.camera
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.hardware.Camera
@@ -30,53 +15,42 @@ import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.os.HandlerThread
 import android.util.DisplayMetrics
-import android.util.Rational
 import android.view.*
 import android.webkit.MimeTypeMap
 import android.widget.ImageButton
-import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
-import androidx.camera.core.CameraX
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageAnalysisConfig
-import androidx.camera.core.ImageCapture
+import androidx.camera.core.*
 import androidx.camera.core.ImageCapture.CaptureMode
 import androidx.camera.core.ImageCapture.Metadata
-import androidx.camera.core.ImageCaptureConfig
-import androidx.camera.core.ImageProxy
-import androidx.camera.core.Preview
-import androidx.camera.core.PreviewConfig
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import androidx.navigation.Navigation
+import com.android.example.cameraxbasic.utils.AutoFitPreviewBuilder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata
-import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler
 import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceImageLabelerOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.orienteer.MainActivity
 import com.orienteer.R
 import com.orienteer.util.ANIMATION_FAST_MILLIS
 import com.orienteer.util.ANIMATION_SLOW_MILLIS
-import com.orienteer.util.AutoFitPreviewBuilder
 import com.orienteer.util.simulateClick
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import pub.devrel.easypermissions.EasyPermissions
-import pub.devrel.easypermissions.PermissionRequest
 import timber.log.Timber
 import java.io.File
+import java.lang.Math.abs
 import java.nio.ByteBuffer
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
@@ -99,6 +73,7 @@ class CameraFragment : Fragment() {
     private lateinit var outputDirectory: File
     private lateinit var broadcastManager: LocalBroadcastManager
     private lateinit var storage: FirebaseStorage
+    private lateinit var mainExecutor: Executor
 
     private var displayId = -1
     private var lensFacing = CameraX.LensFacing.BACK
@@ -129,6 +104,7 @@ class CameraFragment : Fragment() {
         }
     }
 
+
     /**
      * We need a display listener for orientation changes that do not trigger a configuration
      * change, for example if we choose to override config change in manifest or for 180-degree
@@ -149,20 +125,7 @@ class CameraFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Mark this as a retain fragment, so the lifecycle does not get restarted on config change
-        retainInstance = true
-    }
-
-    override fun onResume() {
-        super.onResume()
-        // Make sure that all permissions are still present, since user could have removed them
-        //  while the app was on paused state
-        // TODO()
-//        if (!PermissionsFragment.hasPermissions(requireContext())) {
-//            Navigation.findNavController(requireActivity(), R.id.fragment_container).navigate(
-//                CameraFragmentDirections.actionCameraToPermissions())
-//
-//        }
+        mainExecutor = ContextCompat.getMainExecutor(requireContext())
     }
 
     override fun onDestroyView() {
@@ -177,7 +140,13 @@ class CameraFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_camera, container, false)
+        try {
+            inflater.inflate(R.layout.fragment_camera, container, false)
+        } catch (e: Exception) {
+            Timber.e("onCreateView: $e")
+            throw e
+        }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -213,7 +182,7 @@ class CameraFragment : Fragment() {
             lifecycleScope.launch(Dispatchers.IO) {
                 outputDirectory.listFiles { file ->
                     EXTENSION_WHITELIST.contains(file.extension.toUpperCase())
-                }.sorted().reversed().firstOrNull()?.let { setGalleryThumbnail(it) }
+                }?.max()?.let { setGalleryThumbnail(it) }
             }
         }
     }
@@ -239,9 +208,12 @@ class CameraFragment : Fragment() {
     /** Define callback that will be triggered after a photo has been taken and saved to disk */
     private val imageSavedListener = object : ImageCapture.OnImageSavedListener {
         override fun onError(
-            error: ImageCapture.UseCaseError, message: String, exc: Throwable?) {
+            imageCaptureError: ImageCapture.ImageCaptureError,
+            message: String,
+            cause: Throwable?
+        ) {
             Timber.e("Photo capture failed: $message")
-            exc?.printStackTrace()
+            cause?.printStackTrace()
         }
 
         override fun onImageSaved(photoFile: File) {
@@ -287,12 +259,26 @@ class CameraFragment : Fragment() {
         }
     }
 
+    /**
+     * Inflate camera controls and update the UI manually upon config changes to avoid removing
+     * and re-adding the view finder from the view hierarchy; this provides a seamless rotation
+     * transition on devices that support it.
+     *
+     * NOTE: The flag is supported starting in Android 8 but there still is a small flash on the
+     * screen for devices that run Android 9 or below.
+     */
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        updateCameraUi()
+    }
+
     /** Declare and bind preview, capture and analysis use cases */
     private fun bindCameraUseCases() {
 
         // Get screen metrics used to setup camera for full screen resolution
         val metrics = DisplayMetrics().also { viewFinder.display.getRealMetrics(it) }
-        val screenAspectRatio = Rational(metrics.widthPixels, metrics.heightPixels)
+        Timber.d("Screen metrics: ${metrics.widthPixels} x ${metrics.heightPixels}")
+        val screenAspectRatio = aspectRatio(metrics.widthPixels, metrics.heightPixels)
         Timber.d("Screen metrics: ${metrics.widthPixels} x ${metrics.heightPixels}")
 
         // Set up the view finder use case to display camera preview
@@ -325,9 +311,6 @@ class CameraFragment : Fragment() {
         // Setup image analysis pipeline that computes average pixel luminance in real time
         val analyzerConfig = ImageAnalysisConfig.Builder().apply {
             setLensFacing(lensFacing)
-            // Use a worker thread for image analysis to prevent preview glitches
-            val analyzerThread = HandlerThread("ImageLabelAnalyzer").apply { start() }
-            setCallbackHandler(Handler(analyzerThread.looper))
             // In our analysis, we care more about the latest image than analyzing *every* image
             setImageReaderMode(ImageAnalysis.ImageReaderMode.ACQUIRE_LATEST_IMAGE)
             // Set initial target rotation, we will have to call this again if rotation changes
@@ -336,7 +319,7 @@ class CameraFragment : Fragment() {
         }.build()
 
         imageLabelAnalyzer = ImageAnalysis(analyzerConfig).apply {
-            analyzer = FirebaseImageLabelAnalyzer()
+            setAnalyzer(mainExecutor, FirebaseImageLabelAnalyzer())
         }
 //        imageAnalyzer = ImageAnalysis(analyzerConfig).apply {
 //            analyzer = LuminosityAnalyzer { luma ->
@@ -350,6 +333,29 @@ class CameraFragment : Fragment() {
         // Apply declared configs to CameraX using the same lifecycle owner
         CameraX.bindToLifecycle(
             viewLifecycleOwner, preview, imageCapture, imageLabelAnalyzer)
+    }
+
+    /**
+     *  [androidx.camera.core.ImageAnalysisConfig] requires enum value of
+     *  [androidx.camera.core.AspectRatio]. Currently it has values of 4:3 & 16:9.
+     *
+     *  Detecting the most suitable ratio for dimensions provided in @params by counting absolute
+     *  of preview ratio to one of the provided values.
+     *
+     *  @param width - preview width
+     *  @param height - preview height
+     *  @return suitable aspect ratio
+     */
+    private fun aspectRatio(width: Int, height: Int): AspectRatio {
+        val previewRatio = kotlin.math.max(width, height).toDouble() / kotlin.math.min(
+            width,
+            height
+        )
+
+        if (abs(previewRatio - RATIO_4_3_VALUE) <= abs(previewRatio - RATIO_16_9_VALUE)) {
+            return AspectRatio.RATIO_4_3
+        }
+        return AspectRatio.RATIO_16_9
     }
 
     /** Method used to re-draw the camera UI controls, called every time configuration changes */
@@ -379,7 +385,7 @@ class CameraFragment : Fragment() {
                 }
 
                 // Setup image capture listener which is triggered after photo has been taken
-                imageCapture.takePicture(photoFile, imageSavedListener, metadata)
+                imageCapture.takePicture(photoFile, metadata, mainExecutor, imageSavedListener)
 
                 // We can only change the foreground Drawable using API level 23+ API
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -540,6 +546,8 @@ class CameraFragment : Fragment() {
     companion object {
         private const val FILENAME = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val PHOTO_EXTENSION = ".jpg"
+        private const val RATIO_4_3_VALUE = 4.0 / 3.0
+        private const val RATIO_16_9_VALUE = 16.0 / 9.0
 
         /** Helper function used to create a timestamped file */
         private fun createFile(baseFolder: File, format: String, extension: String) =
