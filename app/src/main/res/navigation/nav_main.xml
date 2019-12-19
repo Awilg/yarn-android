@@ -106,9 +106,9 @@
 
     <fragment
         android:id="@+id/clueTypePhotoCreateFragment"
-        android:name="com.orienteer.camera.CameraFragment"
+        android:name="com.orienteer.treasurecreate.ClueTypePhotoCreateFragment"
         android:label="Photo Clue Edit"
-        tools:layout="@layout/fragment_camera" />
+        tools:layout="@layout/fragment_clue_photo_create" />
 
     <fragment
         android:id="@+id/clueTypeTextCreateFragment"

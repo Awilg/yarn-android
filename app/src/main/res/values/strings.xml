@@ -160,5 +160,6 @@
     <string name="clue">Clue</string>
     <string name="explore">Explore</string>
     <string name="lets_explore">Where will you explore?</string>
+    <string name="clue_create_upload_explanation">When you uplaod an image our algorithm will show you what tags are associated with that image. These tags are what will be checked when someone attempts to solve your clue. Select the tags that best describe your subject.</string>
 </resources>
 
