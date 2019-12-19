@@ -1,6 +1,8 @@
 package com.orienteer.camera
 
+import android.app.Activity
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
@@ -23,6 +25,17 @@ class CameraUploadOptionDialog : DialogFragment() {
             // Emit the correct clue type for the image selections
             view.gallery_button.setOnClickListener {
                 Toast.makeText(context, "Clicked gallery", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                    addCategory(Intent.CATEGORY_OPENABLE)
+                    type = "image/*"
+
+                    // Optionally, specify a URI for the file that should appear in the
+                    // system file picker when it loads.
+                    //putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri)
+                }
+
+                startActivityForResult(intent, RC_UPLOAD_IMG)
             }
             view.camera_button.setOnClickListener {
                 Toast.makeText(context, "Clicked camera", Toast.LENGTH_SHORT).show()
@@ -49,5 +62,20 @@ class CameraUploadOptionDialog : DialogFragment() {
         } catch (e: java.lang.ClassCastException) {
             throw ClassCastException("Calling Fragment must implement ClueTypeSelectionListener")
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_UPLOAD_IMG && resultCode == Activity.RESULT_OK) {
+            // The result data contains a URI for the document or directory that
+            // the user selected.
+            Toast.makeText(context, "ON RESULT OVERRIDE", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    companion object {
+        private const val RC_UPLOAD_IMG = 123
     }
 }
