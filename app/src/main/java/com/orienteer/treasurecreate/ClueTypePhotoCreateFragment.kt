@@ -4,23 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.orienteer.camera.CameraUploadOptionDialog
 import com.orienteer.databinding.FragmentCluePhotoCreateBinding
-import timber.log.Timber
 
-class ClueTypePhotoCreateFragment : Fragment() {
+class ClueTypePhotoCreateFragment : Fragment(),
+    CameraUploadOptionDialog.CameraUploadOptionListener {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Timber.i("Creating fragment view!")
         val binding = FragmentCluePhotoCreateBinding.inflate(inflater)
 
         binding.photoClueCreateImg.setOnClickListener {
-            Toast.makeText(context, "Clicked the edit button!", Toast.LENGTH_SHORT).show()
+            val clueDialog = CameraUploadOptionDialog()
+            clueDialog.setTargetFragment(this, 0)
+            fragmentManager?.let { clueDialog.show(it, "upload_photo_option") }
         }
 
         return binding.root
