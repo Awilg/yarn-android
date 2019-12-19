@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -13,7 +14,6 @@ import kotlinx.android.synthetic.main.dialog_photo_upload_option.view.*
 
 class CameraUploadOptionDialog : DialogFragment() {
     internal lateinit var listener: CameraUploadOptionListener
-
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -38,7 +38,8 @@ class CameraUploadOptionDialog : DialogFragment() {
                 startActivityForResult(intent, RC_UPLOAD_IMG)
             }
             view.camera_button.setOnClickListener {
-                Toast.makeText(context, "Clicked camera", Toast.LENGTH_SHORT).show()
+                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                startActivityForResult(intent, RC_CAPTURE_IMG)
             }
             builder.setView(view)
             builder.create()
@@ -73,9 +74,16 @@ class CameraUploadOptionDialog : DialogFragment() {
             Toast.makeText(context, "ON RESULT OVERRIDE", Toast.LENGTH_SHORT).show()
         }
 
+        if (requestCode == RC_CAPTURE_IMG && resultCode == Activity.RESULT_OK) {
+            // The result data contains a URI for the document or directory that
+            // the user selected.
+            Toast.makeText(context, "IMAGE CAPTURED", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     companion object {
         private const val RC_UPLOAD_IMG = 123
+        private const val RC_CAPTURE_IMG = 124
     }
 }
