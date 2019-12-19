@@ -1,3 +1,18 @@
+/*
+ * Copyright 2019 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.orienteer.camera
 
@@ -15,8 +30,8 @@ import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.HandlerThread
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.*
 import android.webkit.MimeTypeMap
 import android.widget.ImageButton
@@ -29,30 +44,27 @@ import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.android.example.cameraxbasic.utils.AutoFitPreviewBuilder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.google.firebase.ml.vision.FirebaseVision
-import com.google.firebase.ml.vision.common.FirebaseVisionImage
-import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata
-import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceImageLabelerOptions
-import com.google.firebase.storage.FirebaseStorage
 import com.orienteer.MainActivity
 import com.orienteer.R
-import com.orienteer.util.ANIMATION_FAST_MILLIS
-import com.orienteer.util.ANIMATION_SLOW_MILLIS
-import com.orienteer.util.simulateClick
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.io.File
-import java.lang.Math.abs
 import java.nio.ByteBuffer
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
+import kotlin.collections.average
+import kotlin.collections.contains
+import kotlin.collections.forEach
+import kotlin.collections.map
+import kotlin.collections.max
+import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 
 /** Helper type alias used for analysis use case callbacks */
 typealias LumaListener = (luma: Double) -> Unit
@@ -60,7 +72,6 @@ const val PERMISSIONS_RC_CAMERA : Int = 123
 const val KEY_EVENT_ACTION = "key_event_action"
 const val KEY_EVENT_EXTRA = "key_event_extra"
 val EXTENSION_WHITELIST = arrayOf("JPG")
-
 /**
  * Main fragment for this app. Implements all camera operations including:
  * - Viewfinder
@@ -68,11 +79,11 @@ val EXTENSION_WHITELIST = arrayOf("JPG")
  * - Image analysis
  */
 class CameraFragment : Fragment() {
+
     private lateinit var container: ConstraintLayout
     private lateinit var viewFinder: TextureView
     private lateinit var outputDirectory: File
     private lateinit var broadcastManager: LocalBroadcastManager
-    private lateinit var storage: FirebaseStorage
     private lateinit var mainExecutor: Executor
 
     private var displayId = -1
@@ -80,20 +91,11 @@ class CameraFragment : Fragment() {
     private var preview: Preview? = null
     private var imageCapture: ImageCapture? = null
     private var imageAnalyzer: ImageAnalysis? = null
-    private var imageLabelAnalyzer: ImageAnalysis? = null
-
-    /** Declare worker thread at the class level so it can be reused after config changes */
-    private val analyzerThread = HandlerThread("LuminosityAnalysis").apply { start() }
-
-    /** Internal reference of the [DisplayManager] */
-    private lateinit var displayManager: DisplayManager
-
 
     /** Volume down button receiver used to trigger shutter */
     private val volumeDownReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            val keyCode = intent.getIntExtra(KEY_EVENT_EXTRA, KeyEvent.KEYCODE_UNKNOWN)
-            when (keyCode) {
+            when (intent.getIntExtra(KEY_EVENT_EXTRA, KeyEvent.KEYCODE_UNKNOWN)) {
                 // When the volume down button is pressed, simulate a shutter button click
                 KeyEvent.KEYCODE_VOLUME_DOWN -> {
                     val shutter = container
@@ -104,6 +106,8 @@ class CameraFragment : Fragment() {
         }
     }
 
+    /** Internal reference of the [DisplayManager] */
+    private lateinit var displayManager: DisplayManager
 
     /**
      * We need a display listener for orientation changes that do not trigger a configuration
@@ -115,7 +119,7 @@ class CameraFragment : Fragment() {
         override fun onDisplayRemoved(displayId: Int) = Unit
         override fun onDisplayChanged(displayId: Int) = view?.let { view ->
             if (displayId == this@CameraFragment.displayId) {
-                Timber.d("Rotation changed: ${view.display.rotation}")
+                Log.d(TAG, "Rotation changed: ${view.display.rotation}")
                 preview?.setTargetRotation(view.display.rotation)
                 imageCapture?.setTargetRotation(view.display.rotation)
                 imageAnalyzer?.setTargetRotation(view.display.rotation)
@@ -140,52 +144,7 @@ class CameraFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?): View? =
-        try {
-            inflater.inflate(R.layout.fragment_camera, container, false)
-        } catch (e: Exception) {
-            Timber.e("onCreateView: $e")
-            throw e
-        }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        container = view as ConstraintLayout
-        viewFinder = container.findViewById(R.id.view_finder)
-        broadcastManager = LocalBroadcastManager.getInstance(view.context)
-
-        // Set up the intent filter that will receive events from our main activity
-        val filter = IntentFilter().apply { addAction(KEY_EVENT_ACTION) }
-        broadcastManager.registerReceiver(volumeDownReceiver, filter)
-
-        // Every time the orientation of device changes, recompute layout
-        displayManager = viewFinder.context
-            .getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
-        displayManager.registerDisplayListener(displayListener, null)
-
-        // Determine the output directory
-        outputDirectory = MainActivity.getOutputDirectory(requireContext())
-
-        // Get the friebase storage reference
-        storage = FirebaseStorage.getInstance()
-
-        // Wait for the views to be properly laid out
-        viewFinder.post {
-            // Keep track of the display in which this view is attached
-            displayId = viewFinder.display.displayId
-
-            // Build UI controls and bind all camera use cases
-            updateCameraUi()
-            bindCameraUseCases()
-
-            // In the background, load latest photo taken (if any) for gallery thumbnail
-            lifecycleScope.launch(Dispatchers.IO) {
-                outputDirectory.listFiles { file ->
-                    EXTENSION_WHITELIST.contains(file.extension.toUpperCase())
-                }?.max()?.let { setGalleryThumbnail(it) }
-            }
-        }
-    }
+        inflater.inflate(R.layout.fragment_camera, container, false)
 
     private fun setGalleryThumbnail(file: File) {
         // Reference of the view that holds the gallery thumbnail
@@ -208,38 +167,20 @@ class CameraFragment : Fragment() {
     /** Define callback that will be triggered after a photo has been taken and saved to disk */
     private val imageSavedListener = object : ImageCapture.OnImageSavedListener {
         override fun onError(
-            imageCaptureError: ImageCapture.ImageCaptureError,
-            message: String,
-            cause: Throwable?
+            error: ImageCapture.ImageCaptureError, message: String, exc: Throwable?
         ) {
-            Timber.e("Photo capture failed: $message")
-            cause?.printStackTrace()
+            Log.e(TAG, "Photo capture failed: $message")
+            exc?.printStackTrace()
         }
 
         override fun onImageSaved(photoFile: File) {
-            Timber.d("Photo capture succeeded: ${photoFile.absolutePath}")
+            Log.d(TAG, "Photo capture succeeded: ${photoFile.absolutePath}")
 
             // We can only change the foreground Drawable using API level 23+ API
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
                 // Update the gallery thumbnail with latest picture taken
                 setGalleryThumbnail(photoFile)
-            }
-
-            // Create a storage reference from our app
-            val storageRef = storage.reference
-
-            // Create a reference
-            val fileRef = storageRef.child("/dev/test_james.jpg")
-
-            var uploadTask = fileRef.putFile(Uri.fromFile(photoFile))
-            // Register observers to listen for when the download is done or if it fails
-            uploadTask.addOnFailureListener {
-                // Handle unsuccessful uploads
-            }.addOnSuccessListener {
-                // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                // ...
-                Timber.i("photo uploaded to firebase!")
             }
 
             // Implicit broadcasts will be ignored for devices running API
@@ -256,6 +197,43 @@ class CameraFragment : Fragment() {
                 .getMimeTypeFromExtension(photoFile.extension)
             MediaScannerConnection.scanFile(
                 context, arrayOf(photoFile.absolutePath), arrayOf(mimeType), null)
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        container = view as ConstraintLayout
+        viewFinder = container.findViewById(R.id.view_finder)
+        broadcastManager = LocalBroadcastManager.getInstance(view.context)
+
+        // Set up the intent filter that will receive events from our main activity
+        val filter = IntentFilter().apply { addAction(KEY_EVENT_ACTION) }
+        broadcastManager.registerReceiver(volumeDownReceiver, filter)
+
+        // Every time the orientation of device changes, recompute layout
+        displayManager = viewFinder.context
+            .getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
+        displayManager.registerDisplayListener(displayListener, null)
+
+        // Determine the output directory
+        outputDirectory = MainActivity.getOutputDirectory(requireContext())
+
+        // Wait for the views to be properly laid out
+        viewFinder.post {
+            // Keep track of the display in which this view is attached
+            displayId = viewFinder.display.displayId
+
+            // Build UI controls and bind all camera use cases
+            updateCameraUi()
+            bindCameraUseCases()
+
+            // In the background, load latest photo taken (if any) for gallery thumbnail
+            lifecycleScope.launch(Dispatchers.IO) {
+                outputDirectory.listFiles { file ->
+                    EXTENSION_WHITELIST.contains(file.extension.toUpperCase())
+                }?.max()?.let { setGalleryThumbnail(it) }
+            }
         }
     }
 
@@ -277,10 +255,9 @@ class CameraFragment : Fragment() {
 
         // Get screen metrics used to setup camera for full screen resolution
         val metrics = DisplayMetrics().also { viewFinder.display.getRealMetrics(it) }
-        Timber.d("Screen metrics: ${metrics.widthPixels} x ${metrics.heightPixels}")
+        Log.d(TAG, "Screen metrics: ${metrics.widthPixels} x ${metrics.heightPixels}")
         val screenAspectRatio = aspectRatio(metrics.widthPixels, metrics.heightPixels)
-        Timber.d("Screen metrics: ${metrics.widthPixels} x ${metrics.heightPixels}")
-
+        Log.d(TAG, "Preview aspect ratio: $screenAspectRatio")
         // Set up the view finder use case to display camera preview
         val viewFinderConfig = PreviewConfig.Builder().apply {
             setLensFacing(lensFacing)
@@ -318,21 +295,24 @@ class CameraFragment : Fragment() {
             setTargetRotation(viewFinder.display.rotation)
         }.build()
 
-        imageLabelAnalyzer = ImageAnalysis(analyzerConfig).apply {
-            setAnalyzer(mainExecutor, FirebaseImageLabelAnalyzer())
+        imageAnalyzer = ImageAnalysis(analyzerConfig).apply {
+            setAnalyzer(mainExecutor,
+                LuminosityAnalyzer { luma ->
+                    // Values returned from our analyzer are passed to the attached listener
+                    // We log image analysis results here --
+                    // you should do something useful instead!
+                    val fps = (analyzer as LuminosityAnalyzer).framesPerSecond
+                    Log.d(
+                        TAG, "Average luminosity: $luma. " +
+                                "Frames per second: ${"%.01f".format(fps)}"
+                    )
+                })
         }
-//        imageAnalyzer = ImageAnalysis(analyzerConfig).apply {
-//            analyzer = LuminosityAnalyzer { luma ->
-//                // Values returned from our analyzer are passed to the attached listener
-//                // We log image analysis results here -- you should do something useful instead!
-//                val fps = (analyzer as LuminosityAnalyzer).framesPerSecond
-//                Timber.d("Average luminosity: $luma. Frames per second: ${"%.01f".format(fps)}")
-//            }
-//        }
 
         // Apply declared configs to CameraX using the same lifecycle owner
         CameraX.bindToLifecycle(
-            viewLifecycleOwner, preview, imageCapture, imageLabelAnalyzer)
+            viewLifecycleOwner, preview, imageCapture, imageAnalyzer
+        )
     }
 
     /**
@@ -347,10 +327,7 @@ class CameraFragment : Fragment() {
      *  @return suitable aspect ratio
      */
     private fun aspectRatio(width: Int, height: Int): AspectRatio {
-        val previewRatio = kotlin.math.max(width, height).toDouble() / kotlin.math.min(
-            width,
-            height
-        )
+        val previewRatio = max(width, height).toDouble() / min(width, height)
 
         if (abs(previewRatio - RATIO_4_3_VALUE) <= abs(previewRatio - RATIO_16_9_VALUE)) {
             return AspectRatio.RATIO_4_3
@@ -419,7 +396,7 @@ class CameraFragment : Fragment() {
             }
         }
 
-//        // Listener for button used to view last photo
+        // Listener for button used to view last photo
 //        controls.findViewById<ImageButton>(R.id.photo_view_button).setOnClickListener {
 //            Navigation.findNavController(requireActivity(), R.id.fragment_container).navigate(
 //                CameraFragmentDirections.actionCameraToGallery(outputDirectory.absolutePath))
@@ -427,43 +404,6 @@ class CameraFragment : Fragment() {
     }
 
 
-    /**
-     * Our image analyzer using Firebase's label ML model.
-     */
-    private class FirebaseImageLabelAnalyzer : ImageAnalysis.Analyzer {
-        private fun degreesToFirebaseRotation(degrees: Int): Int = when(degrees) {
-            0 -> FirebaseVisionImageMetadata.ROTATION_0
-            90 -> FirebaseVisionImageMetadata.ROTATION_90
-            180 -> FirebaseVisionImageMetadata.ROTATION_180
-            270 -> FirebaseVisionImageMetadata.ROTATION_270
-            else -> throw Exception("Rotation must be 0, 90, 180, or 270.")
-        }
-
-
-        override fun analyze(imageProxy: ImageProxy?, rotationDegrees: Int) {
-            val mediaImage = imageProxy?.image
-            val imageRotation = degreesToFirebaseRotation(rotationDegrees)
-            if (mediaImage != null) {
-                val image = FirebaseVisionImage.fromMediaImage(mediaImage, imageRotation)
-                val options = FirebaseVisionOnDeviceImageLabelerOptions.Builder()
-                    .setConfidenceThreshold(0.7f)
-                    .build()
-
-                val labeler = FirebaseVision.getInstance().getOnDeviceImageLabeler(options)
-
-                labeler.processImage(image)
-                    .addOnSuccessListener { labels ->
-                        for (label in labels) {
-                            //Timber.i("Label found with name ${label.text} and confidence ${label.confidence}")
-                        }
-                    }
-                    .addOnFailureListener { e ->
-                        Timber.e("Error labeling image: ${e.localizedMessage}")
-                    }
-
-            }
-        }
-    }
     /**
      * Our custom image analysis class.
      *
@@ -513,12 +453,15 @@ class CameraFragment : Fragment() {
             if (listeners.isEmpty()) return
 
             // Keep track of frames analyzed
-            frameTimestamps.push(System.currentTimeMillis())
+            val currentTime = System.currentTimeMillis()
+            frameTimestamps.push(currentTime)
 
             // Compute the FPS using a moving average
             while (frameTimestamps.size >= frameRateWindow) frameTimestamps.removeLast()
-            framesPerSecond = 1.0 / ((frameTimestamps.peekFirst() -
-                    frameTimestamps.peekLast())  / frameTimestamps.size.toDouble()) * 1000.0
+            val timestampFirst = frameTimestamps.peekFirst() ?: currentTime
+            val timestampLast = frameTimestamps.peekLast() ?: currentTime
+            framesPerSecond = 1.0 / ((timestampFirst - timestampLast) /
+                    frameTimestamps.size.coerceAtLeast(1).toDouble()) * 1000.0
 
             // Calculate the average luma no more often than every second
             if (frameTimestamps.first - lastAnalyzedTimestamp >= TimeUnit.SECONDS.toMillis(1)) {
@@ -544,6 +487,7 @@ class CameraFragment : Fragment() {
     }
 
     companion object {
+        private const val TAG = "CameraXBasic"
         private const val FILENAME = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val PHOTO_EXTENSION = ".jpg"
         private const val RATIO_4_3_VALUE = 4.0 / 3.0

@@ -123,6 +123,7 @@ class MainActivity : AppCompatActivity(),
             when (destination.id) {
                 R.id.treasureHuntDetail -> hideBottomNav()
                 R.id.treasureCreateFragment -> hideBottomNav()
+                R.id.clueTypePhotoCreateFragment -> hideBottomNav()
                 else -> showBottomNav()
             }
         }

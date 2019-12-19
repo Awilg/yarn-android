@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.android.example.cameraxbasic.utils
+package com.orienteer.camera
 
 import android.content.Context
 import android.graphics.Matrix
 import android.hardware.display.DisplayManager
-import android.util.Log
 import android.util.Size
 import android.view.*
 import androidx.camera.core.Preview
 import androidx.camera.core.PreviewConfig
+import timber.log.Timber
 import java.lang.ref.WeakReference
 import kotlin.math.roundToInt
 
@@ -90,8 +90,8 @@ class AutoFitPreviewBuilder private constructor(
         useCase.setOnPreviewOutputUpdateListener(Preview.OnPreviewOutputUpdateListener {
             val viewFinder =
                 viewFinderRef.get() ?: return@OnPreviewOutputUpdateListener
-            Log.d(
-                TAG, "Preview output changed. " +
+            Timber.d(
+                "Preview output changed. " +
                         "Size: ${it.textureSize}. Rotation: ${it.rotationDegrees}"
             )
 
@@ -113,7 +113,7 @@ class AutoFitPreviewBuilder private constructor(
         viewFinder.addOnLayoutChangeListener { view, left, top, right, bottom, _, _, _, _ ->
             val viewFinder = view as TextureView
             val newViewFinderDimens = Size(right - left, bottom - top)
-            Log.d(TAG, "View finder layout changed. Size: $newViewFinderDimens")
+            Timber.d("View finder layout changed. Size: $newViewFinderDimens")
             val rotation = getDisplaySurfaceRotation(viewFinder.display)
             updateTransform(viewFinder, rotation, bufferDimens, newViewFinderDimens)
         }
@@ -185,8 +185,8 @@ class AutoFitPreviewBuilder private constructor(
         }
 
         val matrix = Matrix()
-        Log.d(
-            TAG, "Applying output transformation.\n" +
+        Timber.i(
+            "Applying output transformation.\n" +
                     "View finder size: $viewFinderDimens.\n" +
                     "Preview output size: $bufferDimens\n" +
                     "View finder rotation: $viewFinderRotation\n" +
