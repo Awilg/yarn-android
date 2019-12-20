@@ -57,18 +57,12 @@ import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
-import kotlin.collections.average
-import kotlin.collections.contains
-import kotlin.collections.forEach
-import kotlin.collections.map
-import kotlin.collections.max
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
 /** Helper type alias used for analysis use case callbacks */
 typealias LumaListener = (luma: Double) -> Unit
-const val PERMISSIONS_RC_CAMERA : Int = 123
 const val KEY_EVENT_ACTION = "key_event_action"
 const val KEY_EVENT_EXTRA = "key_event_extra"
 val EXTENSION_WHITELIST = arrayOf("JPG")
