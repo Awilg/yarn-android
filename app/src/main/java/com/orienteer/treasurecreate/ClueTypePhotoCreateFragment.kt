@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
-import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceImageLabelerOptions
+import com.google.firebase.ml.vision.label.FirebaseVisionCloudImageLabelerOptions
 import com.orienteer.camera.CameraUploadOptionDialog
 import com.orienteer.databinding.FragmentCluePhotoCreateBinding
 import timber.log.Timber
@@ -46,7 +46,7 @@ class ClueTypePhotoCreateFragment : Fragment(),
         analyzeImageForTags(uri)
     }
 
-    fun analyzeImageForTags(uri: Uri) {
+    private fun analyzeImageForTags(uri: Uri) {
         var image: FirebaseVisionImage? = null
         try {
             image = FirebaseVisionImage.fromFilePath(context!!, uri)
@@ -61,11 +61,11 @@ class ClueTypePhotoCreateFragment : Fragment(),
         //  Or, to set the minimum confidence required:
         // Switch to cloud image labeler with getCloudImageLabeler()
         val options =
-            FirebaseVisionOnDeviceImageLabelerOptions.Builder()
-                .setConfidenceThreshold(0.5f)
+            FirebaseVisionCloudImageLabelerOptions.Builder()
+                .setConfidenceThreshold(0.7f)
                 .build()
         val labeler = FirebaseVision.getInstance()
-            .getOnDeviceImageLabeler(options)
+            .getCloudImageLabeler(options)
 
         val tags = StringBuilder()
         image?.let {
