@@ -27,6 +27,8 @@ import java.util.*
 class CameraUploadOptionDialog : DialogFragment(), EasyPermissions.PermissionCallbacks {
     internal lateinit var listener: CameraUploadOptionListener
 
+    lateinit var currentPhotoUri: Uri
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
@@ -60,7 +62,9 @@ class CameraUploadOptionDialog : DialogFragment(), EasyPermissions.PermissionCal
      * implement this interface in order to receive event callbacks.
      * Each method passes the DialogFragment in case the host needs to query it.
      */
-    interface CameraUploadOptionListener
+    interface CameraUploadOptionListener {
+        fun onUploadResult(uri: Uri)
+    }
 
     /*
      *  Check to make sure that the fragment that creates the dialog implements the callback methods
@@ -79,35 +83,27 @@ class CameraUploadOptionDialog : DialogFragment(), EasyPermissions.PermissionCal
 
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                RC_CAPTURE_IMG -> Toast.makeText(
-                    context,
-                    "IMAGE CAPTURED",
-                    Toast.LENGTH_SHORT
-                ).show()
-                RC_UPLOAD_IMG -> Toast.makeText(
-                    context,
-                    "IMAGE UPLOADED",
-                    Toast.LENGTH_SHORT
-                ).show()
+                RC_CAPTURE_IMG -> listener.onUploadResult(currentPhotoUri)
+                RC_UPLOAD_IMG ->
+                    data?.data?.let {
+                        listener.onUploadResult(it)
+                    }
             }
+            // Close the dialog
+            dismiss()
         }
     }
 
-    lateinit var currentPhotoPath: String
-
     @Throws(IOException::class)
     private fun createImageFile(): File {
-        // Create an image file name
+        // Create an image file name - TODO: this will have to be searchable by the user
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val storageDir: File? = context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(
             "JPEG_${timeStamp}_", /* prefix */
             ".jpg", /* suffix */
             storageDir /* directory */
-        ).apply {
-            // Save a file: path for use with ACTION_VIEW intents
-            currentPhotoPath = absolutePath
-        }
+        )
     }
 
     /**
@@ -148,6 +144,7 @@ class CameraUploadOptionDialog : DialogFragment(), EasyPermissions.PermissionCal
                     "com.orienteer.fileprovider",
                     file
                 )
+                currentPhotoUri = photoURI
                 this.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                 startActivityForResult(this, RC_CAPTURE_IMG)
             }
