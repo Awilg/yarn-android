@@ -62,7 +62,7 @@ class ClueTypePhotoCreateFragment : Fragment(),
         // Switch to cloud image labeler with getCloudImageLabeler()
         val options =
             FirebaseVisionCloudImageLabelerOptions.Builder()
-                .setConfidenceThreshold(0.7f)
+                .setConfidenceThreshold(0.3f)
                 .build()
         val labeler = FirebaseVision.getInstance()
             .getCloudImageLabeler(options)

@@ -165,5 +165,6 @@
     <string name="gallery">Gallery</string>
     <string name="camera">Camera</string>
     <string name="take_picture">Take Picture</string>
+    <string name="hint_for_your_photo_clue">Hint for your photo clue</string>
 </resources>
 

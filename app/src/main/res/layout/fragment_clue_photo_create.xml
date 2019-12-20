@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,65 +10,100 @@
             type="com.orienteer.treasurecreate.TreasureCreateViewModel" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/create_button"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/photo_clue_create_img"
-                android:layout_width="0dp"
-                android:layout_height="275dp"
-                android:src="@color/colorPrimary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/edit_clue_create_photo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="@color/color_background"
-                android:src="@drawable/ic_edit_40dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:ignore="ContentDescription" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/photo_clue_create_img"
+                        android:layout_width="0dp"
+                        android:layout_height="275dp"
+                        android:src="@color/colorPrimary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription"
+                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-        <TextView
-            android:id="@+id/photo_clue_create_explanation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="32dp"
-            android:text="@string/clue_create_upload_explanation" />
+                    <ImageView
+                        android:id="@+id/edit_clue_create_photo"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:background="@color/color_background"
+                        android:src="@drawable/ic_edit_40dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:ignore="ContentDescription" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <EditText
+                    android:id="@+id/photo_clue_create_hint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="@string/hint_for_your_photo_clue"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:lines="4" />
+
+                <TextView
+                    android:id="@+id/photo_clue_create_explanation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="32dp"
+                    android:text="@string/clue_create_upload_explanation"
+                    android:textSize="12sp" />
+
+                <include
+                    android:id="@+id/explanation_divider"
+                    layout="@layout/divider" />
+
+                <TextView
+                    android:id="@+id/tags_temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="These are tags" />
+
+            </LinearLayout>
+
+        </ScrollView>
 
         <include
-            android:id="@+id/explanation_divider"
-            layout="@layout/divider" />
-
-        <TextView
-            android:id="@+id/tags_temp"
-            android:layout_width="wrap_content"
+            android:id="@+id/create_button"
+            layout="@layout/clue_create_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
-            android:text="These are tags" />
-    </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
