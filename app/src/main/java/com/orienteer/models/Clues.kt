@@ -1,5 +1,6 @@
 package com.orienteer.models
 
+import android.net.Uri
 import android.os.Parcelable
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.parcel.Parcelize
@@ -30,7 +31,18 @@ class ClueText(
     val hints: List<String>?
 ) : BaseClue(cluePrompt, type)
 
+data class CluePhoto(
+    override var cluePrompt: String = "",
+    override val type: String = ClueType.Photo.name,
+    var imgUri: Uri = Uri.EMPTY,
+    var tags: List<PhotoTag> = emptyList(),
+    var hints: List<String> = emptyList()
+) : BaseClue(cluePrompt, type)
 
+data class PhotoTag(
+    val tag: String,
+    val confidence: Double
+)
 class ClueLocation(
     override val cluePrompt: String,
     override val type: String = ClueType.Location.name,

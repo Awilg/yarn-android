@@ -5,15 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.label.FirebaseVisionCloudImageLabelerOptions
 import com.orienteer.camera.CameraUploadOptionDialog
 import com.orienteer.databinding.FragmentCluePhotoCreateBinding
+import com.orienteer.util.hideKeyboard
 import kotlinx.android.synthetic.main.clue_create_button.view.*
 import timber.log.Timber
 import java.io.IOException
@@ -43,10 +44,23 @@ class ClueTypePhotoCreateFragment : Fragment(),
         }
 
         binding.createButton.clue_create_button.setOnClickListener {
-            Toast.makeText(context, "Create Photo Clue", Toast.LENGTH_SHORT).show()
+            hideKeyboard()
+            createPhotoClue()
+            findNavController().navigate(
+                ClueTypePhotoCreateFragmentDirections.actionClueTypePhotoCreateFragmentToTreasureCreateFragment()
+            )
         }
 
         return binding.root
+    }
+
+    private fun createPhotoClue() {
+        // Get the prompt
+        val prompt = binding.photoClueCreateHint.text.toString()
+        val currClue = viewModel.currentPhotoClue.value
+        currClue?.let {
+            viewModel.addPhotoClue(prompt)
+        }
     }
 
     // TODO: move this to be a viewpager
@@ -56,6 +70,7 @@ class ClueTypePhotoCreateFragment : Fragment(),
                 .load(uri)
                 .into(binding.photoClueCreateImg)
         }
+        viewModel.setCurrentPhotoClueUri(uri)
         analyzeImageForTags(uri)
     }
 

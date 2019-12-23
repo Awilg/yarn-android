@@ -1,6 +1,7 @@
 package com.orienteer.treasurecreate
 
 import android.location.Location
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -55,6 +56,16 @@ class TreasureCreateViewModel : ViewModel() {
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    private val _currentPhotoClueImgUri = MutableLiveData<Uri>()
+    val currentPhotoClueImgUri: LiveData<Uri>
+        get() = _currentPhotoClueImgUri
+
+    private val _currentPhotoClue = MutableLiveData<CluePhoto>()
+    val currentPhotoClue: LiveData<CluePhoto>
+        get() = _currentPhotoClue
+
+
 
     init {
         _currentAdventure.value = AdventureCreate(
@@ -146,6 +157,26 @@ class TreasureCreateViewModel : ViewModel() {
 
     fun getClueLocationCenterMap(): LatLng {
         return _map?.cameraPosition?.target!!
+    }
+
+    fun setCurrentPhotoClueUri(uri: Uri) {
+        if (_currentPhotoClue.value == null) {
+            _currentPhotoClue.value = CluePhoto()
+        }
+        _currentPhotoClue.value?.imgUri = uri
+    }
+
+    fun addPhotoClue(prompt: String) {
+        ensureClueListNonEmpty()
+        if (_currentPhotoClue.value == null) {
+            _currentPhotoClue.value = CluePhoto()
+        } else {
+            Timber.i("TESTING: ADDING A CLUE")
+            _currentPhotoClue.value?.cluePrompt = prompt
+            _clues.value?.add(_currentPhotoClue.value!!)
+            // Observers only get called on a setValue()
+            _clues.value = _clues.value
+        }
     }
 
     fun saveAdventure() {
