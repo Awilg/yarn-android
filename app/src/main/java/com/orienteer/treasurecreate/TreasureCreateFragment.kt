@@ -21,10 +21,10 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.Circle
-import com.google.android.gms.maps.model.CircleOptions
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.orienteer.R
 import com.orienteer.databinding.FragmentTreasureCreateBinding
 import com.orienteer.models.ClueTextCreate
 import com.orienteer.models.ClueType
@@ -59,6 +59,11 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
 
         // Set up location client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity as Activity)
+
+        // Set map callback on the mapView
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.createMapFragment) as SupportMapFragment?
+        mapFragment?.getMapAsync(this)
 
         // Set up observer for the create button
         viewModel.navigateToSuccessScreen.observe(this, Observer {
@@ -154,7 +159,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         }
     }
 
-    private fun drawMap(map: GoogleMap, location: Location): Circle? {
+    private fun drawMap(map: GoogleMap, location: Location) {
         map.addMarker(
             MarkerOptions()
                 .position(LatLng(location.latitude, location.longitude))
@@ -167,34 +172,6 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
                     location.longitude
                 ), DEFAULT_TREASURE_CREATE_ZOOM
             )
-        )
-        map.addCircle(
-            CircleOptions()
-                .center(LatLng(location.latitude, location.longitude))
-                .radius(1000.0)
-                .fillColor(0x40FFD700)
-                .strokeColor(0x40FFD700)
-        )
-        map.addCircle(
-            CircleOptions()
-                .center(LatLng(location.latitude, location.longitude))
-                .radius(500.0)
-                .fillColor(0x40a8ff00)
-                .strokeColor(0x40a8ff00)
-        )
-        map.addCircle(
-            CircleOptions()
-                .center(LatLng(location.latitude, location.longitude))
-                .radius(250.0)
-                .fillColor(0x40ff5700)
-                .strokeColor(0x40ff5700)
-        )
-        return map.addCircle(
-            CircleOptions()
-                .center(LatLng(location.latitude, location.longitude))
-                .radius(50.0)
-                .fillColor(0x40ff0029)
-                .strokeColor(0x40ff0029)
         )
     }
 

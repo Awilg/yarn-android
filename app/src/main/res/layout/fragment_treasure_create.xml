@@ -18,10 +18,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mapFragmentContainer"
                 android:layout_width="match_parent"
+                android:layout_gravity="top"
                 android:layout_height="match_parent"
-                android:background="@color/color_primary" />
+                android:baselineAligned="false">
+
+                <fragment
+                    android:id="@+id/createMapFragment"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@id/half_guide"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/half_guide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.32" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <FrameLayout
                 android:id="@+id/adventure_create_sheet"
