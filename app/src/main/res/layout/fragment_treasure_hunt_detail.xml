@@ -39,23 +39,8 @@
                 <include layout="@layout/divider" />
 
                 <include
-                    android:id="@+id/main_info_section1"
-                    layout="@layout/detail_main_info_section"
-                    bind:adventure="@{viewModel.selectedAdventure}" />
-
-                <include
-                    android:id="@+id/main_info_section2"
-                    layout="@layout/detail_main_info_section"
-                    bind:adventure="@{viewModel.selectedAdventure}" />
-
-                <include
-                    android:id="@+id/main_info_section3"
-                    layout="@layout/detail_main_info_section"
-                    bind:adventure="@{viewModel.selectedAdventure}" />
-
-                <include
-                    android:id="@+id/main_info_section4"
-                    layout="@layout/detail_main_info_section"
+                    android:id="@+id/clue_overview"
+                    layout="@layout/detail_clue_overview"
                     bind:adventure="@{viewModel.selectedAdventure}" />
 
             </LinearLayout>
