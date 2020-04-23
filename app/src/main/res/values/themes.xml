@@ -37,6 +37,7 @@
         <item name="colorOnError">@color/color_on_error</item>
 
         <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:textColor">@color/color_text</item>
     </style>
 
     <style name="Base.MaterialThemeBuilder" parent="Theme.MaterialComponents.DayNight.NoActionBar">
