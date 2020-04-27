@@ -117,6 +117,7 @@ class MapViewModel : ViewModel() {
             return
         }
         try {
+            _map?.uiSettings?.isMapToolbarEnabled = false
             if (_locationPermissionGranted.value!!) {
                 _isMyLocationButtonEnabled.value = true
                 _map?.isMyLocationEnabled = true
@@ -178,6 +179,6 @@ class MapViewModel : ViewModel() {
         _map?.addMarker(
             MarkerOptions()
                 .position(LatLng(adv.location.latitude, adv.location.longitude))
-                .title("Adventure Awaits!"))
+                .title(adv.name))
     }
 }
