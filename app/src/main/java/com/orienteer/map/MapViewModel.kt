@@ -9,6 +9,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.orienteer.models.Adventure
 import com.orienteer.network.TreasureHuntApi
 import com.orienteer.util.testHunts
@@ -171,5 +172,12 @@ class MapViewModel : ViewModel() {
 
     fun doneNavigatingToSelectedTreasureHunt(){
         _navigateToSelectedTreasureHunt.value = null
+    }
+
+    fun addMarkerForAdventure(adv: Adventure) {
+        _map?.addMarker(
+            MarkerOptions()
+                .position(LatLng(adv.location.latitude, adv.location.longitude))
+                .title("Adventure Awaits!"))
     }
 }

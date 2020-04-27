@@ -157,6 +157,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             }
         })
 
+        // Draw the markers for the hunts when the list is updated
+        viewModel.treasureHuntsNearby.observe(this, Observer { adventureList ->
+            adventureList.forEach {adv ->
+                viewModel.addMarkerForAdventure(adv)
+            }
+        })
+
         return _binding.root
     }
 
