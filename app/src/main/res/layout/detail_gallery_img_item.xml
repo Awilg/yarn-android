@@ -18,6 +18,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/treasure_hunt_detail_img_content_description"
         android:scaleType="centerCrop"
+        android:forceHasOverlappingRendering="true"
         app:imageUrl="@{imageUrl}"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 

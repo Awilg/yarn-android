@@ -144,27 +144,22 @@ class MapViewModel : ViewModel() {
         _isMyLocationButtonEnabled.value = false
     }
 
-    /**
-     * Gets Mars real estate property information from the Mars API Retrofit service and updates the
-     * [MarsProperty] [List] and [MarsApiStatus] [LiveData]. The Retrofit service returns a
-     * coroutine Deferred, which we await to get the result of the transaction.
-     */
     // TODO (03) Add MarsApiFilter parameter to getMarsRealEstateProperties
     private fun getTreasureHuntsNearby(location: LatLng) {
-        coroutineScope.launch {
+        //coroutineScope.launch {
             // Get the Deferred object for our Retrofit request
             // TODO (04) Add filter to getProperties() with filter.value
-            var getTreasureHunts = TreasureHuntApi.service.getTreasureHuntsByLocation(
-                longitude = location.longitude.toString(), latitude = location.latitude.toString())
-            try {
-                // this will run on a thread managed by Retrofit
-                val listResult = getTreasureHunts.await()
-                //_treasureHuntsNearby.value = listResult
-            } catch (e: Exception) {
-                Timber.e("Network request failed with exception $e")
+//            var getTreasureHunts = TreasureHuntApi.service.getTreasureHuntsByLocation(
+//                longitude = location.longitude.toString(), latitude = location.latitude.toString())
+//            try {
+//                // this will run on a thread managed by Retrofit
+//                //val listResult = getTreasureHunts.await()
+//                //_treasureHuntsNearby.value = listResult
+//            } catch (e: Exception) {
+//                Timber.e("Network request failed with exception $e")
                 _treasureHuntsNearby.value = testHunts
-            }
-        }
+           // }
+        //}
     }
 
     fun displayTreasureHuntDetails(adventure: Adventure) {

@@ -85,6 +85,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
                 .error(R.drawable.ic_connection_error))
             .into(imgView)
     }
+    imgView.elevation = 0f
 }
 
 

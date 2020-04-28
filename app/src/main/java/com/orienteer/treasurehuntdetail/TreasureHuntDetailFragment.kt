@@ -1,20 +1,27 @@
 package com.orienteer.treasurehuntdetail
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.orienteer.R
 import com.orienteer.databinding.FragmentTreasureHuntDetailBinding
 import com.rd.PageIndicatorView
 import kotlinx.android.synthetic.main.detail_action_buttons.view.*
+import kotlinx.android.synthetic.main.detail_toolbar.view.*
 
 
 class TreasureHuntDetailFragment : Fragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        adjustSystemUI()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,11 +49,6 @@ class TreasureHuntDetailFragment : Fragment() {
             )
         }
 
-        binding.actionButtonSection.detail_follow_button.setOnClickListener {
-            Toast.makeText(context, "Followed Adventure ${treasureHunt.name}!", Toast.LENGTH_SHORT)
-                .show()
-        }
-
         // Set up the gallery viewpager
         val galleryAdapter = AdventureDetailImagePagerAdapter()
         val viewpager = binding.adventureMainGallery.adventureImgViewpager
@@ -57,6 +59,28 @@ class TreasureHuntDetailFragment : Fragment() {
                 pageIndicatorView.selection = position
             }
         })
+
+        val mToolbar = binding.detailToolbar.my_toolbar
+        (activity as AppCompatActivity?)!!.setSupportActionBar(mToolbar)
+        setHasOptionsMenu(true)
+        mToolbar.title = null
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        mToolbar.setNavigationOnClickListener { Toast.makeText(context, "Back!", Toast.LENGTH_SHORT).show() }
+
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        // Inflate the menu; this adds items to the action bar if it is present.
+        activity!!.menuInflater.inflate(R.menu.app_bar_detail, menu)
+    }
+
+    private fun adjustSystemUI() {
+        // Enables regular immersive mode.
+        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
+        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        activity!!.window.decorView.systemUiVisibility = (
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
     }
 }
