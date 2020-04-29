@@ -62,13 +62,18 @@ class TreasureHuntDetailFragment : Fragment() {
 
         val appbar = binding.appbarLayout
         appbar.background.alpha = 0
+        // This is to remove the elevation shadow while maintaining the elevation to draw
+        // on top of the other views
+        appbar.outlineProvider = null
 
         val mToolbar = binding.myToolbar
         (activity as AppCompatActivity?)!!.setSupportActionBar(mToolbar)
         setHasOptionsMenu(true)
         mToolbar.title = null
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
-        mToolbar.setNavigationOnClickListener { Toast.makeText(context, "Back!", Toast.LENGTH_SHORT).show() }
+        mToolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
 
         return binding.root
     }
@@ -77,6 +82,20 @@ class TreasureHuntDetailFragment : Fragment() {
         menu.clear()
         // Inflate the menu; this adds items to the action bar if it is present.
         activity!!.menuInflater.inflate(R.menu.app_bar_detail, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_share -> {
+                Toast.makeText(context, "Shared!", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.action_favorite -> {
+                Toast.makeText(context, "Favorite!", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun adjustSystemUI() {

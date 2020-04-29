@@ -12,7 +12,7 @@ import com.google.android.material.appbar.AppBarLayout
 
 class AppBarFadeBehavior : AppBarLayout.Behavior {
     // This is the size of the gallery image
-    private val dips = convertDpToPixel(325f)
+    private val dips = convertDpToPixel(300f)
 
     constructor() : super()
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
