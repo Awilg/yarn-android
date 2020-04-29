@@ -12,16 +12,9 @@ import com.orienteer.R
 import com.orienteer.databinding.FragmentTreasureHuntDetailBinding
 import com.rd.PageIndicatorView
 import kotlinx.android.synthetic.main.detail_action_buttons.view.*
-import kotlinx.android.synthetic.main.detail_toolbar.view.*
 
 
 class TreasureHuntDetailFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        adjustSystemUI()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,6 +58,7 @@ class TreasureHuntDetailFragment : Fragment() {
         // This is to remove the elevation shadow while maintaining the elevation to draw
         // on top of the other views
         appbar.outlineProvider = null
+        appbar.fitsSystemWindows = true
 
         val mToolbar = binding.myToolbar
         (activity as AppCompatActivity?)!!.setSupportActionBar(mToolbar)
@@ -74,6 +68,8 @@ class TreasureHuntDetailFragment : Fragment() {
         mToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+
+        adjustSystemUI()
 
         return binding.root
     }

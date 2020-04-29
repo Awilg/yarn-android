@@ -20,11 +20,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color_on_background"
-            android:fitsSystemWindows="true"
             android:translationZ="10dp"
             app:layout_anchor="@id/scroll_detail_page"
             app:layout_anchorGravity="top"
-            app:layout_behavior=".behaviors.AppBarFadeBehavior">
+            app:layout_behavior=".behaviors.AppBarFadeBehavior"
+            app:paddingTopSystemWindowInsets="@{true}">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/my_toolbar"
