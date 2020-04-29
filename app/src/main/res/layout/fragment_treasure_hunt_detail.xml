@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layout">
+<layout>
 
     <data>
 
@@ -12,111 +9,164 @@
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/detail_toolbar"
-            layout="@layout/detail_toolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_anchor="@id/detail_page_layout"
+            android:background="@color/color_on_background"
+            android:fitsSystemWindows="true"
+            android:translationZ="100dp"
+            app:layout_anchor="@id/scroll_detail_page"
             app:layout_anchorGravity="top"
-            app:layout_insetEdge="top"/>
+            app:layout_behavior=".behaviors.AppBarFadeBehavior">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/my_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:menu="@menu/app_bar_detail"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </com.google.android.material.appbar.AppBarLayout>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/detail_page_layout"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_detail_page"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:elevation="0dp">
 
-
-            <ScrollView
-                android:id="@+id/scroll_detail_page"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:elevation="0dp"
-                bind:layout_constraintStart_toStartOf="parent"
-                bind:layout_constraintTop_toTopOf="parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <include
+                    android:id="@+id/adventure_main_gallery"
+                    layout="@layout/detail_gallery"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    bind:adventure="@{viewModel.selectedAdventure}" />
 
-                    <include
-                        android:id="@+id/adventure_main_gallery"
-                        layout="@layout/detail_gallery"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        bind:adventure="@{viewModel.selectedAdventure}" />
-
-                    <include
-                        android:id="@+id/main_info_section"
-                        layout="@layout/detail_main_info_section"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        bind:adventure="@{viewModel.selectedAdventure}" />
+                <include
+                    android:id="@+id/main_info_section"
+                    layout="@layout/detail_main_info_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    bind:adventure="@{viewModel.selectedAdventure}" />
 
 
-                    <include layout="@layout/divider" />
+                <include layout="@layout/divider" />
 
-                    <include
-                        android:id="@+id/clue_overview"
-                        layout="@layout/detail_clue_overview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        bind:adventure="@{viewModel.selectedAdventure}" />
+                <include
+                    android:id="@+id/clue_overview"
+                    layout="@layout/detail_clue_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    bind:adventure="@{viewModel.selectedAdventure}" />
 
-                    <include
-                        android:id="@+id/main_info_section1"
-                        layout="@layout/detail_main_info_section"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        bind:adventure="@{viewModel.selectedAdventure}" />
-
-
-                    <include layout="@layout/divider" />
-
-                    <include
-                        android:id="@+id/clue_overview1"
-                        layout="@layout/detail_clue_overview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        bind:adventure="@{viewModel.selectedAdventure}" />
-
-                    <include
-                        android:id="@+id/main_info_section2"
-                        layout="@layout/detail_main_info_section"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        bind:adventure="@{viewModel.selectedAdventure}" />
+                <include
+                    android:id="@+id/main_info_section1"
+                    layout="@layout/detail_main_info_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    bind:adventure="@{viewModel.selectedAdventure}" />
 
 
-                    <include layout="@layout/divider" />
+                <include layout="@layout/divider" />
 
-                    <include
-                        android:id="@+id/clue_overview2"
-                        layout="@layout/detail_clue_overview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        bind:adventure="@{viewModel.selectedAdventure}" />
+                <include
+                    android:id="@+id/clue_overview1"
+                    layout="@layout/detail_clue_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    bind:adventure="@{viewModel.selectedAdventure}" />
 
-                </LinearLayout>
+                <include
+                    android:id="@+id/main_info_section2"
+                    layout="@layout/detail_main_info_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    bind:adventure="@{viewModel.selectedAdventure}" />
 
-            </ScrollView>
+
+                <include layout="@layout/divider" />
+
+                <include
+                    android:id="@+id/clue_overview2"
+                    layout="@layout/detail_clue_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    bind:adventure="@{viewModel.selectedAdventure}" />
+
+                <include
+                    android:id="@+id/main_info_section3"
+                    layout="@layout/detail_main_info_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    bind:adventure="@{viewModel.selectedAdventure}" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <include layout="@layout/divider" />
+
+                <include
+                    android:id="@+id/clue_overview3"
+                    layout="@layout/detail_clue_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    bind:adventure="@{viewModel.selectedAdventure}" />
+
+                <include
+                    android:id="@+id/main_info_section4"
+                    layout="@layout/detail_main_info_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    bind:adventure="@{viewModel.selectedAdventure}" />
+
+
+                <include layout="@layout/divider" />
+
+                <include
+                    android:id="@+id/clue_overview4"
+                    layout="@layout/detail_clue_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    bind:adventure="@{viewModel.selectedAdventure}" />
+
+                <include
+                    android:id="@+id/main_info_section5"
+                    layout="@layout/detail_main_info_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    bind:adventure="@{viewModel.selectedAdventure}" />
+
+
+                <include layout="@layout/divider" />
+
+                <include
+                    android:id="@+id/clue_overview5"
+                    layout="@layout/detail_clue_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    bind:adventure="@{viewModel.selectedAdventure}" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
         <include
             android:id="@+id/action_button_section"
             layout="@layout/detail_action_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_anchor="@id/detail_page_layout"
+            app:layout_anchor="@id/scroll_detail_page"
             app:layout_anchorGravity="bottom|end" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

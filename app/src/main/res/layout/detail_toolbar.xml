@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.appbar.AppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/appbar_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="100dp"
+    android:background="@android:color/transparent"
     android:fitsSystemWindows="true"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:translationZ="100dp">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/transparent"
-        app:menu="@menu/app_bar_detail"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:menu="@menu/app_bar_detail"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-</LinearLayout>
+</com.google.android.material.appbar.AppBarLayout>

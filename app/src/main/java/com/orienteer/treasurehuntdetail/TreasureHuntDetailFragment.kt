@@ -60,7 +60,10 @@ class TreasureHuntDetailFragment : Fragment() {
             }
         })
 
-        val mToolbar = binding.detailToolbar.my_toolbar
+        val appbar = binding.appbarLayout
+        appbar.background.alpha = 0
+
+        val mToolbar = binding.myToolbar
         (activity as AppCompatActivity?)!!.setSupportActionBar(mToolbar)
         setHasOptionsMenu(true)
         mToolbar.title = null
