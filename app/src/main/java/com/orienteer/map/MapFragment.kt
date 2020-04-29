@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.location.Location
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -89,11 +90,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
 
         val bottomSheetBehavior = BottomSheetBehavior.from(_binding.standardBottomSheet)
-        bottomSheetBehavior.isFitToContents = false
-
-        val metrics = resources.displayMetrics
-        bottomSheetBehavior.peekHeight = metrics.heightPixels / 2
-        bottomSheetBehavior.halfExpandedRatio
+        bottomSheetBehavior.isFitToContents = true
+        bottomSheetBehavior.peekHeight = convertDpToPixel(370)
 
         val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
 
@@ -175,6 +173,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onResume() {
         super.onResume()
         if (viewModel.locationPermissionGranted.value!!) startLocationUpdates()
+    }
+
+    private fun convertDpToPixel(dp: Float): Float {
+        return dp * (Resources.getSystem().displayMetrics
+            .densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
     }
 
     /**

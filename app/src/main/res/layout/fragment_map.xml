@@ -37,14 +37,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.46" />
+                app:layout_constraintGuide_percent="0.51" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <FrameLayout
             android:id="@+id/standardBottomSheet"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:elevation="10dp"
             style="?attr/bottomSheetStyle"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
@@ -72,6 +72,26 @@
                         app:spanCount="2"
                         tools:itemCount="16"
                         tools:listitem="@layout/card_adventure_featured" />
+
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/explore_heading" />
 
                 </LinearLayout>
 
