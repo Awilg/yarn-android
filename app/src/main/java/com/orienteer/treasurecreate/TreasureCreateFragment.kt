@@ -3,8 +3,10 @@ package com.orienteer.treasurecreate
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.location.Location
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,11 +26,13 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.orienteer.R
 import com.orienteer.databinding.FragmentTreasureCreateBinding
 import com.orienteer.models.ClueTextCreate
 import com.orienteer.models.ClueType
 import com.orienteer.util.PermissionsUtil
+import com.orienteer.util.convertDpToPixel
 import com.orienteer.util.hideKeyboard
 import timber.log.Timber
 
@@ -69,8 +73,8 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         viewModel.navigateToSuccessScreen.observe(this, Observer {
             if (it == true) {
                 hideKeyboard()
-                viewModel.setTreasureHuntName(binding.adventureCreateContent.adventureNameText.toString())
-                viewModel.setTreasureHuntDescription(binding.adventureCreateContent.adventureDescriptionText.text.toString())
+                viewModel.setTreasureHuntName(binding.adventureNameText.toString())
+                viewModel.setTreasureHuntDescription(binding.adventureDescriptionText.text.toString())
                 viewModel.saveAdventure()
                 viewModel.doneNavigating()
             }
@@ -103,9 +107,29 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
             clueAdapter.submitList(it?.toMutableList())
         })
 
-        binding.adventureCreateContent.cluesSection.adapter = clueAdapter
+        val bottomSheetBehavior = BottomSheetBehavior.from(binding.adventureCreateSheet)
+        bottomSheetBehavior.isFitToContents = true
+        bottomSheetBehavior.peekHeight = convertDpToPixel(370)
+
+        val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                Toast.makeText(context, "State is $newState", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                // Do something for slide offset
+            }
+        }
+        bottomSheetBehavior.addBottomSheetCallback(bottomSheetCallback)
+
+        binding.cluesSection.adapter = clueAdapter
 
         return binding.root
+    }
+
+    private fun convertDpToPixel(dp: Int): Int {
+        return dp * (resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
     }
 
     /**

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     // Theme
-    <color name="color_primary">#FF5722</color>
+    <color name="color_primary">#FF9800</color>
     <color name="color_primary_variant">#BF360C</color>
     <color name="color_secondary">#009688</color>
     <color name="color_secondary_variant">#004D40</color>

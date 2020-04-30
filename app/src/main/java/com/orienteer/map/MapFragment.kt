@@ -175,11 +175,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         if (viewModel.locationPermissionGranted.value!!) startLocationUpdates()
     }
 
-    private fun convertDpToPixel(dp: Float): Float {
-        return dp * (Resources.getSystem().displayMetrics
-            .densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
-    }
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
