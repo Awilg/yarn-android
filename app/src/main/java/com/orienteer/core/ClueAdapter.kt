@@ -10,8 +10,12 @@ import com.orienteer.R
 import com.orienteer.databinding.ClueItemBinding
 import com.orienteer.models.Clue
 import com.orienteer.models.ClueState
+import com.orienteer.models.ClueType
 
-class ClueAdapter(private val context: Context, private val clueAdapterListener: ClueAdapterListener) :
+class ClueAdapter(
+    private val context: Context,
+    private val clueAdapterListener: ClueAdapterListener
+) :
     ListAdapter<Clue, ClueAdapter.ClueViewHolder>(DiffCallback) {
 
     /**
@@ -41,6 +45,19 @@ class ClueAdapter(private val context: Context, private val clueAdapterListener:
             binding.clueTypeImage.setOnClickListener { clueAdapterListener.clueTypeOnClick(clue.type) }
             binding.clueHintImage.setOnClickListener { clueAdapterListener.clueHintOnClick(clue.hint) }
             binding.clueSolveImage.setOnClickListener { clueAdapterListener.clueSolveOnClick(clue) }
+
+            when (clue.type) {
+                ClueType.Location -> {
+                    binding.clueTypeImage.setImageDrawable(context.getDrawable(R.drawable.ic_location_on_black_24dp))
+                }
+                ClueType.Treasure -> TODO()
+                ClueType.Photo -> {
+                    binding.clueTypeImage.setImageDrawable(context.getDrawable(R.drawable.ic_photo_camera_black_24dp))
+                }
+                ClueType.Text -> {
+                    binding.clueTypeImage.setImageDrawable(context.getDrawable(R.drawable.ic_text_format_black_24dp))
+                }
+            }
 
             // This is important, because it forces the data binding to execute immediately,
             // which allows the RecyclerView to make the correct view size measurements
