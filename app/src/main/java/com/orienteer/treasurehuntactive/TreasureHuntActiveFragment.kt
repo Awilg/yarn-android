@@ -3,12 +3,17 @@ package com.orienteer.treasurehuntactive
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.location.Location
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,6 +21,12 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.orienteer.R
 import com.orienteer.core.ClueAdapter
 import com.orienteer.core.ClueAdapterListener
 import com.orienteer.databinding.FragmentTreasureHuntActiveBinding
@@ -23,11 +34,13 @@ import com.orienteer.models.Clue
 import com.orienteer.models.ClueState
 import com.orienteer.models.ClueType
 import com.orienteer.models.RequestCodes
+import com.orienteer.util.PermissionsUtil
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import timber.log.Timber
 
 class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbacks,
+    OnMapReadyCallback,
     TextClueSolveDialogFragment.TextClueSolveDialogListener {
 
     private lateinit var viewModel: TreasureHuntActiveViewModel
@@ -47,6 +60,11 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
 
         // Initialize the location services client
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity as Activity)
+
+        // Set map callback on the mapView
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment?
+        mapFragment?.getMapAsync(this)
 
         val clueAdapter = ClueAdapter(context!!, object : ClueAdapterListener {
             override fun clueTypeOnClick(type: ClueType) {
@@ -92,9 +110,91 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
             }
         })
 
+        val bottomSheetBehavior = BottomSheetBehavior.from(binding.standardBottomSheet)
+        bottomSheetBehavior.isFitToContents = true
+        bottomSheetBehavior.peekHeight = convertDpToPixel(370)
+
         binding.cluesRecyclerview.adapter = clueAdapter
 
         return binding.root
+    }
+
+    override fun onMapReady(map: GoogleMap) {
+        // Adjust map style for current theme
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+            } // Night mode is not active, we're using the light theme
+            Configuration.UI_MODE_NIGHT_YES -> {
+                map.setMapStyle(MapStyleOptions(resources.getString(R.string.google_maps_night_mode)))
+            }
+        }
+
+        // Set the map in the viewModel
+        viewModel.setMap(map)
+
+        // Check Permissions
+        getLocationPermission()
+
+        // Update the Map UI
+        viewModel.updateLocationUI()
+
+        // Get Device Location
+        getDeviceLocation()
+
+//        // Allow for interval updating
+//        startLocationUpdates()
+    }
+
+    private fun convertDpToPixel(dp: Int): Int {
+        return dp * (resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
+    }
+
+    /**
+     * Request location permission, so that we can get the location of the
+     * device. The result of the permission request is handled by a callback,
+     * onRequestPermissionsResult.
+     */
+    private fun getLocationPermission() {
+        if (ContextCompat.checkSelfPermission(
+                context!!,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            viewModel.setLocationPermissionGranted(true)
+        } else {
+            ActivityCompat.requestPermissions(
+                activity as Activity,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                PermissionsUtil.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION.perm
+            )
+        }
+    }
+
+    /**
+     * Get the best and most recent location of the device, which may be null in rare
+     * cases when a location is not available.
+     */
+    private fun getDeviceLocation() {
+        try {
+            if (viewModel.locationPermissionGranted.value!!) {
+                val locationResult = fusedLocationProviderClient.lastLocation
+                locationResult.addOnCompleteListener(activity as Activity) { task ->
+                    if (task.isSuccessful) {
+                        // Set the map's camera position to the current location of the device.
+                        viewModel.setLastKnownLocation(task.result as Location)
+                        viewModel.updateMap()
+                    } else {
+                        Timber.d("Current location is null. Using defaults.")
+                        Timber.e("Exception: ${task.exception}")
+                        viewModel.resetMap()
+                        viewModel.disableMyLocationButtonEnabled()
+                    }
+                }
+            }
+        } catch (e: SecurityException) {
+            Timber.e("Exception: ${e.message}")
+        }
+
     }
 
     private fun onSolveLocationClue() {

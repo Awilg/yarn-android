@@ -5,6 +5,11 @@ import android.location.Location
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+import com.orienteer.map.DEFAULT_LOCATION
+import com.orienteer.map.DEFAULT_ZOOM
 import com.orienteer.models.Adventure
 import com.orienteer.models.Clue
 import com.orienteer.models.ClueState
@@ -32,6 +37,21 @@ class TreasureHuntActiveViewModel(hunt: Adventure, app: Application) : AndroidVi
     private val _navigateToCompletedScreen = MutableLiveData<Boolean?>()
     val navigateToCompletedScreen: LiveData<Boolean?>
         get() = _navigateToCompletedScreen
+
+
+    private var _map: GoogleMap? = null
+
+    private val _lastKnownLocation = MutableLiveData<Location>()
+    val lastKnownLocation: LiveData<Location>
+        get() = _lastKnownLocation
+
+    private val _locationPermissionGranted = MutableLiveData<Boolean>()
+    val locationPermissionGranted: LiveData<Boolean>
+        get() = _locationPermissionGranted
+
+    private val _isMyLocationButtonEnabled = MutableLiveData<Boolean>()
+    val isMyLocationButtonEnabled: LiveData<Boolean>
+        get() = _isMyLocationButtonEnabled
 
     init {
         _activeAdventure.value = hunt
@@ -94,5 +114,70 @@ class TreasureHuntActiveViewModel(hunt: Adventure, app: Application) : AndroidVi
 
     fun doneNavigating() {
         _navigateToCompletedScreen.value = null
+    }
+
+    fun setMap(map: GoogleMap) {
+        _map = map
+        _map!!.setMinZoomPreference(6.0f)
+        _map!!.setMaxZoomPreference(14.0f)
+
+    }
+
+    fun setLastKnownLocation(loc: Location?) {
+        _lastKnownLocation.value = loc
+        updateMap()
+    }
+
+    fun updateMap() {
+        if (_lastKnownLocation.value == null) {
+            resetMap()
+        } else {
+            _map?.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    LatLng(
+                        _lastKnownLocation.value!!.latitude,
+                        _lastKnownLocation.value!!.longitude
+                    ), DEFAULT_ZOOM
+                )
+            )
+        }
+    }
+
+    fun resetMap() {
+        _map?.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, DEFAULT_ZOOM))
+    }
+
+    fun disableMyLocationButtonEnabled() {
+        _isMyLocationButtonEnabled.value = false
+    }
+
+    fun setLocationPermissionGranted(granted: Boolean) {
+        _locationPermissionGranted.value = granted
+    }
+
+    /**
+     * Updates the map's UI settings based on whether the user has granted location permission.
+     */
+    fun updateLocationUI() {
+        if (_map == null) {
+            return
+        }
+        try {
+            _map?.uiSettings?.isMapToolbarEnabled = false
+            if (_locationPermissionGranted.value!!) {
+                _isMyLocationButtonEnabled.value = true
+                _map?.isMyLocationEnabled = true
+                _map?.uiSettings?.isMyLocationButtonEnabled = true
+            } else {
+                _isMyLocationButtonEnabled.value =false
+                _map?.isMyLocationEnabled = false
+                _map?.uiSettings?.isMyLocationButtonEnabled = false
+                _lastKnownLocation.value = null
+                _locationPermissionGranted.value = false
+            }
+        } catch (e: SecurityException) {
+            Timber.e("Exception: %s", e.message!!)
+        }
+
     }
 }
