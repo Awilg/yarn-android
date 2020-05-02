@@ -42,6 +42,7 @@
             android:id="@+id/scroll_detail_page"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="80dp"
             android:elevation="0dp">
 
             <LinearLayout
@@ -73,90 +74,14 @@
                     android:layout_height="wrap_content"
                     bind:adventure="@{viewModel.selectedAdventure}" />
 
-                <include
-                    android:id="@+id/main_info_section1"
-                    layout="@layout/detail_main_info_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    bind:adventure="@{viewModel.selectedAdventure}" />
-
-
                 <include layout="@layout/divider" />
 
                 <include
-                    android:id="@+id/clue_overview1"
-                    layout="@layout/detail_clue_overview"
+                    android:id="@+id/detail_main_review_section"
+                    layout="@layout/detail_main_review_section"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    bind:adventure="@{viewModel.selectedAdventure}" />
-
-                <include
-                    android:id="@+id/main_info_section2"
-                    layout="@layout/detail_main_info_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    bind:adventure="@{viewModel.selectedAdventure}" />
-
-
-                <include layout="@layout/divider" />
-
-                <include
-                    android:id="@+id/clue_overview2"
-                    layout="@layout/detail_clue_overview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    bind:adventure="@{viewModel.selectedAdventure}" />
-
-                <include
-                    android:id="@+id/main_info_section3"
-                    layout="@layout/detail_main_info_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    bind:adventure="@{viewModel.selectedAdventure}" />
-
-
-                <include layout="@layout/divider" />
-
-                <include
-                    android:id="@+id/clue_overview3"
-                    layout="@layout/detail_clue_overview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    bind:adventure="@{viewModel.selectedAdventure}" />
-
-                <include
-                    android:id="@+id/main_info_section4"
-                    layout="@layout/detail_main_info_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    bind:adventure="@{viewModel.selectedAdventure}" />
-
-
-                <include layout="@layout/divider" />
-
-                <include
-                    android:id="@+id/clue_overview4"
-                    layout="@layout/detail_clue_overview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    bind:adventure="@{viewModel.selectedAdventure}" />
-
-                <include
-                    android:id="@+id/main_info_section5"
-                    layout="@layout/detail_main_info_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    bind:adventure="@{viewModel.selectedAdventure}" />
-
-
-                <include layout="@layout/divider" />
-
-                <include
-                    android:id="@+id/clue_overview5"
-                    layout="@layout/detail_clue_overview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    bind:adventure="@{viewModel.selectedAdventure}" />
+                    bind:viewModel="@{viewModel}" />
 
             </LinearLayout>
 
