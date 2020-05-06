@@ -36,6 +36,8 @@
         <item name="colorOnSurface">@color/color_on_surface</item>
         <item name="colorOnError">@color/color_on_error</item>
 
+        <item name="android:itemBackground">@color/color_background</item>
+
         <item name="android:fontFamily">@font/nunito_regular</item>
         <item name="android:textColor">@color/color_text</item>
     </style>

@@ -8,10 +8,9 @@ import android.content.res.Configuration
 import android.location.Location
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
@@ -116,7 +115,48 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
 
         binding.cluesRecyclerview.adapter = clueAdapter
 
+
+        val appbar = binding.appbarLayout
+        appbar.background.alpha = 0
+        // This is to remove the elevation shadow while maintaining the elevation to draw
+        // on top of the other views
+        appbar.outlineProvider = null
+        appbar.fitsSystemWindows = true
+
+        val mToolbar = binding.myToolbar
+        (activity as AppCompatActivity?)!!.setSupportActionBar(mToolbar)
+        setHasOptionsMenu(true)
+        mToolbar.title = null
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
+        mToolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        // Inflate the menu; this adds items to the action bar if it is present.
+        activity!!.menuInflater.inflate(R.menu.app_bar_active, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_abandon -> {
+                Toast.makeText(context, "Abandoned!", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.action_report -> {
+                Toast.makeText(context, "Reported!", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.action_settings -> {
+                Toast.makeText(context, "Settings!", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onMapReady(map: GoogleMap) {

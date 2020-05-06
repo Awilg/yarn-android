@@ -8,6 +8,8 @@
     <string name="action_settings">Settings</string>
     <string name="action_share">Settings</string>
     <string name="action_start">Start</string>
+    <string name="action_report">Report</string>
+    <string name="action_abandon">Abandon</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
