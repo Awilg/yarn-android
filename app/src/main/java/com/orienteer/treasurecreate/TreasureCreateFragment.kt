@@ -107,22 +107,6 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
             clueAdapter.submitList(it?.toMutableList())
         })
 
-        val bottomSheetBehavior = BottomSheetBehavior.from(binding.adventureCreateSheet)
-        bottomSheetBehavior.isFitToContents = true
-        bottomSheetBehavior.peekHeight = convertDpToPixel(370)
-
-        val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
-
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                Toast.makeText(context, "State is $newState", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                // Do something for slide offset
-            }
-        }
-        bottomSheetBehavior.addBottomSheetCallback(bottomSheetCallback)
-
         binding.cluesSection.adapter = clueAdapter
 
         return binding.root

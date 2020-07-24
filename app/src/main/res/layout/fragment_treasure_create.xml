@@ -8,7 +8,8 @@
             type="com.orienteer.treasurecreate.TreasureCreateViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:bind="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -25,131 +26,71 @@
                 android:id="@+id/createMapFragment"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@id/half_guide"
+                android:layout_height="300dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/half_guide"
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.51" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/createMapFragment">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <EditText
+                    android:id="@+id/adventure_name_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="50dp"
+                    android:hint="@string/hint_treasure_hunt_name"
+                    android:imeOptions="actionNext"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:text="@{viewModel.currentAdventure.name}" />
 
-        <FrameLayout
-            android:id="@+id/adventure_create_sheet"
-            style="?attr/bottomSheetStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="0dp"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+                <EditText
+                    android:id="@+id/adventure_description_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:ems="10"
+                    android:hint="@string/describe_your_adventure"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:text="@{viewModel.currentAdventure.description}" />
 
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/clues_section"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:clipToPadding="false"
+                    android:padding="6dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:spanCount="2" />
 
-                    <EditText
-                        android:id="@+id/adventure_name_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="50dp"
-                        android:hint="@string/hint_treasure_hunt_name"
-                        android:imeOptions="actionNext"
-                        android:importantForAutofill="no"
-                        android:inputType="text"
-                        android:text="@{viewModel.currentAdventure.name}" />
+                <Button
+                    android:id="@+id/add_clue_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:onClick="@{() -> viewModel.onAddClueClicked()}"
+                    android:text="@string/add_clue" />
 
-                    <EditText
-                        android:id="@+id/adventure_description_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="140dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:ems="10"
-                        android:hint="@string/describe_your_adventure"
-                        android:importantForAutofill="no"
-                        android:inputType="textMultiLine"
-                        android:text="@{viewModel.currentAdventure.description}" />
+                <include
+                    android:id="@+id/create_action_buttons"
+                    layout="@layout/adventure_create_action_buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/add_clue_button"
+                    bind:viewModel="@{viewModel}" />
+            </LinearLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/clues_section"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:padding="6dp"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:spanCount="2" />
-
-                    <TextView
-                        android:id="@+id/samp_text_1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="TESTTESTESTEST"
-                        android:textSize="40sp" />
-
-                    <TextView
-                        android:id="@+id/samp_text_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="TESTTESTESTEST"
-                        android:textSize="40sp" />
-
-                    <TextView
-                        android:id="@+id/samp_text_3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="TESTTESTESTEST"
-                        android:textSize="40sp" />
-
-                    <TextView
-                        android:id="@+id/samp_text_4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="TESTTESTESTEST"
-                        android:textSize="40sp" />
-
-                    <TextView
-                        android:id="@+id/samp_text_5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="TESTTESTESTEST"
-                        android:textSize="40sp" />
-
-                    <TextView
-                        android:id="@+id/samp_text_6"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="TESTTESTESTEST"
-                        android:textSize="40sp" />
-
-                    <TextView
-                        android:id="@+id/samp_text_7"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="TESTTESTESTEST"
-                        android:textSize="40sp" />
-
-                    <TextView
-                        android:id="@+id/samp_text_8"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="TESTTESTESTEST"
-                        android:textSize="40sp" />
-
-                    <Button
-                        android:id="@+id/add_clue_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="@{() -> viewModel.onAddClueClicked()}"
-                        android:text="@string/add_clue" />
-                </LinearLayout>
             <include
                 android:id="@+id/clue_type_section"
                 layout="@layout/dialog_clue_type_selection"
@@ -157,16 +98,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:visibility="gone" />
-        </FrameLayout>
 
 
-<!--        <include-->
-<!--            android:id="@+id/create_action_buttons"-->
-<!--            layout="@layout/adventure_create_action_buttons"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_anchor="@id/mapFragmentContainer"-->
-<!--            app:layout_anchorGravity="bottom|end"-->
-<!--            bind:viewModel="@{viewModel}" />-->
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
 </layout>

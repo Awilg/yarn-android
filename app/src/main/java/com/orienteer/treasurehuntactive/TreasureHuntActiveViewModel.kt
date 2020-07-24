@@ -69,6 +69,10 @@ class TreasureHuntActiveViewModel(hunt: Adventure, app: Application) : AndroidVi
     fun attemptLocationSolve(loc: Location): Boolean {
         val results = FloatArray(1)
         _currentActiveClue.value?.let {
+            // DEBUG - just return true default for now
+            unlockNextClue()
+            return true
+
             Timber.i("Checking location $loc against current clue location ${it.location}...")
             Location.distanceBetween(it.location.latitude, it.location.longitude, loc.latitude, loc.longitude, results)
 
