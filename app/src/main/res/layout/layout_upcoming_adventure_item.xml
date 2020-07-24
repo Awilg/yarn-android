@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="upcomingAdventure"
+            type="com.orienteer.models.Adventure" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/upcoming_img"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_attach_money_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/upcoming_adv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{upcomingAdventure.name}"
+            app:layout_constraintStart_toEndOf="@id/upcoming_img"
+            app:layout_constraintTop_toTopOf="@id/upcoming_img"
+            tools:text="This is a test name" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/upcoming_adv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available 07/06/2020"
+            app:layout_constraintBottom_toBottomOf="@id/upcoming_img"
+            app:layout_constraintStart_toEndOf="@id/upcoming_img"
+            app:layout_constraintTop_toBottomOf="@id/upcoming_adv_name"
+            tools:text="Available 07/06/2020" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

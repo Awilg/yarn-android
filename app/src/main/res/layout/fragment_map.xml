@@ -76,8 +76,7 @@
                         tools:itemCount="16"
                         tools:listitem="@layout/card_adventure_featured" />
 
-                    <include layout="@layout/explore_heading" />
-                    <include layout="@layout/explore_heading" />
+                    <include layout="@layout/layout_upcoming_adventures" />
                     <include layout="@layout/explore_heading" />
                     <include layout="@layout/explore_heading" />
                     <include layout="@layout/explore_heading" />
