@@ -9,6 +9,7 @@ import android.location.Location
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.*
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -109,10 +110,6 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
             }
         })
 
-        val bottomSheetBehavior = BottomSheetBehavior.from(binding.standardBottomSheet)
-        bottomSheetBehavior.isFitToContents = true
-        bottomSheetBehavior.peekHeight = convertDpToPixel(370)
-
         binding.cluesRecyclerview.adapter = clueAdapter
 
 
@@ -131,6 +128,18 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
         mToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+
+        // Move the "My location" button to the bottom right
+        val locationButton = ((mapFragment?.view?.findViewById(Integer.parseInt("1")) as View)
+            .parent as View).findViewById(Integer.parseInt("2")) as View
+
+        // and next place it, for example, on bottom right (as Google Maps app)
+        val rlp: RelativeLayout.LayoutParams =
+            locationButton.layoutParams as RelativeLayout.LayoutParams
+        // position on right bottom
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
+        rlp.setMargins(0, 0, 30, 30)
 
         return binding.root
     }

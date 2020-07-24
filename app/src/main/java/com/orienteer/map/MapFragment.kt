@@ -96,7 +96,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
-                Toast.makeText(context, "State is $newState", Toast.LENGTH_SHORT).show()
             }
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {

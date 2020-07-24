@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:background="@color/color_on_background"
             android:translationZ="10dp"
-            app:layout_anchor="@id/mapFragmentContainer"
+            app:layout_anchor="@id/adventure_active_layout_container"
             app:layout_anchorGravity="top"
             app:paddingTopSystemWindowInsets="@{true}">
 
@@ -28,46 +28,24 @@
                 android:id="@+id/my_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:elevation="0dp"
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:elevation="0dp"
                 app:menu="@menu/app_bar_detail"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/mapFragmentContainer"
+        <LinearLayout
+            android:id="@+id/adventure_active_layout_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="top"
-            android:baselineAligned="false">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <fragment
                 android:id="@+id/mapFragment"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@id/half_guide"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/half_guide"
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.51" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <FrameLayout
-            android:id="@+id/standardBottomSheet"
-            style="?attr/bottomSheetStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="10dp"
-            app:layout_behavior=".behaviors.InsetAdjustBottomSheetBehavior">
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -85,8 +63,8 @@
                         android:layout_marginTop="32dp"
                         android:layout_marginBottom="32dp"
                         android:gravity="center"
-                        android:textSize="24sp"
                         android:text="@{viewModel.activeAdventure.name}"
+                        android:textSize="24sp"
                         tools:text="Active Adventure!" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -102,8 +80,7 @@
                         tools:listitem="@layout/clue_item" />
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
-        </FrameLayout>
 
+        </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 </layout>
