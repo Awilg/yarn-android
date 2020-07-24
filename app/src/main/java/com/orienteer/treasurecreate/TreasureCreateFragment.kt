@@ -112,10 +112,6 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         return binding.root
     }
 
-    private fun convertDpToPixel(dp: Int): Int {
-        return dp * (resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
-    }
-
     /**
      * Handles the result of the request for location permissions.
      */
@@ -190,7 +186,6 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
     }
 
     override fun onClueTypeSelected(type: ClueType) {
-        Toast.makeText(context, "Selected a ${type.name} clue!", Toast.LENGTH_SHORT).show()
         when (type) {
             ClueType.Location -> this.findNavController().navigate(
                 TreasureCreateFragmentDirections

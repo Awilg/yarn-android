@@ -2,10 +2,9 @@ package com.orienteer.network
 
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.orienteer.models.Adventure
-import com.orienteer.models.AdventureCreate
-import com.orienteer.models.AdventureResponse
+import com.orienteer.models.*
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
@@ -25,6 +24,10 @@ private const val BASE_URL = "http://10.0.2.2:8080/"
  */
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
+    .add(
+        PolymorphicJsonAdapterFactory.of(BaseClue::class.java, "type")
+        .withSubtype(ClueText::class.java, ClueType.Text.name)
+        .withSubtype(ClueLocation::class.java, ClueType.Location.name))
     .build()
 
 /**

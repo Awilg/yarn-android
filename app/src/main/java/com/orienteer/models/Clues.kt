@@ -25,36 +25,36 @@ data class ClueTextCreate(
 )
 
 class ClueText(
-    override val cluePrompt: String,
+    override var cluePrompt: String,
     override val type: String = ClueType.Text.name,
-    val answer: String,
-    val hints: List<String>?
-) : BaseClue(cluePrompt, type)
+    override var hints: List<String>?  = emptyList(),
+    val answer: String
+) : BaseClue
 
-data class CluePhoto(
-    override var cluePrompt: String = "",
+class CluePhoto(
+    override var cluePrompt: String,
     override val type: String = ClueType.Photo.name,
+    override var hints: List<String>? = emptyList(),
     var imgUri: Uri = Uri.EMPTY,
-    var tags: List<PhotoTag> = emptyList(),
-    var hints: List<String> = emptyList()
-) : BaseClue(cluePrompt, type)
+    var tags: List<PhotoTag> = emptyList()
+) : BaseClue
 
 data class PhotoTag(
     val tag: String,
     val confidence: Double
 )
 class ClueLocation(
-    override val cluePrompt: String,
+    override var cluePrompt: String,
     override val type: String = ClueType.Location.name,
-    val location: LatLng,
-    val hints: List<String>? = null
-) : BaseClue(cluePrompt, type)
+    override var hints: List<String>?  = emptyList(),
+    val location: LatLng
+) : BaseClue
 
-
-open class BaseClue(
-    open val cluePrompt: String,
-    open val type: String
-)
+interface BaseClue {
+    var cluePrompt: String
+    val type: String
+    var hints: List<String>?
+}
 
 enum class ClueType {
     Location,

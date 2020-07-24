@@ -161,7 +161,7 @@ class TreasureCreateViewModel : ViewModel() {
 
     fun setCurrentPhotoClueUri(uri: Uri) {
         if (_currentPhotoClue.value == null) {
-            _currentPhotoClue.value = CluePhoto()
+            _currentPhotoClue.value = CluePhoto(cluePrompt = "TODO-test-prompt")
         }
         _currentPhotoClue.value?.imgUri = uri
     }
@@ -169,7 +169,7 @@ class TreasureCreateViewModel : ViewModel() {
     fun addPhotoClue(prompt: String) {
         ensureClueListNonEmpty()
         if (_currentPhotoClue.value == null) {
-            _currentPhotoClue.value = CluePhoto()
+            _currentPhotoClue.value = CluePhoto(cluePrompt = prompt, hints = null)
         } else {
             Timber.i("TESTING: ADDING A CLUE")
             _currentPhotoClue.value?.cluePrompt = prompt
