@@ -58,48 +58,16 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/cv_name"
-                        android:layout_width="match_parent"
+                    <include
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginEnd="32dp"
+                        android:layout_width="match_parent"
                         android:layout_marginTop="16dp"
-                        app:cardCornerRadius="24dp"
-                        app:cardElevation="4dp">
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/search_bar"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/where_will_you_explore"
-                            android:textColorHint="@color/selector_search_bar"
-                            android:theme="@style/searchBarTextInputLayoutAppearance"
-                            app:boxBackgroundColor="@color/color_background"
-                            app:boxCornerRadiusBottomEnd="8dp"
-                            app:boxCornerRadiusBottomStart="8dp"
-                            app:boxCornerRadiusTopEnd="8dp"
-                            app:boxCornerRadiusTopStart="8dp"
-                            app:boxStrokeColor="@color/selector_edittext_underline"
-                            app:boxStrokeWidth="0dp"
-                            app:hintTextColor="@color/selector_search_bar"
-                            app:shapeAppearance="@style/yarnSearchBar">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/search_bar_edittext"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/selector_search_bar" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </com.google.android.material.card.MaterialCardView>
+                        layout="@layout/layout_search_bar" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/treasure_hunts_cards_map"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
                         android:clipToPadding="false"
                         android:nestedScrollingEnabled="false"
                         android:orientation="horizontal"
@@ -114,37 +82,6 @@
 
                     <include layout="@layout/layout_upcoming_adventures" />
 
-                    <include layout="@layout/explore_heading" />
-
-                    <include layout="@layout/explore_heading" />
-
-                    <include layout="@layout/explore_heading" />
-
-                    <include layout="@layout/explore_heading" />
-
-                    <include layout="@layout/explore_heading" />
-
-                    <include layout="@layout/explore_heading" />
-
-                    <include layout="@layout/explore_heading" />
-
-                    <include layout="@layout/explore_heading" />
-
-                    <include layout="@layout/explore_heading" />
-
-                    <include layout="@layout/explore_heading" />
-
-                    <include layout="@layout/explore_heading" />
-
-                    <include layout="@layout/explore_heading" />
-
-                    <include layout="@layout/explore_heading" />
-
-                    <include layout="@layout/explore_heading" />
-
-                    <include layout="@layout/explore_heading" />
-
-                    <include layout="@layout/explore_heading" />
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
 
