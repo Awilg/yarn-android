@@ -114,7 +114,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         // Draw the markers for the hunts when the list is updated
         viewModel.treasureHuntsNearby.observe(viewLifecycleOwner, Observer { adventureList ->
-            Toast.makeText(context, "ads updated!", Toast.LENGTH_SHORT).show()
             adventureList.forEach {adv ->
                 viewModel.addMarkerForAdventure(adv)
             }

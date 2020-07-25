@@ -182,5 +182,8 @@
     <string name="there_are_whispers">There are whispers of its whereabouts...</string>
     <string name="hunt_the_kraken">Hunt The Kraken</string>
     <string name="map">Map</string>
+    <string name="nearby_adventures">Nearby Adventures</string>
+    <string name="solve_from_home">Solve from home</string>
+    <string name="solve_from_home_description">Who says you can\'t explore from the comfort of your own couch? These adventures are purely text-clue based and can be done where you are.</string>
 </resources>
 

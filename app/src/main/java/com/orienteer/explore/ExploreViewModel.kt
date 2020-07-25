@@ -25,6 +25,10 @@ class ExploreViewModel : ViewModel() {
     val treasureHuntsNearby: LiveData<List<Adventure>>
         get() = _treasureHuntsNearby
 
+    init {
+        getTreasureHuntsNearby(LatLng(40.75,-74.0))
+    }
+
     private fun getTreasureHuntsNearby(location: LatLng) {
         //coroutineScope.launch {
         // TODO - use actual location
