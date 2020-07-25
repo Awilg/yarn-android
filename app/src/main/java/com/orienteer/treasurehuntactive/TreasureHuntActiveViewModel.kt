@@ -13,6 +13,11 @@ import com.orienteer.map.DEFAULT_ZOOM
 import com.orienteer.models.Adventure
 import com.orienteer.models.Clue
 import com.orienteer.models.ClueState
+import com.orienteer.network.TreasureHuntApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class TreasureHuntActiveViewModel(hunt: Adventure, app: Application) : AndroidViewModel(app) {
@@ -52,6 +57,13 @@ class TreasureHuntActiveViewModel(hunt: Adventure, app: Application) : AndroidVi
     private val _isMyLocationButtonEnabled = MutableLiveData<Boolean>()
     val isMyLocationButtonEnabled: LiveData<Boolean>
         get() = _isMyLocationButtonEnabled
+
+
+    // Create a Coroutine scope using a job to be able to cancel when needed
+    private var viewModelJob = Job()
+
+    // the Coroutine runs using the Main (UI) dispatcher
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
         _activeAdventure.value = hunt
@@ -106,9 +118,29 @@ class TreasureHuntActiveViewModel(hunt: Adventure, app: Application) : AndroidVi
     fun attemptPhotoSolve() {}
 
     fun attemptTextSolve(answer: String) {
-        if (answer.equals(_currentActiveClue.value?.textAnswer)) {
-            Timber.i("TEXT CLUE SOLVED -- NAVIGATING TO SUCCESS SCREEN")
-            unlockNextClue()
+
+        _currentActiveClue.value?.let { clue ->
+            coroutineScope.launch {
+
+                val deferrableCheck = TreasureHuntApi.service.checkTextAnswer(
+                    _activeAdventure.value?.id!!, clue.id,
+                    answer)
+                try {
+                    // this will run on a thread managed by Retrofit
+                    val result = deferrableCheck.await()
+                    //_currentUser.value = result
+                    if (result) {
+                        Timber.i("TEXT CLUE SOLVED -- NAVIGATING TO SUCCESS SCREEN")
+                        unlockNextClue()
+                    }
+
+                    Timber.i("TEXT CLUE FAILED")
+                } catch (e: Exception) {
+                    //_status.value = ApiStatus.ERROR
+                    Timber.e("Network request failed with exception $e")
+                    //_currentUser.value = TEST_USER
+                }
+            }
         }
     }
 

@@ -174,5 +174,9 @@
     <string name="recent_reviews">Recent Reviews</string>
     <string name="dot">•</string>
     <string name="upcoming_adventures">Upcoming Adventures</string>
+    <string name="design_the_next_adventure">Create the next adventure</string>
+    <string name="call_to_create_description">Whether it\'s a coffee crawl, haunted house walk, or cross-city amazing race, creating an adventure is a great way to share your interests with others and earn you some money doing it. All adventures that are selected to be featured will earn the creator a creation bonus as well as allow the creator to receive tips from adventurers who enjoyed your creation.</string>
+    <string name="learn_more"><![CDATA[Learn more >]]></string>
+    <string name="where_will_you_explore">Where will you explore?</string>
 </resources>
 

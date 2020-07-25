@@ -9,10 +9,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 // localhost to computer when on emulator
 private const val BASE_URL = "http://10.0.2.2:8080/"
@@ -83,6 +80,14 @@ interface TreasureHuntService {
     fun getTreasureHuntsByLocation(@Query("lng") longitude: String,
                                    @Query("lat") latitude: String
     ): Deferred<List<AdventureResponse>>
+
+    /**
+     * Checks if a text answer is correct
+     */
+    @GET("adventure/{adventureId}/clue/{clueId}/solve/{answer}")
+    fun checkTextAnswer(@Path("adventureId") adventureId : String,
+                        @Path("clueId") clueId : String,
+                        @Path("answer") answer : String): Deferred<Boolean>
 }
 
 /**
