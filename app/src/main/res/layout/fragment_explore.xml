@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.orienteer.explore.ExploreViewModel" />
+    </data>
+
+<androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            layout="@layout/layout_search_bar" />
+
+        <include
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            layout="@layout/layout_featured_adventure"/>
+
+        <include layout="@layout/layout_call_to_create" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/treasure_hunts_cards_map_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:listData="@{viewModel.treasureHuntsNearby}"
+            app:spanCount="2"
+            tools:itemCount="16"
+            tools:listitem="@layout/card_adventure_featured" />
+
+        <include layout="@layout/layout_upcoming_adventures" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
+</layout>

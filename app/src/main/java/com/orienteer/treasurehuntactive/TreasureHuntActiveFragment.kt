@@ -52,7 +52,7 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
         val application = requireNotNull(activity).application
 
         // Initialize the viewmodel
-        val treasureHunt = TreasureHuntActiveFragmentArgs.fromBundle(arguments!!).selectedTreasureHunt
+        val treasureHunt = TreasureHuntActiveFragmentArgs.fromBundle(requireArguments()).selectedTreasureHunt
         val viewModelFactory = TreasureHuntActiveViewModelFactory(treasureHunt, application)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(TreasureHuntActiveViewModel::class.java)
         binding.viewModel = viewModel
@@ -66,7 +66,7 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
             childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
 
-        val clueAdapter = ClueAdapter(context!!, object : ClueAdapterListener {
+        val clueAdapter = ClueAdapter(requireContext(), object : ClueAdapterListener {
             override fun clueTypeOnClick(type: ClueType) {
                 // TODO: make this a dialog
                 Toast.makeText(context, "Clicked Type: ${type.name}", Toast.LENGTH_SHORT).show()
@@ -96,11 +96,11 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
             }
         })
 
-        viewModel.clues.observe(this, Observer {
+        viewModel.clues.observe(viewLifecycleOwner, Observer {
             clueAdapter.notifyDataSetChanged()
         })
 
-        viewModel.navigateToCompletedScreen.observe(this, Observer {
+        viewModel.navigateToCompletedScreen.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 this.findNavController().navigate(
                     TreasureHuntActiveFragmentDirections
@@ -147,7 +147,7 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
         // Inflate the menu; this adds items to the action bar if it is present.
-        activity!!.menuInflater.inflate(R.menu.app_bar_active, menu)
+        requireActivity().menuInflater.inflate(R.menu.app_bar_active, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -205,7 +205,7 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
      */
     private fun getLocationPermission() {
         if (ContextCompat.checkSelfPermission(
-                context!!,
+                requireContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
@@ -248,7 +248,7 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
 
     private fun onSolveLocationClue() {
         Timber.i("Attempting to navigate to camera clue solver.")
-        if (EasyPermissions.hasPermissions(context!!, Manifest.permission.ACCESS_FINE_LOCATION)) {
+        if (EasyPermissions.hasPermissions(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
             checkLocationAgainstCurrentClue()
         } else {
             EasyPermissions.requestPermissions(
@@ -283,7 +283,7 @@ class TreasureHuntActiveFragment : Fragment(), EasyPermissions.PermissionCallbac
 
     private fun onSolveCameraClue() {
         Timber.i("Attempting to navigate to camera clue solver.")
-        if (EasyPermissions.hasPermissions(context!!, Manifest.permission.CAMERA)) {
+        if (EasyPermissions.hasPermissions(requireContext(), Manifest.permission.CAMERA)) {
             navigateToCameraForClue()
         } else {
             EasyPermissions.requestPermissions(

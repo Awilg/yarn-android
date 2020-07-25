@@ -132,4 +132,10 @@
         android:label="Adventure Completed!"
         tools:layout="@layout/fragment_adventure_completed" />
 
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.orienteer.explore.ExploreFragment"
+        android:label="Explore"
+        tools:layout="@layout/fragment_explore" />
+
 </navigation>

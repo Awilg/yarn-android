@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.content.res.Resources
 import android.location.Location
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -31,6 +30,7 @@ import com.orienteer.core.OnSnapPositionChangeListener
 import com.orienteer.core.SnapOnScrollListener
 import com.orienteer.core.attachSnapHelperWithListener
 import com.orienteer.databinding.FragmentMapBinding
+import com.orienteer.explore.MarginItemDecoration
 import com.orienteer.treasurehunts.TreasureHuntsAdapter
 import timber.log.Timber
 
@@ -68,11 +68,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapFragment?.getMapAsync(this)
 
 
-//        // Set up the floating action button
-//        _binding.fab.setOnClickListener {
-//            findNavController().navigate(MapFragmentDirections.actionMapDestinationToTreasureCreateDestination())
-//        }
-
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         _binding.lifecycleOwner = this
 
@@ -89,21 +84,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             }
         }
 
-        val bottomSheetBehavior = BottomSheetBehavior.from(_binding.standardBottomSheet)
-        bottomSheetBehavior.isFitToContents = true
-        bottomSheetBehavior.peekHeight = convertDpToPixel(370)
-
-        val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
-
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-            }
-
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                // Do something for slide offset
-            }
-        }
-        bottomSheetBehavior.addBottomSheetCallback(bottomSheetCallback)
-
         // Move the "My location" button to the bottom right
         val locationButton = ((mapFragment?.view?.findViewById(Integer.parseInt("1")) as View)
             .parent as View).findViewById(Integer.parseInt("2")) as View
@@ -117,39 +97,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         rlp.setMargins(0, 0, 30, 30)
 
 
-        // Create the adapter that will populate the recycler view and updates the livedata
-        // in the viewmodel to determine where to navigate.
-        _binding.treasureHuntsCardsMapRecyclerView.adapter =
-            TreasureHuntsAdapter(TreasureHuntsAdapter.OnClickListener {
-                viewModel.displayTreasureHuntDetails(it)
-            }, useFeaturedBinding = true)
-
-        // Adds a listener that is aware of "swipe" card changes to the underlying RecyclerView
-        // Snaps cards to the screen so there's only one ever fully on screen and moves the map to
-        // the location of the hunt currently on screen.
-        _binding.treasureHuntsCardsMapRecyclerView.attachSnapHelperWithListener(
-            PagerSnapHelper(),
-            SnapOnScrollListener.Behavior.NOTIFY_ON_SCROLL_STATE_IDLE,
-            object : OnSnapPositionChangeListener {
-                override fun onSnapPositionChange(position: Int) {
-                    val adapter = _binding.treasureHuntsCardsMapRecyclerView.adapter as TreasureHuntsAdapter
-                    val hunt = adapter.getItem(position)
-                    viewModel.moveMapToLocation(hunt.location)
-                }
-            }
-        )
-
-        _binding.treasureHuntsCardsMapRecyclerView.addItemDecoration(
-            MarginItemDecoration(
-                resources.getDimensionPixelSize(R.dimen.margin_24),
-                resources.getDimensionPixelSize(R.dimen.margin_16)
-            )
-        )
-
         // Observe the navigateToSelectedTreasureHunt LiveData and Navigate when it isn't null
         // After navigating, call doneNavigatingToSelectedTreasureHunt() so that the ViewModel is ready
         // for another navigation event.
-        viewModel.navigateToSelectedAdventure.observe(this, Observer {
+        viewModel.navigateToSelectedAdventure.observe(viewLifecycleOwner, Observer {
             if (null != it) {
                 // Must find the NavController from the Fragment
                 this.findNavController().navigate(
@@ -162,7 +113,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         })
 
         // Draw the markers for the hunts when the list is updated
-        viewModel.treasureHuntsNearby.observe(this, Observer { adventureList ->
+        viewModel.treasureHuntsNearby.observe(viewLifecycleOwner, Observer { adventureList ->
+            Toast.makeText(context, "ads updated!", Toast.LENGTH_SHORT).show()
             adventureList.forEach {adv ->
                 viewModel.addMarkerForAdventure(adv)
             }
@@ -223,7 +175,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
      */
     private fun getLocationPermission() {
         if (ContextCompat.checkSelfPermission(
-                context!!,
+                requireContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
@@ -304,29 +256,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             null /* Looper */
         )
     }
-
-    /**
-     * This method converts dp unit to equivalent pixels, depending on device density.
-     *
-     * @param dp A value in dp (density independent pixels) unit. Which we need to convert into pixels
-     * @param context Context to get resources and device specific display metrics
-     * @return A float value to represent px equivalent to dp depending on device density
-     */
-    fun convertDpToPixel(dp: Int): Int {
-        return dp * (resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
-    }
-
-    /**
-     * This method converts device specific pixels to density independent pixels.
-     *
-     * @param px A value in px (pixels) unit. Which we need to convert into db
-     * @param context Context to get resources and device specific display metrics
-     * @return A float value to represent dp equivalent to px value
-     */
-    fun convertPixelsToDp(px: Int): Int {
-        return px / (resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
-    }
-
 
     private fun stopLocationUpdates() {
         _fusedLocationProviderClient.removeLocationUpdates(_locationCallback)

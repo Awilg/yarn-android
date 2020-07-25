@@ -70,7 +70,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         mapFragment?.getMapAsync(this)
 
         // Set up observer for the create button
-        viewModel.navigateToSuccessScreen.observe(this, Observer {
+        viewModel.navigateToSuccessScreen.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 hideKeyboard()
                 viewModel.setTreasureHuntName(binding.adventureNameText.text.toString())
@@ -81,7 +81,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         })
 
         // Set up observer for the preview button
-        viewModel.navigateToPreview.observe(this, Observer {
+        viewModel.navigateToPreview.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 Timber.i("navigating to the preview screen!")
                 hideKeyboard()
@@ -92,7 +92,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         })
 
         // Set up observer for the add clue button
-        viewModel.navigateAddClue.observe(this, Observer {
+        viewModel.navigateAddClue.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 hideKeyboard()
                 showClueTypeSelection()
@@ -103,7 +103,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
         // Set up the adapter for the clues
         val clueAdapter = AdventureClueCreateAdapter()
 
-        viewModel.clues.observe(this, Observer {
+        viewModel.clues.observe(viewLifecycleOwner, Observer {
             clueAdapter.submitList(it?.toMutableList())
         })
 
@@ -141,7 +141,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
     override fun onMapReady(map: GoogleMap) {
         // Check permissions. This should be already handled by the main activity but just to be safe...
         if (ContextCompat.checkSelfPermission(
-                context!!,
+                requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
@@ -156,7 +156,7 @@ class TreasureCreateFragment : Fragment(), OnMapReadyCallback,
 
         } else {
             requestPermissions(
-                activity!!,
+                requireActivity(),
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 PermissionsUtil.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION.perm
             )

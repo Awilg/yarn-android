@@ -6,11 +6,11 @@
         android:icon="@drawable/ic_add_location_black_24dp"
         android:title="@string/create" />
     <item
-        android:id="@id/treasureHuntsFragment"
-        android:icon="@drawable/ic_list_black_24dp"
-        android:title="@string/list" />
+        android:id="@id/mapFragment"
+        android:icon="@drawable/ic_map_24"
+        android:title="@string/map" />
     <item
-        android:id="@+id/mapFragment"
+        android:id="@+id/exploreFragment"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="@string/explore" />
     <item

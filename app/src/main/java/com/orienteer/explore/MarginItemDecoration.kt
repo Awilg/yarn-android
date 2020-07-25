@@ -1,4 +1,4 @@
-package com.orienteer.map
+package com.orienteer.explore
 
 import android.graphics.Rect
 import android.view.View

@@ -77,7 +77,7 @@ class ClueTypePhotoCreateFragment : Fragment(),
     private fun analyzeImageForTags(uri: Uri) {
         var image: FirebaseVisionImage? = null
         try {
-            image = FirebaseVisionImage.fromFilePath(context!!, uri)
+            image = FirebaseVisionImage.fromFilePath(requireContext(), uri)
         } catch (e: IOException) {
             Timber.e("Error creating firebase image from URI $uri with message: ${e.message}")
             e.printStackTrace()

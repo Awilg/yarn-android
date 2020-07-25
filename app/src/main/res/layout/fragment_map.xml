@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -28,72 +26,12 @@
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@id/half_guide"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/half_guide"
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.51" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <FrameLayout
-            android:id="@+id/standardBottomSheet"
-            style="?attr/bottomSheetStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="10dp"
-            app:layout_behavior=".behaviors.InsetAdjustBottomSheetBehavior">
-
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <include
-                        android:layout_height="wrap_content"
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="16dp"
-                        layout="@layout/layout_search_bar" />
-
-                    <include
-                        android:layout_height="wrap_content"
-                        android:layout_width="match_parent"
-                        layout="@layout/layout_featured_adventure"/>
-
-                    <include layout="@layout/layout_call_to_create" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/treasure_hunts_cards_map_recycler_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:nestedScrollingEnabled="false"
-                        android:orientation="horizontal"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:listData="@{viewModel.treasureHuntsNearby}"
-                        app:spanCount="2"
-                        tools:itemCount="16"
-                        tools:listitem="@layout/card_adventure_featured" />
-
-
-
-                    <include layout="@layout/layout_upcoming_adventures" />
-
-                </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
-
-        </FrameLayout>
-
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

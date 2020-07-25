@@ -77,7 +77,7 @@ class ClueTypeLocationCreateFragment : Fragment(),
 
     override fun onMapReady(map: GoogleMap?) {
         // Check permissions
-        if (!EasyPermissions.hasPermissions(context!!, Manifest.permission.ACCESS_FINE_LOCATION)) {
+        if (!EasyPermissions.hasPermissions(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
             EasyPermissions.requestPermissions(
                 PermissionRequest.Builder(
                     this, RequestCodes.PERMISSIONS_RC_LOCATION.code,

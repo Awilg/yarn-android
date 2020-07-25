@@ -67,8 +67,6 @@ class MapViewModel : ViewModel() {
         defaultLoc.latitude = DEFAULT_LOCATION.latitude
         defaultLoc.longitude = DEFAULT_LOCATION.longitude
         _lastKnownLocation.value = defaultLoc
-
-        getTreasureHuntsNearby(LatLng(40.75,-74.0))
     }
 
     fun setLocationPermissionGranted(granted: Boolean) {
@@ -77,6 +75,7 @@ class MapViewModel : ViewModel() {
 
     fun setLastKnownLocation(loc: Location?) {
         _lastKnownLocation.value = loc
+        getTreasureHuntsNearby(LatLng(40.75,-74.0))
         updateMap()
     }
 

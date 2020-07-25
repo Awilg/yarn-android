@@ -27,7 +27,7 @@ class TreasureHuntDetailFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val treasureHunt =
-            TreasureHuntDetailFragmentArgs.fromBundle(arguments!!).selectedTreasureHunt
+            TreasureHuntDetailFragmentArgs.fromBundle(requireArguments()).selectedTreasureHunt
         val viewModelFactory = TreasureHuntDetailViewModelFactory(treasureHunt, application)
 
         binding.viewModel = ViewModelProviders.of(this, viewModelFactory)
@@ -77,7 +77,7 @@ class TreasureHuntDetailFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
         // Inflate the menu; this adds items to the action bar if it is present.
-        activity!!.menuInflater.inflate(R.menu.app_bar_detail, menu)
+        requireActivity().menuInflater.inflate(R.menu.app_bar_detail, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -98,7 +98,7 @@ class TreasureHuntDetailFragment : Fragment() {
         // Enables regular immersive mode.
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
         // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        activity!!.window.decorView.systemUiVisibility = (
+        requireActivity().window.decorView.systemUiVisibility = (
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
     }
 }
