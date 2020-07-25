@@ -119,7 +119,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         // Create the adapter that will populate the recycler view and updates the livedata
         // in the viewmodel to determine where to navigate.
-        _binding.treasureHuntsCardsMap.adapter =
+        _binding.treasureHuntsCardsMapRecyclerView.adapter =
             TreasureHuntsAdapter(TreasureHuntsAdapter.OnClickListener {
                 viewModel.displayTreasureHuntDetails(it)
             }, useFeaturedBinding = true)
@@ -127,16 +127,23 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         // Adds a listener that is aware of "swipe" card changes to the underlying RecyclerView
         // Snaps cards to the screen so there's only one ever fully on screen and moves the map to
         // the location of the hunt currently on screen.
-        _binding.treasureHuntsCardsMap.attachSnapHelperWithListener(
+        _binding.treasureHuntsCardsMapRecyclerView.attachSnapHelperWithListener(
             PagerSnapHelper(),
             SnapOnScrollListener.Behavior.NOTIFY_ON_SCROLL_STATE_IDLE,
             object : OnSnapPositionChangeListener {
                 override fun onSnapPositionChange(position: Int) {
-                    val adapter = _binding.treasureHuntsCardsMap.adapter as TreasureHuntsAdapter
+                    val adapter = _binding.treasureHuntsCardsMapRecyclerView.adapter as TreasureHuntsAdapter
                     val hunt = adapter.getItem(position)
                     viewModel.moveMapToLocation(hunt.location)
                 }
             }
+        )
+
+        _binding.treasureHuntsCardsMapRecyclerView.addItemDecoration(
+            MarginItemDecoration(
+                resources.getDimensionPixelSize(R.dimen.margin_24),
+                resources.getDimensionPixelSize(R.dimen.margin_16)
+            )
         )
 
         // Observe the navigateToSelectedTreasureHunt LiveData and Navigate when it isn't null

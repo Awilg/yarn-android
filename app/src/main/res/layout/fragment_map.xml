@@ -73,13 +73,12 @@
                     <include layout="@layout/layout_call_to_create" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/treasure_hunts_cards_map"
+                        android:id="@+id/treasure_hunts_cards_map_recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clipToPadding="false"
                         android:nestedScrollingEnabled="false"
                         android:orientation="horizontal"
-                        android:padding="8dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:listData="@{viewModel.treasureHuntsNearby}"
                         app:spanCount="2"
