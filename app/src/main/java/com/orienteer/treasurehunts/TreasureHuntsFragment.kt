@@ -34,7 +34,7 @@ class TreasureHuntsFragment : Fragment() {
         binding.treasureHuntsCardList.adapter = TreasureHuntsAdapter(TreasureHuntsAdapter.OnClickListener {
             Toast.makeText(context, "Clicked treasure hunt ${it.name}!", Toast.LENGTH_LONG).show()
             viewModel.displayTreasureHuntDetails(it)
-        }, useFeaturedBinding = false)
+        }, TreasureHuntsAdapter.AdventureViewHolder.Normal)
 
         // Observe the navigateToSelectedProperty LiveData and Navigate when it isn't null
         // After navigating, call displayPropertyDetailsComplete() so that the ViewModel is ready

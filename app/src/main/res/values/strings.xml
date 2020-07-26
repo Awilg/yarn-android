@@ -185,5 +185,6 @@
     <string name="nearby_adventures">Nearby Adventures</string>
     <string name="solve_from_home">Solve from home</string>
     <string name="solve_from_home_description">Who says you can\'t explore from the comfort of your own couch? These adventures are purely text-clue based and can be done where you are.</string>
+    <string name="explore_all">Explore all</string>
 </resources>
 

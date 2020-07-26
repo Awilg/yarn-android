@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
 import com.orienteer.models.Adventure
 import com.orienteer.util.testHunts
+import com.orienteer.util.testWfhHunts
 
 class ExploreViewModel : ViewModel() {
 
@@ -25,8 +26,13 @@ class ExploreViewModel : ViewModel() {
     val treasureHuntsNearby: LiveData<List<Adventure>>
         get() = _treasureHuntsNearby
 
+    private val _wfhAdventures = MutableLiveData<List<Adventure>>()
+    val wfhAdventures: LiveData<List<Adventure>>
+        get() = _wfhAdventures
+
     init {
         getTreasureHuntsNearby(LatLng(40.75,-74.0))
+        _wfhAdventures.value = testWfhHunts
     }
 
     private fun getTreasureHuntsNearby(location: LatLng) {

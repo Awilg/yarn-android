@@ -6,23 +6,21 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.orienteer.databinding.CardAdventureFeaturedBinding
+import com.orienteer.databinding.CardBottomlessAdventureBinding
 import com.orienteer.databinding.CardTreasureHuntBinding
 import com.orienteer.models.Adventure
 
-/**
- * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding to present [List]
- * data, including computing diffs between lists.
- * @param onClick a lambda that takes the click listener to use on each item
- */
+
 class TreasureHuntsAdapter(
     private val onClickListener: OnClickListener,
-    private val useFeaturedBinding: Boolean
+    private val viewHolder: AdventureViewHolder
 ) :
 	ListAdapter<Adventure, RecyclerView.ViewHolder>(DiffCallback) {
-    /**
-     * The TreasureHuntViewHolder constructor takes the binding variable from the associated
-	 * GridViewItem, which nicely gives it access to the full [Adventure] information.
-     */
+
+    enum class AdventureViewHolder {
+        Normal, Featured, Bottomless
+    }
+
     class TreasureHuntViewHolder(private var binding: CardTreasureHuntBinding) : RecyclerView.ViewHolder(binding.root) {
 		fun bind(hunt: Adventure) {
             binding.treasureHunt = hunt
@@ -40,11 +38,14 @@ class TreasureHuntsAdapter(
         }
     }
 
+    class BottomlessAdventureViewHolder(private var binding: CardBottomlessAdventureBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(hunt: Adventure) {
+            binding.featuredAdventure = hunt
+            binding.executePendingBindings()
+        }
+    }
 
-    /**
-	 * Allows the RecyclerView to determine which items have changed when the [List] of [Adventure]
-     * has been updated.
-     */
 	companion object DiffCallback : DiffUtil.ItemCallback<Adventure>() {
 		override fun areItemsTheSame(oldItem: Adventure, newItem: Adventure): Boolean {
             return oldItem === newItem
@@ -55,52 +56,46 @@ class TreasureHuntsAdapter(
         }
     }
 
-    /**
-     * Create new [RecyclerView] item views (invoked by the layout manager)
-     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        if (useFeaturedBinding) {
-            return FeaturedAdventureViewHolder(
-                CardAdventureFeaturedBinding.inflate(
+        when (viewHolder) {
+            AdventureViewHolder.Bottomless -> return BottomlessAdventureViewHolder(
+                CardBottomlessAdventureBinding.inflate(
                     LayoutInflater.from(
                         parent.context
                     ), parent, false
                 )
             )
+            AdventureViewHolder.Featured ->
+                return FeaturedAdventureViewHolder(
+                    CardAdventureFeaturedBinding.inflate(
+                        LayoutInflater.from(
+                            parent.context
+                        ), parent, false
+                    )
+                )
+            AdventureViewHolder.Normal ->  return TreasureHuntViewHolder(CardTreasureHuntBinding.inflate(LayoutInflater.from(parent.context), parent, false))
         }
-        return TreasureHuntViewHolder(CardTreasureHuntBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    /**
-     * Replaces the contents of a view (invoked by the layout manager)
-     */
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val treasureHunt = getItem(position)
         holder.itemView.setOnClickListener {
             onClickListener.onClick(treasureHunt)
         }
-        if (useFeaturedBinding) {
-            (holder as FeaturedAdventureViewHolder).bind(treasureHunt)
-        } else {
-            (holder as TreasureHuntViewHolder).bind(treasureHunt)
+        when(viewHolder){
+            AdventureViewHolder.Normal ->  (holder as TreasureHuntViewHolder).bind(treasureHunt)
+            AdventureViewHolder.Featured -> (holder as FeaturedAdventureViewHolder).bind(treasureHunt)
+            AdventureViewHolder.Bottomless -> (holder as BottomlessAdventureViewHolder).bind(treasureHunt)
         }
     }
 
-    /**
-	 * Custom listener that handles clicks on [RecyclerView] items.  Passes the [Adventure]
-     * associated with the current item to the [onClick] function.
-	 * @param clickListener lambda that will be called with the current [Adventure]
-     */
+
 	class OnClickListener(val clickListener: (adventure: Adventure) -> Unit) {
 		fun onClick(adventure: Adventure) = clickListener(adventure)
     }
 
-    /**
-     * Provides a get method to retrieve the data object for a current position in the
-	 * list of [Adventure] used by the [RecyclerView]
-     * @param position the position in the [RecyclerView]
-     */
 	public override fun getItem(position: Int): Adventure {
         return super.getItem(position)
     }

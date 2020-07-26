@@ -38,7 +38,12 @@ class ExploreFragment : Fragment() {
         _binding.nearbyAdventureContainer.treasureHuntsCardsMapRecyclerView.adapter =
             TreasureHuntsAdapter(TreasureHuntsAdapter.OnClickListener {
                 _viewModel.displayTreasureHuntDetails(it)
-            }, useFeaturedBinding = true)
+            }, TreasureHuntsAdapter.AdventureViewHolder.Featured)
+
+        _binding.solveFromHomeContainer.solveFromHomeRecyclerView.adapter =
+            TreasureHuntsAdapter(TreasureHuntsAdapter.OnClickListener {
+                _viewModel.displayTreasureHuntDetails(it)
+            }, TreasureHuntsAdapter.AdventureViewHolder.Bottomless)
 
         // Adds a listener that is aware of "swipe" card changes to the underlying RecyclerView
         // Snaps cards to the screen so there's only one ever fully on screen and moves the map to
@@ -56,10 +61,30 @@ class ExploreFragment : Fragment() {
             }
         )
 
+        _binding.solveFromHomeContainer.solveFromHomeRecyclerView.attachSnapHelperWithListener(
+            PagerSnapHelper(),
+            SnapOnScrollListener.Behavior.NOTIFY_ON_SCROLL_STATE_IDLE,
+            object : OnSnapPositionChangeListener {
+                override fun onSnapPositionChange(position: Int) {
+                    val adapter = _binding.solveFromHomeContainer.solveFromHomeRecyclerView.adapter as TreasureHuntsAdapter
+                    val hunt = adapter.getItem(position)
+                    //_viewModel.moveMapToLocation(hunt.location)
+                    // TODO - Figure out if this is needed or just a pager thing
+                }
+            }
+        )
+
         // Properly handle the margins for the recyclerview
         _binding.nearbyAdventureContainer.treasureHuntsCardsMapRecyclerView.addItemDecoration(
             MarginItemDecoration(
                 resources.getDimensionPixelSize(R.dimen.margin_24),
+                resources.getDimensionPixelSize(R.dimen.margin_16)
+            )
+        )
+
+        _binding.solveFromHomeContainer.solveFromHomeRecyclerView.addItemDecoration(
+            MarginItemDecoration(
+                resources.getDimensionPixelSize(R.dimen.margin_0),
                 resources.getDimensionPixelSize(R.dimen.margin_16)
             )
         )

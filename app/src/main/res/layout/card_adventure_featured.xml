@@ -26,7 +26,6 @@
                 android:id="@+id/map_view_card"
                 android:layout_width="300dp"
                 android:layout_height="194dp"
-                android:background="#90BADD"
                 android:contentDescription="@string/card_image_for_an_adventure"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{treasureHunt.featuredImage}" />
