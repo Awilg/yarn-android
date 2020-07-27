@@ -96,7 +96,7 @@ class ExploreFragment : Fragment() {
             if (null != it) {
                 // Must find the NavController from the Fragment
                 this.findNavController().navigate(
-                    MapFragmentDirections.actionMapDestinationToTreasureHuntDetail(it)
+                    ExploreFragmentDirections.actionExploreDestinationToTreasureHuntDetail(it)
                 )
 
                 // Tell the ViewModel we've made the navigate call to prevent multiple navigation
