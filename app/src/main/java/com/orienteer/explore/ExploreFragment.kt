@@ -14,7 +14,6 @@ import com.orienteer.core.OnSnapPositionChangeListener
 import com.orienteer.core.SnapOnScrollListener
 import com.orienteer.core.attachSnapHelperWithListener
 import com.orienteer.databinding.FragmentExploreBinding
-import com.orienteer.map.MapFragmentDirections
 import com.orienteer.treasurehunts.TreasureHuntsAdapter
 
 class ExploreFragment : Fragment() {
@@ -74,6 +73,10 @@ class ExploreFragment : Fragment() {
             }
         )
 
+        _binding.callToCreateContainer.setOnClickListener {
+            _viewModel.navigateToCallToCreate()
+        }
+
         _binding.featuredAdventureContainer.featuredCard.setOnClickListener {
             _viewModel.featuredAdventure.value?.let {
                 _viewModel.displayTreasureHuntDetails(it)
@@ -107,6 +110,17 @@ class ExploreFragment : Fragment() {
 
                 // Tell the ViewModel we've made the navigate call to prevent multiple navigation
                 _viewModel.doneNavigatingToSelectedTreasureHunt()
+            }
+        })
+
+        _viewModel.navigateToCallToCreate.observe(viewLifecycleOwner, Observer {
+            if (null != it && it) {
+                this.findNavController().navigate(
+                    ExploreFragmentDirections.actionExploreFragmentToCreatorTutorialFragment()
+                )
+
+
+                _viewModel.doneNavigatingToCallToCreate()
             }
         })
         return _binding.root

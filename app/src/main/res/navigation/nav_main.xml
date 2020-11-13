@@ -140,6 +140,14 @@
         <action
             android:id="@+id/action_exploreDestination_to_treasureHuntDetail"
             app:destination="@id/treasureHuntDetail" />
+        <action
+            android:id="@+id/action_exploreFragment_to_creatorTutorialFragment"
+            app:destination="@id/creatorTutorialFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/creatorTutorialFragment"
+        android:name="com.orienteer.creatortutorial.CreatorTutorialFragment"
+        android:label="CreatorTutorialFragment"
+        tools:layout="@layout/fragment_creatortutorial"/>
 
 </navigation>

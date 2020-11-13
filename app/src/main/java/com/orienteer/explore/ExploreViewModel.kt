@@ -19,12 +19,24 @@ class ExploreViewModel : ViewModel() {
     val navigateToSelectedAdventure: LiveData<Adventure>
         get() = _navigateToSelectedTreasureHunt
 
+    private val _navigateToCallToCreate = MutableLiveData<Boolean>()
+    val navigateToCallToCreate: LiveData<Boolean>
+        get() = _navigateToCallToCreate
+
     fun displayTreasureHuntDetails(adventure: Adventure) {
         _navigateToSelectedTreasureHunt.value = adventure
     }
 
     fun doneNavigatingToSelectedTreasureHunt() {
         _navigateToSelectedTreasureHunt.value = null
+    }
+
+    fun navigateToCallToCreate() {
+        _navigateToCallToCreate.value = true
+    }
+
+    fun doneNavigatingToCallToCreate() {
+        _navigateToCallToCreate.value = false
     }
 
     private val _treasureHuntsNearby = MutableLiveData<List<Adventure>>()
