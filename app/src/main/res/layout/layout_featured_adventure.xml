@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -38,17 +38,19 @@
                     android:layout_height="match_parent"
                     android:foreground="@drawable/gradient_featured_adventure"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/anchor_light" />
+                    app:imageUrl="@{featuredAdventure.featuredImage}"
+                    tools:src="@drawable/anchor_light" />
 
                 <!--  TODO - Pass in the data from the adventure binded -->
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/featured_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/hunt_the_kraken"
+                    android:text="@{featuredAdventure.name}"
                     android:textColor="@color/color_white"
                     android:textSize="28sp"
                     android:textStyle="bold"
+                    tools:text="@string/hunt_the_kraken"
                     app:layout_constraintBottom_toTopOf="@id/featured_teaser"
                     app:layout_constraintStart_toStartOf="@id/featured_teaser" />
 
@@ -58,7 +60,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="@string/there_are_whispers"
+                    android:text="@{featuredAdventure.description}"
+                    tools:text="@string/there_are_whispers"
                     android:textColor="@color/color_white"
                     android:textSize="14sp"
                     android:textStyle="bold"

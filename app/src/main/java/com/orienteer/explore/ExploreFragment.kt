@@ -74,6 +74,12 @@ class ExploreFragment : Fragment() {
             }
         )
 
+        _binding.featuredAdventureContainer.featuredCard.setOnClickListener {
+            _viewModel.featuredAdventure.value?.let {
+                _viewModel.displayTreasureHuntDetails(it)
+            }
+        }
+
         // Properly handle the margins for the recyclerview
         _binding.nearbyAdventureContainer.treasureHuntsCardsMapRecyclerView.addItemDecoration(
             MarginItemDecoration(

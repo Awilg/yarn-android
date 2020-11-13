@@ -287,6 +287,32 @@ var testWfhHunts: List<Adventure> = listOf(
 		)
 	))
 
+var testFeaturedHunt =
+	Adventure(
+		"kraken",
+		"Hunt The Kraken",
+		"There are whispers of its whereabouts...",
+		LatLng(47.6062, -122.3321),
+		listOf(
+			Clue(
+				"clue_1",
+				"This is a text clue",
+				"This is a hint",
+				ClueType.Text,
+				LatLng(47.539, -122.305),
+				ClueState.ACTIVE,
+				"answer"
+			)
+		),
+		"https://i.redd.it/d2ifvz972nc51.png",
+		listOf(
+			"https://i.redd.it/d2ifvz972nc51.png",
+			"https://i0.wp.com/russianmachineneverbreaks.com/wp-content/uploads/2020/07/seattle-kraken-jerseys.png",
+			"https://www.terracestandard.com/wp-content/uploads/2020/07/22215638_web1_seattle-kraken.jpg"
+		)
+	)
+
+
 @RequiresApi(Build.VERSION_CODES.O)
 var TEST_ADVENTURES_IN_PROGRESS : List<AdventureInProgress> = listOf(
     AdventureInProgress("AdventureInProgress_1", "adventureId_1", "clue_1", LocalDateTime.now(), LocalDateTime.now(), false),
