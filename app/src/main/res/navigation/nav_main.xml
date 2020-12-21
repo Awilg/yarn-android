@@ -149,5 +149,10 @@
         android:name="com.orienteer.creatortutorial.CreatorTutorialFragment"
         android:label="CreatorTutorialFragment"
         tools:layout="@layout/fragment_creatortutorial"/>
+    <fragment
+        android:id="@+id/advCreateFragment"
+        android:name="com.orienteer.adventurecreate.fragments.AdvCreateFragment"
+        android:label="AdvCreateFragment"
+        tools:layout="@layout/fragment_advcreate"/>
 
 </navigation>
