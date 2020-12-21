@@ -12,21 +12,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/color_background"
-        app:layout_constraintTop_toTopOf="parent">
+        app:cardElevation="4dp"
+        app:cardCornerRadius="15dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="215dp">
+            android:layout_height="180dp">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/advCreateCard_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/opensans_semibold"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:text="This is some text. This is some more."
                 app:layout_constraintEnd_toStartOf="@+id/shapeableImageView"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +43,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:textSize="14sp"
+                android:textSize="12sp"
+                android:text="This is some text. This is some more."
                 app:layout_constraintEnd_toStartOf="@+id/shapeableImageView"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -53,10 +57,34 @@
                 android:layout_height="80dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:src="@drawable/com_facebook_profile_picture_blank_portrait"
+                android:src="@drawable/anchor_light"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <View
+                android:id="@+id/card_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="25dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shapeableImageView" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/advCreateCard_progress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:textSize="12sp"
+                android:text="Pending Publication"
+                app:layout_constraintEnd_toStartOf="@+id/shapeableImageView"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_divider"
+                tools:text="Pending Publication" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
