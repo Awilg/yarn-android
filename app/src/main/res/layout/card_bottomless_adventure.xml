@@ -46,9 +46,9 @@
                     android:maxLines="1"
                     android:text="@{featuredAdventure.name}"
                     android:textColor="@color/color_white"
+                    android:fontFamily="@font/opensans_semibold"
                     tools:text="@string/hunt_the_kraken"
                     android:textSize="28sp"
-                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/featured_teaser"
                     app:layout_constraintStart_toStartOf="@id/featured_teaser" />
 
@@ -64,7 +64,6 @@
                     tools:text="@string/there_are_whispers"
                     android:textColor="@color/color_white"
                     android:textSize="14sp"
-                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>

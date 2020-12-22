@@ -15,7 +15,6 @@ import com.google.firebase.ml.vision.label.FirebaseVisionCloudImageLabelerOption
 import com.orienteer.camera.CameraUploadOptionDialog
 import com.orienteer.databinding.FragmentCluePhotoCreateBinding
 import com.orienteer.util.hideKeyboard
-import kotlinx.android.synthetic.main.clue_create_button.view.*
 import timber.log.Timber
 import java.io.IOException
 
@@ -43,13 +42,13 @@ class ClueTypePhotoCreateFragment : Fragment(),
             fragmentManager?.let { clueDialog.show(it, "upload_photo_option") }
         }
 
-        binding.createButton.clue_create_button.setOnClickListener {
-            hideKeyboard()
-            createPhotoClue()
-            findNavController().navigate(
-                ClueTypePhotoCreateFragmentDirections.actionClueTypePhotoCreateFragmentToTreasureCreateFragment()
-            )
-        }
+//        binding.createButton.clueCreateButton.setOnClickListener {
+//            hideKeyboard()
+//            createPhotoClue()
+//            findNavController().navigate(
+//                ClueTypePhotoCreateFragmentDirections.actionClueTypePhotoCreateFragmentToTreasureCreateFragment()
+//            )
+//        }
 
         return binding.root
     }

@@ -11,7 +11,6 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.orienteer.R
 import com.orienteer.databinding.FragmentTreasureHuntDetailBinding
 import com.rd.PageIndicatorView
-import kotlinx.android.synthetic.main.detail_action_buttons.view.*
 
 
 class TreasureHuntDetailFragment : Fragment() {
@@ -33,7 +32,7 @@ class TreasureHuntDetailFragment : Fragment() {
         binding.viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(TreasureHuntDetailViewModel::class.java)
 
-        binding.actionButtonSection.detail_active_button.setOnClickListener {
+        binding.actionButtonSection.detailActiveButton.setOnClickListener {
             // Must find the NavController from the Fragment
             this.findNavController().navigate(
                 TreasureHuntDetailFragmentDirections.actionTreasureHuntDetailToTreasureHuntActiveFragment(

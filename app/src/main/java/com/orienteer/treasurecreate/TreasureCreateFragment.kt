@@ -3,10 +3,8 @@ package com.orienteer.treasurecreate
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
-import android.content.res.Resources
 import android.location.Location
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,13 +24,11 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.orienteer.R
 import com.orienteer.databinding.FragmentTreasureCreateBinding
 import com.orienteer.models.ClueTextCreate
 import com.orienteer.models.ClueType
 import com.orienteer.util.PermissionsUtil
-import com.orienteer.util.convertDpToPixel
 import com.orienteer.util.hideKeyboard
 import timber.log.Timber
 

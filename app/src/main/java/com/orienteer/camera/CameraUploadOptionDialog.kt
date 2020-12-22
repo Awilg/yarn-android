@@ -14,9 +14,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.DialogFragment
-import com.orienteer.R
+
+import com.orienteer.databinding.DialogPhotoUploadOptionBinding
 import com.orienteer.models.RequestCodes
-import kotlinx.android.synthetic.main.dialog_photo_upload_option.view.*
 import pub.devrel.easypermissions.EasyPermissions
 import timber.log.Timber
 import java.io.File
@@ -27,15 +27,15 @@ import java.util.*
 class CameraUploadOptionDialog : DialogFragment(), EasyPermissions.PermissionCallbacks {
     internal lateinit var listener: CameraUploadOptionListener
 
+    private lateinit var dialogBinding: DialogPhotoUploadOptionBinding
     lateinit var currentPhotoUri: Uri
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
-            val view =
-                LayoutInflater.from(context).inflate(R.layout.dialog_photo_upload_option, null)
+            val dialogBinding = DialogPhotoUploadOptionBinding.inflate(LayoutInflater.from(context), null, false)
 
-            view.gallery_button.setOnClickListener {
+            dialogBinding.galleryButton.setOnClickListener {
                 Toast.makeText(context, "Clicked gallery", Toast.LENGTH_SHORT).show()
 
                 val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
@@ -49,10 +49,10 @@ class CameraUploadOptionDialog : DialogFragment(), EasyPermissions.PermissionCal
 
                 startActivityForResult(intent, RC_UPLOAD_IMG)
             }
-            view.camera_button.setOnClickListener {
+            dialogBinding.cameraButton.setOnClickListener {
                 checkPermissionsAndPerformCamera()
             }
-            builder.setView(view)
+            builder.setView(dialogBinding.root)
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }
@@ -111,7 +111,7 @@ class CameraUploadOptionDialog : DialogFragment(), EasyPermissions.PermissionCal
      */
     private fun checkPermissionsAndPerformCamera() {
         if (ContextCompat.checkSelfPermission(
-                context!!,
+                requireContext(),
                 android.Manifest.permission.CAMERA
             ) == PackageManager.PERMISSION_GRANTED
         ) {
@@ -140,7 +140,7 @@ class CameraUploadOptionDialog : DialogFragment(), EasyPermissions.PermissionCal
             photoFile?.also { file ->
 
                 val photoURI: Uri = FileProvider.getUriForFile(
-                    context!!,
+                    requireContext(),
                     "com.orienteer.fileprovider",
                     file
                 )

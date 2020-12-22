@@ -5,12 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import com.orienteer.R
+import com.orienteer.databinding.DialogClueTypeSelectionBinding
 import com.orienteer.models.ClueType
-import kotlinx.android.synthetic.main.dialog_clue_type_selection.view.waypoint_clue_type
-import kotlinx.android.synthetic.main.dialog_clue_type_selection.view.image_clue_type
-import kotlinx.android.synthetic.main.dialog_clue_type_selection.view.text_clue_type
-import kotlinx.android.synthetic.main.dialog_clue_type_selection.view.treasure_clue_type
 
 /**
  * This is the dialog that is used to select which [ClueType] of a [Clue] to create while creating
@@ -23,27 +19,26 @@ class ClueTypeSelectionDialogFragment : DialogFragment() {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
             // Get the layout inflater
-            val view =
-                LayoutInflater.from(context).inflate(R.layout.dialog_clue_type_selection, null)
+            val binding = DialogClueTypeSelectionBinding.inflate(LayoutInflater.from(context), null, false)
 
             // Emit the correct clue type for the image selections
-            view.waypoint_clue_type.setOnClickListener {
+            binding.waypointClueType.setOnClickListener {
                 listener.onClueTypeSelected(ClueType.Location)
                 dismiss()
             }
-            view.image_clue_type.setOnClickListener {
+            binding.imageClueType.setOnClickListener {
                 listener.onClueTypeSelected(ClueType.Photo)
                 dismiss()
             }
-            view.text_clue_type.setOnClickListener {
+            binding.textClueType.setOnClickListener {
                 listener.onClueTypeSelected(ClueType.Text)
                 dismiss()
             }
-            view.treasure_clue_type.setOnClickListener {
+            binding.treasureClueType.setOnClickListener {
                 listener.onClueTypeSelected(ClueType.Treasure)
                 dismiss()
             }
-            builder.setView(view)
+            builder.setView(binding.root)
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }

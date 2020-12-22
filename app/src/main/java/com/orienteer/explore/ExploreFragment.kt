@@ -73,7 +73,7 @@ class ExploreFragment : Fragment() {
             }
         )
 
-        _binding.callToCreateContainer.setOnClickListener {
+        _binding.callToCreateContainer.callToCreateLearnMore.setOnClickListener {
             _viewModel.navigateToCallToCreate()
         }
 

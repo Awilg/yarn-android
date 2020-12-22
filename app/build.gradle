@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'com.google.gms.google-services'
@@ -35,12 +35,13 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
     }
-    androidExtensions {
-        experimental = true
-    }
     buildFeatures {
         dataBinding true
     }
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 dokka {
@@ -63,7 +64,6 @@ dependencies {
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$version_lifecycle_runtime"
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
@@ -130,6 +130,11 @@ dependencies {
 
     // google play billing
     implementation 'com.android.billingclient:billing:2.1.0'
+
+    // Epoxy
+    implementation "com.airbnb.android:epoxy:$version_epoxy"
+    implementation "com.airbnb.android:epoxy-databinding:$version_epoxy"
+    kapt "com.airbnb.android:epoxy-processor:$version_epoxy"
 
     // viewpager
     implementation "androidx.viewpager2:viewpager2:1.0.0"
