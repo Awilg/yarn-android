@@ -1,58 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewModel"
             type="com.orienteer.explore.ExploreViewModel" />
     </data>
 
-<androidx.core.widget.NestedScrollView android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <include
-            android:layout_height="wrap_content"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="16dp"
-            layout="@layout/layout_search_bar" />
-
-        <include
-            android:id="@+id/featured_adventure_container"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            bind:featuredAdventure="@{viewModel.featuredAdventure}"
-            layout="@layout/layout_featured_adventure"/>
+            android:orientation="vertical">
 
-        <include
-            android:id="@+id/call_to_create_container"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_marginTop="16dp"
-            layout="@layout/layout_call_to_create" />
+            <include
+                layout="@layout/layout_search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
 
-        <include
-            android:id="@+id/nearby_adventure_container"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            layout="@layout/section_nearby_adventures"
-            tools:viewModel="@{viewModel}"/>
+            <include
+                android:id="@+id/featured_adventure_container"
+                layout="@layout/layout_featured_adventure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                bind:featuredAdventure="@{viewModel.featuredAdventure}" />
 
-        <include
-            android:id="@+id/solve_from_home_container"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_marginTop="16dp"
-            layout="@layout/section_solve_from_home"
-            tools:viewModel="@{viewModel}"/>
+            <include
+                android:id="@+id/call_to_create_container"
+                layout="@layout/layout_call_to_create"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
 
-        <include layout="@layout/layout_upcoming_adventures" />
+            <include
+                android:id="@+id/nearby_adventure_container"
+                layout="@layout/section_nearby_adventures"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:viewModel="@{viewModel}" />
 
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+            <include
+                android:id="@+id/solve_from_home_container"
+                layout="@layout/section_solve_from_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                tools:viewModel="@{viewModel}" />
+
+            <include layout="@layout/layout_upcoming_adventures" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

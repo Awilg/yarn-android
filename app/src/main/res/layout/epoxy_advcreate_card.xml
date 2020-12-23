@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="advCreateSummary"
+            type="com.orienteer.adventurecreate.models.AdvCreateSummary" />
     </data>
 
 
@@ -12,6 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/color_background"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_marginStart="@dimen/margin_24"
+        android:layout_marginEnd="@dimen/margin_24"
         app:cardElevation="4dp"
         app:cardCornerRadius="15dp">
 
@@ -29,7 +34,7 @@
                 android:fontFamily="@font/opensans_semibold"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="This is some text. This is some more."
+                android:text="@{advCreateSummary.title}"
                 app:layout_constraintEnd_toStartOf="@+id/shapeableImageView"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +49,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:textSize="12sp"
-                android:text="This is some text. This is some more."
+                android:text="@{advCreateSummary.subtitle}"
                 app:layout_constraintEnd_toStartOf="@+id/shapeableImageView"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"

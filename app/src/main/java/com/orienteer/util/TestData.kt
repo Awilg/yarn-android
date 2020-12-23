@@ -3,6 +3,7 @@ package com.orienteer.util
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.google.android.gms.maps.model.LatLng
+import com.orienteer.adventurecreate.models.AdvCreateSummary
 import com.orienteer.models.*
 import java.time.LocalDateTime
 import java.util.*
@@ -322,3 +323,7 @@ var TEST_ADVENTURES_IN_PROGRESS : List<AdventureInProgress> = listOf(
 )
 
 var TEST_USER : User = User("id", "JimmyTheKid", listOf("id_15", "id_19"), emptyList(), "https://firebasestorage.googleapis.com/v0/b/orienteer-dev.appspot.com/o/IMG_20190702_100344.jpg?alt=media&token=5537d40d-e6d4-4b77-a30e-8c2d0bb11d04", Calendar.getInstance().time)
+
+
+var TEST_ADV_CREATE_SUMMARY_IN_PROGRESS = listOf(AdvCreateSummary("test in progress", "test subtitle", "https://i.redd.it/d2ifvz972nc51.png", 0))
+var TEST_ADV_CREATE_SUMMARY_COMPLETED = listOf(AdvCreateSummary("test completed", "test subtitle", "https://i.redd.it/d2ifvz972nc51.png", 0))
