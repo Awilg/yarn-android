@@ -40,6 +40,7 @@ class AdvCreateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.inprogressRecyclerView.setItemSpacingDp(16)
         binding.inprogressRecyclerView.setController(controller)
         controller.inProgressAdvCreate = TEST_ADV_CREATE_SUMMARY_IN_PROGRESS
         controller.completedAdvCreate = TEST_ADV_CREATE_SUMMARY_COMPLETED

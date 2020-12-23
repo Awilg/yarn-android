@@ -326,4 +326,9 @@ var TEST_USER : User = User("id", "JimmyTheKid", listOf("id_15", "id_19"), empty
 
 
 var TEST_ADV_CREATE_SUMMARY_IN_PROGRESS = listOf(AdvCreateSummary("test in progress", "test subtitle", "https://i.redd.it/d2ifvz972nc51.png", 0))
-var TEST_ADV_CREATE_SUMMARY_COMPLETED = listOf(AdvCreateSummary("test completed", "test subtitle", "https://i.redd.it/d2ifvz972nc51.png", 0))
+var TEST_ADV_CREATE_SUMMARY_COMPLETED = listOf(
+	AdvCreateSummary("test completed", "test subtitle", "https://i.redd.it/d2ifvz972nc51.png", 0),
+	AdvCreateSummary("test completed", "test subtitle", "https://i.redd.it/d2ifvz972nc51.png", 0),
+	AdvCreateSummary("test completed", "test subtitle", "https://i.redd.it/d2ifvz972nc51.png", 0),
+	AdvCreateSummary("test completed", "test subtitle", "https://i.redd.it/d2ifvz972nc51.png", 0)
+)
