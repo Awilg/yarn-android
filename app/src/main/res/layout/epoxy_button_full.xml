@@ -5,6 +5,10 @@
         <variable
             name="buttonText"
             type="String" />
+
+        <variable
+            name="onClickListener"
+            type="com.orienteer.adventurecreate.controller.AdvCreateEpoxyListener" />
     </data>
 
     <com.google.android.material.button.MaterialButton
@@ -15,6 +19,7 @@
         android:layout_marginStart="@dimen/margin_24"
         android:layout_marginEnd="@dimen/margin_24"
         android:text="@{buttonText}"
+        android:onClick="@{() -> onClickListener.navigateToCreateNew()}"
         style="@style/yarnButtonOutline"
         tools:text="Continue" />
 

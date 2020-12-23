@@ -1,4 +1,4 @@
-package com.orienteer.adventurecreate
+package com.orienteer.adventurecreate.controller
 
 import com.airbnb.epoxy.EpoxyController
 import com.orienteer.advcreateCard
@@ -6,7 +6,7 @@ import com.orienteer.adventurecreate.models.AdvCreateSummary
 import com.orienteer.buttonFull
 import com.orienteer.sectionTitle
 
-class AdvCreateEpoxyController : EpoxyController() {
+class AdvCreateEpoxyController(private val listener: AdvCreateEpoxyListener) : EpoxyController() {
     var inProgressAdvCreate: List<AdvCreateSummary> = emptyList()
         set(value) {
             field = value
@@ -35,6 +35,7 @@ class AdvCreateEpoxyController : EpoxyController() {
         buttonFull {
             id(hashCode())
             buttonText("Create new adventure")
+            onClickListener(listener)
         }
 
         sectionTitle {
