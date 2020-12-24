@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.orienteer.adventurecreate.controller.AdvCreateEpoxyController
-import com.orienteer.adventurecreate.AdvCreateViewModel
+import com.orienteer.adventurecreate.viewmodel.AdvCreateViewModel
 import com.orienteer.databinding.FragmentAdvcreateBinding
 import com.orienteer.util.TEST_ADV_CREATE_SUMMARY_COMPLETED
 import com.orienteer.util.TEST_ADV_CREATE_SUMMARY_IN_PROGRESS

@@ -1,4 +1,4 @@
-package com.orienteer.adventurecreate
+package com.orienteer.adventurecreate.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

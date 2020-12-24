@@ -89,6 +89,15 @@
     <style name="yarnButtonOutline" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="cornerFamily">rounded</item>
         <item name="cornerRadius">5dp</item>
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/opensans_semibold</item>
+    </style>
+
+    <style name="yarnButtonPrimary" parent="Widget.MaterialComponents.Button">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerRadius">5dp</item>
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/opensans_semibold</item>
     </style>
 
 
