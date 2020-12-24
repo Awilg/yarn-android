@@ -162,6 +162,14 @@
         android:id="@+id/advCreateSummaryFragment"
         android:name="com.orienteer.adventurecreate.fragments.AdvCreateSummaryFragment"
         android:label="AdvCreateSummaryFragment"
-        tools:layout="@layout/fragment_advcreate_summary"/>
+        tools:layout="@layout/fragment_advcreate_summary">
+        <action
+            android:id="@+id/action_advCreateSummaryFragment_to_advCreateTitleInfoFragment"
+            app:destination="@id/advCreateTitleInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/advCreateTitleInfoFragment"
+        android:name="com.orienteer.adventurecreate.fragments.AdvCreateTitleInfoFragment"
+        android:label="AdvCreateTitleInfoFragment" />
 
 </navigation>

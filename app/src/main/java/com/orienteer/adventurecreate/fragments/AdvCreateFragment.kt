@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.orienteer.adventurecreate.controller.AdvCreateEpoxyController
@@ -17,7 +18,7 @@ import com.orienteer.util.TEST_ADV_CREATE_SUMMARY_IN_PROGRESS
 
 class AdvCreateFragment : Fragment() {
 
-    private lateinit var viewModel : AdvCreateViewModel
+    private val viewModel : AdvCreateViewModel by viewModels()
     private lateinit var binding: FragmentAdvcreateBinding
 
     private val controller by lazy { AdvCreateEpoxyController(viewModel) }
@@ -28,10 +29,6 @@ class AdvCreateFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAdvcreateBinding.inflate(inflater)
-
-        viewModel = activity?.run {
-            ViewModelProviders.of(this)[AdvCreateViewModel::class.java]
-        }!!
 
         // To use the binding with databinding you need to explicitly give the binding a reference to it.
         binding.viewmodel = viewModel
@@ -48,7 +45,6 @@ class AdvCreateFragment : Fragment() {
                     AdvCreateFragmentDirections.actionAdvCreateFragmentToAdvCreateSummaryFragment()
                 )
 
-                Toast.makeText(context, "TEST", Toast.LENGTH_SHORT).show()
                 viewModel.doneNavigateToCreateNewAdventure()
             }
         })
