@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="prompt"
+            type="String" />
+        <variable
+            name="hint"
+            type="String" />
+        <variable
+            name="charCount"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/create_text_section_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/create_text_section_prompt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_24"
+            android:layout_marginEnd="@dimen/margin_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{prompt}"
+            tools:text="This is a subtitle"/>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/create_text_section_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/margin_24"
+            android:layout_marginEnd="@dimen/margin_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/create_text_section_prompt"
+            android:hint="@{hint}"
+            tools:text="e.g. The Orange Monster" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/create_text_section_charcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="@font/opensans_semibold"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/margin_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/create_text_section_input"
+            android:text="@{charCount.toString()}"
+            tools:text="50"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
