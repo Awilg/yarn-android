@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Mavericks.initialize(this)
         Mavericks.viewModelConfigFactory = MavericksViewModelConfigFactory(applicationContext)
 
         setContentView(R.layout.activity_main)

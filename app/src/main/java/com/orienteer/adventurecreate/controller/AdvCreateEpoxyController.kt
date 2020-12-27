@@ -32,12 +32,6 @@ class AdvCreateEpoxyController(private val listener: AdvCreateEpoxyListener) : E
             }
         }
 
-        buttonFull {
-            id(hashCode())
-            buttonText("Create new adventure")
-            onClickListener(listener)
-        }
-
         sectionTitle {
             id(hashCode())
             text("Completed")

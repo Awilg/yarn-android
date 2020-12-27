@@ -7,7 +7,7 @@ import com.orienteer.adventurecreate.models.AdvCreateState
 import com.orienteer.adventurecreate.models.AdvCreateSummaryViewState
 import com.orienteer.adventurecreate.models.SectionItem
 
-class AdvCreateSummaryViewModel(val initialState: AdvCreateState) :
+class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
     MavericksViewModel<AdvCreateState>(initialState) {
 
     private val _navToTitleAndInfo = MutableLiveData<Boolean>()
