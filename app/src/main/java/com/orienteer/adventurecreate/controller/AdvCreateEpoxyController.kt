@@ -3,7 +3,6 @@ package com.orienteer.adventurecreate.controller
 import com.airbnb.epoxy.EpoxyController
 import com.orienteer.advcreateCard
 import com.orienteer.adventurecreate.models.AdvCreateSummary
-import com.orienteer.adventurecreate.models.advCreateTextSection
 import com.orienteer.buttonFull
 import com.orienteer.sectionTitle
 

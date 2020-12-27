@@ -7,7 +7,7 @@ import com.orienteer.createSummaryHeader
 import com.orienteer.createSummaryItem
 import com.orienteer.createSummaryItemCurrent
 
-class AdvCreateSummaryController(private val listener: AdvCreateSummaryEpoxyListener) :
+class AdvCreateSummaryController() :
     TypedEpoxyController<AdvCreateSummaryViewState>(
         EpoxyAsyncUtil.getAsyncBackgroundHandler(),
         EpoxyAsyncUtil.getAsyncBackgroundHandler()) {

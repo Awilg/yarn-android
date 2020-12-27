@@ -16,7 +16,7 @@ class AdvCreateSummaryFragment : Fragment() {
     private val viewModel: AdvCreateSummaryViewModel by viewModels()
     lateinit var binding : FragmentAdvcreateSummaryBinding
 
-    private val controller by lazy { AdvCreateSummaryController(viewModel) }
+    private val controller by lazy { AdvCreateSummaryController() }
 
     override fun onCreateView(
         inflater: LayoutInflater,

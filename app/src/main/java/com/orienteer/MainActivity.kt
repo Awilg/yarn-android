@@ -14,6 +14,8 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import com.airbnb.mvrx.Mavericks
+import com.airbnb.mvrx.MavericksViewModelConfigFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -27,6 +29,8 @@ class MainActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Mavericks.viewModelConfigFactory = MavericksViewModelConfigFactory(applicationContext)
 
         setContentView(R.layout.activity_main)
         // Set up Logger
