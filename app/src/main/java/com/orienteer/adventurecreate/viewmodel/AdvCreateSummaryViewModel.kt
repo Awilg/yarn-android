@@ -37,4 +37,9 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
     fun doneNavToTitleAndInfo() {
         _navToTitleAndInfo.value = false
     }
+
+    fun completeTitleInfo() {
+        // TODO - save title and description
+    }
+
 }

@@ -126,11 +126,10 @@ class MainActivity : AppCompatActivity(),
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.treasureHuntDetail -> hideBottomNav()
-                R.id.treasureHuntActiveFragment -> hideBottomNav()
-                R.id.cameraFragment -> hideBottomNav()
-                R.id.clueTypePhotoCreateFragment -> hideBottomNav()
-                else -> showBottomNav()
+                R.id.exploreFragment -> showBottomNav()
+                R.id.profileFragment -> showBottomNav()
+                R.id.advCreateFragment -> showBottomNav()
+                else -> hideBottomNav()
             }
         }
     }

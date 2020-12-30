@@ -166,10 +166,21 @@
         <action
             android:id="@+id/action_advCreateSummaryFragment_to_advCreateTitleInfoFragment"
             app:destination="@id/advCreateTitleInfoFragment" />
+        <action
+            android:id="@+id/action_advCreateSummaryFragment_to_advCreatePhotoFragment"
+            app:destination="@id/advCreatePhotoFragment" />
     </fragment>
     <fragment
         android:id="@+id/advCreateTitleInfoFragment"
         android:name="com.orienteer.adventurecreate.fragments.AdvCreateTitleInfoFragment"
-        android:label="AdvCreateTitleInfoFragment" />
+        android:label="AdvCreateTitleInfoFragment" >
+        <action
+            android:id="@+id/action_advCreateTitleInfoFragment_to_advCreatePhotoFragment"
+            app:destination="@id/advCreatePhotoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/advCreatePhotoFragment"
+        android:name="com.orienteer.adventurecreate.fragments.AdvCreatePhotoFragment"
+        android:label="AdvCreatePhotoFragment" />
 
 </navigation>

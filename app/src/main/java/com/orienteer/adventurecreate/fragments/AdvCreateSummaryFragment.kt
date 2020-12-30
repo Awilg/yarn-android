@@ -41,7 +41,6 @@ class AdvCreateSummaryFragment : BaseFragment() {
             }
         }
 
-
         binding.summaryRecyclerView.setItemSpacingDp(16)
         binding.summaryRecyclerView.setController(controller)
 
