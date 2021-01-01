@@ -31,16 +31,8 @@ class AdvCreateSummaryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.navToTitleAndInfo.observe(viewLifecycleOwner) {
-            if (null != it && it) {
-                this.findNavController().navigate(
-                    AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreateTitleInfoFragment()
-                )
 
-                viewModel.doneNavToTitleAndInfo()
-            }
-        }
-
+        setupNavObservers()
         binding.summaryRecyclerView.setItemSpacingDp(16)
         binding.summaryRecyclerView.setController(controller)
 
@@ -51,5 +43,61 @@ class AdvCreateSummaryFragment : BaseFragment() {
 
     override fun invalidate() {
 
+    }
+
+    fun setupNavObservers() {
+
+        viewModel.navToTitleAndInfo.observe(viewLifecycleOwner) {
+            if (null != it && it) {
+                this.findNavController().navigate(
+                    AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreateTitleInfoFragment()
+                )
+                viewModel.doneNavToTitleAndInfo()
+            }
+        }
+
+        viewModel.navToPhotos.observe(viewLifecycleOwner) {
+            if (null != it && it) {
+                this.findNavController().navigate(
+                    AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreatePhotoFragment()
+                )
+                viewModel.doneNavToPhotos()
+            }
+        }
+        viewModel.navToPublishing.observe(viewLifecycleOwner) {
+            if (null != it && it) {
+                this.findNavController().navigate(
+                    AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreatePublishingFragment()
+                )
+                viewModel.doneNavToPublishing()
+            }
+        }
+
+        viewModel.navToClues.observe(viewLifecycleOwner) {
+            if (null != it && it) {
+                this.findNavController().navigate(
+                    AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreateCluesFragment()
+                )
+                viewModel.doneNavToClues()
+            }
+        }
+
+        viewModel.navToTips.observe(viewLifecycleOwner) {
+            if (null != it && it) {
+                this.findNavController().navigate(
+                    AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreateTipsFragment()
+                )
+                viewModel.doneNavToTips()
+            }
+        }
+
+        viewModel.navToReview.observe(viewLifecycleOwner) {
+            if (null != it && it) {
+                this.findNavController().navigate(
+                    AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreateReviewFragment()
+                )
+                viewModel.doneNavToReview()
+            }
+        }
     }
 }
