@@ -3,6 +3,7 @@ package com.orienteer.adventurecreate.fragments
 import com.airbnb.mvrx.activityViewModel
 import com.orienteer.adventurecreate.viewmodel.AdvCreateSummaryViewModel
 import com.orienteer.createSectionHeader
+import com.orienteer.createToggle
 import com.orienteer.util.MavericksBaseFragment
 import com.orienteer.util.simpleController
 
@@ -15,6 +16,11 @@ class AdvCreatePublishingFragment : MavericksBaseFragment() {
             id(hashCode())
             header("Publishing")
             subtitle("All adventures are published to all users by default. In order to create a private adventure a premium account is required.")
+        }
+
+        createToggle {
+            id(hashCode())
+            prompt("Make adventure private")
         }
     }
 }
