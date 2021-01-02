@@ -195,5 +195,7 @@
     <string name="location">Location</string>
     <string name="clue_photo_type_explanation">Requires the solver to take a photo of the clue\'s solution</string>
     <string name="clue_type_location_explanation">Requires the solver to physically navigate to the correct location described in the clue</string>
+    <string name="treasure_slider_explanation">Whatever Booty you set as a reward will be awarded to the first 5 finishers of your adventure.</string>
+    <string name="purchase_booty">Purchase Booty</string>
 </resources>
 

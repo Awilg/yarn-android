@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="booty"
+            type="Integer" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/treasure_slider_explanation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginStart="@dimen/margin_24"
+            android:layout_marginEnd="60dp"
+            android:layout_marginTop="@dimen/margin_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/treasure_slider_explanation"/>
+
+        <SeekBar
+            android:id="@+id/treasure_slider"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintTop_toBottomOf="@id/treasure_slider_explanation"
+            app:layout_constraintStart_toStartOf="@id/treasure_slider_explanation"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/booty_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/treasure_slider"
+            app:layout_constraintTop_toTopOf="@id/treasure_slider"
+            app:layout_constraintBottom_toBottomOf="@id/treasure_slider"
+            android:src="@drawable/ic_icons8_treasure_chest"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/booty_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginStart="4dp"
+            android:text="@{booty.toString()}"
+            app:layout_constraintStart_toEndOf="@id/booty_icon"
+            app:layout_constraintTop_toTopOf="@id/treasure_slider"
+            app:layout_constraintBottom_toBottomOf="@id/treasure_slider"
+            tools:text="500"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/treasure_slider"
+            app:layout_constraintBottom_toBottomOf="@id/treasure_slider"
+            android:text="@string/purchase_booty"
+            android:textSize="12sp"
+            style="@style/yarnButtonOutline"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
