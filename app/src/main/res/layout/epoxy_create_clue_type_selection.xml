@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="prompt"
+            type="String" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/section_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:fontFamily="@font/opensans_semibold"
+            android:layout_marginStart="@dimen/margin_24"
+            android:layout_marginTop="@dimen/margin_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/choose_a_clue_type"/>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/clue_type_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_semibold"
+            android:layout_marginTop="@dimen/margin_16"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/section_title"
+            app:layout_constraintTop_toBottomOf="@id/section_title"
+            android:text="@string/text"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/clue_type_text_explanation"
+            android:layout_width="263dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="60dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/clue_type_explanation"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/clue_type_text"
+            app:layout_constraintTop_toBottomOf="@id/clue_type_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/clue_type_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_semibold"
+            android:layout_marginTop="@dimen/margin_16"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/clue_type_text_explanation"
+            app:layout_constraintTop_toBottomOf="@id/clue_type_text_explanation"
+            android:text="@string/photo"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/clue_type_photo_explanation"
+            android:layout_width="263dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/clue_photo_type_explanation"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/clue_type_photo"
+            app:layout_constraintTop_toBottomOf="@id/clue_type_photo" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/clue_type_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_semibold"
+            android:layout_marginTop="@dimen/margin_16"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/clue_type_photo_explanation"
+            app:layout_constraintTop_toBottomOf="@id/clue_type_photo_explanation"
+            android:text="@string/location"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/clue_type_location_explanation"
+            android:layout_width="263dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/clue_type_location_explanation"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/clue_type_location"
+            app:layout_constraintTop_toBottomOf="@id/clue_type_location" />
+
+
+        
+        <RadioGroup
+            android:id="@+id/clue_type_radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/clue_text_radio_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="75dp"/>
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/clue_photo_radio_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"/>
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/clue_location_radio_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"/>
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

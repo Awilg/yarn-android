@@ -188,5 +188,12 @@
     <string name="explore_all">Explore all</string>
     <string name="str_continue">Continue</string>
     <string name="next">Next</string>
+    <string name="choose_a_clue_type">Choose a clue type</string>
+    <string name="text">Text</string>
+    <string name="clue_type_explanation">Requires a solver to type the correct answer to the clue</string>
+    <string name="photo">Photo</string>
+    <string name="location">Location</string>
+    <string name="clue_photo_type_explanation">Requires the solver to take a photo of the clue\'s solution</string>
+    <string name="clue_type_location_explanation">Requires the solver to physically navigate to the correct location described in the clue</string>
 </resources>
 
