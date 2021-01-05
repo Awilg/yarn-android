@@ -1,7 +1,6 @@
 package com.orienteer.adventurecreate.models
 
-import com.airbnb.mvrx.Async
 import com.airbnb.mvrx.MavericksState
-import com.airbnb.mvrx.Uninitialized
 
-data class AdvCreateState(val inProgress: Async<AdvCreateInProgress> = Uninitialized) : MavericksState
+data class AdvCreateState(val title : String = "initial_state",
+                          val description : String = "initial_state") : MavericksState

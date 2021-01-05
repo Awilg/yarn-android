@@ -31,7 +31,15 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
     private val _viewState = MutableLiveData<AdvCreateSummaryViewState>()
     val viewState: LiveData<AdvCreateSummaryViewState> = _viewState
 
+    private val titleCharCount = 50
+    private val descriptionCharCount = 200
+    var titleCharCountRemaining = 50
+    var descriptionCharCountRemaining = 200
+
+    var currentTitle : CharSequence = ""
+
     init {
+
         _viewState.value = AdvCreateSummaryViewState(listOf(
             (SectionItem("Title & Information",
                 completed = true,
@@ -66,6 +74,7 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
                 onClickHandler = this::navToReview
             )),
             ))
+
     }
 
     private fun navToTitleAndInfo() {
@@ -116,8 +125,15 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
         _navToReview.value = false
     }
 
-    fun completeTitleInfo() {
-        // TODO - save title and description
+    fun updateTitle(t: CharSequence) {
+        titleCharCountRemaining = titleCharCount - t.length
+        currentTitle = t
+
+        setState { copy(title = t.toString()) }
+    }
+
+    fun updateDescription(desc: String) {
+        descriptionCharCountRemaining = descriptionCharCount - desc.length
     }
 
 }
