@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.airbnb.mvrx.activityViewModel
-import com.orienteer.adventurecreate.models.advCreateTextSection
 import com.orienteer.adventurecreate.viewmodel.AdvCreateSummaryViewModel
 import com.orienteer.createSectionHeader
 import com.orienteer.databinding.FragmentAdvcreatePhotosBinding
@@ -33,13 +32,6 @@ class AdvCreatePhotoFragment : MavericksBaseFragment() {
             id(hashCode())
             header("Add some photos")
             subtitle("Draw people in with a taste of what they might see on your adventure")
-        }
-
-        advCreateTextSection {
-            id(hashCode())
-            prompt("Title")
-            hint("e.g. The Great Orange Monster")
-            charCount(50)
         }
     }
 }

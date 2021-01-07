@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.airbnb.mvrx.activityViewModel
-import com.orienteer.adventurecreate.models.advCreateTextSection
+import com.orienteer.adventurecreate.models.advCreateInputRow
 import com.orienteer.adventurecreate.viewmodel.AdvCreateSummaryViewModel
 import com.orienteer.createSectionHeader
 import com.orienteer.databinding.FragmentAdvcreateTitleInfoBinding
@@ -31,8 +31,6 @@ class AdvCreateTitleInfoFragment : MavericksBaseFragment() {
         recyclerView.setController(epoxyController)
         recyclerView.setItemSpacingDp(16)
         binding.actionButtonSection.detailActiveButton.setOnClickListener {
-            viewModel.updateTitle("testTitle")
-
             this.findNavController().navigate(
                 AdvCreateTitleInfoFragmentDirections.actionAdvCreateTitleInfoFragmentToAdvCreatePhotoFragment()
             )
@@ -45,45 +43,26 @@ class AdvCreateTitleInfoFragment : MavericksBaseFragment() {
         Timber.i("Building Models: ${Thread.currentThread().name}")
 
         createSectionHeader {
-            id(hashCode())
-            header("Name your adventure")
+            id("id_section_title")
+            header(state.title)
             subtitle("Be descriptive. Try to include what makes this adventure unique.")
         }
 
-        advCreateTextSection {
-            id(hashCode())
-            prompt(state.title)
-            value(viewModel.currentTitle)
-            hint("e.g. The Great Orange Monster")
-            charCount(viewModel.titleCharCountRemaining)
-            textWatcher(
-                object : TextWatcher {
-                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                        viewModel.updateTitle(s.toString())
-                    }
-
-                    override fun afterTextChanged(s: Editable?) {}
-                })
+        advCreateInputRow {
+            id("id_title_input_row")
+            text(state.title)
+            prompt("Title")
+            hint("e.g. The Orange Monster")
+            onEditTextChanged { viewModel.updateTitle(it) }
         }
 
-        advCreateTextSection {
-            id(hashCode())
+        advCreateInputRow {
+            id("id_description_input_row")
+            text(state.description)
             prompt("Description")
-            value("")
-            hint("e.g. This adventure will take you across San Francisco on the hunt for the great Orange Monster, weather permitting.")
-            charCount(viewModel.descriptionCharCountRemaining)
-            textWatcher(
-                object : TextWatcher {
-                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                        viewModel.updateDescription(s.toString())
-                    }
-
-                    override fun afterTextChanged(s: Editable?) {}
-                })
+            hint("e.g. Think you know all there is to know about this looming landmark? Think again...")
+            onEditTextChanged { viewModel.updateDescription(it) }
         }
+
     }
 }

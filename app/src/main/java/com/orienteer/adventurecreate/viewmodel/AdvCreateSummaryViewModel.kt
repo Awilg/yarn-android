@@ -31,13 +31,6 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
     private val _viewState = MutableLiveData<AdvCreateSummaryViewState>()
     val viewState: LiveData<AdvCreateSummaryViewState> = _viewState
 
-    private val titleCharCount = 50
-    private val descriptionCharCount = 200
-    var titleCharCountRemaining = 50
-    var descriptionCharCountRemaining = 200
-
-    var currentTitle : CharSequence = ""
-
     init {
 
         _viewState.value = AdvCreateSummaryViewState(listOf(
@@ -126,14 +119,11 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
     }
 
     fun updateTitle(t: CharSequence) {
-        titleCharCountRemaining = titleCharCount - t.length
-        currentTitle = t
-
         setState { copy(title = t.toString()) }
     }
 
-    fun updateDescription(desc: String) {
-        descriptionCharCountRemaining = descriptionCharCount - desc.length
+    fun updateDescription(desc: CharSequence) {
+        setState { copy(title = desc.toString()) }
     }
 
 }

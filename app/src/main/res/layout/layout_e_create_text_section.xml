@@ -31,7 +31,6 @@
             android:layout_marginEnd="@dimen/margin_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{prompt}"
             tools:text="This is a subtitle"/>
 
         <com.google.android.material.textfield.TextInputEditText
@@ -43,7 +42,6 @@
             android:layout_marginEnd="@dimen/margin_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/create_text_section_prompt"
-            android:hint="@{hint}"
             tools:text="e.g. The Orange Monster" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -56,7 +54,6 @@
             android:layout_marginStart="@dimen/margin_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/create_text_section_input"
-            android:text="@{charCount.toString()}"
             tools:text="50"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
