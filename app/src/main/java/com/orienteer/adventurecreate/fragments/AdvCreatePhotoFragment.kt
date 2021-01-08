@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.airbnb.mvrx.activityViewModel
 import com.orienteer.adventurecreate.models.AdvCreateImgPreview_
@@ -41,6 +42,13 @@ class AdvCreatePhotoFragment : MavericksBaseFragment() {
         val layoutManager = GridLayoutManager(context, spanCount)
         epoxyController.spanCount = spanCount
         layoutManager.spanSizeLookup = epoxyController.spanSizeLookup
+
+        binding.actionButtonSection.detailActiveButton.setOnClickListener {
+            //TODO: save the in progress adventure
+            this.findNavController().navigate(
+                AdvCreatePhotoFragmentDirections.actionAdvCreatePhotoFragmentToAdvCreatePublishingFragment()
+            )
+        }
         return binding.root
     }
 
