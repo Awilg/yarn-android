@@ -11,16 +11,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.airbnb.mvrx.activityViewModel
 import com.orienteer.adventurecreate.models.AdvCreateImgPreview_
-import com.orienteer.adventurecreate.models.gridCarousel
 import com.orienteer.adventurecreate.viewmodel.AdvCreateSummaryViewModel
 import com.orienteer.buttonOutlined
 import com.orienteer.createSectionHeader
 import com.orienteer.databinding.FragmentAdvcreatePhotosBinding
 import com.orienteer.util.MavericksBaseFragment
+import com.orienteer.util.carousel
 import com.orienteer.util.simpleController
+import com.orienteer.util.withModelsFrom
 
 
 const val IMAGE_MIME_TYPE = "image/*"
@@ -38,10 +38,6 @@ class AdvCreatePhotoFragment : MavericksBaseFragment() {
         binding = FragmentAdvcreatePhotosBinding.inflate(inflater)
         recyclerView = binding.photosRecyclerView
         recyclerView.setController(epoxyController)
-        val spanCount = 2
-        val layoutManager = GridLayoutManager(context, spanCount)
-        epoxyController.spanCount = spanCount
-        layoutManager.spanSizeLookup = epoxyController.spanSizeLookup
 
         binding.actionButtonSection.detailActiveButton.setOnClickListener {
             //TODO: save the in progress adventure
@@ -59,18 +55,14 @@ class AdvCreatePhotoFragment : MavericksBaseFragment() {
             subtitle("Draw people in with a taste of what they might see on your adventure")
         }
 
-        val photoModels: MutableList<AdvCreateImgPreview_> = arrayListOf()
-        state.photos.forEach {
-            photoModels.add(
+        carousel {
+            id("carousel")
+
+            withModelsFrom(state.photos) {
                 AdvCreateImgPreview_()
                     .id(it.generationId.toString())
                     .bitmap(it)
-            )
-        }
-
-        gridCarousel {
-            id("grid_carousel")
-            models(photoModels)
+            }
         }
 
 
