@@ -1,8 +1,6 @@
 package com.orienteer.adventurecreate.fragments
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +12,6 @@ import com.orienteer.createSectionHeader
 import com.orienteer.databinding.FragmentAdvcreateTitleInfoBinding
 import com.orienteer.util.MavericksBaseFragment
 import com.orienteer.util.simpleController
-import timber.log.Timber
 
 class AdvCreateTitleInfoFragment : MavericksBaseFragment() {
 
@@ -31,6 +28,7 @@ class AdvCreateTitleInfoFragment : MavericksBaseFragment() {
         recyclerView.setController(epoxyController)
         recyclerView.setItemSpacingDp(16)
         binding.actionButtonSection.detailActiveButton.setOnClickListener {
+            //TODO: save the in progress adventure
             this.findNavController().navigate(
                 AdvCreateTitleInfoFragmentDirections.actionAdvCreateTitleInfoFragmentToAdvCreatePhotoFragment()
             )
@@ -39,12 +37,9 @@ class AdvCreateTitleInfoFragment : MavericksBaseFragment() {
     }
 
     override fun epoxyController() = simpleController(viewModel) { state ->
-
-        Timber.i("Building Models: ${Thread.currentThread().name}")
-
         createSectionHeader {
             id("id_section_title")
-            header(state.title)
+            header("Name your adventure")
             subtitle("Be descriptive. Try to include what makes this adventure unique.")
         }
 

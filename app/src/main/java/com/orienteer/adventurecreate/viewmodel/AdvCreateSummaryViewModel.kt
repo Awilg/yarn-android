@@ -1,5 +1,6 @@
 package com.orienteer.adventurecreate.viewmodel
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.airbnb.mvrx.MavericksViewModel
@@ -124,6 +125,10 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
 
     fun updateDescription(desc: CharSequence) {
         setState { copy(title = desc.toString()) }
+    }
+
+    fun updatePhotos(bitmaps: List<Bitmap>) {
+        setState { copy(photos = bitmaps) }
     }
 
 }

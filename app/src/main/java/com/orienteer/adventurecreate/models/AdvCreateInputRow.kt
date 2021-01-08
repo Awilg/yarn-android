@@ -2,6 +2,7 @@ package com.orienteer.adventurecreate.models
 
 import android.content.Context
 import android.util.AttributeSet
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.airbnb.epoxy.*
 import com.google.android.material.textfield.TextInputEditText
@@ -19,6 +20,7 @@ class AdvCreateInputRow @JvmOverloads constructor(
 
 
     private val editText by lazy { findViewById<TextInputEditText>(R.id.create_text_section_input) }
+    private val img by lazy { findViewById<ImageView>(R.id.create_text_section_input) }
     private val promptText by lazy { findViewById<MaterialTextView>(R.id.create_text_section_prompt) }
     private val editTextWatcher = SimpleTextWatcher { onEditTextChanged?.invoke(it) }
 
