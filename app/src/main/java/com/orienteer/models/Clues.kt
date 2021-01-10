@@ -24,14 +24,14 @@ data class ClueTextCreate(
     val hint_3: String?
 )
 
-class ClueText(
+data class ClueText(
     override var cluePrompt: String,
     override val type: String = ClueType.Text.name,
-    override var hints: List<String>?  = emptyList(),
+    override var hints: List<String>? = emptyList(),
     val answer: String
 ) : BaseClue
 
-class CluePhoto(
+data class CluePhoto(
     override var cluePrompt: String,
     override val type: String = ClueType.Photo.name,
     override var hints: List<String>? = emptyList(),
@@ -43,10 +43,11 @@ data class PhotoTag(
     val tag: String,
     val confidence: Double
 )
-class ClueLocation(
+
+data class ClueLocation(
     override var cluePrompt: String,
     override val type: String = ClueType.Location.name,
-    override var hints: List<String>?  = emptyList(),
+    override var hints: List<String>? = emptyList(),
     val location: LatLng
 ) : BaseClue
 

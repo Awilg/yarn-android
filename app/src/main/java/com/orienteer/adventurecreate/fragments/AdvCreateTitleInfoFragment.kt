@@ -28,7 +28,6 @@ class AdvCreateTitleInfoFragment : MavericksBaseFragment() {
         recyclerView.setController(epoxyController)
         recyclerView.setItemSpacingDp(16)
         binding.actionButtonSection.detailActiveButton.setOnClickListener {
-            //TODO: save the in progress adventure
             this.findNavController().navigate(
                 AdvCreateTitleInfoFragmentDirections.actionAdvCreateTitleInfoFragmentToAdvCreatePhotoFragment()
             )

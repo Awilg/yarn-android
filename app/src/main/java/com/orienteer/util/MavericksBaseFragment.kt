@@ -18,6 +18,7 @@ import com.orienteer.R
  */
 abstract class MavericksBaseFragment : Fragment(), MavericksView {
 
+    // TODO: figure out how to specify a base layout via annotation
     protected lateinit var recyclerView: EpoxyRecyclerView
     protected lateinit var toolbar: Toolbar
     protected lateinit var coordinatorLayout: CoordinatorLayout

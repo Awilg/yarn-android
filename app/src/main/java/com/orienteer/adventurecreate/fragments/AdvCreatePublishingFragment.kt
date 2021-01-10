@@ -29,7 +29,7 @@ class AdvCreatePublishingFragment : MavericksBaseFragment() {
         recyclerView.setItemSpacingDp(16)
         binding.actionButtonSection.detailActiveButton.setOnClickListener {
             this.findNavController().navigate(
-                AdvCreatePublishingFragmentDirections.actionAdvCreatePublishingFragmentToAdvCreateCluesFragment()
+                AdvCreatePublishingFragmentDirections.actionAdvCreatePublishingFragmentToAdvCreateCluesSummaryFragment()
             )
         }
         return binding.root

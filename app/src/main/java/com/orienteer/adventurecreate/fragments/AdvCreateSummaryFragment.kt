@@ -76,7 +76,7 @@ class AdvCreateSummaryFragment : BaseFragment() {
         viewModel.navToClues.observe(viewLifecycleOwner) {
             if (null != it && it) {
                 this.findNavController().navigate(
-                    AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreateCluesFragment()
+                    AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreateCluesSummaryFragment()
                 )
                 viewModel.doneNavToClues()
             }

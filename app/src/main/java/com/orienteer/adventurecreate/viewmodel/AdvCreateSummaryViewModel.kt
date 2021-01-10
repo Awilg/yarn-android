@@ -7,6 +7,8 @@ import com.airbnb.mvrx.MavericksViewModel
 import com.orienteer.adventurecreate.models.AdvCreateState
 import com.orienteer.adventurecreate.models.AdvCreateSummaryViewState
 import com.orienteer.adventurecreate.models.SectionItem
+import com.orienteer.models.ClueText
+import com.orienteer.models.ClueType
 
 class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
     MavericksViewModel<AdvCreateState>(initialState) {
@@ -32,42 +34,53 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
     private val _viewState = MutableLiveData<AdvCreateSummaryViewState>()
     val viewState: LiveData<AdvCreateSummaryViewState> = _viewState
 
+    private val _currentClueTypeSelection = MutableLiveData<ClueType>()
+    val currentClueTypeSelection: LiveData<ClueType> = _currentClueTypeSelection
+
     init {
 
-        _viewState.value = AdvCreateSummaryViewState(listOf(
-            (SectionItem("Title & Information",
-                completed = true,
-                continuable = false,
-                onClickHandler = this::navToTitleAndInfo
-            )),
-            (SectionItem("Photos",
-                completed = false,
-                continuable = true,
-                onClickHandler = this::navToPhotos
-            )),
-            (SectionItem("Publishing",
-                completed = false,
-                continuable = false,
-                onClickHandler = this::navToPublishing
-            )),
-            (SectionItem("Clues",
-                completed = false,
-                continuable = false,
-                onClickHandler = this::navToClues
-            )),
+        _viewState.value = AdvCreateSummaryViewState(
+            listOf(
+                (SectionItem(
+                    "Title & Information",
+                    completed = true,
+                    continuable = false,
+                    onClickHandler = this::navToTitleAndInfo
+                )),
+                (SectionItem(
+                    "Photos",
+                    completed = false,
+                    continuable = true,
+                    onClickHandler = this::navToPhotos
+                )),
+                (SectionItem(
+                    "Publishing",
+                    completed = false,
+                    continuable = false,
+                    onClickHandler = this::navToPublishing
+                )),
+                (SectionItem(
+                    "Clues",
+                    completed = false,
+                    continuable = false,
+                    onClickHandler = this::navToClues
+                )),
 
-            (SectionItem("Tips & Treasure",
-                completed = false,
-                continuable = false,
-                onClickHandler = this::navToTips
-            )),
+                (SectionItem(
+                    "Tips & Treasure",
+                    completed = false,
+                    continuable = false,
+                    onClickHandler = this::navToTips
+                )),
 
-            (SectionItem("Review",
-                completed = false,
-                continuable = false,
-                onClickHandler = this::navToReview
-            )),
-            ))
+                (SectionItem(
+                    "Review",
+                    completed = false,
+                    continuable = false,
+                    onClickHandler = this::navToReview
+                )),
+            )
+        )
 
     }
 
@@ -129,6 +142,33 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
 
     fun updatePhotos(bitmaps: List<Bitmap>) {
         setState { copy(photos = bitmaps) }
+    }
+
+    fun updateCurrentClueTypeSelected(clueType: ClueType?) {
+        _currentClueTypeSelection.value = clueType
+    }
+
+    fun updateTextCluePrompt(prompt: String?) {
+        setState { copy(currentTextCluePrompt = prompt) }
+    }
+
+    fun updateTextClueAnswer(answer: String?) {
+        setState { copy(currentTextClueAnswer = answer) }
+    }
+
+    fun saveTextClue() {
+        setState {
+            copy(
+                clues = clues.plus(
+                    ClueText(
+                        cluePrompt = currentTextCluePrompt ?: "",
+                        answer = currentTextClueAnswer ?: ""
+                    )
+                ),
+                currentTextClueAnswer = null,
+                currentTextCluePrompt = null
+            )
+        }
     }
 
 }

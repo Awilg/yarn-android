@@ -173,14 +173,14 @@
             android:id="@+id/action_advCreateSummaryFragment_to_advCreatePublishingFragment"
             app:destination="@id/advCreatePublishingFragment" />
         <action
-            android:id="@+id/action_advCreateSummaryFragment_to_advCreateCluesFragment"
-            app:destination="@id/advCreateCluesFragment" />
-        <action
             android:id="@+id/action_advCreateSummaryFragment_to_advCreateTipsFragment"
             app:destination="@id/advCreateTipsFragment" />
         <action
             android:id="@+id/action_advCreateSummaryFragment_to_advCreateReviewFragment"
             app:destination="@id/advCreateReviewFragment" />
+        <action
+            android:id="@+id/action_advCreateSummaryFragment_to_advCreateCluesSummaryFragment"
+            app:destination="@id/advCreateCluesSummaryFragment" />
     </fragment>
     <fragment
         android:id="@+id/advCreateTitleInfoFragment"
@@ -203,21 +203,33 @@
         android:name="com.orienteer.adventurecreate.fragments.AdvCreatePublishingFragment"
         android:label="AdvCreatePublishingFragment" >
         <action
-            android:id="@+id/action_advCreatePublishingFragment_to_advCreateCluesFragment"
-            app:destination="@id/advCreateCluesFragment" />
+            android:id="@+id/action_advCreatePublishingFragment_to_advCreateCluesSummaryFragment"
+            app:destination="@id/advCreateCluesSummaryFragment" />
     </fragment>
     <fragment
-        android:id="@+id/advCreateCluesFragment"
-        android:name="com.orienteer.adventurecreate.fragments.AdvCreateCluesFragment"
-        android:label="AdvCreateCluesFragment" >
+        android:id="@+id/advCreateClueTypeSelectionFragment"
+        android:name="com.orienteer.adventurecreate.fragments.AdvCreateClueTypeSelectionFragment"
+        android:label="AdvCreateCluesFragment">
         <action
-            android:id="@+id/action_advCreateCluesFragment_to_advCreateTipsFragment"
-            app:destination="@id/advCreateTipsFragment" />
+            android:id="@+id/action_advCreateCluesFragment_to_advCreateClueTextFragment"
+            app:destination="@id/advCreateClueTextFragment" />
+        <action
+            android:id="@+id/action_advCreateCluesFragment_to_advCreateClueLocationFragment"
+            app:destination="@id/advCreateClueLocationFragment" />
+        <action
+            android:id="@+id/action_advCreateCluesFragment_to_advCreateClueLocationFragment2"
+            app:destination="@id/advCreateClueLocationFragment" />
+        <action
+            android:id="@+id/action_advCreateCluesFragment_to_advCreateClueLocationFragment3"
+            app:destination="@id/advCreateClueLocationFragment" />
+        <action
+            android:id="@+id/action_advCreateCluesFragment_to_advCreateCluePhotoFragment"
+            app:destination="@id/advCreateCluePhotoFragment" />
     </fragment>
     <fragment
         android:id="@+id/advCreateTipsFragment"
         android:name="com.orienteer.adventurecreate.fragments.AdvCreateTipsFragment"
-        android:label="AdvCreateTipsFragment" >
+        android:label="AdvCreateTipsFragment">
         <action
             android:id="@+id/action_advCreateTipsFragment_to_advCreateReviewFragment"
             app:destination="@id/advCreateReviewFragment" />
@@ -226,5 +238,40 @@
         android:id="@+id/advCreateReviewFragment"
         android:name="com.orienteer.adventurecreate.fragments.AdvCreateReviewFragment"
         android:label="AdvCreateReviewFragment" />
+    <fragment
+        android:id="@+id/advCreateClueTextFragment"
+        android:name="com.orienteer.adventurecreate.fragments.AdvCreateClueTextFragment"
+        android:label="AdvCreateClueTextFragment">
+        <action
+            android:id="@+id/action_advCreateClueTextFragment_to_advCreateCluesSummaryFragment"
+            app:destination="@id/advCreateCluesSummaryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/advCreateClueLocationFragment"
+        android:name="com.orienteer.adventurecreate.fragments.AdvCreateClueLocationFragment"
+        android:label="AdvCreateClueLocationFragment">
+        <action
+            android:id="@+id/action_advCreateClueLocationFragment_to_advCreateCluesSummaryFragment"
+            app:destination="@id/advCreateCluesSummaryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/advCreateCluePhotoFragment"
+        android:name="com.orienteer.adventurecreate.fragments.AdvCreateCluePhotoFragment"
+        android:label="AdvCreateCluePhotoFragment">
+        <action
+            android:id="@+id/action_advCreateCluePhotoFragment_to_advCreateCluesSummaryFragment"
+            app:destination="@id/advCreateCluesSummaryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/advCreateCluesSummaryFragment"
+        android:name="com.orienteer.adventurecreate.fragments.AdvCreateCluesSummaryFragment"
+        android:label="AdvCreateCluesSummaryFragment">
+        <action
+            android:id="@+id/action_advCreateCluesSummaryFragment_to_advCreateCluesFragment"
+            app:destination="@id/advCreateClueTypeSelectionFragment" />
+        <action
+            android:id="@+id/action_advCreateCluesSummaryFragment_to_advCreateTipsFragment"
+            app:destination="@id/advCreateTipsFragment" />
+    </fragment>
 
 </navigation>
