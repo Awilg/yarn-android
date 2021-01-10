@@ -11,4 +11,6 @@ data class AdvCreateState(
     val clues: List<BaseClue> = emptyList(),
     val currentTextCluePrompt: String? = null,
     val currentTextClueAnswer: String? = null,
+    val currentPhotoCluePrompt: String? = null,
+    val currentPhotoCluePhotos: List<Bitmap> = emptyList()
 ) : MavericksState

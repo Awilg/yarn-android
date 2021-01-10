@@ -171,4 +171,8 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
         }
     }
 
+    fun updatePhotoCluePrompt(prompt: String?) {
+        setState { copy(currentPhotoCluePrompt = prompt) }
+    }
+
 }

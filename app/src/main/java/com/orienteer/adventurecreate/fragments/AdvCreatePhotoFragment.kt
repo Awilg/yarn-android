@@ -12,6 +12,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.airbnb.mvrx.activityViewModel
+import com.orienteer.adventurecreate.ext.IMAGE_PICKER_REQUEST_CODE
+import com.orienteer.adventurecreate.ext.openImageSaf
 import com.orienteer.adventurecreate.models.AdvCreateImgPreview_
 import com.orienteer.adventurecreate.viewmodel.AdvCreateSummaryViewModel
 import com.orienteer.buttonOutlined
@@ -58,7 +60,7 @@ class AdvCreatePhotoFragment : MavericksBaseFragment() {
         carousel {
             id("carousel")
 
-            withModelsFrom(state.photos) {
+            withModelsFrom(state.currentPhotoCluePhotos) {
                 AdvCreateImgPreview_()
                     .id(it.generationId.toString())
                     .bitmap(it)
@@ -71,22 +73,12 @@ class AdvCreatePhotoFragment : MavericksBaseFragment() {
             buttonText("Add photos")
             onClickListener { _ ->
                 Toast.makeText(context, "photo gallery", Toast.LENGTH_SHORT).show()
-                selectImage()
+                openImageSaf()
             }
         }
     }
 
-    // Request code for selecting a PDF document.
-    val IMAGE_PICKER_REQUEST_CODE = 2
 
-    private fun selectImage() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-            type = IMAGE_MIME_TYPE
-            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-        }
-
-        startActivityForResult(intent, IMAGE_PICKER_REQUEST_CODE)
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         super.onActivityResult(requestCode, resultCode, resultData)
