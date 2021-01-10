@@ -253,6 +253,9 @@
         <action
             android:id="@+id/action_advCreateClueLocationFragment_to_advCreateCluesSummaryFragment"
             app:destination="@id/advCreateCluesSummaryFragment" />
+        <action
+            android:id="@+id/action_advCreateClueLocationFragment_to_advCreateClueLocationSelectionFragment"
+            app:destination="@id/advCreateClueLocationSelectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/advCreateCluePhotoFragment"
@@ -273,5 +276,9 @@
             android:id="@+id/action_advCreateCluesSummaryFragment_to_advCreateTipsFragment"
             app:destination="@id/advCreateTipsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/advCreateClueLocationSelectionFragment"
+        android:name="com.orienteer.adventurecreate.fragments.AdvCreateClueLocationSelectionFragment"
+        android:label="AdvCreateClueLocationSelectionFragment" />
 
 </navigation>

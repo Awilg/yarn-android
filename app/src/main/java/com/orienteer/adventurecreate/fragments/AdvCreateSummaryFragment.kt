@@ -4,17 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.airbnb.mvrx.MavericksView
 import com.airbnb.mvrx.activityViewModel
 import com.orienteer.adventurecreate.controller.AdvCreateSummaryController
 import com.orienteer.adventurecreate.viewmodel.AdvCreateSummaryViewModel
 import com.orienteer.databinding.FragmentAdvcreateSummaryBinding
-import com.orienteer.util.BaseFragment
 
-class AdvCreateSummaryFragment : BaseFragment() {
+class AdvCreateSummaryFragment : Fragment(), MavericksView {
 
     private val viewModel: AdvCreateSummaryViewModel by activityViewModel()
-    lateinit var binding : FragmentAdvcreateSummaryBinding
+    lateinit var binding: FragmentAdvcreateSummaryBinding
 
     private val controller by lazy { AdvCreateSummaryController() }
 

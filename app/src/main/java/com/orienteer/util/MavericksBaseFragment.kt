@@ -12,6 +12,7 @@ import com.airbnb.epoxy.EpoxyController
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.airbnb.mvrx.MavericksView
 import com.orienteer.R
+import pub.devrel.easypermissions.EasyPermissions
 
 /**
  * Provides base UI (epoxy, toolbar, back handling) for fragments to extend.
@@ -82,5 +83,30 @@ abstract class MavericksBaseFragment : Fragment(), MavericksView {
     override fun onDestroyView() {
         epoxyController.cancelPendingModelBuild()
         super.onDestroyView()
+    }
+}
+
+abstract class MavericksWithPermissionsFragment : MavericksBaseFragment() {
+    // Override the onresult callback to decorate the easy permissions one
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+}
+
+abstract class EasyPermissionsFragment : Fragment() {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 }

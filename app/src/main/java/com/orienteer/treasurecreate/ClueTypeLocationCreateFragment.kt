@@ -1,6 +1,5 @@
 package com.orienteer.treasurecreate
 
-import android.Manifest
 import android.app.Activity
 import android.location.Location
 import android.os.Bundle
@@ -20,9 +19,9 @@ import com.orienteer.R
 import com.orienteer.databinding.FragmentClueLocationCreateBinding
 import com.orienteer.models.ClueLocation
 import com.orienteer.models.RequestCodes
+import com.orienteer.util.checkFineLocation
 import com.orienteer.util.hideKeyboard
 import pub.devrel.easypermissions.EasyPermissions
-import pub.devrel.easypermissions.PermissionRequest
 import timber.log.Timber
 
 
@@ -76,15 +75,7 @@ class ClueTypeLocationCreateFragment : Fragment(),
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        // Check permissions
-        if (!EasyPermissions.hasPermissions(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
-            EasyPermissions.requestPermissions(
-                PermissionRequest.Builder(
-                    this, RequestCodes.PERMISSIONS_RC_LOCATION.code,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ).build()
-            )
-        }
+        checkFineLocation(requireContext(), this)
 
         // Set the map in the viewModel
         viewModel.setClueLocationMap(map!!)
@@ -115,7 +106,6 @@ class ClueTypeLocationCreateFragment : Fragment(),
         } catch (e: SecurityException) {
             Timber.e("Exception: ${e.message}")
         }
-
     }
 
     // Override the onresult callback to decorate the easy permissions one

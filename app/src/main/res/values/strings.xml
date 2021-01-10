@@ -198,5 +198,6 @@
     <string name="treasure_slider_explanation">Whatever Booty you set as a reward will be awarded to the first 5 finishers of your adventure.</string>
     <string name="purchase_booty">Purchase Booty</string>
     <string name="img_preview">img_preview</string>
+    <string name="clue_radius">Clue radius:</string>
 </resources>
 

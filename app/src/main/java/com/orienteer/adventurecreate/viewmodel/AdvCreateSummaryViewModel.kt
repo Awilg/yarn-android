@@ -1,12 +1,18 @@
 package com.orienteer.adventurecreate.viewmodel
 
 import android.graphics.Bitmap
+import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.airbnb.mvrx.MavericksViewModel
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
 import com.orienteer.adventurecreate.models.AdvCreateState
 import com.orienteer.adventurecreate.models.AdvCreateSummaryViewState
 import com.orienteer.adventurecreate.models.SectionItem
+import com.orienteer.map.DEFAULT_LOCATION
+import com.orienteer.map.DEFAULT_ZOOM
 import com.orienteer.models.ClueText
 import com.orienteer.models.ClueType
 
@@ -36,6 +42,12 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
 
     private val _currentClueTypeSelection = MutableLiveData<ClueType>()
     val currentClueTypeSelection: LiveData<ClueType> = _currentClueTypeSelection
+
+    private var _currentLocationClueMap: GoogleMap? = null
+
+    private val _lastKnownLocation = MutableLiveData<Location>()
+    val lastKnownLocation: LiveData<Location>
+        get() = _lastKnownLocation
 
     init {
 
@@ -173,6 +185,45 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
 
     fun updatePhotoCluePrompt(prompt: String?) {
         setState { copy(currentPhotoCluePrompt = prompt) }
+    }
+
+    fun setCurrentClueLocationMap(map: GoogleMap?) {
+        _currentLocationClueMap = map
+    }
+
+    fun updateClueLocationMap() {
+        if (_lastKnownLocation.value == null) {
+            resetClueLocationMap()
+        } else {
+            _currentLocationClueMap?.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    LatLng(
+                        _lastKnownLocation.value!!.latitude,
+                        _lastKnownLocation.value!!.longitude
+                    ), DEFAULT_ZOOM
+                )
+            )
+        }
+    }
+
+    fun setLastKnownLocation(loc: Location?) {
+        _lastKnownLocation.value = loc
+        updateClueLocationMap()
+    }
+
+    fun setClueLocationMap(map: GoogleMap) {
+        _currentLocationClueMap = map
+        map.setMinZoomPreference(4.0f)
+        map.setMaxZoomPreference(19.0f)
+    }
+
+    fun resetClueLocationMap() {
+        _currentLocationClueMap?.moveCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                DEFAULT_LOCATION,
+                DEFAULT_ZOOM
+            )
+        )
     }
 
 }
