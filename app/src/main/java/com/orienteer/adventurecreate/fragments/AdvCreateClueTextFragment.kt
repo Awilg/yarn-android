@@ -10,6 +10,7 @@ import com.orienteer.adventurecreate.models.advCreateInputRow
 import com.orienteer.adventurecreate.viewmodel.AdvCreateSummaryViewModel
 import com.orienteer.createSectionHeader
 import com.orienteer.databinding.FragmentAdvcreateCluesTextEditorBinding
+import com.orienteer.models.ClueType
 import com.orienteer.util.MavericksBaseFragment
 import com.orienteer.util.simpleController
 
@@ -47,13 +48,13 @@ class AdvCreateClueTextFragment : MavericksBaseFragment() {
             text(state.currentTextCluePrompt)
             prompt("Clue Prompt")
             hint("e.g. This International Orange Icon connects San Francisco and Marin County")
-            onEditTextChanged { viewModel.updateTextCluePrompt(it) }
+            onEditTextChanged { viewModel.updateCluePrompt(it, ClueType.Text) }
         }
 
         advCreateInputRow {
             id("id_clue_answer")
             text(state.currentTextClueAnswer)
-            prompt("Clue Prompt")
+            prompt("Clue Solution")
             hint("e.g. The Golden Gate Bridge")
             onEditTextChanged { viewModel.updateTextClueAnswer(it) }
         }

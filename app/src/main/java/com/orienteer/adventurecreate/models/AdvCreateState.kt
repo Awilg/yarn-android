@@ -14,5 +14,6 @@ data class AdvCreateState(
     val currentTextClueAnswer: String? = null,
     val currentPhotoCluePrompt: String? = null,
     val currentPhotoCluePhotos: List<Bitmap> = emptyList(),
+    val currentLocCluePrompt: String? = null,
     val currentLocClueLatLng: LatLng? = null
 ) : MavericksState

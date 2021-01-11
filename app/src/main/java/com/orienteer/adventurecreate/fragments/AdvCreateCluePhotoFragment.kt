@@ -7,6 +7,7 @@ import com.orienteer.adventurecreate.models.advCreateInputRow
 import com.orienteer.adventurecreate.viewmodel.AdvCreateSummaryViewModel
 import com.orienteer.buttonOutlined
 import com.orienteer.createSectionHeader
+import com.orienteer.models.ClueType
 import com.orienteer.util.MavericksBaseFragment
 import com.orienteer.util.carousel
 import com.orienteer.util.simpleController
@@ -29,7 +30,7 @@ class AdvCreateCluePhotoFragment : MavericksBaseFragment() {
             text(state.currentPhotoCluePrompt)
             prompt("Clue Prompt")
             hint("e.g. This International Orange Icon connects San Francisco and Marin County")
-            onEditTextChanged { viewModel.updatePhotoCluePrompt(it) }
+            onEditTextChanged { viewModel.updateCluePrompt(it, ClueType.Photo) }
         }
 
         //TODO: make a better model for this

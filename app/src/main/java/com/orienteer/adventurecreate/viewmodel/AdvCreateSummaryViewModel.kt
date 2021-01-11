@@ -13,6 +13,7 @@ import com.orienteer.adventurecreate.models.AdvCreateSummaryViewState
 import com.orienteer.adventurecreate.models.SectionItem
 import com.orienteer.map.DEFAULT_LOCATION
 import com.orienteer.map.DEFAULT_ZOOM
+import com.orienteer.models.ClueLocation
 import com.orienteer.models.ClueText
 import com.orienteer.models.ClueType
 
@@ -160,10 +161,6 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
         _currentClueTypeSelection.value = clueType
     }
 
-    fun updateTextCluePrompt(prompt: String?) {
-        setState { copy(currentTextCluePrompt = prompt) }
-    }
-
     fun updateTextClueAnswer(answer: String?) {
         setState { copy(currentTextClueAnswer = answer) }
     }
@@ -181,10 +178,6 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
                 currentTextCluePrompt = null
             )
         }
-    }
-
-    fun updatePhotoCluePrompt(prompt: String?) {
-        setState { copy(currentPhotoCluePrompt = prompt) }
     }
 
     fun setCurrentClueLocationMap(map: GoogleMap?) {
@@ -211,12 +204,6 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
         updateClueLocationMap()
     }
 
-    fun setClueLocationMap(map: GoogleMap) {
-        _currentLocationClueMap = map
-        map.setMinZoomPreference(4.0f)
-        map.setMaxZoomPreference(19.0f)
-    }
-
     fun resetClueLocationMap() {
         _currentLocationClueMap?.moveCamera(
             CameraUpdateFactory.newLatLngZoom(
@@ -231,4 +218,30 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
         setState { copy(currentLocClueLatLng = latlng) }
     }
 
+    fun saveLocationClue() {
+        setState {
+            copy(
+                clues = clues.plus(
+                    ClueLocation(
+                        cluePrompt = currentLocCluePrompt ?: "",
+                        location = LatLng(
+                            currentLocClueLatLng!!.latitude,
+                            currentLocClueLatLng.longitude
+                        )
+                    )
+                ),
+                currentLocCluePrompt = null
+            )
+        }
+    }
+
+    fun updateCluePrompt(prompt: String?, type: ClueType) {
+        when (type) {
+            ClueType.Text -> setState { copy(currentTextCluePrompt = prompt) }
+            ClueType.Location -> setState { copy(currentLocCluePrompt = prompt) }
+            ClueType.Photo -> setState { copy(currentPhotoCluePrompt = prompt) }
+            else -> {
+            }
+        }
+    }
 }

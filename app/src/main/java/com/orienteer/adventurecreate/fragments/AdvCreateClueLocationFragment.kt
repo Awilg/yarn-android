@@ -13,6 +13,7 @@ import com.orienteer.buttonOutlined
 import com.orienteer.createSectionHeader
 import com.orienteer.databinding.FragmentAdvcreateCluesLocationBinding
 import com.orienteer.mapviewStatic
+import com.orienteer.models.ClueType
 import com.orienteer.util.MavericksBaseFragment
 import com.orienteer.util.simpleController
 
@@ -31,7 +32,7 @@ class AdvCreateClueLocationFragment : MavericksBaseFragment() {
         recyclerView.setController(epoxyController)
         recyclerView.setItemSpacingDp(16)
         binding.actionButtonSection.detailActiveButton.setOnClickListener {
-            viewModel.saveClueLocationCenterMap()
+            viewModel.saveLocationClue()
             this.findNavController().navigate(
                 AdvCreateClueLocationFragmentDirections.actionAdvCreateClueLocationFragmentToAdvCreateCluesSummaryFragment()
             )
@@ -51,7 +52,7 @@ class AdvCreateClueLocationFragment : MavericksBaseFragment() {
             text(state.currentPhotoCluePrompt)
             prompt("Clue Prompt")
             hint("e.g. This International Orange Icon connects San Francisco and Marin County")
-            onEditTextChanged { viewModel.updatePhotoCluePrompt(it) }
+            onEditTextChanged { viewModel.updateCluePrompt(it, ClueType.Location) }
         }
 
         state.currentLocClueLatLng?.let {
