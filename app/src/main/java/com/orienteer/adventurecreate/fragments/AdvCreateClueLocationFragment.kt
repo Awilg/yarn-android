@@ -49,7 +49,7 @@ class AdvCreateClueLocationFragment : MavericksBaseFragment() {
 
         advCreateInputRow {
             id("id_clue_prompt")
-            text(state.currentPhotoCluePrompt)
+            text(state.currentLocCluePrompt)
             prompt("Clue Prompt")
             hint("e.g. This International Orange Icon connects San Francisco and Marin County")
             onEditTextChanged { viewModel.updateCluePrompt(it, ClueType.Location) }

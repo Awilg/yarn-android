@@ -199,6 +199,7 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
         }
     }
 
+
     fun setLastKnownLocation(loc: Location?) {
         _lastKnownLocation.value = loc
         updateClueLocationMap()
@@ -230,7 +231,8 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
                         )
                     )
                 ),
-                currentLocCluePrompt = null
+                currentLocCluePrompt = null,
+                currentLocClueLatLng = null
             )
         }
     }

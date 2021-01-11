@@ -11,6 +11,7 @@ import com.orienteer.adventurecreate.viewmodel.AdvCreateSummaryViewModel
 import com.orienteer.buttonOutlined
 import com.orienteer.createSectionHeader
 import com.orienteer.databinding.FragmentAdvcreateCluesBinding
+import com.orienteer.label
 import com.orienteer.models.ClueType
 import com.orienteer.util.MavericksBaseFragment
 import com.orienteer.util.simpleController
@@ -54,9 +55,9 @@ class AdvCreateCluesSummaryFragment : MavericksBaseFragment() {
         }
 
         if (state.clues.isEmpty()) {
-            createSectionHeader {
+            label {
                 id("clue_section_sub")
-                subtitle("There are no clues yet. Add one!")
+                text("There are no clues yet. Add one!")
             }
         }
 
