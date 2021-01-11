@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.airbnb.mvrx.activityViewModel
+import com.orienteer.R
 import com.orienteer.adventurecreate.models.advCreateInputRow
 import com.orienteer.adventurecreate.viewmodel.AdvCreateSummaryViewModel
 import com.orienteer.buttonOutlined
 import com.orienteer.createSectionHeader
 import com.orienteer.databinding.FragmentAdvcreateCluesLocationBinding
+import com.orienteer.mapviewStatic
 import com.orienteer.util.MavericksBaseFragment
 import com.orienteer.util.simpleController
 
@@ -29,6 +31,7 @@ class AdvCreateClueLocationFragment : MavericksBaseFragment() {
         recyclerView.setController(epoxyController)
         recyclerView.setItemSpacingDp(16)
         binding.actionButtonSection.detailActiveButton.setOnClickListener {
+            viewModel.saveClueLocationCenterMap()
             this.findNavController().navigate(
                 AdvCreateClueLocationFragmentDirections.actionAdvCreateClueLocationFragmentToAdvCreateCluesSummaryFragment()
             )
@@ -51,9 +54,12 @@ class AdvCreateClueLocationFragment : MavericksBaseFragment() {
             onEditTextChanged { viewModel.updatePhotoCluePrompt(it) }
         }
 
-        createSectionHeader {
-            id("id_section_location_clue_solution")
-            header("Clue Solution")
+        state.currentLocClueLatLng?.let {
+            mapviewStatic {
+                id("mapview")
+                latlng(it)
+                mapsApiKey(getString(R.string.google_maps_key))
+            }
         }
 
         buttonOutlined {

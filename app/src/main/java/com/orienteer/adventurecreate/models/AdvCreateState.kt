@@ -2,6 +2,7 @@ package com.orienteer.adventurecreate.models
 
 import android.graphics.Bitmap
 import com.airbnb.mvrx.MavericksState
+import com.google.android.gms.maps.model.LatLng
 import com.orienteer.models.BaseClue
 
 data class AdvCreateState(
@@ -12,5 +13,6 @@ data class AdvCreateState(
     val currentTextCluePrompt: String? = null,
     val currentTextClueAnswer: String? = null,
     val currentPhotoCluePrompt: String? = null,
-    val currentPhotoCluePhotos: List<Bitmap> = emptyList()
+    val currentPhotoCluePhotos: List<Bitmap> = emptyList(),
+    val currentLocClueLatLng: LatLng? = null
 ) : MavericksState

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/exploreFragment">
+    app:startDestination="@id/advCreateCluesSummaryFragment">
 
     <fragment
         android:id="@+id/mapFragment"
@@ -279,6 +279,10 @@
     <fragment
         android:id="@+id/advCreateClueLocationSelectionFragment"
         android:name="com.orienteer.adventurecreate.fragments.AdvCreateClueLocationSelectionFragment"
-        android:label="AdvCreateClueLocationSelectionFragment" />
+        android:label="AdvCreateClueLocationSelectionFragment">
+        <action
+            android:id="@+id/action_advCreateClueLocationSelectionFragment_to_advCreateClueLocationFragment"
+            app:destination="@id/advCreateClueLocationFragment" />
+    </fragment>
 
 </navigation>

@@ -44,8 +44,9 @@ class AdvCreateClueLocationSelectionFragment : EasyPermissionsFragment(), Maveri
         mapFragment?.getMapAsync(this)
 
         binding.actionButtonSection.detailActiveButton.setOnClickListener {
+            viewModel.saveClueLocationCenterMap()
             this.findNavController().navigate(
-                AdvCreateClueLocationFragmentDirections.actionAdvCreateClueLocationFragmentToAdvCreateClueLocationSelectionFragment()
+                AdvCreateClueLocationSelectionFragmentDirections.actionAdvCreateClueLocationSelectionFragmentToAdvCreateClueLocationFragment()
             )
         }
         return binding.root

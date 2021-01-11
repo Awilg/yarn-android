@@ -226,4 +226,9 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
         )
     }
 
+    fun saveClueLocationCenterMap() {
+        val latlng = _currentLocationClueMap?.cameraPosition?.target
+        setState { copy(currentLocClueLatLng = latlng) }
+    }
+
 }

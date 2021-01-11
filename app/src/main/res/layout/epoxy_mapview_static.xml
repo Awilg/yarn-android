@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.google.android.gms.maps.model.LatLng" />
+
+        <variable
+            name="latlng"
+            type="com.google.android.gms.maps.model.LatLng" />
+
+        <variable
+            name="mapsApiKey"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginBottom="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mapImageFromLatLng="@{latlng}"
+            app:mapsApiKey="@{mapsApiKey}"
+            app:shapeAppearanceOverlay="@style/yarnRoundedCorners" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
