@@ -32,6 +32,7 @@ class AdvCreateCluesSummaryFragment : MavericksBaseFragment() {
         recyclerView.setController(epoxyController)
         recyclerView.setItemSpacingDp(16)
         binding.actionButtonSection.detailActiveButton.setOnClickListener {
+            viewModel.saveClues()
             this.findNavController().navigate(
                 AdvCreateCluesSummaryFragmentDirections.actionAdvCreateCluesSummaryFragmentToAdvCreateTipsFragment()
             )

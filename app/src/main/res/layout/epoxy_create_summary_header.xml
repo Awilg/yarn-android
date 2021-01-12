@@ -15,6 +15,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/create_summary_image_background"
+            android:layout_width="500dp"
+            android:layout_height="275dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_advcreate_section_header_background" />
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/create_summary_header_title"
             android:layout_width="wrap_content"

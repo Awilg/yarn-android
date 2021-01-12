@@ -5,10 +5,3 @@ data class AdvCreateSummaryViewState(
 )
 
 typealias OnClickHandler = () -> Unit
-
-data class SectionItem(
-    val name: String,
-    val completed: Boolean,
-    val continuable: Boolean,
-    val onClickHandler: OnClickHandler
-)

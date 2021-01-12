@@ -2,9 +2,6 @@ package com.orienteer.adventurecreate.fragments
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +10,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.airbnb.mvrx.activityViewModel
 import com.orienteer.adventurecreate.ext.IMAGE_PICKER_REQUEST_CODE
+import com.orienteer.adventurecreate.ext.getBitmapsFromResultData
 import com.orienteer.adventurecreate.ext.openImageSaf
 import com.orienteer.adventurecreate.models.AdvCreateImgPreview_
 import com.orienteer.adventurecreate.viewmodel.AdvCreateSummaryViewModel
@@ -43,6 +41,7 @@ class AdvCreatePhotoFragment : MavericksBaseFragment() {
 
         binding.actionButtonSection.detailActiveButton.setOnClickListener {
             //TODO: save the in progress adventure
+            viewModel.savePhotos()
             this.findNavController().navigate(
                 AdvCreatePhotoFragmentDirections.actionAdvCreatePhotoFragmentToAdvCreatePublishingFragment()
             )
@@ -79,49 +78,11 @@ class AdvCreatePhotoFragment : MavericksBaseFragment() {
     }
 
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         super.onActivityResult(requestCode, resultCode, resultData)
 
         if (requestCode == IMAGE_PICKER_REQUEST_CODE && resultCode == RESULT_OK) {
-
-            if (resultData?.clipData != null) {
-                resultData.clipData?.let { uris ->
-                    activity?.let { fragActivity ->
-                        val selectedUris: MutableList<Uri> = arrayListOf()
-                        for (index in 0 until uris.itemCount) {
-                            selectedUris.add(uris.getItemAt(index).uri)
-                        }
-
-                        val decodedBitmaps: MutableList<Bitmap> = arrayListOf()
-                        selectedUris.forEach { uri ->
-                            decodedBitmaps.add(
-                                BitmapFactory.decodeStream(
-                                    fragActivity.contentResolver?.openInputStream(
-                                        uri
-                                    )
-                                )
-                            )
-                        }
-
-                        viewModel.updatePhotos(decodedBitmaps)
-                    }
-                }
-            } else {
-                resultData?.data?.let { uri ->
-                    activity?.let { fragActivity ->
-                        viewModel.updatePhotos(
-                            listOf(
-                                BitmapFactory.decodeStream(
-                                    fragActivity.contentResolver?.openInputStream(
-                                        uri
-                                    )
-                                )
-                            )
-                        )
-                    }
-                }
-            }
+            viewModel.updatePhotos(getBitmapsFromResultData(resultData))
         }
     }
 }

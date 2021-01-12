@@ -4,101 +4,149 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.airbnb.mvrx.MavericksView
 import com.airbnb.mvrx.activityViewModel
-import com.orienteer.adventurecreate.controller.AdvCreateSummaryController
+import com.orienteer.adventurecreate.models.SectionItem
+import com.orienteer.adventurecreate.models.SectionType
+import com.orienteer.adventurecreate.models.initialSectionList
 import com.orienteer.adventurecreate.viewmodel.AdvCreateSummaryViewModel
+import com.orienteer.createSummaryHeader
+import com.orienteer.createSummaryItem
+import com.orienteer.createSummaryItemCurrent
 import com.orienteer.databinding.FragmentAdvcreateSummaryBinding
+import com.orienteer.util.MavericksBaseFragment
+import com.orienteer.util.simpleController
 
-class AdvCreateSummaryFragment : Fragment(), MavericksView {
+class AdvCreateSummaryFragment : MavericksBaseFragment() {
 
     private val viewModel: AdvCreateSummaryViewModel by activityViewModel()
     lateinit var binding: FragmentAdvcreateSummaryBinding
-
-    private val controller by lazy { AdvCreateSummaryController() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentAdvcreateSummaryBinding.inflate(inflater)
+        recyclerView = binding.summaryRecyclerView
+        recyclerView.setController(epoxyController)
+        recyclerView.setItemSpacingDp(16)
+
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun epoxyController() = simpleController(viewModel) { state ->
+        createSummaryHeader {
+            id(hashCode())
+            header("Let's make something together")
+        }
+
+        // TODO: review backstack pop nav for the create flow
+        initialSectionList.forEach { sectionItem ->
+            var itemFocused = false
+            var itemContinuable = false
+            var itemDone = false
+
+            if (state.currentFocusedSectionItem == sectionItem.type) {
+                itemFocused = true
+            } else {
+
+                when (sectionItem.type) {
+                    SectionType.TitleAndInfo -> {
+                        if (!state.title.isNullOrEmpty() && !state.description.isNullOrEmpty()) {
+                            itemDone = true
+                        } else if ((!state.title.isNullOrEmpty() && state.description.isNullOrEmpty()) || (state.title.isNullOrEmpty() && !state.description.isNullOrEmpty())) {
+                            itemContinuable = true
+                        }
+                    }
+                    SectionType.Photos -> {
+                        if (state.photos.isNotEmpty()) {
+                            itemContinuable = true
+                        }
+                    }
+                    SectionType.Clues -> {
+                        if (state.clues.isNotEmpty()) {
+                            itemContinuable = true
+                        }
+                    }
+                    SectionType.Publishing -> {
+                    }
+                    SectionType.TipsAndTreasure -> {
+                    }
+                    SectionType.Review -> {
+                    }
+                }
+
+            }
 
 
-        setupNavObservers()
-        binding.summaryRecyclerView.setItemSpacingDp(16)
-        binding.summaryRecyclerView.setController(controller)
-
-        viewModel.viewState.observe(viewLifecycleOwner) { viewState ->
-            controller.setData(viewState)
+            if (itemFocused) {
+                createSummaryItemCurrent {
+                    id(hashCode())
+                    item(sectionItem)
+                    onClick { _ ->
+                        doNavForType(sectionItem)
+                    }
+                }
+            } else {
+                createSummaryItem {
+                    id(hashCode())
+                    item(sectionItem)
+                    completed(itemDone)
+                    onClick { _ ->
+                        doNavForType(sectionItem)
+                    }
+                }
+            }
         }
     }
 
-    override fun invalidate() {
 
+    private fun doNavForType(type: SectionItem) =
+        when (type.type) {
+            SectionType.TitleAndInfo -> navToTitleAndInfo()
+            SectionType.Photos -> navToPhotos()
+            SectionType.Clues -> navToClues()
+            SectionType.Publishing -> navToPublishing()
+            SectionType.TipsAndTreasure -> navToTips()
+            SectionType.Review -> navToReview()
+        }
+
+
+    private fun navToTitleAndInfo() {
+        this.findNavController().navigate(
+            AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreateTitleInfoFragment()
+        )
     }
 
-    fun setupNavObservers() {
+    private fun navToPhotos() {
+        this.findNavController().navigate(
+            AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreatePhotoFragment()
+        )
+    }
 
-        viewModel.navToTitleAndInfo.observe(viewLifecycleOwner) {
-            if (null != it && it) {
-                this.findNavController().navigate(
-                    AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreateTitleInfoFragment()
-                )
-                viewModel.doneNavToTitleAndInfo()
-            }
-        }
+    private fun navToClues() {
+        this.findNavController().navigate(
+            AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreateCluesSummaryFragment()
+        )
+    }
 
-        viewModel.navToPhotos.observe(viewLifecycleOwner) {
-            if (null != it && it) {
-                this.findNavController().navigate(
-                    AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreatePhotoFragment()
-                )
-                viewModel.doneNavToPhotos()
-            }
-        }
-        viewModel.navToPublishing.observe(viewLifecycleOwner) {
-            if (null != it && it) {
-                this.findNavController().navigate(
-                    AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreatePublishingFragment()
-                )
-                viewModel.doneNavToPublishing()
-            }
-        }
+    private fun navToPublishing() {
+        this.findNavController().navigate(
+            AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreateCluesSummaryFragment()
+        )
+    }
 
-        viewModel.navToClues.observe(viewLifecycleOwner) {
-            if (null != it && it) {
-                this.findNavController().navigate(
-                    AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreateCluesSummaryFragment()
-                )
-                viewModel.doneNavToClues()
-            }
-        }
+    private fun navToTips() {
+        this.findNavController().navigate(
+            AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreateTipsFragment()
+        )
+    }
 
-        viewModel.navToTips.observe(viewLifecycleOwner) {
-            if (null != it && it) {
-                this.findNavController().navigate(
-                    AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreateTipsFragment()
-                )
-                viewModel.doneNavToTips()
-            }
-        }
+    private fun navToReview() {
 
-        viewModel.navToReview.observe(viewLifecycleOwner) {
-            if (null != it && it) {
-                this.findNavController().navigate(
-                    AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreateReviewFragment()
-                )
-                viewModel.doneNavToReview()
-            }
-        }
+        this.findNavController().navigate(
+            AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreateReviewFragment()
+        )
     }
 }
