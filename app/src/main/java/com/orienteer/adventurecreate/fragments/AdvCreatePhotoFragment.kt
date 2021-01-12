@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.airbnb.mvrx.activityViewModel
 import com.orienteer.adventurecreate.ext.IMAGE_PICKER_REQUEST_CODE
@@ -59,7 +58,7 @@ class AdvCreatePhotoFragment : MavericksBaseFragment() {
         carousel {
             id("carousel")
 
-            withModelsFrom(state.currentPhotoCluePhotos) {
+            withModelsFrom(state.photos) {
                 AdvCreateImgPreview_()
                     .id(it.generationId.toString())
                     .bitmap(it)
@@ -71,7 +70,6 @@ class AdvCreatePhotoFragment : MavericksBaseFragment() {
             id("id_add_photos_button")
             buttonText("Add photos")
             onClickListener { _ ->
-                Toast.makeText(context, "photo gallery", Toast.LENGTH_SHORT).show()
                 openImageSaf()
             }
         }

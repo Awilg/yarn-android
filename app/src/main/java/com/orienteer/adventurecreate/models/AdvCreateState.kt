@@ -16,21 +16,9 @@ data class AdvCreateState(
     val currentPhotoCluePhotos: List<Bitmap> = emptyList(),
     val currentLocCluePrompt: String? = null,
     val currentLocClueLatLng: LatLng? = null,
-    val currentFocusedSectionItem: SectionType = SectionType.TitleAndInfo
-) : MavericksState {
-
-    fun isNew(): Boolean =
-        title == null &&
-                description == null &&
-                photos.isEmpty() &&
-                clues.isEmpty() &&
-                currentTextCluePrompt == null &&
-                currentTextClueAnswer == null &&
-                currentPhotoCluePrompt == null &&
-                currentPhotoCluePhotos.isEmpty() &&
-                currentLocCluePrompt == null &&
-                currentLocClueLatLng == null
-}
+    val currentFocusedSectionItem: SectionType = SectionType.TitleAndInfo,
+    val isPrivateAdventure: Boolean? = null
+) : MavericksState
 
 data class SectionItem(
     val name: String,

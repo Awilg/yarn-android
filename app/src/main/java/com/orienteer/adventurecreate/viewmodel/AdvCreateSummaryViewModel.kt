@@ -173,4 +173,30 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
     fun saveTips() {
         setState { copy(currentFocusedSectionItem = SectionType.Review) }
     }
+
+    fun updateAdventurePrivacy(isPrivate: Boolean?) {
+        setState { copy(isPrivateAdventure = isPrivate) }
+    }
+
+//fun saveAdventure() {
+//    _currentAdventure.value?.let { adventureCreate ->
+//        coroutineScope.launch {
+//
+//            _clues.value?.let { clues ->
+//                adventureCreate.clues = clues
+//            }
+//            // Get the Deferred object for our Retrofit request
+//            val saveAdventure = TreasureHuntApi.service.saveAdventure(adventureCreate)
+//            try {
+//                // this will run on a thread managed by Retrofit
+//                val result = saveAdventure.await()
+//                //_currentUser.value = result
+//            } catch (e: Exception) {
+//                //_status.value = ApiStatus.ERROR
+//                Timber.e("Network request failed with exception $e")
+//                //_currentUser.value = TEST_USER
+//            }
+//        }
+//    }
+//}
 }

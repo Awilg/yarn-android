@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.airbnb.mvrx.activityViewModel
+import com.orienteer.adventurecreate.models.advCreateToggleItem
 import com.orienteer.adventurecreate.viewmodel.AdvCreateSummaryViewModel
 import com.orienteer.createSectionHeader
-import com.orienteer.createToggle
 import com.orienteer.databinding.FragmentAdvcreatePublishingBinding
 import com.orienteer.util.MavericksBaseFragment
 import com.orienteer.util.simpleController
@@ -38,14 +38,17 @@ class AdvCreatePublishingFragment : MavericksBaseFragment() {
 
     override fun epoxyController() = simpleController(viewModel) { state ->
         createSectionHeader {
-            id(hashCode())
+            id("section_header")
             header("Publishing")
             subtitle("All adventures are published to all users by default. In order to create a private adventure a premium account is required.")
         }
 
-        createToggle {
-            id(hashCode())
-            prompt("Make adventure private")
+        advCreateToggleItem {
+            id("toggle_private")
+            text("Publish Private adventure")
+            enabled(state.isPrivateAdventure)
+            onToggleItem { viewModel.updateAdventurePrivacy(it) }
         }
+
     }
 }

@@ -1,9 +1,9 @@
 package com.orienteer.adventurecreate.fragments
 
 import com.airbnb.mvrx.activityViewModel
+import com.orienteer.adventurecreate.models.advCreateToggleItem
 import com.orienteer.adventurecreate.viewmodel.AdvCreateSummaryViewModel
 import com.orienteer.createSectionHeader
-import com.orienteer.createToggle
 import com.orienteer.createTreasureSlider
 import com.orienteer.databinding.FragmentAdvcreatePhotosBinding
 import com.orienteer.util.MavericksBaseFragment
@@ -21,14 +21,14 @@ class AdvCreateTipsFragment : MavericksBaseFragment() {
             subtitle("What's an adventure without some treasure? Here you can stash the spoils as well as allow other adventurers to leave you tips for an adventure well crafted.")
         }
 
-        createToggle {
+        advCreateToggleItem {
             id(hashCode())
-            prompt("Enable tips")
+            text("Enable tips")
         }
 
-        createToggle {
+        advCreateToggleItem {
             id(hashCode())
-            prompt("Add a treasure")
+            text("Add a treasure")
         }
 
         createTreasureSlider {

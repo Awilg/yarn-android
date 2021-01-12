@@ -133,7 +133,7 @@ class AdvCreateSummaryFragment : MavericksBaseFragment() {
 
     private fun navToPublishing() {
         this.findNavController().navigate(
-            AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreateCluesSummaryFragment()
+            AdvCreateSummaryFragmentDirections.actionAdvCreateSummaryFragmentToAdvCreatePublishingFragment()
         )
     }
 
