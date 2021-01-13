@@ -17,7 +17,9 @@ data class AdvCreateState(
     val currentLocCluePrompt: String? = null,
     val currentLocClueLatLng: LatLng? = null,
     val currentFocusedSectionItem: SectionType = SectionType.TitleAndInfo,
-    val isPrivateAdventure: Boolean? = null
+    val isPrivateAdventure: Boolean? = null,
+    val tipsEnabled: Boolean? = null,
+    val treasureEnabled: Boolean? = null
 ) : MavericksState
 
 data class SectionItem(

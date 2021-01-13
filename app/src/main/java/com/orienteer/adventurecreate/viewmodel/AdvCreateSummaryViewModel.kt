@@ -178,6 +178,14 @@ class AdvCreateSummaryViewModel(initialState: AdvCreateState) :
         setState { copy(isPrivateAdventure = isPrivate) }
     }
 
+    fun updateTipsEnabled(tipsEnabled: Boolean?) {
+        setState { copy(tipsEnabled = tipsEnabled) }
+    }
+
+    fun updateTreasureEnabled(treasureEnabled: Boolean?) {
+        setState { copy(treasureEnabled = treasureEnabled) }
+    }
+
 //fun saveAdventure() {
 //    _currentAdventure.value?.let { adventureCreate ->
 //        coroutineScope.launch {
