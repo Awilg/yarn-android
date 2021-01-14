@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.orienteer.advcreateCard
-import com.orienteer.adventurecreate.controller.AdvCreateEpoxyController
 import com.orienteer.adventurecreate.viewmodel.AdvCreateViewModel
 import com.orienteer.buttonFull
 import com.orienteer.databinding.FragmentAdvcreateBinding
@@ -40,7 +39,7 @@ class AdvCreateFragment : Fragment() {
         binding.inprogressRecyclerView.setItemSpacingDp(16)
         binding.inprogressRecyclerView.withModels {
             sectionTitle {
-                id(hashCode())
+                id("inProgress")
                 text("In progress")
             }
 
@@ -52,7 +51,7 @@ class AdvCreateFragment : Fragment() {
             }
 
             buttonFull {
-                id(hashCode())
+                id("createNewButton")
                 buttonText("Create new adventure")
                 onClickListener { _ ->
                     findNavController().navigate(
@@ -62,7 +61,7 @@ class AdvCreateFragment : Fragment() {
             }
 
             sectionTitle {
-                id(hashCode())
+                id("CompletedTitle")
                 text("Completed")
             }
 

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="adventure"
+            type="com.orienteer.explore.model.AdventureSummary" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/featured_card"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/color_background"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:foreground="@drawable/gradient_featured_adventure"
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{adventure.featuredImage}"
+                    tools:src="@drawable/anchor_light" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/featured_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="@{adventure.title}"
+                    android:textColor="@color/color_white"
+                    android:textSize="28sp"
+                    app:layout_constraintBottom_toTopOf="@id/featured_teaser"
+                    app:layout_constraintStart_toStartOf="@id/featured_teaser"
+                    tools:text="@string/hunt_the_kraken" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/featured_teaser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="@{adventure.description}"
+                    android:textColor="@color/color_white"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="@string/there_are_whispers" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

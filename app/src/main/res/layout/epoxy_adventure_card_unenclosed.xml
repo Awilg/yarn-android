@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="adventure"
+            type="com.orienteer.explore.model.AdventureSummary" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/card_image"
+            imageUrl="@{adventure.featuredImage}"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/yarnRoundedCorners" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/adventure_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:fontFamily="@font/opensans_semibold"
+            android:text="@{adventure.title}"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/card_image"
+            app:layout_constraintTop_toBottomOf="@id/card_image" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/adventure_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@{adventure.description}"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/card_image"
+            app:layout_constraintTop_toBottomOf="@id/adventure_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
