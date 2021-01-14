@@ -237,7 +237,11 @@
     <fragment
         android:id="@+id/advCreateReviewFragment"
         android:name="com.orienteer.adventurecreate.fragments.AdvCreateReviewFragment"
-        android:label="AdvCreateReviewFragment" />
+        android:label="AdvCreateReviewFragment">
+        <action
+            android:id="@+id/action_advCreateReviewFragment_to_advCreateFragment"
+            app:destination="@id/advCreateFragment" />
+    </fragment>
     <fragment
         android:id="@+id/advCreateClueTextFragment"
         android:name="com.orienteer.adventurecreate.fragments.AdvCreateClueTextFragment"
