@@ -4,14 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
-        <variable
-            name="header"
-            type="String" />
-        <variable
-            name="subtitle"
-            type="String" />
-    </data>
+
+		<import type="android.view.View" />
+
+		<variable
+			name="header"
+			type="String" />
+
+		<variable
+			name="subtitle"
+			type="String" />
+	</data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/create_summary_header_container"

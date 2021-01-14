@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+
+		<import type="android.view.View" />
+
+		<variable
+			name="userName"
+			type="String" />
+
+		<variable
+			name="userRank"
+			type="String" />
+
+		<variable
+			name="avatarUrl"
+			type="String" />
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/create_summary_header_container"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<com.google.android.material.imageview.ShapeableImageView
+			android:id="@+id/profile_image"
+			android:layout_width="125dp"
+			android:layout_height="125dp"
+			android:layout_marginTop="@dimen/margin_32"
+			android:theme="@style/yarnCircular"
+			app:imageUrl="@{avatarUrl}"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<com.google.android.material.textview.MaterialTextView
+			android:id="@+id/profile_username"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/margin_24"
+			android:layout_marginTop="@dimen/margin_16"
+			android:layout_marginEnd="@dimen/margin_24"
+			android:fontFamily="@font/opensans_semibold"
+			android:text="@{userName}"
+			android:textAlignment="center"
+			android:textSize="20sp"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/profile_image"
+			tools:text="Let's make something great" />
+
+		<com.google.android.material.textview.MaterialTextView
+			android:id="@+id/profile_user_rank"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/margin_24"
+			android:layout_marginTop="@dimen/margin_8"
+			android:layout_marginEnd="@dimen/margin_24"
+			android:text="@{userRank}"
+			android:textAlignment="center"
+			android:textSize="14sp"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/profile_username"
+			tools:text="This is a subtitle" />
+
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
