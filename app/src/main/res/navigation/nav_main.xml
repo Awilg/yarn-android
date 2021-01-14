@@ -35,8 +35,7 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.orienteer.profile.ProfileFragment"
-        android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        android:label="Profile" />
 
     <fragment
         android:id="@+id/treasureHuntsFragment"
@@ -193,10 +192,14 @@
     <fragment
         android:id="@+id/advCreatePhotoFragment"
         android:name="com.orienteer.adventurecreate.fragments.AdvCreatePhotoFragment"
-        android:label="AdvCreatePhotoFragment" >
+        android:label="AdvCreatePhotoFragment">
         <action
             android:id="@+id/action_advCreatePhotoFragment_to_advCreatePublishingFragment"
-            app:destination="@id/advCreatePublishingFragment" />
+            app:destination="@id/advCreatePublishingFragment"
+            app:popUpTo="@id/advCreateSummaryFragment" />
+        <action
+            android:id="@+id/action_advCreatePhotoFragment_to_advCreateCluesSummaryFragment"
+            app:popUpTo="@id/advCreateCluesSummaryFragment" />
     </fragment>
     <fragment
         android:id="@+id/advCreatePublishingFragment"
@@ -204,7 +207,8 @@
         android:label="AdvCreatePublishingFragment" >
         <action
             android:id="@+id/action_advCreatePublishingFragment_to_advCreateCluesSummaryFragment"
-            app:destination="@id/advCreateCluesSummaryFragment" />
+            app:destination="@id/advCreateCluesSummaryFragment"
+            app:popUpTo="@id/advCreateSummaryFragment" />
     </fragment>
     <fragment
         android:id="@+id/advCreateClueTypeSelectionFragment"
@@ -232,7 +236,8 @@
         android:label="AdvCreateTipsFragment">
         <action
             android:id="@+id/action_advCreateTipsFragment_to_advCreateReviewFragment"
-            app:destination="@id/advCreateReviewFragment" />
+            app:destination="@id/advCreateReviewFragment"
+            app:popUpTo="@id/advCreateSummaryFragment" />
     </fragment>
     <fragment
         android:id="@+id/advCreateReviewFragment"
@@ -248,7 +253,8 @@
         android:label="AdvCreateClueTextFragment">
         <action
             android:id="@+id/action_advCreateClueTextFragment_to_advCreateCluesSummaryFragment"
-            app:destination="@id/advCreateCluesSummaryFragment" />
+            app:destination="@id/advCreateCluesSummaryFragment"
+            app:popUpTo="@id/advCreateSummaryFragment" />
     </fragment>
     <fragment
         android:id="@+id/advCreateClueLocationFragment"
@@ -256,7 +262,8 @@
         android:label="AdvCreateClueLocationFragment">
         <action
             android:id="@+id/action_advCreateClueLocationFragment_to_advCreateCluesSummaryFragment"
-            app:destination="@id/advCreateCluesSummaryFragment" />
+            app:destination="@id/advCreateCluesSummaryFragment"
+            app:popUpTo="@id/advCreateSummaryFragment" />
         <action
             android:id="@+id/action_advCreateClueLocationFragment_to_advCreateClueLocationSelectionFragment"
             app:destination="@id/advCreateClueLocationSelectionFragment" />
@@ -267,7 +274,8 @@
         android:label="AdvCreateCluePhotoFragment">
         <action
             android:id="@+id/action_advCreateCluePhotoFragment_to_advCreateCluesSummaryFragment"
-            app:destination="@id/advCreateCluesSummaryFragment" />
+            app:destination="@id/advCreateCluesSummaryFragment"
+            app:popUpTo="@id/advCreateSummaryFragment" />
     </fragment>
     <fragment
         android:id="@+id/advCreateCluesSummaryFragment"
@@ -279,6 +287,9 @@
         <action
             android:id="@+id/action_advCreateCluesSummaryFragment_to_advCreateTipsFragment"
             app:destination="@id/advCreateTipsFragment" />
+        <action
+            android:id="@+id/action_advCreateCluesSummaryFragment_to_advCreateSummaryFragment"
+            app:popUpTo="@id/advCreateSummaryFragment" />
     </fragment>
     <fragment
         android:id="@+id/advCreateClueLocationSelectionFragment"

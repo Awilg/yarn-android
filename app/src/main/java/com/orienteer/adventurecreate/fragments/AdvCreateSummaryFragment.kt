@@ -37,7 +37,7 @@ class AdvCreateSummaryFragment : MavericksBaseFragment() {
 
     override fun epoxyController() = simpleController(viewModel) { state ->
         createSummaryHeader {
-            id(hashCode())
+            id("create_summary_header")
             header("Let's make something together")
         }
 
@@ -70,8 +70,12 @@ class AdvCreateSummaryFragment : MavericksBaseFragment() {
                         }
                     }
                     SectionType.Publishing -> {
+                        state.isPrivateAdventure?.let { itemDone = true }
                     }
                     SectionType.TipsAndTreasure -> {
+                        state.tipsEnabled?.let {
+                            itemDone = true
+                        }
                     }
                     SectionType.Review -> {
                     }
@@ -82,7 +86,7 @@ class AdvCreateSummaryFragment : MavericksBaseFragment() {
 
             if (itemFocused) {
                 createSummaryItemCurrent {
-                    id(hashCode())
+                    id(sectionItem.name)
                     item(sectionItem)
                     onClick { _ ->
                         doNavForType(sectionItem)
@@ -90,7 +94,7 @@ class AdvCreateSummaryFragment : MavericksBaseFragment() {
                 }
             } else {
                 createSummaryItem {
-                    id(hashCode())
+                    id(sectionItem.name)
                     item(sectionItem)
                     completed(itemDone)
                     onClick { _ ->
