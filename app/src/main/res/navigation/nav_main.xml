@@ -142,6 +142,9 @@
         <action
             android:id="@+id/action_exploreFragment_to_creatorTutorialFragment"
             app:destination="@id/creatorTutorialFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/creatorTutorialFragment"
@@ -302,6 +305,13 @@
     <fragment
         android:id="@+id/exploreFragmentV2"
         android:name="com.orienteer.explore.fragment.ExploreFragmentV2"
-        android:label="ExploreFragmentV2" />
+        android:label="ExploreFragmentV2">
+        <action
+            android:id="@+id/action_exploreFragmentV2_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_exploreFragmentV2_to_creatorTutorialFragment"
+            app:destination="@id/creatorTutorialFragment" />
+    </fragment>
 
 </navigation>

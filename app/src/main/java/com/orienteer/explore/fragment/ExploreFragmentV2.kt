@@ -3,7 +3,6 @@ package com.orienteer.explore.fragment
 import androidx.navigation.fragment.findNavController
 import com.airbnb.mvrx.activityViewModel
 import com.orienteer.*
-import com.orienteer.adventurecreate.fragments.AdvCreateFragmentDirections
 import com.orienteer.databinding.FragmentAdvcreateReviewBinding
 import com.orienteer.explore.viewmodel.ExploreViewModelV2
 import com.orienteer.util.MavericksBaseFragment
@@ -31,11 +30,12 @@ class ExploreFragmentV2 : MavericksBaseFragment() {
 
         callToCreate {
             id("callToCreate")
+            onClick { _ ->
+                findNavController().navigate(ExploreFragmentV2Directions.actionExploreFragmentV2ToCreatorTutorialFragment())
+            }
         }
 
         state.nearbyAdventures?.let { nearbyAdventures ->
-
-
             sectionTitle {
                 id("discoverLocal")
                 text("Discover Local")
@@ -58,7 +58,7 @@ class ExploreFragmentV2 : MavericksBaseFragment() {
                 buttonText("Explore Nearby Adventures")
                 onClickListener { _ ->
                     findNavController().navigate(
-                        AdvCreateFragmentDirections.actionAdvCreateFragmentToAdvCreateSummaryFragment()
+                        ExploreFragmentV2Directions.actionExploreFragmentV2ToMapFragment()
                     )
                 }
             }
