@@ -52,8 +52,8 @@
         android:label="Treasure Hunt"
         tools:layout="@layout/fragment_treasure_hunt_detail">
         <argument
-            android:name="selectedTreasureHunt"
-            app:argType="com.orienteer.models.Adventure" />
+			android:name="adventureId"
+			app:argType="string" />
         <action
             android:id="@+id/action_treasureHuntDetail_to_treasureHuntActiveFragment"
             app:destination="@id/treasureHuntActiveFragment" />
@@ -135,17 +135,20 @@
         android:id="@+id/exploreFragment"
         android:name="com.orienteer.explore.ExploreFragment"
         android:label="Explore"
-        tools:layout="@layout/fragment_explore">
-        <action
-            android:id="@+id/action_exploreDestination_to_treasureHuntDetail"
-            app:destination="@id/treasureHuntDetail" />
-        <action
-            android:id="@+id/action_exploreFragment_to_creatorTutorialFragment"
-            app:destination="@id/creatorTutorialFragment" />
-        <action
-            android:id="@+id/action_exploreFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
-    </fragment>
+		tools:layout="@layout/fragment_explore">
+		<action
+			android:id="@+id/action_exploreDestination_to_treasureHuntDetail"
+			app:destination="@id/treasureHuntDetail" />
+		<action
+			android:id="@+id/action_exploreFragment_to_creatorTutorialFragment"
+			app:destination="@id/creatorTutorialFragment" />
+		<action
+			android:id="@+id/action_exploreFragment_to_mapFragment"
+			app:destination="@id/mapFragment" />
+		<action
+			android:id="@+id/action_exploreFragment_to_advDetailFragment"
+			app:destination="@id/advDetailFragment" />
+	</fragment>
     <fragment
         android:id="@+id/creatorTutorialFragment"
         android:name="com.orienteer.creatortutorial.CreatorTutorialFragment"
@@ -302,16 +305,27 @@
             android:id="@+id/action_advCreateClueLocationSelectionFragment_to_advCreateClueLocationFragment"
             app:destination="@id/advCreateClueLocationFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/exploreFragmentV2"
-        android:name="com.orienteer.explore.fragment.ExploreFragmentV2"
-        android:label="ExploreFragmentV2">
-        <action
-            android:id="@+id/action_exploreFragmentV2_to_mapFragment"
-            app:destination="@id/mapFragment" />
-        <action
-            android:id="@+id/action_exploreFragmentV2_to_creatorTutorialFragment"
-            app:destination="@id/creatorTutorialFragment" />
-    </fragment>
+	<fragment
+		android:id="@+id/exploreFragmentV2"
+		android:name="com.orienteer.explore.fragment.ExploreFragmentV2"
+		android:label="ExploreFragmentV2">
+		<action
+			android:id="@+id/action_exploreFragmentV2_to_mapFragment"
+			app:destination="@id/mapFragment" />
+		<action
+			android:id="@+id/action_exploreFragmentV2_to_creatorTutorialFragment"
+			app:destination="@id/creatorTutorialFragment" />
+		<action
+			android:id="@+id/action_exploreFragmentV2_to_advDetailFragment"
+			app:destination="@id/advDetailFragment" />
+	</fragment>
+	<fragment
+		android:id="@+id/advDetailFragment"
+		android:name="com.orienteer.treasurehuntdetail.AdvDetailFragment"
+		android:label="AdvDetailFragment">
+		<argument
+			android:name="adventureId"
+			app:argType="string" />
+	</fragment>
 
 </navigation>

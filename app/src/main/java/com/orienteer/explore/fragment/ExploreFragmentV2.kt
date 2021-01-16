@@ -24,7 +24,14 @@ class ExploreFragmentV2 : MavericksBaseFragment() {
         state.featuredAdventure?.let {
             exploreFeaturedCard {
                 id("featuredCard")
-                adventure(it)
+				adventure(it)
+				onClick { _ ->
+					findNavController().navigate(
+						ExploreFragmentV2Directions.actionExploreFragmentV2ToAdvDetailFragment(
+							it.id!!
+						)
+					)
+				}
             }
         }
 
@@ -46,9 +53,16 @@ class ExploreFragmentV2 : MavericksBaseFragment() {
                 numViewsToShowOnScreen(1.2f)
 
                 withModelsFrom(nearbyAdventures) { adv ->
-                    AdventureCardUnenclosedBindingModel_()
-                        .id(adv.id)
-                        .adventure(adv)
+					AdventureCardUnenclosedBindingModel_()
+						.id(adv.id)
+						.adventure(adv)
+						.onClick { _ ->
+							findNavController().navigate(
+								ExploreFragmentV2Directions.actionExploreFragmentV2ToAdvDetailFragment(
+									adv.id!!
+								)
+							)
+						}
                 }
             }
 

@@ -3,25 +3,30 @@
 
     <data>
 
-        <variable
-            name="adventure"
-            type="com.orienteer.explore.model.AdventureSummary" />
-    </data>
+		<variable
+			name="adventure"
+			type="com.orienteer.explore.model.AdventureSummary" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+		<variable
+			name="onClick"
+			type="android.view.View.OnClickListener" />
+	</data>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/featured_card"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/color_background"
+	<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:onClick="@{onClick}">
+
+		<com.google.android.material.card.MaterialCardView
+			android:id="@+id/featured_card"
+			android:layout_width="match_parent"
+			android:layout_height="400dp"
+			android:layout_marginStart="24dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginEnd="24dp"
+			android:layout_marginBottom="16dp"
+			android:backgroundTint="@color/color_background"
             app:cardCornerRadius="24dp"
             app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

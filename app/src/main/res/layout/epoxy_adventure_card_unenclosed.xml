@@ -3,24 +3,29 @@
 
     <data>
 
-        <variable
-            name="adventure"
-            type="com.orienteer.explore.model.AdventureSummary" />
-    </data>
+		<variable
+			name="adventure"
+			type="com.orienteer.explore.model.AdventureSummary" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+		<variable
+			name="onClick"
+			type="android.view.View.OnClickListener" />
+	</data>
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/card_image"
-            imageUrl="@{adventure.featuredImage}"
-            android:layout_width="300dp"
-            android:layout_height="200dp"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_16"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
+	<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:onClick="@{onClick}">
+
+		<com.google.android.material.imageview.ShapeableImageView
+			android:id="@+id/card_image"
+			imageUrl="@{adventure.featuredImage}"
+			android:layout_width="300dp"
+			android:layout_height="200dp"
+			android:layout_marginStart="@dimen/margin_16"
+			android:layout_marginTop="@dimen/margin_16"
+			android:scaleType="centerCrop"
+			app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/yarnRoundedCorners" />
 

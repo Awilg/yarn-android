@@ -102,16 +102,16 @@ class ExploreFragment : Fragment() {
         // After navigating, call doneNavigatingToSelectedTreasureHunt() so that the ViewModel is ready
         // for another navigation event.
         _viewModel.navigateToSelectedAdventure.observe(viewLifecycleOwner, Observer {
-            if (null != it) {
-                // Must find the NavController from the Fragment
-                this.findNavController().navigate(
-                    ExploreFragmentDirections.actionExploreDestinationToTreasureHuntDetail(it)
-                )
+			if (null != it) {
+				// Must find the NavController from the Fragment
+				this.findNavController().navigate(
+					ExploreFragmentDirections.actionExploreDestinationToTreasureHuntDetail(it.id)
+				)
 
-                // Tell the ViewModel we've made the navigate call to prevent multiple navigation
-                _viewModel.doneNavigatingToSelectedTreasureHunt()
-            }
-        })
+				// Tell the ViewModel we've made the navigate call to prevent multiple navigation
+				_viewModel.doneNavigatingToSelectedTreasureHunt()
+			}
+		})
 
         _viewModel.navigateToCallToCreate.observe(viewLifecycleOwner, Observer {
             if (null != it && it) {
