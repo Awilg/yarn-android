@@ -52,8 +52,8 @@
         android:label="Treasure Hunt"
         tools:layout="@layout/fragment_treasure_hunt_detail">
         <argument
-            android:name="selectedTreasureHunt"
-            app:argType="com.orienteer.models.Adventure" />
+            android:name="adventureId"
+            app:argType="string" />
         <action
             android:id="@+id/action_treasureHuntDetail_to_treasureHuntActiveFragment"
             app:destination="@id/treasureHuntActiveFragment" />
@@ -312,6 +312,20 @@
         <action
             android:id="@+id/action_exploreFragmentV2_to_creatorTutorialFragment"
             app:destination="@id/creatorTutorialFragment" />
+        <action
+            android:id="@+id/action_exploreFragmentV2_to_treasureHuntDetail"
+            app:destination="@id/treasureHuntDetail" />
+        <action
+            android:id="@+id/action_exploreFragmentV2_to_advDetailFragment"
+            app:destination="@id/advDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/advDetailFragment"
+        android:name="com.orienteer.detail.AdvDetailFragment"
+        android:label="AdvDetailFragment">
+        <argument
+            android:name="adventureId"
+            app:argType="string" />
     </fragment>
 
 </navigation>

@@ -6,32 +6,23 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.location.Location
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.PagerSnapHelper
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.orienteer.R
-import com.orienteer.core.OnSnapPositionChangeListener
-import com.orienteer.core.SnapOnScrollListener
-import com.orienteer.core.attachSnapHelperWithListener
 import com.orienteer.databinding.FragmentMapBinding
-import com.orienteer.explore.MarginItemDecoration
-import com.orienteer.treasurehunts.TreasureHuntsAdapter
 import timber.log.Timber
 
 class MapFragment : Fragment(), OnMapReadyCallback {
@@ -104,7 +95,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             if (null != it) {
                 // Must find the NavController from the Fragment
                 this.findNavController().navigate(
-                    MapFragmentDirections.actionMapDestinationToTreasureHuntDetail(it)
+                    MapFragmentDirections.actionMapDestinationToTreasureHuntDetail(it.id)
                 )
 
                 // Tell the ViewModel we've made the navigate call to prevent multiple navigation
