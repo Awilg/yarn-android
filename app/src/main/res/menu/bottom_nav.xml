@@ -6,10 +6,6 @@
         android:icon="@drawable/ic_add_location_black_24dp"
         android:title="@string/create" />
     <item
-        android:id="@id/mapFragment"
-        android:icon="@drawable/ic_map_24"
-        android:title="@string/map" />
-    <item
         android:id="@+id/exploreFragment"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="@string/explore" />
@@ -17,9 +13,4 @@
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_person_black_24dp"
         android:title="@string/profile" />
-
-    <item
-        android:id="@id/settingsContainerFragment"
-        android:icon="@drawable/ic_settings_black_24dp"
-        android:title="@string/menu_tools" />
 </menu>
