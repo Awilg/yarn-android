@@ -1,7 +1,8 @@
-package com.orienteer.detail
+package com.orienteer.detail.viewmodel
 
 import com.airbnb.mvrx.MavericksViewModel
 import com.google.android.gms.maps.model.LatLng
+import com.orienteer.detail.model.AdvDetailState
 import com.orienteer.models.Adventure
 import com.orienteer.models.Clue
 import com.orienteer.models.ClueState

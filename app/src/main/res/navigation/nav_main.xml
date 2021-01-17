@@ -132,21 +132,6 @@
         tools:layout="@layout/fragment_adventure_completed" />
 
     <fragment
-        android:id="@+id/exploreFragment"
-        android:name="com.orienteer.explore.ExploreFragment"
-        android:label="Explore"
-        tools:layout="@layout/fragment_explore">
-        <action
-            android:id="@+id/action_exploreDestination_to_treasureHuntDetail"
-            app:destination="@id/treasureHuntDetail" />
-        <action
-            android:id="@+id/action_exploreFragment_to_creatorTutorialFragment"
-            app:destination="@id/creatorTutorialFragment" />
-        <action
-            android:id="@+id/action_exploreFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/creatorTutorialFragment"
         android:name="com.orienteer.creatortutorial.CreatorTutorialFragment"
         android:label="CreatorTutorialFragment"
@@ -321,7 +306,7 @@
     </fragment>
     <fragment
         android:id="@+id/advDetailFragment"
-        android:name="com.orienteer.detail.AdvDetailFragment"
+        android:name="com.orienteer.detail.fragment.AdvDetailFragment"
         android:label="AdvDetailFragment">
         <argument
             android:name="adventureId"
