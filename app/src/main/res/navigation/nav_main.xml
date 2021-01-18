@@ -42,21 +42,7 @@
         android:name="com.orienteer.treasurehunts.TreasureHuntsFragment"
         android:label="Treasure Hunts"
         tools:layout="@layout/fragment_treasure_hunts">
-        <action
-            android:id="@+id/action_treasureHuntsFragment_to_treasureHuntDetail"
-            app:destination="@id/treasureHuntDetail" />
-    </fragment>
-    <fragment
-        android:id="@+id/treasureHuntDetail"
-        android:name="com.orienteer.treasurehuntdetail.TreasureHuntDetailFragment"
-        android:label="Treasure Hunt"
-        tools:layout="@layout/fragment_treasure_hunt_detail">
-        <argument
-            android:name="adventureId"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_treasureHuntDetail_to_treasureHuntActiveFragment"
-            app:destination="@id/treasureHuntActiveFragment" />
+
     </fragment>
 
     <fragment
@@ -297,9 +283,6 @@
         <action
             android:id="@+id/action_exploreFragmentV2_to_creatorTutorialFragment"
             app:destination="@id/creatorTutorialFragment" />
-        <action
-            android:id="@+id/action_exploreFragmentV2_to_treasureHuntDetail"
-            app:destination="@id/treasureHuntDetail" />
         <action
             android:id="@+id/action_exploreFragmentV2_to_advDetailFragment"
             app:destination="@id/advDetailFragment" />
