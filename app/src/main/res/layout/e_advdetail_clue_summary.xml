@@ -1,0 +1,181 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/clue_location_number"
+        style="@style/yarnTextClueSummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        app:layout_constraintBottom_toBottomOf="@id/clue_location_icon"
+        app:layout_constraintStart_toEndOf="@id/clue_location_icon"
+        app:layout_constraintTop_toTopOf="@id/clue_location_icon"
+        tools:text="2" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/clue_location_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="@dimen/margin_16"
+        android:src="@drawable/ic_outline_location_on_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider_loc_photo"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/clue_photo_icon"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/clue_location_number"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/clue_photo_number"
+        style="@style/yarnTextClueSummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        app:layout_constraintBottom_toBottomOf="@id/clue_location_number"
+        app:layout_constraintStart_toEndOf="@id/clue_photo_icon"
+        app:layout_constraintTop_toTopOf="@id/clue_location_number"
+        tools:text="5" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/clue_photo_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="12dp"
+        android:src="@drawable/ic_outline_camera_alt_24"
+        app:layout_constraintBottom_toBottomOf="@id/clue_location_icon"
+        app:layout_constraintStart_toEndOf="@id/divider_loc_photo"
+        app:layout_constraintTop_toTopOf="@id/clue_location_icon"
+        tools:layout_editor_absoluteX="130dp" />
+
+    <View
+        android:id="@+id/divider_photo_text"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/clue_photo_number"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/clue_text_number"
+        style="@style/yarnTextClueSummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        app:layout_constraintBottom_toBottomOf="@id/clue_location_number"
+        app:layout_constraintStart_toEndOf="@id/clue_text_icon"
+        app:layout_constraintTop_toTopOf="@id/clue_location_number"
+        tools:text="1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/clue_text_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="12dp"
+        android:src="@drawable/ic_outline_edit_24"
+        app:layout_constraintBottom_toBottomOf="@id/clue_location_icon"
+        app:layout_constraintStart_toEndOf="@id/divider_photo_text"
+        app:layout_constraintTop_toTopOf="@id/clue_location_icon" />
+
+    <View
+        android:id="@+id/divider_text_treasure"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/clue_treasure_icon"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/clue_text_number"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/clue_treasure_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="12dp"
+        android:src="@drawable/ic_icons8_treasure_chest"
+        app:layout_constraintBottom_toBottomOf="@+id/clue_location_icon"
+        app:layout_constraintStart_toEndOf="@id/divider_text_treasure"
+        app:layout_constraintTop_toTopOf="@+id/clue_location_icon" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/treasure_amount"
+        style="@style/yarnTextClueSummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        app:layout_constraintBottom_toBottomOf="@id/clue_location_number"
+        app:layout_constraintStart_toEndOf="@id/clue_treasure_icon"
+        app:layout_constraintTop_toTopOf="@id/clue_location_number"
+        tools:text="50" />
+
+    <View
+        android:id="@+id/divider_treasure_prize"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/treasure_amount"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/clue_prize_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="12dp"
+        android:src="@drawable/ic_icons8_money_bag"
+        app:layout_constraintBottom_toBottomOf="@+id/clue_location_icon"
+        app:layout_constraintStart_toEndOf="@id/divider_treasure_prize"
+        app:layout_constraintTop_toTopOf="@+id/clue_location_icon" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/prize_amount"
+        style="@style/yarnTextClueSummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        app:layout_constraintBottom_toBottomOf="@id/clue_location_number"
+        app:layout_constraintStart_toEndOf="@id/clue_prize_icon"
+        app:layout_constraintTop_toTopOf="@id/clue_location_number"
+        tools:text="$100" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/author_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:scaleType="centerCrop"
+        android:theme="@style/yarnCircular"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

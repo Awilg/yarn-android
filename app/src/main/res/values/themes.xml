@@ -116,4 +116,9 @@
         <item name="colorControlHighlight">@color/color_dark_grey</item>
     </style>
 
+    <style name="yarnTextClueSummary" parent="">
+        <item name="android:fontFamily">@font/opensans_semibold</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

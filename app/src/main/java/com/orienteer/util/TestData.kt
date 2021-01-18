@@ -322,13 +322,30 @@ var TEST_ADVENTURES_IN_PROGRESS : List<AdventureInProgress> = listOf(
 
 )
 
-var TEST_USER : User = User("id", "JimmyTheKid", listOf("id_15", "id_19"), emptyList(), "https://firebasestorage.googleapis.com/v0/b/orienteer-dev.appspot.com/o/IMG_20190702_100344.jpg?alt=media&token=5537d40d-e6d4-4b77-a30e-8c2d0bb11d04", Calendar.getInstance().time)
+var TEST_USER: User = User(
+	"id",
+	"JimmyTheKid",
+	listOf("id_15", "id_19"),
+	emptyList(),
+	"https://firebasestorage.googleapis.com/v0/b/orienteer-dev.appspot.com/o/IMG_20190702_100344.jpg?alt=media&token=5537d40d-e6d4-4b77-a30e-8c2d0bb11d04",
+	Calendar.getInstance().time
+)
 
 
-var TEST_ADV_CREATE_SUMMARY_IN_PROGRESS = listOf(AdvCreateSummary("test in progress", "test subtitle", "https://i.redd.it/d2ifvz972nc51.png", 0))
+var TEST_ADV_CREATE_SUMMARY_IN_PROGRESS = listOf(
+	AdvCreateSummary(
+		"test in progress",
+		"test subtitle",
+		"https://i.redd.it/d2ifvz972nc51.png",
+		0
+	)
+)
 var TEST_ADV_CREATE_SUMMARY_COMPLETED = listOf(
 	AdvCreateSummary("test completed", "test subtitle", "https://i.redd.it/d2ifvz972nc51.png", 0),
 	AdvCreateSummary("test completed", "test subtitle", "https://i.redd.it/d2ifvz972nc51.png", 0),
 	AdvCreateSummary("test completed", "test subtitle", "https://i.redd.it/d2ifvz972nc51.png", 0),
 	AdvCreateSummary("test completed", "test subtitle", "https://i.redd.it/d2ifvz972nc51.png", 0)
 )
+
+var TEST_PARAGRAPH =
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In nibh mauris cursus mattis molestie a iaculis at erat. Platea dictumst vestibulum rhoncus est. Mattis pellentesque id nibh tortor id aliquet lectus proin nibh. Ac tortor vitae purus faucibus ornare suspendisse. Morbi non arcu risus quis varius quam quisque. Bibendum neque egestas congue quisque egestas. Turpis egestas sed tempus urna et pharetra. Purus semper eget duis at tellus. Eu facilisis sed odio morbi. Viverra adipiscing at in tellus integer feugiat scelerisque varius morbi."
