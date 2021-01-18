@@ -42,11 +42,11 @@ class TreasureHuntsFragment : Fragment() {
         viewModel.navigateToSelectedAdventure.observe(viewLifecycleOwner, Observer {
             if (null != it) {
                 // Must find the NavController from the Fragment
-                this.findNavController().navigate(
-                    TreasureHuntsFragmentDirections.actionTreasureHuntsFragmentToTreasureHuntDetail(
-                        it.id
-                    )
-                )
+//                this.findNavController().navigate(
+//                    TreasureHuntsFragmentDirections.actionTreasureHuntsFragmentToTreasureHuntDetail(
+//                        it.id
+//                    )
+//                )
 
                 // Tell the ViewModel we've made the navigate call to prevent multiple navigation
                 viewModel.doneNavigatingToSelectedTreasureHunt()

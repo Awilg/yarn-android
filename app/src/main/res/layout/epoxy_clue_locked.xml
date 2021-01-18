@@ -1,0 +1,49 @@
+<layout>
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/clue_container"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginStart="@dimen/margin_24"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_24"
+            android:backgroundTint="@color/color_light_grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/yarnRoundedCorners" />
+
+        <ImageView
+            android:id="@+id/clue_lock_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="@dimen/margin_24"
+            android:src="@drawable/ic_icons8_lock"
+            android:translationZ="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/clue_container"
+            app:layout_constraintStart_toStartOf="@id/clue_container"
+            app:layout_constraintTop_toTopOf="@id/clue_container" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/clue_locked_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_24"
+            android:text="@string/clue_locked"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:translationZ="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/clue_lock_icon"
+            app:layout_constraintStart_toEndOf="@id/clue_lock_icon"
+            app:layout_constraintTop_toTopOf="@id/clue_lock_icon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

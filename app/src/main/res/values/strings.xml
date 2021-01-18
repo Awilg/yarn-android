@@ -199,5 +199,6 @@
     <string name="purchase_booty">Purchase Booty</string>
     <string name="img_preview">img_preview</string>
     <string name="clue_radius">Clue radius:</string>
+    <string name="clue_locked">Clue locked</string>
 </resources>
 

@@ -1,12 +1,14 @@
 package com.orienteer.detail.fragment
 
 import android.os.Bundle
+import androidx.navigation.fragment.findNavController
 import com.airbnb.mvrx.activityViewModel
 import com.orienteer.*
 import com.orienteer.databinding.FragmentAdvcreateReviewBinding
 import com.orienteer.detail.model.advDetailClueSummary
 import com.orienteer.detail.model.advDetailGallery
 import com.orienteer.detail.viewmodel.AdvDetailViewModel
+import com.orienteer.explore.fragment.ExploreFragmentV2Directions
 import com.orienteer.models.ClueType
 import com.orienteer.util.MavericksBaseFragment
 import com.orienteer.util.TEST_PARAGRAPH
@@ -58,6 +60,19 @@ class AdvDetailFragment : MavericksBaseFragment() {
 
             advdetailReviews {
                 id("reviews")
+                onClick { _ ->
+                    findNavController().navigate(
+                        AdvDetailFragmentDirections.actionAdvDetailFragmentToAdvActiveFragment(
+                            state.adventure
+                        )
+                    )
+                }
+            }
+
+            mapviewStatic {
+                id("mapview1")
+                latlng(state.adventure.location)
+                mapsApiKey(getString(R.string.google_maps_key))
             }
         }
     }
