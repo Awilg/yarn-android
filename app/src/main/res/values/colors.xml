@@ -31,4 +31,16 @@
 
     <color name="color_white">#ffffff</color>
     <color name="color_black">#000000</color>
+
+
+    <color name="primary_100">#FFECB3</color>
+    <color name="primary_200">#FFE57F</color>
+    <color name="primary_300">#FFE082</color>
+    <color name="primary_400">#FFD740</color>
+    <color name="primary_500">#FFCA28</color>
+    <color name="primary_600">#FFC400</color>
+    <color name="primary_700">#FFB300</color>
+    <color name="primary_800">#FFA000</color>
+    <color name="primary_900">#FF6F00</color>
+
 </resources>

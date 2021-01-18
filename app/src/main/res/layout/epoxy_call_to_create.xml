@@ -13,7 +13,7 @@
         android:id="@+id/call_to_create_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/browser_actions_divider_color">
+        android:background="@color/primary_100">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/call_to_create_section_title"

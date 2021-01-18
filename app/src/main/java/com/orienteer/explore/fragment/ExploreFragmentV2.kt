@@ -1,5 +1,6 @@
 package com.orienteer.explore.fragment
 
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.airbnb.mvrx.activityViewModel
 import com.orienteer.*
@@ -75,6 +76,13 @@ class ExploreFragmentV2 : MavericksBaseFragment() {
                         ExploreFragmentV2Directions.actionExploreFragmentV2ToMapFragment()
                     )
                 }
+            }
+        }
+
+        solveFromHome {
+            id("solveFromHome")
+            onClick { _ ->
+                Toast.makeText(context, "clicked solve from home", Toast.LENGTH_SHORT).show()
             }
         }
     }
