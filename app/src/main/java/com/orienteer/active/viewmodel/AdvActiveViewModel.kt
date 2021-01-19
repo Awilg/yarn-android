@@ -1,6 +1,7 @@
-package com.orienteer.active
+package com.orienteer.active.viewmodel
 
 import com.airbnb.mvrx.MavericksViewModel
+import com.orienteer.active.model.AdvActiveState
 import com.orienteer.models.Adventure
 
 class AdvActiveViewModel(initialState: AdvActiveState) :

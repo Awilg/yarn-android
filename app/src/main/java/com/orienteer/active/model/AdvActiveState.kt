@@ -1,4 +1,4 @@
-package com.orienteer.active
+package com.orienteer.active.model
 
 import com.airbnb.mvrx.MavericksState
 import com.orienteer.models.Adventure

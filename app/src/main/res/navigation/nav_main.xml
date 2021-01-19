@@ -300,7 +300,7 @@
     </fragment>
     <fragment
         android:id="@+id/advActiveFragment"
-        android:name="com.orienteer.active.AdvActiveFragment"
+        android:name="com.orienteer.active.fragment.AdvActiveFragment"
         android:label="AdvActiveFragment">
         <argument
             android:name="currentAdventure"

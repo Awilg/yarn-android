@@ -4,7 +4,6 @@ import android.view.View
 import android.view.WindowInsets
 import android.widget.ImageView
 import androidx.core.net.toUri
-import androidx.core.view.updatePadding
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -21,9 +20,6 @@ import com.orienteer.treasurehunts.AdventuresFollowedAdapter
 import com.orienteer.treasurehunts.TreasureHuntsAdapter
 
 
-/**
- * When there is no Mars property data (data is null), hide the [RecyclerView], otherwise show it.
- */
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Adventure>?) {
     val adapter = recyclerView.adapter as TreasureHuntsAdapter

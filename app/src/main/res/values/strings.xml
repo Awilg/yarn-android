@@ -200,5 +200,12 @@
     <string name="img_preview">img_preview</string>
     <string name="clue_radius">Clue radius:</string>
     <string name="clue_locked">Clue locked</string>
+
+
+    <string name="clue_current_action_text">Solve</string>
+    <string name="clue_current_action_location">I\'m here!</string>
+    <string name="clue_current_action_photo">Upload</string>
+    <string name="clue_current_action_bug">uh oh</string>
+
 </resources>
 
