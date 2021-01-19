@@ -1,12 +1,15 @@
 package com.orienteer.active.fragment
 
 import android.os.Bundle
+import android.widget.Toast
 import com.airbnb.mvrx.activityViewModel
 import com.orienteer.active.model.advActiveCompletedClue
 import com.orienteer.active.model.advActiveCurrentClue
 import com.orienteer.active.viewmodel.AdvActiveViewModel
 import com.orienteer.advactiveHeader
+import com.orienteer.buttonFull
 import com.orienteer.clueLocked
+import com.orienteer.treasureChest
 import com.orienteer.util.MavericksBaseFragment
 import com.orienteer.util.simpleController
 
@@ -51,6 +54,18 @@ class AdvActiveFragment : MavericksBaseFragment() {
                     }
                 }
 
+            }
+
+            treasureChest {
+                id("treasureChestImage")
+            }
+
+            buttonFull {
+                id("finishBtn")
+                buttonText("Finish")
+                onClickListener { _ ->
+                    Toast.makeText(context, "Finished Adventure!", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
