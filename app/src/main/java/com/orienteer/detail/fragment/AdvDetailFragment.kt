@@ -1,14 +1,18 @@
 package com.orienteer.detail.fragment
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.airbnb.mvrx.activityViewModel
+import com.google.android.gms.maps.model.LatLng
 import com.orienteer.*
-import com.orienteer.databinding.FragmentAdvcreateReviewBinding
+import com.orienteer.databinding.FragmentAdvdetailBinding
 import com.orienteer.detail.model.advDetailClueSummary
 import com.orienteer.detail.model.advDetailGallery
 import com.orienteer.detail.viewmodel.AdvDetailViewModel
-import com.orienteer.explore.fragment.ExploreFragmentV2Directions
+import com.orienteer.models.Adventure
 import com.orienteer.models.ClueType
 import com.orienteer.util.MavericksBaseFragment
 import com.orienteer.util.TEST_PARAGRAPH
@@ -17,12 +21,39 @@ import com.orienteer.util.simpleController
 class AdvDetailFragment : MavericksBaseFragment() {
 
     private val viewModel: AdvDetailViewModel by activityViewModel()
-    lateinit var binding: FragmentAdvcreateReviewBinding
+    lateinit var binding: FragmentAdvdetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val adventureId = AdvDetailFragmentArgs.fromBundle(requireArguments()).adventureId
-        viewModel.getAdventure(adventureId)
+        viewModel.loadAdventure(adventureId)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentAdvdetailBinding.inflate(inflater)
+        recyclerView = binding.recyclerView
+        recyclerView.setController(epoxyController)
+        recyclerView.setItemSpacingDp(16)
+        binding.actionButtonSection.detailActiveButton.setOnClickListener {
+            findNavController().navigate(
+                AdvDetailFragmentDirections.actionAdvDetailFragmentToAdvActiveFragment(
+                    Adventure(
+                        "null",
+                        "null",
+                        "null",
+                        LatLng(1.0, 2.0),
+                        emptyList(),
+                        "",
+                        emptyList()
+                    )
+                )
+            )
+        }
+        return binding.root
     }
 
     override fun epoxyController() = simpleController(viewModel) { state ->

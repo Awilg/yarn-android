@@ -11,7 +11,7 @@ import com.orienteer.models.ClueType
 class AdvDetailViewModel(initialState: AdvDetailState) :
     MavericksViewModel<AdvDetailState>(initialState) {
 
-    fun getAdventure(id: String) {
+    fun loadAdventure(id: String) {
         setState {
             copy(
                 adventure = Adventure(
