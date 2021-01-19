@@ -5,6 +5,7 @@ import com.airbnb.mvrx.activityViewModel
 import com.orienteer.active.model.advActiveCompletedClue
 import com.orienteer.active.model.advActiveCurrentClue
 import com.orienteer.active.viewmodel.AdvActiveViewModel
+import com.orienteer.advactiveHeader
 import com.orienteer.clueLocked
 import com.orienteer.util.MavericksBaseFragment
 import com.orienteer.util.simpleController
@@ -23,19 +24,34 @@ class AdvActiveFragment : MavericksBaseFragment() {
 
         state.adventure?.let {
 
-            advActiveCompletedClue {
-                id("completed")
-                clue(it.clues.first())
+            advactiveHeader {
+                id("header")
+                header(it.name)
             }
 
-            advActiveCurrentClue {
-                id("current")
-                clue(it.clues.first())
-            }
-            clueLocked {
-                id("clue_locked")
-            }
+            for ((index, clue) in it.clues.withIndex()) {
+                when {
+                    index < state.currentClueIndex -> {
+                        advActiveCompletedClue {
+                            id("completed")
+                            clue(clue)
+                        }
+                    }
+                    index == state.currentClueIndex -> {
+                        advActiveCurrentClue {
+                            id("current")
+                            clue(clue)
+                        }
+                    }
+                    else -> {
+                        clueLocked {
+                            id("clue_locked")
+                        }
 
+                    }
+                }
+
+            }
         }
     }
 }

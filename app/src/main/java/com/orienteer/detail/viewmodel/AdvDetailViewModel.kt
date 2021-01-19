@@ -15,26 +15,83 @@ class AdvDetailViewModel(initialState: AdvDetailState) :
         setState {
             copy(
                 adventure = Adventure(
-                    "kraken",
-                    "Hunt The Kraken",
-                    "There are whispers of its whereabouts...",
-                    LatLng(47.6062, -122.3321),
+                    "id_7",
+                    "Hunt d'Elizabeth de Ville Beacon",
+                    "This is a really description. I want to see what happens to the layout when the description is this long. Nanananananananananananananan BATMAN!",
+                    LatLng(47.536, -122.300),
                     listOf(
                         Clue(
                             "clue_1",
-                            "This is a text clue",
+                            "This is the first clue!",
+                            "This is a hint",
+                            ClueType.Location,
+                            LatLng(47.539, -122.305),
+                            ClueState.ACTIVE
+                        ),
+                        Clue(
+                            "clue_2",
+                            "This is the second clue",
+                            "Photo hint",
+                            ClueType.Photo,
+                            LatLng(47.539, -122.305),
+                            ClueState.LOCKED
+                        ),
+                        Clue(
+                            "clue_3",
+                            "This is the third clue",
                             "This is a hint",
                             ClueType.Text,
                             LatLng(47.539, -122.305),
-                            ClueState.ACTIVE,
-                            "answer"
+                            ClueState.LOCKED
+                        ),
+                        Clue(
+                            "clue_4",
+                            "This is the fourth clue",
+                            "This is a hint",
+                            ClueType.Location,
+                            LatLng(47.539, -122.305),
+                            ClueState.LOCKED
+                        ),
+                        Clue(
+                            "clue_5",
+                            "This is the fifth clue",
+                            "This is a hint",
+                            ClueType.Location,
+                            LatLng(47.539, -122.305),
+                            ClueState.LOCKED
+                        ),
+                        Clue(
+                            "clue_6",
+                            "This is the sixth clue",
+                            "This is a hint",
+                            ClueType.Location,
+                            LatLng(47.539, -122.305),
+                            ClueState.LOCKED
+                        ),
+                        Clue(
+                            "clue_7",
+                            "This is the seventh clue",
+                            "This is a hint",
+                            ClueType.Location,
+                            LatLng(47.539, -122.305),
+                            ClueState.LOCKED
+                        ),
+                        Clue(
+                            "clue_8",
+                            "This is the eighth clue",
+                            "This is a hint",
+                            ClueType.Location,
+                            LatLng(47.539, -122.305),
+                            ClueState.LOCKED
+                        ),
+                        Clue(
+                            "clue_9",
+                            "This is the ninth clue",
+                            "This is a hint",
+                            ClueType.Location,
+                            LatLng(47.539, -122.305),
+                            ClueState.LOCKED
                         )
-                    ),
-                    "https://i.redd.it/d2ifvz972nc51.png",
-                    listOf(
-                        "https://i.redd.it/d2ifvz972nc51.png",
-                        "https://i0.wp.com/russianmachineneverbreaks.com/wp-content/uploads/2020/07/seattle-kraken-jerseys.png",
-                        "https://www.terracestandard.com/wp-content/uploads/2020/07/22215638_web1_seattle-kraken.jpg"
                     )
                 )
             )

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="header"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/create_summary_header_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/create_summary_header_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_24"
+            android:layout_marginTop="@dimen/margin_64"
+            android:layout_marginEnd="@dimen/margin_24"
+            android:fontFamily="@font/opensans_semibold"
+            android:text="@{header}"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Let's make something great" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
