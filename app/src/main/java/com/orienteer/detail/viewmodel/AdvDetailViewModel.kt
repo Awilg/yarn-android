@@ -7,9 +7,18 @@ import com.orienteer.models.Adventure
 import com.orienteer.models.Clue
 import com.orienteer.models.ClueState
 import com.orienteer.models.ClueType
+import kotlinx.coroutines.runBlocking
 
 class AdvDetailViewModel(initialState: AdvDetailState) :
     MavericksViewModel<AdvDetailState>(initialState) {
+
+    fun getAdventure(): Adventure {
+        var adv: Adventure? = null
+        runBlocking {
+            adv = awaitState().adventure
+        }
+        return adv!!
+    }
 
     fun loadAdventure(id: String) {
         setState {

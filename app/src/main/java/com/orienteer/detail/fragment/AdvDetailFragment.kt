@@ -6,13 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.airbnb.mvrx.activityViewModel
-import com.google.android.gms.maps.model.LatLng
 import com.orienteer.*
 import com.orienteer.databinding.FragmentAdvdetailBinding
 import com.orienteer.detail.model.advDetailClueSummary
 import com.orienteer.detail.model.advDetailGallery
 import com.orienteer.detail.viewmodel.AdvDetailViewModel
-import com.orienteer.models.Adventure
 import com.orienteer.models.ClueType
 import com.orienteer.util.MavericksBaseFragment
 import com.orienteer.util.TEST_PARAGRAPH
@@ -41,15 +39,7 @@ class AdvDetailFragment : MavericksBaseFragment() {
         binding.actionButtonSection.detailActiveButton.setOnClickListener {
             findNavController().navigate(
                 AdvDetailFragmentDirections.actionAdvDetailFragmentToAdvActiveFragment(
-                    Adventure(
-                        "null",
-                        "null",
-                        "null",
-                        LatLng(1.0, 2.0),
-                        emptyList(),
-                        "",
-                        emptyList()
-                    )
+                    viewModel.getAdventure()
                 )
             )
         }
