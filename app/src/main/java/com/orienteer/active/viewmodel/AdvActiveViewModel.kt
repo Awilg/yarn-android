@@ -9,4 +9,8 @@ class AdvActiveViewModel(initialState: AdvActiveState) :
     fun setAdventure(adventure: Adventure) {
         setState { copy(adventure = adventure) }
     }
+
+    fun incrementClueIndex() {
+        setState { copy(currentClueIndex = currentClueIndex + 1) }
+    }
 }

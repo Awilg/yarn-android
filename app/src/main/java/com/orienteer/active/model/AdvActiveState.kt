@@ -5,5 +5,5 @@ import com.orienteer.models.Adventure
 
 data class AdvActiveState(
     val adventure: Adventure? = null,
-    val currentClueIndex: Int = 3
+    val currentClueIndex: Int = 0
 ) : MavericksState

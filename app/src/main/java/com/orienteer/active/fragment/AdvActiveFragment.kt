@@ -37,13 +37,13 @@ class AdvActiveFragment : MavericksBaseFragment() {
                 when {
                     index < state.currentClueIndex -> {
                         advActiveCompletedClue {
-                            id("completed")
+                            id(clue.id)
                             clue(clue)
                         }
                     }
                     index == state.currentClueIndex -> {
                         advActiveCurrentClue {
-                            id("current")
+                            id(clue.id)
                             clue(clue)
                             onActionButton { _ ->
                                 doActionForType(clue.type)
@@ -52,7 +52,7 @@ class AdvActiveFragment : MavericksBaseFragment() {
                     }
                     else -> {
                         clueLocked {
-                            id("clue_locked")
+                            id(clue.id)
                         }
 
                     }
@@ -74,7 +74,8 @@ class AdvActiveFragment : MavericksBaseFragment() {
         }
     }
 
-    private fun doActionForType(type: ClueType) =
+    private fun doActionForType(type: ClueType) {
+        viewModel.incrementClueIndex()
         when (type) {
             ClueType.Text -> Toast.makeText(context, "Solving text clue!", Toast.LENGTH_SHORT)
                 .show()
@@ -88,4 +89,5 @@ class AdvActiveFragment : MavericksBaseFragment() {
             else -> {
             }
         }
+    }
 }
