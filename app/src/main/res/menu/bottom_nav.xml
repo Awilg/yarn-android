@@ -6,7 +6,7 @@
         android:icon="@drawable/ic_icons8_creating_50_2"
         android:title="@string/create" />
     <item
-        android:id="@+id/exploreFragment"
+        android:id="@+id/exploreFragmentV2"
         android:icon="@drawable/ic_icons8_compass_50_2"
         android:title="@string/explore" />
     <item

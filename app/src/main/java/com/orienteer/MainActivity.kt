@@ -126,7 +126,6 @@ class MainActivity : AppCompatActivity(),
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.exploreFragment -> showBottomNav()
                 R.id.exploreFragmentV2 -> showBottomNav()
                 R.id.profileFragment -> showBottomNav()
                 R.id.advCreateFragment -> showBottomNav()
