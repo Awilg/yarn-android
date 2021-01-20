@@ -9,6 +9,7 @@ import com.orienteer.active.viewmodel.AdvActiveViewModel
 import com.orienteer.advactiveHeader
 import com.orienteer.buttonFull
 import com.orienteer.clueLocked
+import com.orienteer.models.ClueType
 import com.orienteer.treasureChest
 import com.orienteer.util.MavericksBaseFragment
 import com.orienteer.util.simpleController
@@ -44,6 +45,9 @@ class AdvActiveFragment : MavericksBaseFragment() {
                         advActiveCurrentClue {
                             id("current")
                             clue(clue)
+                            onActionButton { _ ->
+                                doActionForType(clue.type)
+                            }
                         }
                     }
                     else -> {
@@ -69,4 +73,19 @@ class AdvActiveFragment : MavericksBaseFragment() {
             }
         }
     }
+
+    private fun doActionForType(type: ClueType) =
+        when (type) {
+            ClueType.Text -> Toast.makeText(context, "Solving text clue!", Toast.LENGTH_SHORT)
+                .show()
+            ClueType.Photo -> Toast.makeText(context, "Solving photo clue!", Toast.LENGTH_SHORT)
+                .show()
+            ClueType.Location -> Toast.makeText(
+                context,
+                "Solving location clue!",
+                Toast.LENGTH_SHORT
+            ).show()
+            else -> {
+            }
+        }
 }

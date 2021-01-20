@@ -1,5 +1,6 @@
 package com.orienteer.active.model
 
+import android.view.View
 import android.widget.ImageView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
@@ -16,6 +17,9 @@ abstract class AdvActiveCurrentClue : EpoxyModelWithHolder<AdvActiveCurrentClue.
 
     @EpoxyAttribute
     var clue: Clue? = null
+
+    @EpoxyAttribute
+    var onActionButton: View.OnClickListener? = null
 
     override fun bind(holder: Holder) {
         clue?.let {
@@ -39,9 +43,13 @@ abstract class AdvActiveCurrentClue : EpoxyModelWithHolder<AdvActiveCurrentClue.
                 }
             }
         }
+
+        onActionButton?.let { holder.actionButton.setOnClickListener(onActionButton) }
     }
 
-    override fun unbind(holder: Holder) {}
+    override fun unbind(holder: Holder) {
+        holder.actionButton.setOnClickListener(null)
+    }
 
     class Holder : KotlinEpoxyHolder() {
         val cluePromptView by bind<MaterialTextView>(R.id.clue_prompt)
