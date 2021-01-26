@@ -36,6 +36,12 @@ class ExploreFragmentV2 : MavericksBaseFragment() {
             }
         }
 
+        exploreHorizontalCard {
+            id("sponsored1")
+            mainText("The 'Buck's Beginnings")
+            subText("Delve into the caffeinated origins of the coffee giant")
+        }
+
         callToCreate {
             id("callToCreate")
             onClick { _ ->
