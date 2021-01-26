@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.Toolbar
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import com.airbnb.epoxy.EpoxyController
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.airbnb.mvrx.MavericksView
-import com.orienteer.R
+import com.orienteer.databinding.MavericksFragmentBaseBinding
 import pub.devrel.easypermissions.EasyPermissions
 
 /**
@@ -22,7 +21,6 @@ abstract class MavericksBaseFragment : Fragment(), MavericksView {
     // TODO: figure out how to specify a base layout via annotation
     protected lateinit var recyclerView: EpoxyRecyclerView
     protected lateinit var toolbar: Toolbar
-    protected lateinit var coordinatorLayout: CoordinatorLayout
     protected val epoxyController by lazy { epoxyController() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,11 +46,9 @@ abstract class MavericksBaseFragment : Fragment(), MavericksView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.mavericks_fragment_base, container, false).apply {
-            recyclerView = findViewById(R.id.recycler_view)
-            toolbar = findViewById(R.id.toolbar)
-            coordinatorLayout = findViewById(R.id.coordinator_layout)
-        }
+        val binding = MavericksFragmentBaseBinding.inflate(inflater)
+        recyclerView = binding.recyclerView
+        toolbar = binding.toolbar
 
         recyclerView.setController(epoxyController)
 
@@ -60,7 +56,7 @@ abstract class MavericksBaseFragment : Fragment(), MavericksView {
         // We don't want a title shown. By default it adds "Mavericks"
         activity?.title = ""
 
-        return view
+        return binding.root
     }
 
     protected open fun onBackPressed(): Boolean = false

@@ -108,11 +108,14 @@ fun bindImageMapView(imgView: ImageView, latLng: LatLng?, mapsApiKey: String) {
 
 
 // Handling insets
-data class InitialPadding(val left: Int, val top: Int,
-                          val right: Int, val bottom: Int)
+data class InitialPadding(
+    val left: Int, val top: Int,
+    val right: Int, val bottom: Int
+)
 
 private fun recordInitialPaddingForView(view: View) = InitialPadding(
-    view.paddingLeft, view.paddingTop, view.paddingRight, view.paddingBottom)
+    view.paddingLeft, view.paddingTop, view.paddingRight, view.paddingBottom
+)
 
 
 fun View.doOnApplyWindowInsets(f: (View, WindowInsets, InitialPadding) -> Unit) {
@@ -162,13 +165,13 @@ fun applySystemWindows(
     applyRight: Boolean,
     applyBottom: Boolean
 ) {
-    view.doOnApplyWindowInsets { view, insets, padding ->
+    view.doOnApplyWindowInsets { v, insets, padding ->
         val left = if (applyLeft) insets.systemWindowInsetLeft else 0
         val top = if (applyTop) insets.systemWindowInsetTop else 0
         val right = if (applyRight) insets.systemWindowInsetRight else 0
         val bottom = if (applyBottom) insets.systemWindowInsetBottom else 0
 
-        view.setPadding(
+        v.setPadding(
             padding.left + left,
             padding.top + top,
             padding.right + right,
@@ -176,4 +179,3 @@ fun applySystemWindows(
         )
     }
 }
-
