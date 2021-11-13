@@ -9,9 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.google.firebase.ml.vision.FirebaseVision
-import com.google.firebase.ml.vision.common.FirebaseVisionImage
-import com.google.firebase.ml.vision.label.FirebaseVisionCloudImageLabelerOptions
 import com.orienteer.camera.CameraUploadOptionDialog
 import com.orienteer.databinding.FragmentCluePhotoCreateBinding
 import com.orienteer.util.hideKeyboard
@@ -74,43 +71,43 @@ class ClueTypePhotoCreateFragment : Fragment(),
     }
 
     private fun analyzeImageForTags(uri: Uri) {
-        var image: FirebaseVisionImage? = null
-        try {
-            image = FirebaseVisionImage.fromFilePath(requireContext(), uri)
-        } catch (e: IOException) {
-            Timber.e("Error creating firebase image from URI $uri with message: ${e.message}")
-            e.printStackTrace()
-        }
-
-        // Create instance of the firbase labeler
-        //val labeler = FirebaseVision.getInstance().onDeviceImageLabeler
-
-        //  Or, to set the minimum confidence required:
-        // Switch to cloud image labeler with getCloudImageLabeler()
-        val options =
-            FirebaseVisionCloudImageLabelerOptions.Builder()
-                .setConfidenceThreshold(0.3f)
-                .build()
-        val labeler = FirebaseVision.getInstance()
-            .getCloudImageLabeler(options)
-
-        val tags = StringBuilder()
-        image?.let {
-            labeler.processImage(image)
-                .addOnSuccessListener {
-                    // Task completed successfully
-                    // TODO: Add these to a recylcerview
-                    for (label in it) {
-                        tags.append("confidence: ${label.confidence} tag: ${label.text} \n")
-                    }
-
-                    binding.tagsTemp.text = tags.toString()
-                }
-                .addOnFailureListener {
-                    // Task failed with an exception
-                    // ...
-                }
-        }
+//        var image: FirebaseVisionImage? = null
+//        try {
+//            image = FirebaseVisionImage.fromFilePath(requireContext(), uri)
+//        } catch (e: IOException) {
+//            Timber.e("Error creating firebase image from URI $uri with message: ${e.message}")
+//            e.printStackTrace()
+//        }
+//
+//        // Create instance of the firbase labeler
+//        //val labeler = FirebaseVision.getInstance().onDeviceImageLabeler
+//
+//        //  Or, to set the minimum confidence required:
+//        // Switch to cloud image labeler with getCloudImageLabeler()
+//        val options =
+//            FirebaseVisionCloudImageLabelerOptions.Builder()
+//                .setConfidenceThreshold(0.3f)
+//                .build()
+//        val labeler = FirebaseVision.getInstance()
+//            .getCloudImageLabeler(options)
+//
+//        val tags = StringBuilder()
+//        image?.let {
+//            labeler.processImage(image)
+//                .addOnSuccessListener {
+//                    // Task completed successfully
+//                    // TODO: Add these to a recylcerview
+//                    for (label in it) {
+//                        tags.append("confidence: ${label.confidence} tag: ${label.text} \n")
+//                    }
+//
+//                    binding.tagsTemp.text = tags.toString()
+//                }
+//                .addOnFailureListener {
+//                    // Task failed with an exception
+//                    // ...
+//                }
+//        }
 
     }
 }

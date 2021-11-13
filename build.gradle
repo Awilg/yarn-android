@@ -2,6 +2,8 @@
 
 buildscript {
     ext {
+        compose_version = '1.0.1'
+
         // Versions for all the dependencies we plan to use. It's particularly useful for kotlin and
         // nav_graph_treasure where the versions of the plugin needs to be the same as the version of the
         // library defined in the app Gradle file
@@ -10,28 +12,34 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21"
-        classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.9"
-        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0"
+        classpath "com.android.tools.build:gradle:7.0.2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
         classpath "com.google.gms:google-services:4.3.4"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.10.0"
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.38.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
-allprojects {
+plugins {
+    id 'com.diffplug.spotless' version '5.15.0'
+}
+
+subprojects {
     repositories {
         google()
         jcenter()
         
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
+    apply plugin: 'com.diffplug.spotless'
+    spotless {
+        kotlin {
+            target '**/*.kt'
+            ktlint('0.37.2').userData(['disabled_rules' : 'no-wildcard-imports'])
+        }
+    }
 }

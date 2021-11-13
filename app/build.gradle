@@ -4,17 +4,15 @@ apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.protobuf'
 apply plugin: 'org.jetbrains.dokka'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 31
 
     defaultConfig {
         applicationId "com.orienteer"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -38,6 +36,12 @@ android {
     buildFeatures {
         dataBinding true
     }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.0.1'
+    }
 }
 
 kapt {
@@ -51,22 +55,23 @@ dokka {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.material:material:1.3.0-beta01'
+    implementation 'com.google.android.material:material:1.5.0-alpha03'
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.20"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.21"
 
     // Constraint Layout
-    implementation "androidx.constraintlayout:constraintlayout:2.0.4"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.0"
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
+    implementation "androidx.navigation:navigation-compose:2.4.0-alpha08"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
 
     // Moshi
     implementation "com.squareup.moshi:moshi:1.8.0"
@@ -81,7 +86,7 @@ dependencies {
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
 
     // RecyclerView
-    implementation "androidx.recyclerview:recyclerview:1.2.0-beta01"
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
 
     implementation "androidx.preference:preference-ktx:1.1.1"
 
@@ -93,30 +98,30 @@ dependencies {
 
     // It is recommended to also include the latest Maps SDK and/or Utility Library versions
     // as well to ensure that you have the latest features and bug fixes.
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
     implementation 'com.google.maps.android:android-maps-utils:2.0.3'
 
-    implementation "com.google.android.gms:play-services-location:17.1.0"
-    implementation "com.google.android.gms:play-services-auth:19.0.0"
+    implementation "com.google.android.gms:play-services-location:18.0.0"
+    implementation "com.google.android.gms:play-services-auth:19.2.0"
 
     // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
 
     // Firebase
-    implementation "com.google.firebase:firebase-core:18.0.0"
+    implementation "com.google.firebase:firebase-core:19.0.1"
     implementation "com.firebaseui:firebase-ui-auth:4.3.1"
-    implementation "com.google.firebase:firebase-auth:20.0.1"
-    implementation "com.google.firebase:firebase-storage:19.2.1"
-    implementation "com.google.firebase:firebase-ml-vision:24.0.3"
-    implementation "com.google.firebase:firebase-ml-vision-image-label-model:20.0.1"
+    implementation "com.google.firebase:firebase-auth:21.0.1"
+    implementation "com.google.firebase:firebase-storage:20.0.0"
+    implementation 'com.google.firebase:firebase-functions:20.0.0'
+    implementation "com.google.firebase:firebase-ml-vision-image-label-model:20.0.2"
 
     // Timber Logging
     implementation "com.jakewharton.timber:timber:4.7.1"
 
     // Camera
-    implementation "androidx.camera:camera-core:1.0.0-alpha06"
-    implementation "androidx.camera:camera-camera2:1.0.0-alpha06"
+    implementation "androidx.camera:camera-core:1.1.0-alpha08"
+    implementation "androidx.camera:camera-camera2:1.1.0-alpha08"
 
     // Easy Permissions
     implementation "pub.devrel:easypermissions:3.0.0"
@@ -133,20 +138,36 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:5.1.0'
 
     // google play billing
-    implementation 'com.android.billingclient:billing:3.0.2'
+    implementation 'com.android.billingclient:billing:4.0.0'
 
     // Epoxy
-    implementation "com.airbnb.android:mvrx:2.0.0-beta3"
     implementation "com.airbnb.android:epoxy:4.3.1"
     implementation "com.airbnb.android:epoxy-databinding:4.3.1"
     implementation "com.airbnb.android:epoxy-glide-preloading:4.3.1"
     kapt "com.airbnb.android:epoxy-processor:4.3.1"
+
+    // Mavericks
+    implementation "com.airbnb.android:mavericks:2.3.0"
+    implementation "com.airbnb.android:mavericks-compose:2.1.0-alpha01"
+
+    // Compose
+    implementation "androidx.compose.ui:ui:1.0.2"
+    implementation "androidx.compose.ui:ui-tooling:1.0.2"
+    implementation "androidx.compose.foundation:foundation:1.0.2"
+    implementation "androidx.compose.material:material:1.0.2"
+    implementation "androidx.compose.material:material-icons-core:1.0.2"
+    implementation "androidx.compose.material:material-icons-extended:1.0.2"
+    implementation "androidx.activity:activity-compose:1.3.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
+    implementation "androidx.compose.runtime:runtime-livedata:1.0.2"
+    implementation "androidx.compose.runtime:runtime-rxjava2:1.0.2"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.0.2"
 
     // viewpager
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation "com.romandanylyk:pageindicatorview:1.0.3"
 
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.3.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }

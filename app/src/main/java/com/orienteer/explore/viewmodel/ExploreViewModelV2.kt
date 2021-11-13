@@ -7,7 +7,6 @@ import com.orienteer.explore.model.ExploreState
 class ExploreViewModelV2(initialState: ExploreState) :
     MavericksViewModel<ExploreState>(initialState) {
 
-
     init {
         val testAdv = AdventureSummary(
             "id",
