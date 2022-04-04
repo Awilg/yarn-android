@@ -12,4 +12,7 @@ abstract class AppModuleBinds {
     @Binds
     @IntoSet
     abstract fun provideLogger(bind: TimberInitializer): AppInitializer
+    @Binds
+    @IntoSet
+    abstract fun initMavericks(bind: MavericksInitializer): AppInitializer
 }

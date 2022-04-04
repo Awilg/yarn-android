@@ -12,20 +12,16 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.layout.*
 import androidx.compose.ui.res.*
 import androidx.compose.ui.text.font.*
+import androidx.compose.ui.tooling.preview.*
 import androidx.compose.ui.unit.*
 import com.google.accompanist.insets.*
-import dev.iwagl.ravel.R
 import dev.iwagl.ravel.ui.common.*
 
 @Composable
 fun Workshop(
     openPreview: () -> Unit,
+    createNewAdventure: () -> Unit,
 ) {
-    Workshop()
-}
-
-@Composable
-internal fun Workshop() {
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -34,22 +30,51 @@ internal fun Workshop() {
             .statusBarsPadding()
     ) {
         item { SectionTitle(stringResource(id = R.string.in_progress)) }
-        item { WorkshopItem(onClick = {}) }
+        item { WorkshopItem() }
+        item { CreateAdventureButton(buttonText = "Create New Adventure", onClick = createNewAdventure) }
         item { SectionTitle(stringResource(id = R.string.completed)) }
-        item { WorkshopItem(onClick = {}) }
-        item { WorkshopItem(onClick = {}) }
-        item { WorkshopItem(onClick = {}) }
-        item { WorkshopItem(onClick = {}) }
-        item { WorkshopItem(onClick = {}) }
-        item { WorkshopItem(onClick = {}) }
-        item { WorkshopItem(onClick = {}) }
-        item { WorkshopItem(onClick = {}) }
+        item { WorkshopItem() }
+        item { WorkshopItem() }
+        item { WorkshopItem() }
+        item { WorkshopItem() }
+        item { WorkshopItem() }
+        item { WorkshopItem() }
+        item { WorkshopItem() }
+        item { WorkshopItem() }
     }
+}
+
+@Preview
+@Composable
+internal fun Workshop() {
+    Workshop({}, {})
+}
+
+@Preview
+@Composable
+internal fun CreateAdventureButton() {
+    CreateAdventureButton("Click me!!!") {}
+}
+
+
+@Composable
+internal fun CreateAdventureButton(buttonText: String, onClick: () -> Unit) {
+    Button(onClick = onClick,
+        contentPadding = PaddingValues(start = 20.dp, top = 12.dp, end = 20.dp, bottom = 12.dp)) {
+        Text(buttonText)
+    }
+}
+
+
+@Preview
+@Composable
+internal fun WorkshopItem() {
+    WorkshopItem(onClick = {})
 }
 
 @Composable
 internal fun WorkshopItem(onClick: (itemId: Long) -> Unit) {
-    Card(modifier = Modifier.padding(start = 24.dp, end = 24.dp), elevation = 4.dp) {
+    Card(modifier = Modifier.padding(start = 24.dp, end = 24.dp), elevation = 4.dp, shape = RoundedCornerShape(12.dp)) {
         Column(modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick(1) }) {
@@ -98,6 +123,7 @@ internal fun WorkshopItem(onClick: (itemId: Long) -> Unit) {
                     modifier = Modifier.padding(start = 24.dp)
                 )
             }
+            Spacer(modifier = Modifier.size(12.dp))
         }
     }
 }

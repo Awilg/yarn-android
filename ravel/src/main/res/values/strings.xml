@@ -213,4 +213,60 @@
     <string name="clue_current_action_photo">Upload</string>
     <string name="clue_current_action_bug">uh oh</string>
 
+
+    // Workshop strings
+    <string name="wf_summary_title_info">Title and Information</string>
+    <string name="wf_summary_photos">Photos</string>
+    <string name="wf_summary_privacy">Privacy</string>
+    <string name="wf_summary_clues">Clues</string>
+    <string name="wf_summary_tips_treasure">Tips and Treasure</string>
+    <string name="wf_summary_review">Review</string>
+    <string name="wf_summary_preview">Preview</string>
+    <string name="wf_title_info_header_title">Name your Adventure</string>
+    <string name="wf_title_info_header_subtitle">Be descriptive. Try to include the main subject of the adventure in the title and expand on it in the description.</string>
+    <string name="wf_title_info_title_hint">Title</string>
+    <string name="wf_title_info_description_hint">Description</string>
+    <string name="wf_photos_title">Photos</string>
+    <string name="wf_photos_subtitle">Here you can add photos to help others see how awesome your adventure is.</string>
+
+    <string name="wf_clues_title">Clues</string>
+    <string name="wf_clues_subtitle">Here you can add the meat and potatoes of your adventure. Clues can be text clues, location clues, or photo clues.</string>
+    <string name="wf_clues_no_clues_label">There are no clues yet. Add one!</string>
+    <string name="wf_clues_selection_title">What will this clue be?</string>
+    <string name="wf_clues_selection_subtitle">Mix and match different clue types to create a unique and exciting adventure!</string>
+    <string name="wf_clues_selection_choose_label">Choose a clue type</string>
+    <string name="wf_clues_clue_prompt">Clue prompt</string>
+    <string name="wf_clues_clue_solution">Clue solution</string>
+    <string name="wf_clues_hints">Hints</string>
+    <string name="wf_clues_no_hints">There are no hints yet. Add some!</string>
+
+    <string name="wf_clues_text_title">Text Clue Editor</string>
+    <string name="wf_clues_text_subtitle">Text clues consist of a clue promp, a solution, and some optional hints.</string>
+    <string name="wf_clues_text_prompt_hint">e.g. This International Orange icon connects San Francisco and Marin County</string>
+    <string name="wf_clues_text_solution_hint">e.g. The Golden Gate Bridge</string>
+
+    <string name="wf_clue_photos_title">Photo Clue Editor</string>
+    <string name="wf_clue_photos_subtitle">Photo clues consist of a clue prompt, photos of the solution (a landmark, object, famous person, etc.), and some optional hints.</string>
+
+    <string name="wf_clue_location_title">Location Clue Editor</string>
+    <string name="wf_clue_location_subtitle">Photo clues consist of a clue prompt, a solution that is a physical (gps) location, and some optional hints.</string>
+    <string name="wf_clue_location_choose_on_map">Choose on map</string>
+
+
+    <string name="wf_tips_treasure_title">Tips and Treasure</string>
+    <string name="wf_tips_treasure_subtitle">What\'s a treasure hunt without treasure? Here you can determine the size of the spoils for the winners as well as allow users to tip you for an adventure well devised.</string>
+    <string name="wf_privacy_title">Privacy Controls</string>
+    <string name="wf_privacy_subtitle">All adventures created are public by default. A premium account is required to make a private adventure.</string>
+
+    // Clues
+    <string name="clue_type_text">Text</string>
+    <string name="clue_type_photo">Photo</string>
+    <string name="clue_type_location">Location</string>
+
+    // Buttons
+    <string name="button_action_add">Add</string>
+    <string name="button_action_upload">Upload</string>
+    <string name="button_action_next">Next</string>
+
+
 </resources>

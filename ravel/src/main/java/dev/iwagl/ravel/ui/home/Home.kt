@@ -11,14 +11,14 @@ import androidx.compose.ui.platform.*
 import androidx.compose.ui.res.*
 import androidx.compose.ui.unit.*
 import androidx.navigation.*
-import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.*
 import com.google.accompanist.insets.*
 import com.google.accompanist.navigation.animation.*
+import com.google.accompanist.permissions.*
 import dev.iwagl.ravel.*
-import dev.iwagl.ravel.R
 
-@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class)
+@ExperimentalPermissionsApi
+@ExperimentalAnimationApi
 @Composable
 internal fun Home() {
     val navController = rememberAnimatedNavController()
@@ -32,25 +32,28 @@ internal fun Home() {
         bottomBar = {
             if (useBottomNavigation) {
                 val currentSelectedItem by navController.currentScreenAsState()
-                HomeBottomNavigation(
-                    selectedNavigation = currentSelectedItem,
-                    onNavigationSelected = { selected ->
-                        navController.navigate(selected.route) {
-                            // Pop up to the start destination of the graph to
-                            // avoid building up a large stack of destinations
-                            // on the back stack as users select items
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
+                if (showBottomNavigationForScreen(currentSelectedItem)) {
+                    HomeBottomNavigation(
+                        selectedNavigation = currentSelectedItem,
+                        onNavigationSelected = { selected ->
+                            navController.navigate(selected.route) {
+                                // Pop up to the start destination of the graph to
+                                // avoid building up a large stack of destinations
+                                // on the back stack as users select items
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                // Avoid multiple copies of the same destination when
+                                // reselecting the same item
+                                launchSingleTop = true
+
+                                // Restore state when reselecting a previously selected item
+                                restoreState = true
                             }
-                            // Avoid multiple copies of the same destination when
-                            // reselecting the same item
-                            launchSingleTop = true
-                            // Restore state when reselecting a previously selected item
-                            restoreState = true
-                        }
-                    },
-                    modifier = Modifier.navigationBarsPadding().fillMaxWidth()
-                )
+                        },
+                        modifier = Modifier.navigationBarsPadding().fillMaxWidth()
+                    )
+                }
             }
         }
     ) {
@@ -67,6 +70,20 @@ internal fun Home() {
 }
 
 private fun openSettings() {
+}
+
+private fun showBottomNavigationForScreen(screen: Screen): Boolean {
+
+    val screensToIgnore : Set<String> = setOf(
+        LeafScreen.WorkflowSummary.createRoute(Screen.Workshop))
+
+    return !screensToIgnore.contains(screen.route)
+}
+
+@Composable
+fun currentRoute(navController: NavHostController): String? {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    return navBackStackEntry?.destination?.route
 }
 
 /**

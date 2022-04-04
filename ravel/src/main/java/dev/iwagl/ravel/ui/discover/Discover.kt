@@ -18,7 +18,6 @@ import androidx.compose.ui.text.font.*
 import androidx.compose.ui.tooling.preview.*
 import androidx.compose.ui.unit.*
 import com.google.accompanist.insets.*
-import dev.iwagl.ravel.R
 import dev.iwagl.ravel.ui.common.*
 
 
@@ -103,6 +102,49 @@ internal fun FeaturedCard(
     }
 }
 
+@Composable
+@Preview
+internal fun discoverCard() {
+    Column {
+        Box(modifier = Modifier.padding(start = 24.dp, end = 24.dp)) {
+            Image(
+                painter = painterResource(id = R.drawable.seattle_kraken_secondary_logo),
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(percent = 5))
+            )
+            Icon(
+                painter = painterResource(id = R.drawable.ic_baseline_favorite_border_24),
+                contentDescription = "",
+                modifier = Modifier
+                    .align(
+                        Alignment.TopEnd
+                    )
+                    .zIndex(1.0f)
+            )
+        }
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier
+                    .width(200.dp)
+                    .padding(8.dp)
+            ) {
+                Text(
+                    text = "Some local adventure title",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = "Some local subtext",
+                    fontSize = 12.sp,
+                )
+            }
+        }
+    }
+}
 
 @Composable
 @Preview
